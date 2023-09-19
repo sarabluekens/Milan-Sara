@@ -5,9 +5,21 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      component: () => import('../views/Temp.vue'),
+      component: () => import('../views/Home.vue'),
     },
+
     {
+      path: '/Help',
+      component: () => import('../views/firstAid/Help.vue'),
+    },
+
+    {
+      path: '/administration',
+      component: () => import('../views/administration/events/index.vue'),
+    },
+
+    {
+      // 404 page
       path: '/:pathMatch(.*)*',
       component: () => import('../views/NotFound.vue'),
     },
