@@ -1,0 +1,31 @@
+{
+  "name": "milan-sara",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "todo"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sarabluekens/Milan-Sara.git"
+  },
+  "keywords": [],
+  "bugs": "link naar de issues pagina van je repo",
+  "author": "",
+  "workspaces": [
+    "packages/*"
+  ],
+  "prettier": {
+    "tabWidth": 2,
+    "useTabs": false,
+    "printWidth": 80,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "endOfLine": "lf",
+    "arrowParens": "avoid",
+    "proseWrap": "preserve",
+    "htmlWhitespaceSensitivity": "css"
+  }
+}
