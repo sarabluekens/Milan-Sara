@@ -5,8 +5,13 @@ import 'virtual:uno.css'
 import App from './App.vue'
 import router from './router'
 
+import useFirebase from './composables/useFirebase'
+
 const app = createApp(App)
+const { restoreUser } = useFirebase();
 
-app.use(router)
+restoreUser().then(() => {
+  app.use(router)
 
-app.mount('#app')
+  app.mount('#app')
+})

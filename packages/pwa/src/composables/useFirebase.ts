@@ -1,5 +1,12 @@
 import { initializeApp } from 'firebase/app'
-import { getAuth, signInWithEmailAndPassword, type User } from 'firebase/auth'
+import {
+  browserLocalPersistence,
+  getAuth,
+  onAuthStateChanged,
+  setPersistence,
+  signInWithEmailAndPassword,
+  type User,
+} from 'firebase/auth'
 import { ref } from 'vue'
 
 // Shared state
@@ -13,6 +20,8 @@ const app = initializeApp({
 })
 
 const auth = getAuth(app)
+setPersistence(auth, browserLocalPersistence) // Keep track of logged in user in the browser
+
 const firebaseUser = ref<User | null>(auth.currentUser)
 
 const login = async (email: string, password: string): Promise<User> => {
@@ -28,11 +37,26 @@ const login = async (email: string, password: string): Promise<User> => {
   })
 }
 
+const restoreUser = async (): Promise<User | null> => {
+  return new Promise(resolve => {
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        firebaseUser.value = user
+        resolve(user)
+      } else {
+        firebaseUser.value = null
+        resolve(null)
+      }
+    })
+  })
+}
+
 export default () => {
   // State for each composable
 
   return {
     login,
+    restoreUser,
     firebaseUser,
   }
 }
