@@ -37,6 +37,22 @@ const login = async (email: string, password: string): Promise<User> => {
   })
 }
 
+const logout = async (): Promise<void> => {
+  return new Promise((resolve, reject) => {
+    auth
+      .signOut()
+      .then(() => {
+        firebaseUser.value = null
+        resolve()
+        console.log('logged out')
+      })
+      .catch(error => {
+        reject(error)
+        console.log(error)
+      })
+  })
+}
+
 const restoreUser = async (): Promise<User | null> => {
   return new Promise(resolve => {
     onAuthStateChanged(auth, user => {
@@ -56,6 +72,7 @@ export default () => {
 
   return {
     login,
+    logout,
     restoreUser,
     firebaseUser,
   }
