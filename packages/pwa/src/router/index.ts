@@ -19,6 +19,17 @@ const router = createRouter({
     },
 
     {
+      path: '/auth',
+      component: () => import('../components/wrappers/AuthWrap.vue'),
+      children: [
+        {
+          path: 'login',
+          component: () => import('../views/auth/Login.vue'),
+        },
+      ],
+    },
+
+    {
       // 404 page
       path: '/:pathMatch(.*)*',
       component: () => import('../views/NotFound.vue'),
