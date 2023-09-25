@@ -52,6 +52,7 @@
 <script lang="ts">
 import { ref } from 'vue'
 import useFirebase from '@/composables/useFirebase'
+import router from '@/router'
 
 export default {
   setup() {
@@ -68,6 +69,8 @@ export default {
       login(loginCredentials.value.email, loginCredentials.value.password).then(
         () => {
           console.log('Logged in')
+          console.log(firebaseUser.value?.uid)
+          router.push({ path: '/' })
         },
       )
     }
