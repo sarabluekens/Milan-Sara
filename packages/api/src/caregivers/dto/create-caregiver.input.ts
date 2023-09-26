@@ -1,7 +1,19 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
+import { InputType, Int, Field } from '@nestjs/graphql'
 
 @InputType()
 export class CreateCaregiverInput {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @Field() //graphql
+  name: string
+
+  @Field() //graphql
+  fullname: string
+
+  @Field() //graphql
+  category: string
+
+  @Field() //graphql
+  description: string
+
+  @Field() //graphql
+  available: boolean
 }

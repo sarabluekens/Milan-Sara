@@ -8,10 +8,12 @@ import { UpdateCaregiverInput } from './dto/update-caregiver.input'
 export class CaregiversResolver {
   constructor(private readonly caregiversService: CaregiversService) {}
 
-  @Mutation(() => Caregiver)
+  @Mutation(() => Caregiver, {
+    description: 'Create a Caregiver using the DTO.',
+  })
   createCaregiver(
     @Args('createCaregiverInput') createCaregiverInput: CreateCaregiverInput,
-  ) {
+  ): Promise<Caregiver> {
     return this.caregiversService.create(createCaregiverInput)
   }
 

@@ -12,8 +12,15 @@ export class CaregiversService {
     private readonly caregiverRepository: Repository<Caregiver>,
   ) {}
 
-  create(createCaregiverInput: CreateCaregiverInput) {
-    return 'This action adds a new caregiver'
+  create(createCaregiverInput: CreateCaregiverInput): Promise<Caregiver> {
+    const c = new Caregiver()
+    c.name = createCaregiverInput.name
+    c.fullname = createCaregiverInput.fullname
+    c.category = createCaregiverInput.category
+    c.description = createCaregiverInput.description
+    c.available = createCaregiverInput.available
+
+    return this.caregiverRepository.save(c)
   }
 
   findAll() {
