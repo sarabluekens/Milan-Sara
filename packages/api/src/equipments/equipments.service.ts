@@ -12,8 +12,15 @@ export class EquipmentsService {
     private readonly equipmentRepository: Repository<Equipment>,
   ) {}
 
-  create(createEquipmentInput: CreateEquipmentInput) {
-    return 'This action adds a new equipment'
+  create(createEquipmentInput: CreateEquipmentInput): Promise<Equipment> {
+    const equipment = new Equipment()
+    equipment.name = createEquipmentInput.name
+    equipment.fullname = createEquipmentInput.fullname
+    equipment.category = createEquipmentInput.category
+    equipment.amount = createEquipmentInput.amount
+    equipment.available = createEquipmentInput.available
+
+    return this.equipmentRepository.save(equipment) 
   }
 
   findAll() {

@@ -1,5 +1,11 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql'
-import { Column, Entity, ObjectIdColumn } from 'typeorm'
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ObjectIdColumn,
+  UpdateDateColumn,
+} from 'typeorm'
 
 @Entity() // Database link - Typeorm
 @ObjectType() //graphql
@@ -28,11 +34,11 @@ export class Equipment {
   @Field() //graphql
   available: boolean
 
-  @Column() // Database link - Typeorm
+  @CreateDateColumn({ type: 'timestamp', nullable: true }) // Database link - Typeorm
   @Field() //graphql
   createdAt: Date
 
-  @Column() // Database link - Typeorm
+  @UpdateDateColumn({ type: 'timestamp', nullable: true }) // Database link - Typeorm
   @Field() //graphql
   updatedAt: Date
 }
