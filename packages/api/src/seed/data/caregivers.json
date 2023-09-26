@@ -1,0 +1,48 @@
+[{
+  "_id": {
+    "$oid": "6512f14ddc44e1f18820edb8"
+  },
+  "name": "Bond",
+  "fullname": "James Bond",
+  "category": "verpleger",
+  "description": "I verpleeg",
+  "available": true,
+  "createdAt": {
+    "$date": "2023-09-26T14:57:17.641Z"
+  },
+  "updatedAt": {
+    "$date": "2023-09-26T14:57:17.641Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6512f2f7dc44e1f18820edb9"
+  },
+  "name": "Bob",
+  "fullname": "Variabele",
+  "category": "Doktoor",
+  "description": "I Doktor",
+  "available": true,
+  "createdAt": {
+    "$date": "2023-09-26T15:04:23.841Z"
+  },
+  "updatedAt": {
+    "$date": "2023-09-26T15:04:23.841Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6512f425f4d629c5a47d6e46"
+  },
+  "name": "Bob",
+  "fullname": "Variabele",
+  "category": "Doktoor",
+  "description": "I Doktor",
+  "available": true,
+  "createdAt": {
+    "$date": "2023-09-26T15:09:25.042Z"
+  },
+  "updatedAt": {
+    "$date": "2023-09-26T15:09:25.042Z"
+  }
+}]
