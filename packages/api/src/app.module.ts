@@ -3,6 +3,7 @@ import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { GraphQLModule } from '@nestjs/graphql'
+import { EquipmentsModule } from './equipments/equipments.module';
 
 @Module({
   imports: [
@@ -10,6 +11,7 @@ import { GraphQLModule } from '@nestjs/graphql'
       driver: ApolloDriver,
       autoSchemaFile: true,
     }),
+    EquipmentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
