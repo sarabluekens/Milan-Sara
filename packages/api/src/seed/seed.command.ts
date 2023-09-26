@@ -33,9 +33,9 @@ export class DatabaseSeedCommand {
     describe: 'Seed the database with equipment',
   })
   async seedEquipment() {
-    console.info('⛑️ Start seeding of equipment')
+    console.info('🚑 Start seeding of equipment')
     const equipment = await this.seedService.addEquipmentFromJson()
-    console.info(`⛑️ ${equipment.length} Equipment are added`)
+    console.info(`🚑 ${equipment.length} Equipment are added`)
   }
 
   @Command({
