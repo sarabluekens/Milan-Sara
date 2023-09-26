@@ -20,7 +20,7 @@ export class EquipmentsService {
     equipment.amount = createEquipmentInput.amount
     equipment.available = createEquipmentInput.available
 
-    return this.equipmentRepository.save(equipment) 
+    return this.equipmentRepository.save(equipment)
   }
 
   findAll() {
@@ -37,5 +37,14 @@ export class EquipmentsService {
 
   remove(id: number) {
     return `This action removes a #${id} equipment`
+  }
+
+  // logic for seeding
+  saveAll(equipment: Equipment[]): Promise<Equipment[]> {
+    return this.equipmentRepository.save(equipment)
+  }
+
+  truncate(): Promise<void> {
+    return this.equipmentRepository.clear()
   }
 }

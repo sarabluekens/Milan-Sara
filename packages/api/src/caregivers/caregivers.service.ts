@@ -38,4 +38,13 @@ export class CaregiversService {
   remove(id: number) {
     return `This action removes a #${id} caregiver`
   }
+
+  // logic for seeding
+  saveAll(caregivers: Caregiver[]): Promise<Caregiver[]> {
+    return this.caregiverRepository.save(caregivers)
+  }
+
+  truncate(): Promise<void> {
+    return this.caregiverRepository.clear()
+  }
 }

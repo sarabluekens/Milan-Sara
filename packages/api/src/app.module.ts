@@ -6,6 +6,7 @@ import { GraphQLModule } from '@nestjs/graphql'
 import { CaregiversModule } from './caregivers/caregivers.module'
 import { EquipmentsModule } from './equipments/equipments.module'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { SeedModule } from './seed/seed.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 
     CaregiversModule,
     EquipmentsModule,
+    SeedModule,
   ],
   controllers: [AppController],
   providers: [AppService],
