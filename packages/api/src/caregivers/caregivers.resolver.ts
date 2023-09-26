@@ -17,19 +17,19 @@ export class CaregiversResolver {
 
   @Query(() => [Caregiver], { name: 'caregivers' })
   findAll() {
-    return [
-      {
-        id: '1',
-        name: 'Water',
-        fullname: 'En de rest komt later',
-        category: 'Vloeibaar',
-        description: 'Water water water',
-        available: true,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    ]
-    // return this.caregiversService.findAll()
+    // return [
+    //   {
+    //     id: '1',
+    //     name: 'Water',
+    //     fullname: 'En de rest komt later',
+    //     category: 'Vloeibaar',
+    //     description: 'Water water water',
+    //     available: true,
+    //     createdAt: new Date(),
+    //     updatedAt: new Date(),
+    //   },
+    // ]
+    return this.caregiversService.findAll()
   }
 
   @Query(() => Caregiver, { name: 'caregiver' })
