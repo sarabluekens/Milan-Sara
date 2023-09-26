@@ -17,7 +17,7 @@ export class EquipmentsResolver {
 
   @Query(() => [Equipment], { name: 'equipments' })
   findAll() {
-    return [
+    /*    return [
       {
         id: '1',
         name: 'Tang',
@@ -29,8 +29,8 @@ export class EquipmentsResolver {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
-    ]
-    //return this.equipmentsService.findAll();
+    ] */
+    return this.equipmentsService.findAll()
   }
 
   @Query(() => Equipment, { name: 'equipment' })
