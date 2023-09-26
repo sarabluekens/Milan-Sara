@@ -8,16 +8,18 @@ import { UpdateEquipmentInput } from './dto/update-equipment.input'
 export class EquipmentsResolver {
   constructor(private readonly equipmentsService: EquipmentsService) {}
 
-  @Mutation(() => Equipment)
+  @Mutation(() => Equipment, {
+    description: 'Create an equipment using the DTO.',
+  })
   createEquipment(
     @Args('createEquipmentInput') createEquipmentInput: CreateEquipmentInput,
-  ) {
+  ): Promise<Equipment> {
     return this.equipmentsService.create(createEquipmentInput)
   }
 
   @Query(() => [Equipment], { name: 'equipments' })
   findAll() {
-    return [
+    /*    return [
       {
         id: '1',
         name: 'Tang',
@@ -29,8 +31,8 @@ export class EquipmentsResolver {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
-    ]
-    //return this.equipmentsService.findAll();
+    ] */
+    return this.equipmentsService.findAll()
   }
 
   @Query(() => Equipment, { name: 'equipment' })
