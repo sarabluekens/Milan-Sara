@@ -13,6 +13,7 @@ import { SeedModule } from './seed/seed.module';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: true,
+      
     }),
 
     TypeOrmModule.forRoot({

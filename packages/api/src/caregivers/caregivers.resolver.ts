@@ -8,15 +8,6 @@ import { UpdateCaregiverInput } from './dto/update-caregiver.input'
 export class CaregiversResolver {
   constructor(private readonly caregiversService: CaregiversService) {}
 
-  @Mutation(() => Caregiver, {
-    description: 'Create a Caregiver using the DTO.',
-  })
-  createCaregiver(
-    @Args('createCaregiverInput') createCaregiverInput: CreateCaregiverInput,
-  ): Promise<Caregiver> {
-    return this.caregiversService.create(createCaregiverInput)
-  }
-
   @Query(() => [Caregiver], { name: 'caregivers' })
   findAll() {
     // return [
@@ -34,9 +25,17 @@ export class CaregiversResolver {
     return this.caregiversService.findAll()
   }
 
-  @Query(() => Caregiver, { name: 'caregiver' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  @Query(() => Caregiver, { name: 'caregiver', nullable: true })
+  findOne(@Args('id', { type: () => Int }) id: string) {
     return this.caregiversService.findOne(id)
+  }
+  @Mutation(() => Caregiver, {
+    description: 'Create a Caregiver using the DTO.',
+  })
+  createCaregiver(
+    @Args('createCaregiverInput') createCaregiverInput: CreateCaregiverInput,
+  ): Promise<Caregiver> {
+    return this.caregiversService.create(createCaregiverInput)
   }
 
   @Mutation(() => Caregiver)

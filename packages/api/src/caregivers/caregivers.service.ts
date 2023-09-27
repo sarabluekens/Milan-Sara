@@ -3,7 +3,7 @@ import { CreateCaregiverInput } from './dto/create-caregiver.input'
 import { UpdateCaregiverInput } from './dto/update-caregiver.input'
 import { Caregiver } from './entities/caregiver.entity'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { ObjectId, Repository } from 'typeorm'
 
 @Injectable()
 export class CaregiversService {
@@ -27,8 +27,9 @@ export class CaregiversService {
     return this.caregiverRepository.find()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} caregiver`
+  findOne(id: string) {
+    //@ts-ignore
+    return this.caregiverRepository.findOneBy({ _id: new ObjectId(id) })
   }
 
   update(id: number, updateCaregiverInput: UpdateCaregiverInput) {
