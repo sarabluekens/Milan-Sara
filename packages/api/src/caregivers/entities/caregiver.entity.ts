@@ -6,6 +6,7 @@ import {
   ObjectIdColumn,
   UpdateDateColumn,
 } from 'typeorm'
+import { boolean } from 'yargs'
 @Entity() // Database link - Typeorm
 @ObjectType()
 export class Caregiver {
@@ -23,14 +24,14 @@ export class Caregiver {
 
   @Column() // Database link - Typeorm
   @Field() //graphql
-  category: string
+  category: string // dokter, verpleger, ...
 
   @Column() // Database link - Typeorm
   @Field() //graphql
   description: string
 
-  @Column() // Database link - Typeorm
-  @Field() //graphql
+  @Column({ nullable: true }) // Database link - Typeorm
+  @Field({ nullable: true }) //graphql
   available: boolean
 
   @CreateDateColumn({ type: 'timestamp', nullable: true }) // Database link - Typeorm

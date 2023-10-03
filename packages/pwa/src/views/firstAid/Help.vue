@@ -15,14 +15,6 @@
 import { useQuery } from '@vue/apollo-composable'
 import { ALL_EQUIPMENT } from '../../graphql/equipment.query'
 
-// moet nog deftig oplossen (door een echte interface te maken)
-interface Equipment {
-  id: string
-  name: string
-  description: string
-  image: string
-}
-
 export default {
   //   components: { Container },
 

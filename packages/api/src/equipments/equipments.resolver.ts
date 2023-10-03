@@ -21,19 +21,22 @@ export class EquipmentsResolver {
     return this.equipmentsService.create(createEquipmentInput)
   }
 
-  // @UseGuards(FirebaseGuard)
+  @UseGuards(FirebaseGuard)
   @Query(() => [Equipment], { name: 'equipments' })
-  // findAll(@FirebaseUser() currentUser: UserRecord) {
-  // console.log(currentUser)
-  findAll() {
+  findAll(@FirebaseUser() currentUser: UserRecord) {
+    console.log(currentUser)
+    // findAll() {
     return this.equipmentsService.findAll()
   }
 
+  // schrijf je wat iets teruggeeft, hier geeft het equipment terugs
   @Query(() => Equipment, { name: 'equipment' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.equipmentsService.findOne(id)
   }
 
+  // mutation is een soort van post request
+  // mutation geeft niet altijd iets terug, hier wel (object Equipment, kan ook bool of string...)
   @Mutation(() => Equipment)
   updateEquipment(
     @Args('updateEquipmentInput') updateEquipmentInput: UpdateEquipmentInput,

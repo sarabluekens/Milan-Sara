@@ -25,6 +25,16 @@ const router = createRouter({
       component: () => import('../views/Account.vue'),
       meta: { shouldBeAuthenticated: true },
     },
+    {
+      path: '/caregiver',
+      component: () => import('../views/Caregiver.vue'),
+      meta: { shouldBeAuthenticated: true },
+    },
+    {
+      path: '/add',
+      component: () => import('../views/AddCaregiver.vue'),
+      meta: { shouldBeAuthenticated: true },
+    },
 
     {
       path: '/auth',

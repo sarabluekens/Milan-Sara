@@ -14,6 +14,6 @@ export class CreateCaregiverInput {
   @Field() //graphql
   description: string
 
-  @Field() //graphql
+  @Field({ defaultValue: true }) //graphql
   available: boolean
 }
