@@ -6,14 +6,17 @@ import { GraphQLModule } from '@nestjs/graphql'
 import { CaregiversModule } from './caregivers/caregivers.module'
 import { EquipmentsModule } from './equipments/equipments.module'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { SeedModule } from './seed/seed.module';
+import { SeedModule } from './seed/seed.module'
+import { AuthenticationModule } from './authentication/authentication.module'
+import { ConfigModule } from '@nestjs/config'
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
+
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: true,
-      
     }),
 
     TypeOrmModule.forRoot({
@@ -28,6 +31,7 @@ import { SeedModule } from './seed/seed.module';
     CaregiversModule,
     EquipmentsModule,
     SeedModule,
+    AuthenticationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

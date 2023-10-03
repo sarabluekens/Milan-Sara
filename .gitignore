@@ -1,3 +1,5 @@
 **/node_modules/
 */env/*
 */tailwind.config.cjs
+packages/api/credentials.json
+packages/api/.env

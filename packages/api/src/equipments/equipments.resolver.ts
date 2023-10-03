@@ -3,6 +3,9 @@ import { EquipmentsService } from './equipments.service'
 import { Equipment } from './entities/equipment.entity'
 import { CreateEquipmentInput } from './dto/create-equipment.input'
 import { UpdateEquipmentInput } from './dto/update-equipment.input'
+import { FirebaseGuard } from 'src/authentication/guards/firebase.guard'
+import { UseGuards } from '@nestjs/common'
+import { FirebaseUser } from 'src/authentication/decorators/user.decorator'
 
 @Resolver(() => Equipment)
 export class EquipmentsResolver {
@@ -17,8 +20,9 @@ export class EquipmentsResolver {
     return this.equipmentsService.create(createEquipmentInput)
   }
 
+  @UseGuards(FirebaseGuard)
   @Query(() => [Equipment], { name: 'equipments' })
-  findAll() {
+  findAll(@FirebaseUser() user: any) {
     /*    return [
       {
         id: '1',
