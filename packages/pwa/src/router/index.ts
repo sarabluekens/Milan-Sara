@@ -21,6 +21,12 @@ const router = createRouter({
     },
 
     {
+      path: '/account',
+      component: () => import('../views/Account.vue'),
+      meta: { shouldBeAuthenticated: true },
+    },
+
+    {
       path: '/auth',
       component: () => import('../components/wrappers/AuthWrap.vue'),
       children: [
@@ -56,4 +62,3 @@ router.beforeEach(async (to, from, next) => {
 })
 
 export default router
-
