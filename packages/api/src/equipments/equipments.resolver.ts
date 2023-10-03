@@ -21,11 +21,11 @@ export class EquipmentsResolver {
     return this.equipmentsService.create(createEquipmentInput)
   }
 
-  @UseGuards(FirebaseGuard)
+  // @UseGuards(FirebaseGuard)
   @Query(() => [Equipment], { name: 'equipments' })
-  findAll(@FirebaseUser() currentUser: UserRecord) {
-    console.log(currentUser)
-
+  // findAll(@FirebaseUser() currentUser: UserRecord) {
+  // console.log(currentUser)
+  findAll() {
     return this.equipmentsService.findAll()
   }
 
