@@ -1,1 +1,1 @@
-<template>Dit is even nummer: </template>
+<template>Dit is het event nummer:</template>
