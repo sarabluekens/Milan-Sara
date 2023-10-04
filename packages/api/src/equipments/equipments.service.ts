@@ -23,7 +23,11 @@ export class EquipmentsService {
     return this.equipmentRepository.save(equipment)
   }
 
-  findAll() {
+  findAll(uid?: string) {
+    // if (uid) {
+    //   return this.equipmentRepository.find({
+    //     where: {userUid : uid }
+    // })
     return this.equipmentRepository.find()
   }
 

@@ -24,7 +24,10 @@ export class EquipmentsResolver {
   @UseGuards(FirebaseGuard)
   @Query(() => [Equipment], { name: 'equipments' })
   findAll(@FirebaseUser() currentUser: UserRecord) {
+    // findAll(  FirebaseUser() user: UserRecord) {
+
     console.log(currentUser)
+
     // findAll() {
     return this.equipmentsService.findAll()
   }
