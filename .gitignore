@@ -3,3 +3,5 @@
 */tailwind.config.cjs
 packages/api/credentials.json
 packages/api/.env
+**/translations.json
+**/token.json
