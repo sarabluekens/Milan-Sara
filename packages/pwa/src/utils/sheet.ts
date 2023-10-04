@@ -123,6 +123,9 @@ async function generateTranslations(auth) {
     await fs.writeFile(
       path.join(process.cwd(), `/src/locales/${locale}.json`),
       JSON.stringify(translations),
+      {
+        encoding: 'utf-8',
+      },
     )
   }
 }
