@@ -12,12 +12,13 @@
 
 <script lang="ts">
 import useFirebase from '@/composables/useFirebase'
-import router from '@/router'
+import { useRouter } from 'vue-router'
 
 export default {
   setup() {
     // Composable
     const { logout, firebaseUser } = useFirebase()
+    const { push } = useRouter()
 
     // Logic
 
@@ -26,7 +27,7 @@ export default {
     }
 
     const loginHandler = () => {
-      router.push({ path: '/auth/login' })
+      push({ path: '/auth/login' })
     }
 
     return {
@@ -37,4 +38,3 @@ export default {
   },
 }
 </script>
-@/bootstrap

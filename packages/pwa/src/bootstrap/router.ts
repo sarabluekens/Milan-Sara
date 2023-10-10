@@ -45,6 +45,11 @@ const router = createRouter({
           component: () => import('../views/auth/Login.vue'),
           meta: { preventLoggedIn: true },
         },
+        {
+          path: 'register',
+          component: () => import('../views/auth/Register.vue'),
+          meta: { preventLoggedIn: true },
+        },
       ],
     },
 
