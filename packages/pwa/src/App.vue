@@ -7,6 +7,7 @@ import AppHeader from './components/generic/AppHeader.vue'
 
 import useGraphql from './composables/useGraphql'
 import useLanguage from './composables/useLanguage'
+import { useI18n } from 'vue-i18n'
 
 export default {
   components: {
@@ -15,10 +16,14 @@ export default {
   },
   setup() {
     const { apolloClient } = useGraphql()
-    const { locale } = useLanguage()
+    // const { locale } = useLanguage()
+    const { setLocale } = useLanguage()
+    const { locale } = useI18n()
     // Maakt alles beschikbaar in de scope
     provide(DefaultApolloClient, apolloClient)
 
+    setLocale(locale.value)
+    
     return {
       locale,
     }

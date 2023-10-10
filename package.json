@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "todo"
+    "dev": "todo",
+    "translate:pwa": "npm run translate -w -pwa"
   },
   "repository": {
     "type": "git",

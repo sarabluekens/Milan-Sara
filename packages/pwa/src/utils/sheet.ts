@@ -80,7 +80,7 @@ async function authorize() {
 async function listMajors(auth) {
   const sheets = google.sheets({ version: 'v4', auth })
   const res = await sheets.spreadsheets.values.get({
-    spreadsheetId: '1XtHJVf7jJGY-im3M6Au8gW-A_J32BW5pAsEo8VLucpg',
+    spreadsheetId: '1AAmLLgkd76f-lLTDt9nXrCCGagYyrs5j6wSQgYIHv8E',
     range: 'Class Data!A2:E',
   })
   const rows = res.data.values
@@ -101,7 +101,7 @@ async function generateTranslations(auth) {
   for (const locale in SUPPORTED_LOCALES) {
     console.log(locale)
     const res = await sheets.spreadsheets.values.get({
-      spreadsheetId: '1XtHJVf7jJGY-im3M6Au8gW-A_J32BW5pAsEo8VLucpg',
+      spreadsheetId: '1AAmLLgkd76f-lLTDt9nXrCCGagYyrs5j6wSQgYIHv8E',
       range: locale,
     })
 
