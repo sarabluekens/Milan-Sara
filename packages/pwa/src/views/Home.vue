@@ -27,7 +27,8 @@ export default {
     }
 
     const loginHandler = () => {
-      push({ path: '/auth/login' })
+      console.log('loginHandler')
+      push('/auth/login')
     }
 
     return {

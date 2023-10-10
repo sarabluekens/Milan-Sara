@@ -52,12 +52,13 @@
 <script lang="ts">
 import { ref } from 'vue'
 import useFirebase from '@/composables/useFirebase'
-import router from '@/router'
+import { useRouter } from 'vue-router'
 
 export default {
   setup() {
     // Composable
     const { login, firebaseUser } = useFirebase()
+    const { push } = useRouter()
 
     // Logic
     const loginCredentials = ref({
@@ -70,7 +71,7 @@ export default {
         () => {
           console.log('Logged in')
           console.log(firebaseUser.value?.uid)
-          router.push({ path: '/' })
+          push({ path: '/' })
         },
       )
     }
@@ -84,4 +85,3 @@ export default {
   },
 }
 </script>
-@/bootstrap
