@@ -8,7 +8,7 @@ import AppHeader from './components/generic/AppHeader.vue'
 import useGraphql from './composables/useGraphql'
 import useLanguage from './composables/useLanguage'
 import { useI18n } from 'vue-i18n'
-// import { customUser } from './composables/useCustomUser' error
+//import { customUser } from './composables/useCustomUser' error
 
 export default {
   components: {
