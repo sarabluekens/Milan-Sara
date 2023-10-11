@@ -1,10 +1,12 @@
 import { initializeApp } from 'firebase/app'
 import {
   browserLocalPersistence,
+  createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
   setPersistence,
   signInWithEmailAndPassword,
+  updateProfile,
   type User,
 } from 'firebase/auth'
 import { ref } from 'vue'
@@ -53,6 +55,24 @@ const logout = async (): Promise<void> => {
   })
 }
 
+const register = async (
+  name: string,
+  email: string,
+  password: string,
+): Promise<User> => {
+  return new Promise((resolve, reject) => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(userCredential => {
+        firebaseUser.value = userCredential.user
+        updateProfile(firebaseUser.value, { displayName: name })
+        resolve(userCredential.user)
+      })
+      .catch(error => {
+        reject(error)
+      })
+  })
+}
+
 const restoreUser = async (): Promise<User | null> => {
   return new Promise(resolve => {
     onAuthStateChanged(auth, user => {
@@ -74,6 +94,7 @@ export default () => {
     login,
     logout,
     restoreUser,
+    register,
     firebaseUser,
   }
 }
