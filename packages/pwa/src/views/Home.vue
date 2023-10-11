@@ -21,7 +21,6 @@ export default {
     const { push } = useRouter()
 
     // Logic
-
     const logoutHandler = async () => {
       await logout()
     }
