@@ -3,7 +3,7 @@ import { CreateEquipmentInput } from './dto/create-equipment.input'
 import { UpdateEquipmentInput } from './dto/update-equipment.input'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Equipment } from './entities/equipment.entity'
-import { Repository } from 'typeorm'
+import { ObjectId, Repository } from 'typeorm'
 
 @Injectable()
 export class EquipmentsService {
@@ -13,14 +13,20 @@ export class EquipmentsService {
   ) {}
 
   create(createEquipmentInput: CreateEquipmentInput): Promise<Equipment> {
-    const equipment = new Equipment()
-    equipment.name = createEquipmentInput.name
-    equipment.fullname = createEquipmentInput.fullname
-    equipment.category = createEquipmentInput.category
-    equipment.amount = createEquipmentInput.amount
-    equipment.available = createEquipmentInput.available
+    try {
+      const equipment = new Equipment()
+      equipment.name = createEquipmentInput.name
+      equipment.category = createEquipmentInput.category
+      equipment.description = createEquipmentInput.description
+      equipment.totalStock = createEquipmentInput.totalStock
+      equipment.reservedStock = createEquipmentInput.reservedStock
+      equipment.available = createEquipmentInput.available
+      equipment.expirationDate = createEquipmentInput.expirationDate
 
-    return this.equipmentRepository.save(equipment)
+      return this.equipmentRepository.save(equipment)
+    } catch (error) {
+      throw error
+    }
   }
 
   findAll(uid?: string) {
@@ -31,8 +37,9 @@ export class EquipmentsService {
     return this.equipmentRepository.find()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} equipment`
+  findOne(id: string) {
+    //@ts-ignore
+    return this.equipmentRepository.findOne({ _id: new ObjectId(id) })
   }
 
   update(id: number, updateEquipmentInput: UpdateEquipmentInput) {

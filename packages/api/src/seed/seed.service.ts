@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { CaregiversService } from 'src/caregivers/caregivers.service'
 import { Caregiver } from 'src/caregivers/entities/caregiver.entity'
 import * as caregivers from './data/caregivers.json'
-import * as equipments from './data/equipments.json'
+// import * as equipments from './data/equipments.json'
 import { EquipmentsService } from 'src/equipments/equipments.service'
 import { Equipment } from 'src/equipments/entities/equipment.entity'
 
@@ -32,21 +32,23 @@ export class SeedService {
     return this.caregiversService.truncate()
   }
 
-  async addEquipmentFromJson(): Promise<Equipment[]> {
+  /*   async addEquipmentFromJson(): Promise<Equipment[]> {
     let theEquipments: Equipment[] = []
     for (let equipment of equipments) {
       const b = new Equipment()
       b.name = equipment.name
-      b.fullname = equipment.fullname
       b.category = equipment.category
-      b.amount = equipment.amount
+      b.description = equipment.description
+      b.totalStock = equipment.totalStock
+      b.reservedStock = equipment.reservedStock
       b.available = equipment.available
+      b.expirationDate = equipment.expirationDate
 
       theEquipments.push(b)
     }
 
     return this.equipmentsService.saveAll(theEquipments)
-  }
+  } */
 
   async deleteAllEquipment(): Promise<void> {
     return this.equipmentsService.truncate()
