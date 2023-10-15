@@ -34,7 +34,7 @@ export class EquipmentsResolver {
 
   // schrijf je wat iets teruggeeft, hier geeft het equipment terugs
   @Query(() => Equipment, { name: 'equipment' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.equipmentsService.findOne(id)
   }
 

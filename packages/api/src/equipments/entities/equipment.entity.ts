@@ -20,19 +20,27 @@ export class Equipment {
 
   @Column() // Database link - Typeorm
   @Field() //graphql
-  fullname: string
-
-  @Column() // Database link - Typeorm
-  @Field() //graphql
   category: string
 
+  @Column({ nullable: true }) // Database link - Typeorm
+  @Field({ nullable: true }) //graphql
+  description: string
+
   @Column() // Database link - Typeorm
   @Field() //graphql
-  amount: number
+  totalStock: number
+
+  @Column({ nullable: true }) // Database link - Typeorm
+  @Field(() => [String], { nullable: true }) //graphql
+  reservedStock: string[]
 
   @Column() // Database link - Typeorm
   @Field() //graphql
   available: boolean
+
+  @Column() // Database link - Typeorm
+  @Field() //graphql
+  expirationDate: Date
 
   @CreateDateColumn({ type: 'timestamp', nullable: true }) // Database link - Typeorm
   @Field() //graphql
