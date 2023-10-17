@@ -9,8 +9,9 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { SeedModule } from './seed/seed.module'
 import { AuthenticationModule } from './authentication/authentication.module'
 import { ConfigModule } from '@nestjs/config'
-import { UsersModule } from './users/users.module';
-import { EventsModule } from './events/events.module';
+import { UsersModule } from './users/users.module'
+import { EventsModule } from './events/events.module'
+import { CommandModule } from 'nestjs-command'
 
 @Module({
   imports: [
@@ -19,13 +20,15 @@ import { EventsModule } from './events/events.module';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: true,
+      // playground: true,
+      playground: process.env.NODE_ENV == 'production' ? false : true,
     }),
 
     TypeOrmModule.forRoot({
       type: 'mongodb',
-      url: 'mongodb://localhost:27027/api',
+      url: `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`, // DOCKER
       entities: [__dirname + '/**/*.entity.{js,ts}'],
-      synchronize: true, // Careful with this in production
+      synchronize: process.env.NODE_ENV == 'production' ? false : true, // Careful with this in production
       useNewUrlParser: true,
       useUnifiedTopology: true, // Disable deprecated warnings
     }),
@@ -36,6 +39,7 @@ import { EventsModule } from './events/events.module';
     AuthenticationModule,
     UsersModule,
     EventsModule,
+    CommandModule,
   ],
   controllers: [AppController],
   providers: [AppService],

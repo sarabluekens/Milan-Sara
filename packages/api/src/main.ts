@@ -6,7 +6,11 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule)
 
   app.enableCors({
-    origin: ['http://localhost:5173', 'http://localhost:5001'],
+    origin: [
+      'http://localhost:5173',
+      'http://localhost:5001',
+      process.env.URL_FRONTEND,
+    ],
 
     // origin:
     // [
@@ -24,7 +28,7 @@ async function bootstrap() {
 
   //validatie voor alle requests (validationpipe)
   app.useGlobalPipes(new ValidationPipe())
-  await app.listen(3000)
+  await app.listen(3001)
   console.info(`Server is running on: ${await app.getUrl()}`)
   console.info(`GraphQL is running on: ${await app.getUrl()}/graphql`)
 }

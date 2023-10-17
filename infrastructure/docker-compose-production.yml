@@ -1,0 +1,40 @@
+version: '3.1'
+name: api-redcross-production2
+
+services:
+  mongodb:
+    image: mongo
+    restart: on-failure:5 #On error, try to restart max 5times
+    ports:
+      - 27031:27017
+    environment:
+      MONGO_INITDB_DATABASE: api
+    volumes:
+      - dbvolumesRedCrossProduction:/data/db
+
+  api:
+    build:
+      context: ../.
+      dockerfile: packages/api/Dockerfile
+    env_file:
+      - ./../packages/api/.env.production.local
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/run/secrets/my-google-secrets
+    ports:
+      - 3001:3001
+    secrets:
+      - my-google-secrets
+
+  pwa:
+    build:
+      context: ../.
+      dockerfile: packages/pwa/Dockerfile
+    ports:
+      - 8081:80
+
+volumes:
+  dbvolumesRedCrossProduction:
+
+secrets:
+  my-google-secrets:
+    file: /Users/sarabluekens/Desktop/MCT/3MCT/advanced fullstack/eindproject/Milan-Sara/packages/api/credentials.json
