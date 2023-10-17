@@ -11,6 +11,7 @@ import { AuthenticationModule } from './authentication/authentication.module'
 import { ConfigModule } from '@nestjs/config'
 import { UsersModule } from './users/users.module'
 import { EventsModule } from './events/events.module'
+import { CommandModule } from 'nestjs-command'
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { EventsModule } from './events/events.module'
     AuthenticationModule,
     UsersModule,
     EventsModule,
+    CommandModule,
   ],
   controllers: [AppController],
   providers: [AppService],
