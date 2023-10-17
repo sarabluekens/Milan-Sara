@@ -9,8 +9,7 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
     "translate": "npx tsx ./src/utils/sheet.ts",
-    "pwa": "npm run build && npx serve dist"
-  },
+    "pwa": "npm run build && npx serve dist -p 5000"  },
   "dependencies": {
     "@google-cloud/local-auth": "^2.1.0",
     "@vue/apollo-composable": "^4.0.0-beta.11",
