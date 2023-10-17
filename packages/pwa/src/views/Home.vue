@@ -8,6 +8,7 @@
   </p>
   <button @click="logoutHandler" v-if="firebaseUser != null">logout</button>
   <button @click="loginHandler" v-if="firebaseUser === null">Log in</button>
+  <RouterLink to="/account">Account van een peetje</RouterLink>
 </template>
 
 <script lang="ts">

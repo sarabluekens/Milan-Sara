@@ -28,14 +28,16 @@ const { replace } = useRouter()
 const { setLocale } = useLanguage()
 const { locale } = useI18n()
 
+console.log(firebaseUser.value?.getIdToken())
+
 firebaseUser.value?.getIdToken().then(token => {
   console.log(`{"Authorization": "Bearer ${token}"}`)
 })
 
 // const logoutUser = () => {
 //   logout().then(() => {
-// replace ({path:'/'})
-//})
+//     replace({ path: '/' })
+//   })
 // }
 
 const setLanguage = (event: Event) => {
