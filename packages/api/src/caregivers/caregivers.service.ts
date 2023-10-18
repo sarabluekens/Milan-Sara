@@ -14,11 +14,11 @@ export class CaregiversService {
 
   create(createCaregiverInput: CreateCaregiverInput): Promise<Caregiver> {
     const c = new Caregiver()
-    c.name = createCaregiverInput.name
-    c.fullname = createCaregiverInput.fullname
-    c.category = createCaregiverInput.category
-    c.description = createCaregiverInput.description
-    c.available = createCaregiverInput.available
+    c.firstName = createCaregiverInput.firstName
+    c.lastName = createCaregiverInput.lastName
+    c.profession = createCaregiverInput.profession
+    c.availableForEvent = createCaregiverInput.availableForEvent
+    c.availableForNewCase = createCaregiverInput.availableForNewCase
 
     return this.caregiverRepository.save(c)
   }
