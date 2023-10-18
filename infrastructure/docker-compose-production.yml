@@ -24,6 +24,8 @@ services:
       - 3001:3001
     secrets:
       - my-google-secrets
+    depends_on:
+      - mongodb
 
   pwa:
     build:
