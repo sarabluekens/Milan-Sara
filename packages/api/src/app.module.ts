@@ -13,6 +13,8 @@ import { UsersModule } from './users/users.module'
 import { EventsModule } from './events/events.module'
 import { CommandModule } from 'nestjs-command'
 import { VictimsModule } from './victims/victims.module';
+import { CasesModule } from './cases/cases.module';
+import { UsedMaterialsModule } from './used-materials/used-materials.module';
 
 @Module({
   imports: [
@@ -42,6 +44,8 @@ import { VictimsModule } from './victims/victims.module';
     EventsModule,
     CommandModule,
     VictimsModule,
+    CasesModule,
+    UsedMaterialsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
