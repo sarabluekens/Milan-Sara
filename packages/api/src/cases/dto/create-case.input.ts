@@ -1,5 +1,5 @@
 import { InputType, Int, Field } from '@nestjs/graphql'
-import type { UsedMaterials } from '../../../../pwa/src/interfaces/used.materials.interface'
+import { UsedMaterial } from 'src/used-materials/entities/used-material.entity'
 @InputType()
 export class CreateCaseInput {
   @Field()
@@ -8,7 +8,7 @@ export class CreateCaseInput {
   @Field()
   eventId: string
 
-  @Field()
+  @Field(() => [String], { defaultValue: [] })
   caregiverId: Array<string>
 
   @Field()
@@ -47,6 +47,6 @@ export class CreateCaseInput {
   @Field()
   eventEnsurance: boolean
 
-  @Field()
-  usedMaterials: Array<UsedMaterials>
+  @Field(() => UsedMaterial)
+  usedMaterial: UsedMaterial
 }

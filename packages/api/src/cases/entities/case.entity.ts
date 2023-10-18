@@ -1,6 +1,6 @@
 import { ObjectType, Field, Int, ID } from '@nestjs/graphql'
+import { UsedMaterial } from 'src/used-materials/entities/used-material.entity'
 import { Column, ObjectIdColumn } from 'typeorm'
-import { UsedMaterials } from '../../../../pwa/src/interfaces/used.materials.interface'
 
 @ObjectType()
 export class Case {
@@ -68,7 +68,12 @@ export class Case {
   @Field()
   eventEnsurance: boolean
 
-  @Column({ nullable: true })
+  @Column(() => UsedMaterial)
   @Field({ nullable: true })
-  usedMaterials: Array<UsedMaterials>
+  usedMaterials: Array<UsedMaterial>
+
+  //column = db
+  //field = graphql
+  //field en daarin store je object van linked entity
+  //resolver = resolve om id om te zetten naar object
 }
