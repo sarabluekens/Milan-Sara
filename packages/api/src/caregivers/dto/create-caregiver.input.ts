@@ -1,19 +1,19 @@
-import { InputType, Int, Field } from '@nestjs/graphql'
+import { InputType, Field } from '@nestjs/graphql'
 
 @InputType()
 export class CreateCaregiverInput {
   @Field() //graphql
-  name: string
+  firstName: string
 
   @Field() //graphql
-  fullname: string
+  lastName: string
 
   @Field() //graphql
-  category: string
-
-  @Field() //graphql
-  description: string
+  profession: string
 
   @Field({ defaultValue: true }) //graphql
-  available: boolean
+  availableForEvent: boolean
+
+  @Field({ defaultValue: true }) //graphql
+  availableForNewCase: boolean
 }
