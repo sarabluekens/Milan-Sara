@@ -1,7 +1,29 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
-
+import { ObjectType, Field, ID } from '@nestjs/graphql'
+import { Column, CreateDateColumn, Entity, ObjectIdColumn } from 'typeorm'
+@Entity()
 @ObjectType()
 export class Victim {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @ObjectIdColumn()
+  @Field(() => ID)
+  id: string
+
+  @Column()
+  @Field()
+  firstName: string
+
+  @Column()
+  @Field()
+  lastName: string
+
+  @Column()
+  @Field()
+  email: string
+
+  @Column()
+  @Field()
+  phoneNumber: string
+
+  @CreateDateColumn({ type: 'timestamp', nullable: true })
+  @Field()
+  createdAt: Date
 }
