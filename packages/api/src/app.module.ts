@@ -12,6 +12,7 @@ import { ConfigModule } from '@nestjs/config'
 import { UsersModule } from './users/users.module'
 import { EventsModule } from './events/events.module'
 import { CommandModule } from 'nestjs-command'
+import { VictimsModule } from './victims/victims.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { CommandModule } from 'nestjs-command'
     UsersModule,
     EventsModule,
     CommandModule,
+    VictimsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
