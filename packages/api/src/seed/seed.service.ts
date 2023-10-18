@@ -27,11 +27,11 @@ export class SeedService {
       b.availableForEvent = caregiver.availableForEvent
       b.availableForNewCase = caregiver.availableForNewCase
 
-  //     theCaregivers.push(b)
-  //   }
+      theCaregivers.push(b)
+    }
 
-  //   return this.caregiversService.saveAll(theCaregivers)
-  // }
+    return this.caregiversService.saveAll(theCaregivers)
+  }
 
   async deleteAllCaregivers(): Promise<void> {
     return this.caregiversService.truncate()

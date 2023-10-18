@@ -47,6 +47,6 @@ export class CreateCaseInput {
   @Field()
   eventEnsurance: boolean
 
-  @Field(() => UsedMaterial)
-  usedMaterial: UsedMaterial
+  // @Field(() => UsedMaterial)
+  // usedMaterial: UsedMaterial
 }

@@ -17,7 +17,7 @@ export class Case {
   eventId: string
 
   @Column()
-  @Field()
+  @Field(() => [String], { defaultValue: [] })
   caregiverId: Array<string>
 
   @Column()
@@ -69,7 +69,7 @@ export class Case {
   eventEnsurance: boolean
 
   @Column(() => UsedMaterial)
-  @Field({ nullable: true })
+  @Field(() => [UsedMaterial], { nullable: true })
   usedMaterials: Array<UsedMaterial>
 
   //column = db

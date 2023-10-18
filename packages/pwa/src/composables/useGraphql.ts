@@ -18,7 +18,7 @@ import { logErrorMessages } from '@vue/apollo-util'
 const { firebaseUser } = useFirebase()
 
 const httpLink = createHttpLink({
-  uri: 'http://[::1]:3000/graphql/',
+  uri: 'http://[::1]:3001/graphql/',
   credentials: 'same-origin', // includes credentials van httplink in elke request die gestuurd wordt
 })
 
