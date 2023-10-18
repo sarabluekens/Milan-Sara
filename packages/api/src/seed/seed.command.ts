@@ -7,15 +7,15 @@ export class DatabaseSeedCommand {
   constructor(private readonly seedService: SeedService) {}
 
   //   seeding for caregivers
-  @Command({
-    command: 'seed:database:caregivers',
-    describe: 'Seed the database with caregivers',
-  })
-  async seedCaregivers() {
-    console.info('⛑️ Start seeding of caregivers')
-    const caregivers = await this.seedService.addCaregiversFromJson()
-    console.info(`⛑️ ${caregivers.length} Caregivers are added`)
-  }
+  // @Command({
+  //   command: 'seed:database:caregivers',
+  //   describe: 'Seed the database with caregivers',
+  // })
+  // async seedCaregivers() {
+  //   console.info('⛑️ Start seeding of caregivers')
+  //   const caregivers = await this.seedService.addCaregiversFromJson()
+  //   console.info(`⛑️ ${caregivers.length} Caregivers are added`)
+  // }
 
   @Command({
     command: 'seed:reset:caregivers',
