@@ -18,7 +18,7 @@ import { logErrorMessages } from '@vue/apollo-util'
 const { firebaseUser } = useFirebase()
 
 const httpLink = createHttpLink({
-  uri: 'http://[::1]:3001/graphql/',
+  uri: 'http://[::1]:300/graphql/',
   credentials: 'same-origin', // includes credentials van httplink in elke request die gestuurd wordt
 })
 
@@ -30,11 +30,6 @@ const authLink = setContext(async (_, { headers }) => ({
       : '',
   },
 }))
-
-// const apolloClient = new ApolloClient({
-//   link: authLink.concat(httpLink),
-//   cache: new InMemoryCache(), //<- this is where the cache is created
-// })
 
 // Handle errors
 const errorLink = onError(error => {
