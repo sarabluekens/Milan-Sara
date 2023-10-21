@@ -10,7 +10,7 @@
         class="p-4 bg-beige m-auto w-80% sm:w-40% h-full rounded-lg px-8 flex flex-col justify-around items-center"
       >
         <h2
-          class="color-red `font-inria text-2.2rem md:text-2.7rem lg:text-3.5rem px-4 text-center"
+          class="color-red font-inria text-2.2rem md:text-2.7rem lg:text-3.5rem px-4 text-center"
         >
           I can walk to a first aid post.
         </h2>
@@ -24,7 +24,7 @@
         class="p-4 bg-beige m-auto w-80% sm:w-40% h-full rounded-lg px-8 flex flex-col justify-around items-center"
       >
         <h2
-          class="color-red `font-inria text-2.2rem md:text-2.7rem lg:text-3.5rem px-4 text-center"
+          class="color-red font-inria text-2.2rem md:text-2.7rem lg:text-3.5rem px-4 text-center"
         >
           I can't walk, I need help.
         </h2>
