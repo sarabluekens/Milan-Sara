@@ -13,10 +13,10 @@ export default defineConfig({
   ],
   theme: {
     colors: {
-      red: '#A60C0C',
       white: '#FFFAFA',
       beige: '#F5E9E9',
       pink: '#E8C1C1',
+      red: '#A60C0C',
       black: '#262C30',
     },
   },
