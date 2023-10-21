@@ -34,7 +34,7 @@ export default defineConfig({
     [
       /^body-(.*)$/,
       ([, c]) =>
-        `font-inter text-${c} text-1rem md:text-1.1rem lg:text-1.3rem `,
+        `font-inter text-${c} text-1rem md:text-1.1rem lg:text-1.2rem `,
     ],
     [
       /^subbody-(.*)$/,
