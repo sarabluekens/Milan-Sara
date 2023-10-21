@@ -62,7 +62,7 @@ export default {
 
     // Logic
     const loginCredentials = ref({
-      email: 'milandm2003@gmail.com',
+      email: '',
       password: '',
     })
 
