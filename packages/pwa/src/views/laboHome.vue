@@ -1,3 +1,5 @@
+<!-- Staat in administration/events/index -->
+
 <template>
   <h1 v-if="firebaseUser != null">Welcome {{ firebaseUser?.uid }}</h1>
   <h1 v-else>Not logged in</h1>

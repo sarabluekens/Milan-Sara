@@ -68,9 +68,9 @@ export class Case {
   @Field()
   eventEnsurance: boolean
 
-  @Column(() => UsedMaterial)
-  @Field(() => [UsedMaterial], { nullable: true })
-  usedMaterials: Array<UsedMaterial>
+  // @Column(() => UsedMaterial)
+  // @Field(() => [UsedMaterial], { nullable: true })
+  // usedMaterials: Array<UsedMaterial>
 
   //column = db
   //field = graphql

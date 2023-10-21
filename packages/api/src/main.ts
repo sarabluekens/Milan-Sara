@@ -8,21 +8,15 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       'http://localhost:5173',
-      'http://localhost:5001',
+      'http://localhost:3001',
       process.env.URL_FRONTEND,
+      //   //staging/TEST
+      //   https://staging-redCross.be,
+
+      //   //PRODUCTION
+      //   http://redCross.be,
     ],
 
-    // origin:
-    // [
-    //   http://localhost:5173,
-    //   http://127.0.0.1:5173,
-
-    //   //staging/TEST
-    //   https://staging-redCross.be,
-
-    //   //PRODUCTION
-    //   http://redCross.be,
-    // ]
     credentials: true,
   }) //<- enable cors for all requests with the right credentials
 

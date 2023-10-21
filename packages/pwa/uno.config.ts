@@ -7,7 +7,7 @@ export default defineConfig({
       provider: 'google', // default provider
       fonts: {
         inter: 'Inter',
-        inria: ['Inria Sans:400'],
+        inria: ['Inria Sans:300'],
       },
     }),
   ],
@@ -25,11 +25,12 @@ export default defineConfig({
     [
       /^title-(.*)$/,
       ([, c]) =>
-        `font-inria text-${c} text-2rem md:text-2.8rem lg:text-3.5rem font-bold`,
+        `font-inria text-${c} text-2.5rem md:text-4.4rem lg:text-5rem text-center`,
     ],
     [
       /^subtitle-(.*)$/,
-      ([, c]) => `font-inria text-${c} text-1.4rem md:text-2rem lg:text-2.7rem`,
+      ([, c]) =>
+        `font-inria text-${c} text-1.4rem md:text-2rem lg:text-2.2rem text-center`,
     ],
     [
       /^body-(.*)$/,
@@ -41,5 +42,6 @@ export default defineConfig({
       ([, c]) =>
         `font-inter text-${c} text-0.8rem md:text-0.9rem lg:text-1rem `,
     ],
+    [/^nav-(.*)$/, ([, c]) => `w-3.5rem md:w-5rem h-full absolute bg-${c}`],
   ],
 })
