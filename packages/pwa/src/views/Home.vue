@@ -28,6 +28,7 @@
         >
           I can't walk, I need help.
         </h2>
+
         <img src="/cantWalk.svg" alt="Broken running shoes Icon" />
       </div>
     </section>

@@ -51,6 +51,7 @@
         <div class="h-0.05rem bg-beige w-90% mt-1"></div>
 
         <li class="i-material-symbols-person body-white my-8">My Events</li>
+
         <li class="i-material-symbols-person body-white my-8">All cases</li>
       </ul>
       <div class="flex flex-col justify-center items-center m-3">
