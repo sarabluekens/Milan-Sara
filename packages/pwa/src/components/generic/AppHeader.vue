@@ -1,32 +1,26 @@
-<template>
-  <nav v-if="nav === `inversed`" class="nav-beige">
-    <div class="flex flex-col justify-between h-full">
+<template class="h-full fixed">
+  <nav
+    v-if="$route.path === `/`"
+    class="nav-beige h-4rem w-full fixed sm:h-full w-3rem sm:w-5rem bottom-0"
+  >
+    <div
+      class="border-red border-2 flex flex-row sm:flex-col items-center justify-evenly sm:justify-between h-full mb-2 sm:m-0 sm:p-0"
+    >
       <img
         src="/redCross.svg"
         alt="Red Cross logo"
-        class="pt-3 w-90% mx-auto"
+        class="sm:pt-3 h-3rem sm:h-5rem sm:w-90% sm:mx-auto"
       />
+      <div class="bg-red w-.5 h-full sm:hidden"></div>
       <img
         src="/login.svg"
         alt="login (for Caregivers)"
-        class="pb-3 w-70% mx-auto"
+        class="sm:pb-3 h-3rem sm:h-5rem sm:w-70% sm:mx-auto"
       />
     </div>
   </nav>
-
-  <nav v-else-if="nav === `small`" class="nav-red">
-    <div class="flex flex-col justify-between h-full">
-      <img
-        src="/whiteCross.svg"
-        alt="Red Cross logo"
-        class="pt-3 w-90% mx-auto"
-      />
-
-      <div class="i-material-symbols-person text-red"></div>
-    </div>
-  </nav>
-
-  <nav v-else-if="nav === `wide`" class="nav-red w-15rem">
+  <nav v-else-if="$route.path.includes(`caregiver`)" class="nav-red w-15rem">
+    {{ console.log('helllooooooo' + $route.path) }}
     <div class="flex flex-col justify-between h-full">
       <img
         src="/whiteCross.svg"
@@ -64,6 +58,17 @@
         />
         <p class="align-center subtitle-beige">Profile</p>
       </div>
+    </div>
+  </nav>
+  <nav v-else class="nav-red w-10rem">
+    <div class="flex flex-col justify-between h-full">
+      <img
+        src="/whiteCross.svg"
+        alt="Red Cross logo"
+        class="pt-3 w-90% mx-auto"
+      />
+
+      <div class="i-material-symbols-person text-red"></div>
     </div>
   </nav>
 </template>
