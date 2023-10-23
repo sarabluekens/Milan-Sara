@@ -35,4 +35,7 @@
   </div>
 </template>
 
-<script lang="ts"></script>
+<script lang="ts">
+
+export default {}
+</script>
