@@ -1,9 +1,11 @@
-import { defineConfig, presetIcons, presetUno, presetWebFonts } from 'unocss'
+import { defineConfig, presetUno, presetIcons, presetWebFonts } from 'unocss'
+// import presetIcons from '@unocss/preset-icons'
 
 export default defineConfig({
   presets: [
-    presetUno(),
     presetIcons({}),
+    presetUno(),
+
     presetWebFonts({
       provider: 'google', // default provider
       fonts: {

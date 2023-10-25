@@ -1,10 +1,11 @@
 <template class="h-full fixed">
+  <!-- Header for the homepage -->
   <nav
     v-if="$route.path === `/`"
     class="nav-beige h-4rem w-full fixed sm:h-full w-3rem sm:w-5rem bottom-0"
   >
     <div
-      class="border-red border-2 flex flex-row sm:flex-col items-center justify-evenly sm:justify-between h-full mb-2 sm:m-0 sm:p-0"
+      class="flex flex-row sm:flex-col items-center justify-evenly sm:justify-between h-full mb-2 sm:m-0 sm:p-0"
     >
       <img
         src="/redCross.svg"
@@ -19,8 +20,9 @@
       />
     </div>
   </nav>
+
+  <!-- Header for the caregiver flow -->
   <nav v-else-if="$route.path.includes(`caregiver`)" class="nav-red w-15rem">
-    {{ console.log('helllooooooo' + $route.path) }}
     <div class="flex flex-col justify-between h-full">
       <img
         src="/whiteCross.svg"
@@ -60,7 +62,9 @@
       </div>
     </div>
   </nav>
-  <nav v-else class="nav-red w-10rem">
+
+  <!-- header for the visitors flow -->
+  <nav v-else class="nav-red w-10rem hidden">
     <div class="flex flex-col justify-between h-full">
       <img
         src="/whiteCross.svg"

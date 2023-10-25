@@ -1,8 +1,6 @@
 <template class="h-full relative">
   <div class="bg-red h-100vh sm:ml-5rem">
     <h1 class="title-beige md:pt-2rem">First aid</h1>
-    <p class="subtitle-beige pb-2">What help do you need?</p>
-
     <section
       class="flex gap-3 sm:h-60vh h-80vh sm:h-90vh lg:flex-row flex-col sm:justify-evenly md:justify-start"
     >
@@ -13,7 +11,7 @@
         <img
           src="/canWalk.svg"
           alt="Running shoes speeding off Icon"
-          class="sm:mt-16 md:mt-0 h-2/4"
+          class="h-5/6"
         />
       </div>
       <div
@@ -24,7 +22,7 @@
         <img
           src="/cantWalk.svg"
           alt="Broken running shoes Icon"
-          class="h-4/5"
+          class="h-3/4"
         />
       </div>
     </section>
