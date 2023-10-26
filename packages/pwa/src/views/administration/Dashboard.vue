@@ -45,64 +45,64 @@
         <div
           class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 subbody-black"
         >
-          <p class="bg-blue col-span-2">25 SEP 20:57</p>
-          <p class="bg-purple col-span-2">000001</p>
-          <p class="bg-green col-span-4">Tommorrowland in the snow</p>
-          <p class="bg-orange col-span-1">Pending</p>
+          <p class="col-span-2">25 SEP 20:57</p>
+          <p class="col-span-2">000001</p>
+          <p class="col-span-4">Tommorrowland in the snow</p>
+          <p class="col-span-1">Pending</p>
           <p class="h-6 px-2 w-auto bg-red col-span-1">event details</p>
         </div>
         <div
           class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 subbody-black"
         >
-          <p class="bg-blue col-span-2">25 SEP 20:57</p>
-          <p class="bg-purple col-span-2">000001</p>
-          <p class="bg-green col-span-4">Tommorrowland in the snow</p>
-          <p class="bg-orange col-span-1">Pending</p>
+          <p class="col-span-2">25 SEP 20:57</p>
+          <p class="col-span-2">000001</p>
+          <p class="col-span-4">Tommorrowland in the snow</p>
+          <p class="col-span-1">Pending</p>
           <p class="h-6 px-2 w-auto bg-red col-span-1">event details</p>
         </div>
         <div
           class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 subbody-black"
         >
-          <p class="bg-blue col-span-2">25 SEP 20:57</p>
-          <p class="bg-purple col-span-2">000001</p>
-          <p class="bg-green col-span-4">Tommorrowland in the snow</p>
-          <p class="bg-orange col-span-1">Pending</p>
+          <p class="col-span-2">25 SEP 20:57</p>
+          <p class="col-span-2">000001</p>
+          <p class="col-span-4">Tommorrowland in the snow</p>
+          <p class="col-span-1">Pending</p>
           <p class="h-6 px-2 w-auto bg-red col-span-1">event details</p>
         </div>
         <div
           class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 subbody-black"
         >
-          <p class="bg-blue col-span-2">25 SEP 20:57</p>
-          <p class="bg-purple col-span-2">000001</p>
-          <p class="bg-green col-span-4">Tommorrowland in the snow</p>
-          <p class="bg-orange col-span-1">Pending</p>
+          <p class="col-span-2">25 SEP 20:57</p>
+          <p class="col-span-2">000001</p>
+          <p class="col-span-4">Tommorrowland in the snow</p>
+          <p class="col-span-1">Pending</p>
           <p class="h-6 px-2 w-auto bg-red col-span-1">event details</p>
         </div>
         <div
           class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 subbody-black"
         >
-          <p class="bg-blue col-span-2">25 SEP 20:57</p>
-          <p class="bg-purple col-span-2">000001</p>
-          <p class="bg-green col-span-4">Tommorrowland in the snow</p>
-          <p class="bg-orange col-span-1">Pending</p>
+          <p class="col-span-2">25 SEP 20:57</p>
+          <p class="col-span-2">000001</p>
+          <p class="col-span-4">Tommorrowland in the snow</p>
+          <p class="col-span-1">Pending</p>
           <p class="h-6 px-2 w-auto bg-red col-span-1">event details</p>
         </div>
         <div
           class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 subbody-black"
         >
-          <p class="bg-blue col-span-2">25 SEP 20:57</p>
-          <p class="bg-purple col-span-2">000001</p>
-          <p class="bg-green col-span-4">Tommorrowland in the snow</p>
-          <p class="bg-orange col-span-1">Pending</p>
+          <p class="col-span-2">25 SEP 20:57</p>
+          <p class="col-span-2">000001</p>
+          <p class="col-span-4">Tommorrowland in the snow</p>
+          <p class="col-span-1">Pending</p>
           <p class="h-6 px-2 w-auto bg-red col-span-1">event details</p>
         </div>
         <div
           class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 subbody-black"
         >
-          <p class="bg-blue col-span-2">25 SEP 20:57</p>
-          <p class="bg-purple col-span-2">000001</p>
-          <p class="bg-green col-span-4">Tommorrowland in the snow</p>
-          <p class="bg-orange col-span-1">Pending</p>
+          <p class="col-span-2">25 SEP 20:57</p>
+          <p class="col-span-2">000001</p>
+          <p class="col-span-4">Tommorrowland in the snow</p>
+          <p class="col-span-1">Pending</p>
           <p class="h-6 px-2 w-auto bg-red col-span-1">event details</p>
         </div>
       </div>
