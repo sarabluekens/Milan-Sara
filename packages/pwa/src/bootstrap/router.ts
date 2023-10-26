@@ -21,6 +21,12 @@ const router = createRouter({
     },
 
     {
+      path: '/dashboard',
+      component: () => import('../views/administration/Dashboard.vue'),
+      meta: { shouldBeAuthenticated: true },
+    },
+
+    {
       path: '/account',
       component: () => import('../views/Account.vue'),
       meta: { shouldBeAuthenticated: true },
