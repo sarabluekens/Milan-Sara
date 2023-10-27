@@ -18,7 +18,12 @@
   </nav>
 
   <!-- Header for the caregiver flow -->
-  <nav v-else-if="$route.path.includes(`caregiver`)" class="nav-red w-15rem">
+  <nav
+    v-else-if="
+      $route.path.includes(`caregiver`) || $route.path.includes(`auth/login`)
+    "
+    class="nav-red md:w-13rem xl:w-15rem"
+  >
     <div class="flex flex-col justify-between h-full">
       <img
         src="/whiteCross.svg"
@@ -30,11 +35,9 @@
       <ul class="ml-6">
         <h2 class="subtitle-white text-start">Event</h2>
         <div class="h-0.05rem bg-beige w-90% mt-1"></div>
-        <li class="i-material-symbols-person body-white my-8">Ongoing Cases</li>
-        <li class="i-material-symbols-person body-white my-8">My cases</li>
-        <li class="i-material-symbols-person body-white my-8">
-          Available Equipment
-        </li>
+        <li class="body-white my-8">Ongoing Cases</li>
+        <li class="body-white my-8">My cases</li>
+        <li class="body-white my-8">Available Equipment</li>
         <li class="body-white my-8">Available Staff</li>
         <li class="body-white my-8">My closed cases</li>
       </ul>
@@ -42,9 +45,9 @@
         <h2 class="subtitle-white text-start">All</h2>
         <div class="h-0.05rem bg-beige w-90% mt-1"></div>
 
-        <li class="i-material-symbols-person body-white my-8">My Events</li>
+        <li class="body-white my-8">My Events</li>
 
-        <li class="i-material-symbols-person body-white my-8">All cases</li>
+        <li class="body-white my-8">All cases</li>
       </ul>
       <div class="flex flex-col justify-center items-center m-3">
         <img
