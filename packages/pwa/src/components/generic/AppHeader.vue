@@ -13,7 +13,7 @@
         class="sm:pt-3 h-3rem sm:h-5rem sm:w-90% sm:mx-auto"
       />
       <div class="bg-red w-.5 h-full sm:hidden"></div>
-      <div class="i-ic-round-person icon icon-5"></div>
+      <div class="i-ic-round-person icon icon-5 color-red"></div>
     </div>
   </nav>
 
@@ -60,15 +60,22 @@
   </nav>
 
   <!-- header for the visitors flow -->
-  <nav v-else class="nav-red w-10rem">
-    <div class="flex flex-col justify-between h-full">
+  <nav
+    v-else
+    class="nav-red h-4rem w-full fixed sm:h-full w-3rem sm:w-5rem bottom-0"
+  >
+    <div
+      class="flex flex-row sm:flex-col items-center justify-evenly sm:justify-between h-full mb-2 sm:m-0 sm:p-0"
+    >
+      <div
+        class="i-material-symbols-arrow-back-rounded icon icon-5 color-beige"
+      ></div>
+      <div class="bg-beige w-.5 h-full sm:hidden"></div>
       <img
         src="/whiteCross.svg"
         alt="Red Cross logo"
-        class="pt-3 w-90% mx-auto"
+        class="sm:pb-3 h-3rem sm:h-5rem sm:w-90% sm:mx-auto"
       />
-
-      <div class="i-material-symbols-person text-red"></div>
     </div>
   </nav>
 </template>

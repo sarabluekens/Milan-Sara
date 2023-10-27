@@ -47,6 +47,8 @@ export default defineConfig({
     ],
     [/^nav-(.*)$/, ([, c]) => `w-3.5rem md:w-5rem h-full absolute bg-${c}`],
     [/^icon-(.*)$/, ([, c]) => `text-${c}rem leading-4 color-red`],
+    // [     /^icon-(.*)-(.[red|beige])$/,
+    // ([, c, d]) => `text-${c}rem leading-4 color-${d}`,]
   ],
   rules: [
     [
