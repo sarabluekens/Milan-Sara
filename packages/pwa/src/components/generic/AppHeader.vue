@@ -13,11 +13,7 @@
         class="sm:pt-3 h-3rem sm:h-5rem sm:w-90% sm:mx-auto"
       />
       <div class="bg-red w-.5 h-full sm:hidden"></div>
-      <img
-        src="/login.svg"
-        alt="login (for Caregivers)"
-        class="sm:pb-3 h-3rem sm:h-5rem sm:w-70% sm:mx-auto"
-      />
+      <div class="i-ic-round-person icon icon-5"></div>
     </div>
   </nav>
 
@@ -64,7 +60,7 @@
   </nav>
 
   <!-- header for the visitors flow -->
-  <nav v-else class="nav-red w-10rem hidden">
+  <nav v-else class="nav-red w-10rem">
     <div class="flex flex-col justify-between h-full">
       <img
         src="/whiteCross.svg"

@@ -33,7 +33,7 @@ export default defineConfig({
     [
       /^subtitle-(.*)$/,
       ([, c]) =>
-        `font-inria text-${c} text-1.4rem md:text-2rem lg:text-2.2rem text-center`,
+        `font-inria text-${c} text-1.4rem md:text-2rem lg:text-3rem text-center`,
     ],
     [
       /^body-(.*)$/,
@@ -46,7 +46,7 @@ export default defineConfig({
         `font-inter text-${c} text-0.8rem md:text-0.9rem lg:text-1rem `,
     ],
     [/^nav-(.*)$/, ([, c]) => `w-3.5rem md:w-5rem h-full absolute bg-${c}`],
-    [/^icon-(.*)$/, ([, c]) => `text-${c}rem leading-4`],
+    [/^icon-(.*)$/, ([, c]) => `text-${c}rem leading-4 color-red`],
   ],
   rules: [
     [
@@ -54,7 +54,6 @@ export default defineConfig({
       {
         'vertical-align': '-0.125em',
         'text-align': 'center',
-        width: 'auto',
       },
     ],
   ],
