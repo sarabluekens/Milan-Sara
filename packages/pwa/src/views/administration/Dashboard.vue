@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1 class="title-black">Good to see you again, {{ firebaseUser?.uid }}</h1>
+    <h1 class="title-black">
+      Good to see you again, {{ firebaseUser?.displayName }}
+    </h1>
 
     <section
       class="flex sm:h-20vh h-24vh sm:flex-row sm:justify-evenly sm:w-48vw m-auto h-"
