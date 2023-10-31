@@ -2,7 +2,7 @@
   <div class="bg-red h-100vh sm:ml-5rem">
     <h1 class="title-beige md:pt-2rem">First aid</h1>
     <section
-      class="flex gap-3 sm:h-60vh h-80vh sm:h-90vh lg:flex-row flex-col sm:justify-evenly md:justify-start"
+      class="flex gap-3 sm:h-62vh h-80vh sm:h-90vh lg:flex-row flex-col sm:justify-evenly md:justify-start"
     >
       <div
         class="p-4 bg-beige mx-auto sm:m-auto md:my-2 lg:my-5vh w-90% sm:w-70% h-45% md:h-40% lg:w-40vw lg:h-60vh rounded-lg px-8 flex flex-col justify-evenly items-center"
@@ -11,7 +11,7 @@
         <img
           src="/canWalk.svg"
           alt="Running shoes speeding off Icon"
-          class="h-5/6"
+          class="h-3/4"
         />
       </div>
       <div
