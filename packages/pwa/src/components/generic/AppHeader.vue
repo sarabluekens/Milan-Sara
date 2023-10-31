@@ -65,6 +65,13 @@
       </div>
     </div>
   </nav>
+
+  <nav v-else-if="nav === `top`" class="nav-black w-full h-14">
+    <div class="flex justify-end">
+      <p>Dit is een naam</p>
+      <div class="i-material-symbols-person text-red"></div>
+    </div>
+  </nav>
 </template>
 
 <script setup lang="ts">
