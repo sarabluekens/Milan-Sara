@@ -65,6 +65,20 @@
       </div>
     </div>
   </nav>
+
+  <nav v-else-if="nav === `top`" class="nav-black w-full h-14">
+    <div class="flex justify-end items-center">
+      <p class="pr-5">bel</p>
+      <p>Dit is een naam</p>
+      <img
+        src="/dummyProfile.png"
+        alt="login (for Caregivers)"
+        class="pl-5 mr-5"
+        width="65"
+        height="65"
+      />
+    </div>
+  </nav>
 </template>
 
 <script setup lang="ts">
