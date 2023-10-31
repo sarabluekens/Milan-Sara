@@ -28,36 +28,37 @@
       <img
         src="/whiteCross.svg"
         alt="Red Cross logo in white"
-        class="pt-3 mx-auto"
+        class="pt-3 mx-auto w-3rem"
         width="90"
         height="90"
       />
-      <ul class="ml-6">
-        <h2 class="subtitle-white text-start">Event</h2>
-        <div class="h-0.05rem bg-beige w-90% mt-1"></div>
-        <li class="body-white my-8">Ongoing Cases</li>
-        <li class="body-white my-8">My cases</li>
-        <li class="body-white my-8">Available Equipment</li>
-        <li class="body-white my-8">Available Staff</li>
-        <li class="body-white my-8">My closed cases</li>
-      </ul>
-      <ul class="ml-6">
-        <h2 class="subtitle-white text-start">All</h2>
-        <div class="h-0.05rem bg-beige w-90% mt-1"></div>
 
-        <li class="body-white my-8">My Events</li>
-
-        <li class="body-white my-8">All cases</li>
+      <h2 class="ml-7 mt-0 subtitle-white text-start">Event</h2>
+      <ul class="ml-7">
+        <div class="h-0.05rem bg-beige w-90% mt-1"></div>
+        <li class="body-white my-6">Ongoing Cases</li>
+        <li class="body-white my-6">My cases</li>
+        <li class="body-white my-6">Available Equipment</li>
+        <li class="body-white my-6">Available Staff</li>
+        <li class="body-white my-6">My closed cases</li>
       </ul>
+
+      <h2 class="ml-7 subtitle-white text-start">All</h2>
+      <ul class="ml-7 mt-0">
+        <div class="h-0.05rem bg-beige w-90% mt-1"></div>
+        <li class="body-white my-6">My Events</li>
+        <li class="body-white my-6">All cases</li>
+      </ul>
+
       <div class="flex flex-col justify-center items-center m-3">
         <img
           src="/dummyProfile.png"
           alt="login (for Caregivers)"
-          class="pb-3 mx-auto"
+          class="pb-3 mx-auto w-5rem"
           width="90"
           height="90"
         />
-        <p class="align-center subtitle-beige">Profile</p>
+        <p class="align-center body-beige">Profile</p>
       </div>
     </div>
   </nav>
