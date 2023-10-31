@@ -25,6 +25,10 @@ export class User {
 
   @Column()
   @Field()
+  name: string
+
+  @Column()
+  @Field()
   locale?: string
 
   @Column({ default: Role.USER })
