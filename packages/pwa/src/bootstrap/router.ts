@@ -27,6 +27,12 @@ const router = createRouter({
     },
 
     {
+      path: '/staff',
+      component: () => import('../views/administration/StaffOverview.vue'),
+      meta: { shouldBeAuthenticated: true },
+    },
+
+    {
       path: '/account',
       component: () => import('../views/Account.vue'),
       meta: { shouldBeAuthenticated: true },
