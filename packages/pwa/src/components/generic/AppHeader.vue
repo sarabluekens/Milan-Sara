@@ -20,7 +20,7 @@
   <!-- test header for hamburger menu -->
   <nav
     v-else-if="$route.path.includes(`test`)"
-    class="flex flex-wrap items-center justify-between w-full py-4 md:py-0 px-4 text-subtitle text-beige bg-red"
+    class="flex flex-wrap md:flex-col-reverse items-center justify-between sticky h-full py-4 md:py-0 px-4 text-subtitle text-beige bg-red"
   >
     <img
       src="/whiteCross.svg"
@@ -30,8 +30,8 @@
       height="30"
     />
     <div
-      v-if="(active = true)"
-      class="hidden w-full md:flex md:items-center md:w-auto"
+      :class="showMenu ? '' : ` hidden `"
+      class="h-full md:flex md:items-center md:h-auto"
       id="menu"
     >
       <ul class="text-body text-beige pt-4 md:flex md:justify-between md:pt-0">
@@ -54,12 +54,31 @@
     </div>
 
     <div
+      @click="clickHandler"
       class="i-ci-hamburger-lg icon-2 icon color-beige md:hidden block"
       id="menu-button"
-      @change="handleHamburgerMenu"
     ></div>
   </nav>
-
+  <!-- second test header for hamburger meny -->
+  <nav v-else-if="$route.path.includes(`test`)">
+    <Slide>
+      <a id="home" href="#">
+        <span>Home</span>
+      </a>
+      <a id="home" href="#">
+        <span>Home</span>
+      </a>
+      <a id="home" href="#">
+        <span>Home</span>
+      </a>
+      <a id="home" href="#">
+        <span>Home</span>
+      </a>
+      <a id="home" href="#">
+        <span>Home</span>
+      </a>
+    </Slide>
+  </nav>
   <!-- Header for the caregiver flow -->
   <nav
     v-else-if="
@@ -129,9 +148,10 @@
 
 <script setup lang="ts">
 const nav: string = `wide`
-let active: boolean = false
+let showMenu: boolean = false
 
-const handleHamburgerMenu = () => {
-  active = !active
+const clickHandler = () => {
+  showMenu = !showMenu
+  console.log(showMenu)
 }
 </script>
