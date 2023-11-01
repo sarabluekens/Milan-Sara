@@ -46,7 +46,7 @@ export default defineConfig({
         `font-inter text-${c} text-0.8rem md:text-0.9rem lg:text-1rem `,
     ],
     [/^nav-(.*)$/, ([, c]) => `w-3.5rem md:w-5rem h-full absolute bg-${c}`],
-    [/^icon-(.*)$/, ([, c]) => `text-${c}rem leading-4 color-red`],
+    [/^icon-(.*)$/, ([, c]) => `text-${c}rem leading-4 `],
     // [     /^icon-(.*)-(.[red|beige])$/,
     // ([, c, d]) => `text-${c}rem leading-4 color-${d}`,]
   ],

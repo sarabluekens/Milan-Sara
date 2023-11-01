@@ -17,6 +17,49 @@
     </div>
   </nav>
 
+  <!-- test header for hamburger menu -->
+  <nav
+    v-else-if="$route.path.includes(`test`)"
+    class="flex flex-wrap items-center justify-between w-full py-4 md:py-0 px-4 text-subtitle text-beige bg-red"
+  >
+    <img
+      src="/whiteCross.svg"
+      alt="Red cross logo"
+      class=""
+      width="30"
+      height="30"
+    />
+    <div
+      v-if="(active = true)"
+      class="hidden w-full md:flex md:items-center md:w-auto"
+      id="menu"
+    >
+      <ul class="text-body text-beige pt-4 md:flex md:justify-between md:pt-0">
+        <li>
+          <a class="md:p-4 py-2 block hover:text-red" href="#">Features</a>
+        </li>
+        <li>
+          <a class="md:p-4 py-2 block hover:text-red" href="#">Pricing</a>
+        </li>
+        <li>
+          <a class="md:p-4 py-2 block hover:text-red" href="#">Customers</a>
+        </li>
+        <li>
+          <a class="md:p-4 py-2 block hover:text-red" href="#">Blog</a>
+        </li>
+        <li>
+          <a class="md:p-4 py-2 block hover:text-red" href="#">Sign Up</a>
+        </li>
+      </ul>
+    </div>
+
+    <div
+      class="i-ci-hamburger-lg icon-2 icon color-beige md:hidden block"
+      id="menu-button"
+      @change="handleHamburgerMenu"
+    ></div>
+  </nav>
+
   <!-- Header for the caregiver flow -->
   <nav
     v-else-if="
@@ -86,4 +129,9 @@
 
 <script setup lang="ts">
 const nav: string = `wide`
+let active: boolean = false
+
+const handleHamburgerMenu = () => {
+  active = !active
+}
 </script>
