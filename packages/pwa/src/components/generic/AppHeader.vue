@@ -21,7 +21,7 @@
   <nav
     v-else-if="$route.path.includes(`test`)"
     :class="showMenu ? 'bg-red py-4 h-full' : 'bg-beige w-full py-1 h-auto'"
-    class="absolute flex-col items-stretch justify-between z-1 w-85% px-4 text-subtitle text-beige md:flex-col-reverse md:py-0 md:h-full md:bg-red md:w-2/5rem xl:w-17rem"
+    class="absolute flex-col items-stretch justify-between z-1 w-85% px-4 text-subtitle text-beige md:text-title md:flex-col-reverse md:py-0 md:h-full md:bg-red md:w-2/5rem xl:w-17rem"
   >
     <div
       :class="showMenu ? 'mb-3' : 'flex-row-reverse my-1'"
@@ -64,7 +64,10 @@
         <li class="body-white my-5% md:my-6">My closed cases</li>
       </ul>
     </section>
-    <section>
+    <section
+      :class="{ hidden: !showMenu }"
+      class="h-auto md:flex md:flex-col md:items-center md:h-auto md:items-stretch"
+    >
       <h2 class="ml-3 subtitle-white text-start">All</h2>
       <ul class="ml-3 mt-0">
         <div class="h-0.05rem bg-beige w-80% mt-1"></div>
@@ -72,7 +75,10 @@
         <li class="body-white my-5% md:my-6">All cases</li>
       </ul>
     </section>
-    <section>
+    <section
+      :class="{ hidden: !showMenu }"
+      class="h-auto md:flex md:flex-col md:items-center md:h-auto md:items-stretch"
+    >
       <div class="flex flex-col justify-center items-center m-3">
         <img
           src="/dummyProfile.png"
