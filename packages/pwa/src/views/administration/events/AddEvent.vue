@@ -76,27 +76,15 @@
         placeholder="Expected visitor / staff count"
         class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3"
       />
-      <div class="flex flex-row col-span-5 text-center">
-        <label class="body-black col-span-1">Children</label>
-        <input
-          type="radio"
-          id="yes"
-          placeholder="Children"
-          class="appearance-none"
-        />
-        <label
-          for="yes"
-          class="cursor-pointer w-1/6 flex items-center justify-center truncate uppercase select-none font-semibold text-lg rounded-full py-2"
-          >Yes</label
-        >
-        <input
-          type="radio"
-          id="no"
-          placeholder="Children"
-          class="appearance-none"
-        />
-        <label for="no">No</label>
-      </div>
+      <p class="body-black col-span-1">Children</p>
+      <label
+        v-for="option in Options"
+        :key="option.name"
+        class="col-span-2 mx-auto mb-3"
+      >
+        <input type="radio" :value="option.name" v-model="picked" />
+        {{ option.name }}
+      </label>
       <label class="body-black col-span-1">Maps</label>
       <input
         type="file"
@@ -109,3 +97,14 @@
     </form>
   </div>
 </template>
+
+<script lang="ts">
+export default {
+  data() {
+    return {
+      picked: 'no',
+      Options: [{ name: 'yes' }, { name: 'no' }],
+    }
+  },
+}
+</script>
