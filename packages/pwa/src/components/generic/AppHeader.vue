@@ -20,18 +20,18 @@
   <!-- test header for hamburger menu -->
   <nav
     v-else-if="$route.path.includes(`test`)"
-    :class="showMenu ? 'bg-red py-4' : 'bg-beige w-full py-1'"
-    class="md:flex-col-reverse items-center justify-around sticky h-full w-85% px-4 text-subtitle text-beige md:w-15rem md:py-0 md:bg-red"
+    :class="showMenu ? 'bg-red py-4 h-full' : 'bg-beige w-full py-1 h-auto'"
+    class="absolute flex-col items-stretch justify-between z-1 w-85% px-4 text-subtitle text-beige md:flex-col-reverse md:py-0 md:h-full md:bg-red md:w-2/5rem xl:w-17rem"
   >
     <div
       :class="showMenu ? 'mb-3' : 'flex-row-reverse my-1'"
-      class="flex justify-between items-center ml-7"
+      class="flex justify-between items-center ml-7 h-auto"
     >
       <img
         src="/whiteCross.svg"
         alt="Red Cross logo in white"
         :class="{ hidden: !showMenu }"
-        class="w-1/8"
+        class="w-1/8 md:inline md:mx-auto md:mt-5 md:w-1/4 md:h-auto"
         width="90"
         height="90"
       />
@@ -39,7 +39,7 @@
         src="/redCross.svg"
         alt="Red Cross logo in white"
         :class="{ hidden: showMenu }"
-        class="w-1/8 md:hidden"
+        class="w-3rem md:hidden"
         width="90"
         height="90"
       />
@@ -52,30 +52,32 @@
 
     <section
       :class="{ hidden: !showMenu }"
-      class="h-full md:flex md:flex-col md:items-center md:h-auto"
+      class="h-auto md:flex md:flex-col md:items-center md:h-auto md:items-stretch"
     >
-      <h2 class="ml-7 mt-0 subtitle-white text-start">Event</h2>
-      <ul class="ml-7">
+      <h2 class="ml-3 mt-0 subtitle-white text-start">Event</h2>
+      <ul class="ml-3">
         <div class="h-0.05rem bg-beige w-80% mt-1"></div>
-        <li class="body-white my-5 md:my-6">Ongoing Cases</li>
-        <li class="body-white my-5 md:my-6">My cases</li>
-        <li class="body-white my-5 md:my-6">Available Equipment</li>
-        <li class="body-white my-5 md:my-6">Available Staff</li>
-        <li class="body-white my-5 md:my-6">My closed cases</li>
+        <li class="body-white my-5% md:my-6">Ongoing Cases</li>
+        <li class="body-white my-5% md:my-6">My cases</li>
+        <li class="body-white my-5% md:my-6">Available Equipment</li>
+        <li class="body-white my-5% md:my-6">Available Staff</li>
+        <li class="body-white my-5% md:my-6">My closed cases</li>
       </ul>
-
-      <h2 class="ml-7 subtitle-white text-start">All</h2>
-      <ul class="ml-7 mt-0">
+    </section>
+    <section>
+      <h2 class="ml-3 subtitle-white text-start">All</h2>
+      <ul class="ml-3 mt-0">
         <div class="h-0.05rem bg-beige w-80% mt-1"></div>
-        <li class="body-white my-5 md:my-6">My Events</li>
-        <li class="body-white my-5 md:my-6">All cases</li>
+        <li class="body-white my-5% md:my-6">My Events</li>
+        <li class="body-white my-5% md:my-6">All cases</li>
       </ul>
-
+    </section>
+    <section>
       <div class="flex flex-col justify-center items-center m-3">
         <img
           src="/dummyProfile.png"
           alt="login (for Caregivers)"
-          class="pb-3 mx-auto w-1/4"
+          class="pb-3 mx-auto w-1/4 md:w-1/2"
           width="90"
           height="90"
         />
