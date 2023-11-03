@@ -1,4 +1,27 @@
 <template>
+  <section class="flex sm:h-60vh h-90vh sm:flex-row sm:justify-evenly w-80%">
+    <div class="text-center border-x-2 border-y-2 h-32 w-72 p-2">
+      <div class="border-x-2 border-y-2 h-full">
+        <h3>2</h3>
+        <p>Succesful events</p>
+      </div>
+    </div>
+    <div class="text-center border-x-2 border-y-2 h-32 w-72 p-2">
+      <div class="border-x-2 border-y-2 h-full">
+        <h3>725</h3>
+        <p>Completed cases</p>
+      </div>
+    </div>
+    <div class="flex border-2 h-32 w-72 p-2">
+      <div
+        class="border-2 m-auto flex flex-col justify-center items-center w-full h-full"
+      >
+        <h3 class="subtitle-red">28</h3>
+        <p class="body-red">Pending events</p>
+      </div>
+    </div>
+  </section>
+
   <div v-if="caregiversLoading">Loading</div>
   <div v-if="caregiversError">
     {{ caregiversError }}

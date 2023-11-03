@@ -37,11 +37,15 @@ export default {
 </script>
 
 <template>
-  <div class="bg-pink-400 text-yellow-500">
+  <div>
     <AppHeader />
+
     <RouterView />
-    {{ locale }}
+    <!-- {{ locale }}
     {{ $t('hello') }}
-    <AppFooter />
+
+    <AppFooter /> -->
   </div>
 </template>
+
+<style></style>
