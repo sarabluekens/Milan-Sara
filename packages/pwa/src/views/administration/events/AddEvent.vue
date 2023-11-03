@@ -108,7 +108,9 @@
         id="maps"
         class="border-1 border-black w-2/3 h-10 ml-3 bg-white subbody-black/80 col-span-4 mb-3 file:bg-black file:subbody-white file:h-10"
       />
-      <button class="border-1 border-red bg-red col-span-2 body-black">
+      <button
+        class="border-1 border-red bg-red/80 col-span-2 col-start-2 body-black"
+      >
         Create event
       </button>
     </form>
