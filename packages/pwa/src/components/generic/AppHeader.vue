@@ -17,11 +17,13 @@
     </div>
   </nav>
 
-  <!-- test header for hamburger menu -->
+  <!-- header for the caregivers flow -->
   <nav
-    v-else-if="$route.path.includes(`test`)"
+    v-else-if="
+      $route.path.includes(`caregiver`) || $route.path.includes(`auth/login`)
+    "
     :class="showMenu ? 'bg-red py-4 h-full' : 'bg-beige w-full py-1 h-auto'"
-    class="absolute flex-col items-stretch justify-between z-1 w-85% px-4 text-subtitle text-beige md:text-title md:flex-col-reverse md:py-0 md:h-full md:bg-red md:w-2/5rem xl:w-17rem"
+    class="absolute flex-col items-stretch justify-between z-1 w-85% px-4 text-subtitle text-beige md:text-title md:flex-col-reverse md:py-0 md:h-full md:bg-red md:w-15rem xl:w-17rem"
   >
     <div
       :class="showMenu ? 'mb-3' : 'flex-row-reverse my-1'"
@@ -31,7 +33,7 @@
         src="/whiteCross.svg"
         alt="Red Cross logo in white"
         :class="{ hidden: !showMenu }"
-        class="w-1/8 md:inline md:mx-auto md:mt-5 md:w-1/4 md:h-auto"
+        class="w-1/8 md:inline md:mx-auto md:mt-5 md:w-1/4 md:h-auto lg:w-1/3"
         width="90"
         height="90"
       />
@@ -57,11 +59,11 @@
       <h2 class="ml-3 mt-0 subtitle-white text-start">Event</h2>
       <ul class="ml-3">
         <div class="h-0.05rem bg-beige w-80% mt-1"></div>
-        <li class="body-white my-5% md:my-6">Ongoing Cases</li>
-        <li class="body-white my-5% md:my-6">My cases</li>
-        <li class="body-white my-5% md:my-6">Available Equipment</li>
-        <li class="body-white my-5% md:my-6">Available Staff</li>
-        <li class="body-white my-5% md:my-6">My closed cases</li>
+        <li class="body-white my-10% sm:my-5% md:my-6">Ongoing Cases</li>
+        <li class="body-white my-10% sm:my-5% md:my-6">My cases</li>
+        <li class="body-white my-10% sm:my-5% md:my-6">Available Equipment</li>
+        <li class="body-white my-10% sm:my-5% md:my-6">Available Staff</li>
+        <li class="body-white my-10% sm:my-5% md:my-6">My closed cases</li>
       </ul>
     </section>
     <section
@@ -71,8 +73,8 @@
       <h2 class="ml-3 subtitle-white text-start">All</h2>
       <ul class="ml-3 mt-0">
         <div class="h-0.05rem bg-beige w-80% mt-1"></div>
-        <li class="body-white my-5% md:my-6">My Events</li>
-        <li class="body-white my-5% md:my-6">All cases</li>
+        <li class="body-white my-10% sm:my-5% md:my-6">My Events</li>
+        <li class="body-white my-10% sm:my-5% md:my-6">All cases</li>
       </ul>
     </section>
     <section
@@ -90,52 +92,6 @@
         <p class="align-center body-beige">Profile</p>
       </div>
     </section>
-  </nav>
-
-  <!-- Header for the caregiver flow -->
-  <nav
-    v-else-if="
-      $route.path.includes(`caregiver`) || $route.path.includes(`auth/login`)
-    "
-    class="nav-red md:w-13rem xl:w-15rem"
-  >
-    <div class="flex flex-col justify-between h-full">
-      <img
-        src="/whiteCross.svg"
-        alt="Red Cross logo in white"
-        class="pt-3 mx-auto w-3rem"
-        width="90"
-        height="90"
-      />
-
-      <h2 class="ml-7 mt-0 subtitle-white text-start">Event</h2>
-      <ul class="ml-7">
-        <div class="h-0.05rem bg-beige w-90% mt-1"></div>
-        <li class="body-white my-6">Ongoing Cases</li>
-        <li class="body-white my-6">My cases</li>
-        <li class="body-white my-6">Available Equipment</li>
-        <li class="body-white my-6">Available Staff</li>
-        <li class="body-white my-6">My closed cases</li>
-      </ul>
-
-      <h2 class="ml-7 subtitle-white text-start">All</h2>
-      <ul class="ml-7 mt-0">
-        <div class="h-0.05rem bg-beige w-90% mt-1"></div>
-        <li class="body-white my-6">My Events</li>
-        <li class="body-white my-6">All cases</li>
-      </ul>
-
-      <div class="flex flex-col justify-center items-center m-3">
-        <img
-          src="/dummyProfile.png"
-          alt="login (for Caregivers)"
-          class="pb-3 mx-auto w-5rem"
-          width="90"
-          height="90"
-        />
-        <p class="align-center body-beige">Profile</p>
-      </div>
-    </div>
   </nav>
 
   <!-- header for the visitors flow -->
