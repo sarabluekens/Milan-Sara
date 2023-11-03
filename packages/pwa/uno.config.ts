@@ -1,5 +1,4 @@
 import { defineConfig, presetUno, presetIcons, presetWebFonts } from 'unocss'
-// import presetIcons from '@unocss/preset-icons'
 
 export default defineConfig({
   presets: [
@@ -33,7 +32,7 @@ export default defineConfig({
     [
       /^subtitle-(.*)$/,
       ([, c]) =>
-        `font-inria text-${c} text-1.4rem md:text-2rem lg:text-3rem text-center`,
+        `font-inria text-${c} text-1.4rem sm:text-1.8rem md:text-2rem lg:text-3rem text-center`,
     ],
     [
       /^body-(.*)$/,

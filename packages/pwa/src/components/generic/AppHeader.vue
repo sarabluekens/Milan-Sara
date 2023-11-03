@@ -20,65 +20,70 @@
   <!-- test header for hamburger menu -->
   <nav
     v-else-if="$route.path.includes(`test`)"
-    class="flex flex-wrap md:flex-col-reverse items-center justify-between sticky h-full py-4 md:py-0 px-4 text-subtitle text-beige bg-red"
+    :class="showMenu ? 'bg-red py-4' : 'bg-beige w-full py-1'"
+    class="md:flex-col-reverse items-center justify-around sticky h-full w-85% px-4 text-subtitle text-beige md:w-15rem md:py-0 md:bg-red"
   >
-    <img
-      src="/whiteCross.svg"
-      alt="Red cross logo"
-      class=""
-      width="30"
-      height="30"
-    />
     <div
-      :class="showMenu ? '' : ` hidden `"
-      class="h-full md:flex md:items-center md:h-auto"
-      id="menu"
+      :class="showMenu ? 'mb-3' : 'flex-row-reverse my-1'"
+      class="flex justify-between items-center ml-7"
     >
-      <ul class="text-body text-beige pt-4 md:flex md:justify-between md:pt-0">
-        <li>
-          <a class="md:p-4 py-2 block hover:text-red" href="#">Features</a>
-        </li>
-        <li>
-          <a class="md:p-4 py-2 block hover:text-red" href="#">Pricing</a>
-        </li>
-        <li>
-          <a class="md:p-4 py-2 block hover:text-red" href="#">Customers</a>
-        </li>
-        <li>
-          <a class="md:p-4 py-2 block hover:text-red" href="#">Blog</a>
-        </li>
-        <li>
-          <a class="md:p-4 py-2 block hover:text-red" href="#">Sign Up</a>
-        </li>
-      </ul>
+      <img
+        src="/whiteCross.svg"
+        alt="Red Cross logo in white"
+        :class="{ hidden: !showMenu }"
+        class="w-1/8"
+        width="90"
+        height="90"
+      />
+      <img
+        src="/redCross.svg"
+        alt="Red Cross logo in white"
+        :class="{ hidden: showMenu }"
+        class="w-1/8 md:hidden"
+        width="90"
+        height="90"
+      />
+      <div
+        :class="showMenu ? 'i-ci-close-lg' : 'i-ci-hamburger-lg text-red'"
+        class="icon-3 icon color-beige md:hidden block align-right"
+        @click="showMenu = !showMenu"
+      ></div>
     </div>
 
-    <div
-      @click="clickHandler"
-      class="i-ci-hamburger-lg icon-2 icon color-beige md:hidden block"
-      id="menu-button"
-    ></div>
+    <section
+      :class="{ hidden: !showMenu }"
+      class="h-full md:flex md:flex-col md:items-center md:h-auto"
+    >
+      <h2 class="ml-7 mt-0 subtitle-white text-start">Event</h2>
+      <ul class="ml-7">
+        <div class="h-0.05rem bg-beige w-80% mt-1"></div>
+        <li class="body-white my-5 md:my-6">Ongoing Cases</li>
+        <li class="body-white my-5 md:my-6">My cases</li>
+        <li class="body-white my-5 md:my-6">Available Equipment</li>
+        <li class="body-white my-5 md:my-6">Available Staff</li>
+        <li class="body-white my-5 md:my-6">My closed cases</li>
+      </ul>
+
+      <h2 class="ml-7 subtitle-white text-start">All</h2>
+      <ul class="ml-7 mt-0">
+        <div class="h-0.05rem bg-beige w-80% mt-1"></div>
+        <li class="body-white my-5 md:my-6">My Events</li>
+        <li class="body-white my-5 md:my-6">All cases</li>
+      </ul>
+
+      <div class="flex flex-col justify-center items-center m-3">
+        <img
+          src="/dummyProfile.png"
+          alt="login (for Caregivers)"
+          class="pb-3 mx-auto w-1/4"
+          width="90"
+          height="90"
+        />
+        <p class="align-center body-beige">Profile</p>
+      </div>
+    </section>
   </nav>
-  <!-- second test header for hamburger meny -->
-  <nav v-else-if="$route.path.includes(`test`)">
-    <Slide>
-      <a id="home" href="#">
-        <span>Home</span>
-      </a>
-      <a id="home" href="#">
-        <span>Home</span>
-      </a>
-      <a id="home" href="#">
-        <span>Home</span>
-      </a>
-      <a id="home" href="#">
-        <span>Home</span>
-      </a>
-      <a id="home" href="#">
-        <span>Home</span>
-      </a>
-    </Slide>
-  </nav>
+
   <!-- Header for the caregiver flow -->
   <nav
     v-else-if="
@@ -147,11 +152,7 @@
 </template>
 
 <script setup lang="ts">
-const nav: string = `wide`
-let showMenu: boolean = false
+import { ref } from 'vue'
 
-const clickHandler = () => {
-  showMenu = !showMenu
-  console.log(showMenu)
-}
+let showMenu = ref(false)
 </script>
