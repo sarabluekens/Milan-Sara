@@ -21,6 +21,7 @@
         name="nickname"
         id="nickname"
         class="mt-1 block w-full rounded-md border-2 border-gray-300 p-2 focus:outline-none focus-visible:ring-2 dark:border-neutral-600 dark:bg-neutral-700 dark:text-neutral-50 focus-visible:border-blue-500 focus-visible:ring-blue-400"
+        v-model="newUser.name"
       />
     </div>
 
@@ -110,6 +111,7 @@ export default {
           addUser({
             createUserInput: {
               locale: locale.value,
+              name: newUser.value.name,
             },
           }).then(result => {
             if (!result?.data) throw new Error('Custom user creation failed.')
