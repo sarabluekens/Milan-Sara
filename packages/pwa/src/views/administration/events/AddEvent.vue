@@ -106,6 +106,7 @@
         id="expected-visitor-staff-count"
         class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3"
         v-model="newEvent.expectedVisitorStaffCount"
+        min="0"
       />
       <p class="body-black col-span-1">Children</p>
       <label
@@ -135,6 +136,8 @@
 
 <script lang="ts">
 import { ref } from 'vue'
+import { useMutation } from '@vue/apollo-composable'
+import { ADD_EVENT } from '@/graphql/event.mutation'
 
 export default {
   setup() {
@@ -155,7 +158,73 @@ export default {
       maps: '',
     })
 
+    const {
+      mutate: addEvent,
+      loading: addEventLoading,
+      onError: addEventError,
+    } = useMutation(ADD_EVENT)
+
     const handleAddEvent = () => {
+      if (newEvent.value.name === '') {
+        alert('Please fill in the name of the event')
+        return
+      } else if (newEvent.value.address === '') {
+        alert('Please fill in the address of the event')
+        return
+      } else if (newEvent.value.postalCode === '') {
+        alert('Please fill in the postal code of the event')
+        return
+      } else if (newEvent.value.city === '') {
+        alert('Please fill in the city of the event')
+        return
+      } else if (newEvent.value.dates === '') {
+        alert('Please fill in the dates of the event')
+        return
+      } else if (newEvent.value.startTime === '') {
+        alert('Please fill in the start time of the event')
+        return
+      } else if (newEvent.value.endTime === '') {
+        alert('Please fill in the end time of the event')
+        return
+      } else if (newEvent.value.contactPerson === '') {
+        alert('Please fill in the contact person of the event')
+        return
+      } else if (newEvent.value.email === '') {
+        alert('Please fill in the email of the event')
+        return
+      } else if (newEvent.value.phoneNumber === '') {
+        alert('Please fill in the phone number of the event')
+        return
+      } else if (newEvent.value.btwNumber === '') {
+        alert('Please fill in the btw number of the event')
+        return
+      } else if (newEvent.value.expectedVisitorStaffCount === '') {
+        alert('Please fill in the expected visitor / staff count of the event')
+        return
+      } else if (newEvent.value.children === undefined) {
+        alert('Please fill in if there are children at the event')
+        return
+      } else {
+        alert('Event created')
+        addEvent({
+          createEventInput: {
+            name: newEvent.value.name,
+            address: newEvent.value.address,
+            postalCode: newEvent.value.postalCode,
+            city: newEvent.value.city,
+            dates: newEvent.value.dates,
+            startHour: newEvent.value.startTime,
+            endHour: newEvent.value.endTime,
+            contactPerson: newEvent.value.contactPerson,
+            phoneNumer: newEvent.value.phoneNumber,
+            email: newEvent.value.email,
+            btwNumber: newEvent.value.btwNumber,
+            expectedVisitorStaffCount: newEvent.value.expectedVisitorStaffCount,
+            eventWithChildren: newEvent.value.children,
+            mapsLink: newEvent.value.maps,
+          },
+        })
+      }
       console.log(newEvent.value.name)
       console.log(newEvent.value.address)
       console.log(newEvent.value.postalCode)
