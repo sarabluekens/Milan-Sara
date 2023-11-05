@@ -27,7 +27,7 @@ export default defineConfig({
     [
       /^title-(.*)$/,
       ([, c]) =>
-        `font-inria text-${c} text-2.5rem md:text-4.4rem lg:text-5rem text-center`,
+        `font-inria text-${c} text-2.5rem md:text-4.4rem lg:text-5rem text-center -mb-1rem`,
     ],
     [
       /^subtitle-(.*)$/,

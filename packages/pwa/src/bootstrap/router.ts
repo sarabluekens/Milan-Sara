@@ -13,6 +13,11 @@ const router = createRouter({
       path: '/Help',
       component: () => import('../views/firstAid/Help.vue'),
     },
+    {
+      path: '/emergency',
+      component: () =>
+        import('../views/firstAid/visitors/emergencyCategory.vue'),
+    },
 
     {
       path: '/administration',
