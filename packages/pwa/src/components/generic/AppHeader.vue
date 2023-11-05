@@ -113,7 +113,6 @@
       />
     </div>
   </nav>
-
   <nav v-else-if="nav === `top`" class="nav-black w-full h-14">
     <div class="flex justify-end items-center">
       <p class="pr-5">bel</p>
