@@ -8,15 +8,20 @@ const router = createRouter({
       path: '/',
       component: () => import('../views/Home.vue'),
     },
-
+    {
+      path: '/category',
+      component: () =>
+        import('../views/firstAid/visitors/emergencyCategory.vue'),
+      props: true,
+    },
+    {
+      path: '/map',
+      component: () => import('../views/firstAid/visitors/emergencyMap.vue'),
+      props: true,
+    },
     {
       path: '/Help',
       component: () => import('../views/firstAid/Help.vue'),
-    },
-    {
-      path: '/emergency',
-      component: () =>
-        import('../views/firstAid/visitors/emergencyCategory.vue'),
     },
 
     {

@@ -2,21 +2,27 @@
   <article class="ml-7rem">
     <h1 class="title-red">What happened?</h1>
     <p class="subtitle-red">What kind of help do you need?</p>
-    <div v-for="item in items" class="flex flex-wrap justify-center m-3">
-      <EmergencyCard
-        :image="item.image"
-        :title="item.text"
-        :icon="item.icon"
-        :subtitle="item.subtitle"
-        :category="item.category"
-        @setCategory="setCategory(item.category)"
-      />
-    </div>
+    <section class="flex flex-wrap justify-center items-center">
+      <div v-for="item in items" class="bg-red rounded-xl p-3 m-3 w-1/4">
+        <EmergencyCard
+          :image="item.image"
+          :title="item.text"
+          :icon="item.icon"
+          :subtitle="item.subtitle"
+          :category="item.category"
+        />
+      </div>
+    </section>
   </article>
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
+import { ref } from 'vue'
 import EmergencyCard from '../../../components/generic/emergencyCard.vue'
+
+const { push } = useRouter()
+
 const items = [
   {
     text: 'Unconscious',
@@ -35,8 +41,8 @@ const items = [
     image: 'otherInjury.svg',
   },
 ]
-const setCategory: any = (category: string) => {
-  console.log(category)
+const setCategory: any = async (category: string) => {
+  push({ path: '/map', params: { categoryName: category } })
 }
 </script>
 
