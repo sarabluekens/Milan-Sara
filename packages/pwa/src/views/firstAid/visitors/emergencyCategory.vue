@@ -3,7 +3,12 @@
   <p>What kind of help do you need?</p>
 
   <div>
-    <EmergencyCard image="dummyProfile.png" title="test card" subimage="dummyprofile.png" subtitle="test subtitle" />
+    <EmergencyCard
+      image="dummyProfile.png"
+      title="test card"
+      subimage="dummyprofile.png"
+      subtitle="test subtitle"
+    />
   </div>
 </template>
 
