@@ -131,5 +131,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-let showMenu = ref(false)
+const showMenu = ref(false)
 </script>

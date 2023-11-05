@@ -2,34 +2,41 @@
   <article class="ml-7rem">
     <h1 class="title-red">What happened?</h1>
     <p class="subtitle-red">What kind of help do you need?</p>
-
-    <div class="flex flex-wrap justify-center m-3">
+    <div v-for="item in items" class="flex flex-wrap justify-center m-3">
       <EmergencyCard
-        image="unconscious.svg"
-        title="Victim is unconscious"
-        icon="i-ic-baseline-phone"
-        subtitle="You will be called for urgent aid"
-      />
-      <EmergencyCard image="fell.svg" title="Victim fell" />
-      <EmergencyCard image="drugs.svg" title="Drug and/or alcohol abuse" />
-      <EmergencyCard image="bleed.svg" title="Heavy bleeding" />
-      <EmergencyCard image="allergy.svg" title="Allergic reaction" />
-      <EmergencyCard
-        image="otherInjury.svg"
-        title="I don't know, something else"
+        :image="item.image"
+        :title="item.text"
+        :icon="item.icon"
+        :subtitle="item.subtitle"
+        :category="item.category"
+        @setCategory="setCategory(item.category)"
       />
     </div>
   </article>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import EmergencyCard from '../../../components/generic/emergencyCard.vue'
-export default {
-  name: 'EmergencyCategory',
-  components: {
-    EmergencyCard,
+const items = [
+  {
+    text: 'Unconscious',
+    category: 'unconscious',
+    icon: 'i-ic-baseline-phone',
+    subtitle: 'You will be called for urgent aid',
+    image: 'unconscious.svg',
   },
-  // Your Vue component logic here
+  { text: 'Fell', image: 'fell.svg', category: 'fell' },
+  { text: 'Drug and/or alcohol abuse', category: 'drugs', image: 'drugs.svg' },
+  { text: 'Heavy bleeding', category: 'bleed', image: 'bleed.svg' },
+  { text: 'Allergic reaction', category: 'allergy', image: 'allergy.svg' },
+  {
+    text: "I don't know, something else",
+    category: 'otherInjury',
+    image: 'otherInjury.svg',
+  },
+]
+const setCategory: any = (category: string) => {
+  console.log(category)
 }
 </script>
 
