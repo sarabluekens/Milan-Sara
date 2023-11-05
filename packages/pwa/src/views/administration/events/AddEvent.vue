@@ -109,13 +109,23 @@
         min="0"
       />
       <p class="body-black col-span-1">Children</p>
-      <label
-        v-for="option in Options"
-        :key="option.name"
-        class="col-span-2 mx-auto mb-3 w-15vw"
-      >
-        <input type="radio" :value="option.name" v-model="newEvent.children" />
-        {{ option.name }}
+      <label class="col-span-2 mx-auto mb-3 w-15vw" for="Yes">
+        <input
+          type="radio"
+          v-bind:value="true"
+          id="Yes"
+          v-model="newEvent.children"
+        />
+        Yes
+      </label>
+      <label class="col-span-2 mx-auto mb-3 w-15vw" for="No">
+        <input
+          type="radio"
+          v-bind:value="false"
+          id="No"
+          v-model="newEvent.children"
+        />
+        No
       </label>
       <label class="body-black col-span-1" for="maps">Maps</label>
       <input
@@ -242,7 +252,6 @@ export default {
     }
 
     return {
-      Options: [{ name: 'yes' }, { name: 'no' }],
       newEvent,
       handleAddEvent,
     }
