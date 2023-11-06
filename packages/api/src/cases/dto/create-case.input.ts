@@ -1,10 +1,9 @@
 import { InputType, Field } from '@nestjs/graphql'
 import { IsBoolean, IsOptional, IsIn, isArray, IsArray } from 'class-validator'
-import { type } from 'os'
 import {
   UsedMaterial,
   UsedMaterialClass,
-} from 'src/cases/entities/used-material.entity'
+} from '../entities/used-material.entity'
 
 export const accidentTypes = [
   'fell',
@@ -27,10 +26,14 @@ export class CreateCaseInput {
   @Field(() => [String], { defaultValue: [], nullable: true })
   caregiverId: Array<string>
 
+  // @IsOptional()
+  // @IsArray()
+  // @Field(() => [UsedMaterialClass], { defaultValue: [], nullable: true })
+  // usedMaterial: Array<UsedMaterial>
+
   @IsOptional()
-  @IsArray()
   @Field(() => [UsedMaterialClass], { defaultValue: [], nullable: true })
-  usedMaterial: Array<UsedMaterial>
+  usedMaterials: Array<UsedMaterial>
 
   @IsIn(accidentTypes)
   @Field()

@@ -1,11 +1,8 @@
 import { ObjectType, Field, Int, ID } from '@nestjs/graphql'
 import { graphql } from 'graphql'
 import { type } from 'os'
-import {
-  UsedMaterial,
-  UsedMaterialClass,
-} from 'src/cases/entities/used-material.entity'
-import { Column, Entity, ObjectIdColumn } from 'typeorm'
+import { UsedMaterial, UsedMaterialClass } from './used-material.entity'
+import { Column, Entity, ManyToMany, ObjectIdColumn } from 'typeorm'
 
 @Entity()
 @ObjectType()
@@ -77,15 +74,11 @@ export class Case {
   @Column()
   @Field(() => [UsedMaterialClass], { defaultValue: [], nullable: true })
   usedMaterials: Array<UsedMaterial>
-  type: UsedMaterial
 
-  @Column()
-  @Field(() => [UsedMaterialClass], { defaultValue: [], nullable: true })
-  usedMaterial: Array<UsedMaterial>
-
-  // @Column(() => UsedMaterial)
-  // @Field(() => [UsedMaterial], { nullable: true })
-  // usedMaterials: Array<UsedMaterial>
+  // @Column(() => UsedMaterialClass)
+  // @Field(() => [UsedMaterialClass], { defaultValue: [], nullable: true })
+  // usedMaterials: UsedMaterialClass[]
+  // type: UsedMaterial
 
   //column = db
   //field = graphql
