@@ -1,9 +1,10 @@
 import { InputType, Field } from '@nestjs/graphql'
-import { IsBoolean, IsOptional, IsIn, isArray, IsArray } from 'class-validator'
+import { IsBoolean, IsOptional, IsIn } from 'class-validator'
 import {
   UsedMaterial,
   UsedMaterialClass,
 } from '../entities/used-material.entity'
+import { isDate } from 'util/types'
 
 export const accidentTypes = [
   'fell',
