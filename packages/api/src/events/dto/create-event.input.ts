@@ -39,8 +39,8 @@ export class CreateEventInput {
   eventWithChildren: boolean
 
   @Field() //graphql
-  mapsLink: string
+  expectedVisitorStaffCount: number
 
   @Field() //graphql
-  expectedVisitorStaffCount: number
+  mapsLink: string
 }
