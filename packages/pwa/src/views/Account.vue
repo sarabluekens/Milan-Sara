@@ -22,6 +22,7 @@ import { SUPPORTED_LOCALES } from '@/bootstrap/i18n'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import useLanguage from '@/composables/useLanguage'
+import useCustomUser from '@/composables/useCustomUser'
 
 const { firebaseUser } = useFirebase()
 const { replace } = useRouter()
@@ -36,6 +37,7 @@ firebaseUser.value?.getIdToken().then(token => {
 
 // const logoutUser = () => {
 //   logout().then(() => {
+//     customUser.value = undefined
 //     replace({ path: '/' })
 //   })
 // }
