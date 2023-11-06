@@ -12,9 +12,9 @@ import { ConfigModule } from '@nestjs/config'
 import { UsersModule } from './users/users.module'
 import { EventsModule } from './events/events.module'
 import { CommandModule } from 'nestjs-command'
-import { VictimsModule } from './victims/victims.module';
-import { CasesModule } from './cases/cases.module';
-import { UsedMaterialsModule } from './used-materials/used-materials.module';
+import { VictimsModule } from './victims/victims.module'
+import { CasesModule } from './cases/cases.module'
+import { UsedMaterialsModule } from './used-materials/used-materials.module'
 
 @Module({
   imports: [

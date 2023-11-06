@@ -10,6 +10,7 @@
           :icon="item.icon"
           :subtitle="item.subtitle"
           :category="item.category"
+          @click="setCategory(item.category)"
         />
       </div>
     </section>
@@ -42,7 +43,9 @@ const items = [
   },
 ]
 const setCategory: any = async (category: string) => {
-  push({ path: '/map', params: { categoryName: category } })
+  console.log(category)
+
+  push({ name: 'map', params: { categoryName: category } })
 }
 </script>
 

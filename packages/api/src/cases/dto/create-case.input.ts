@@ -1,6 +1,15 @@
-import { InputType, Int, Field } from '@nestjs/graphql'
-import { UsedMaterial } from 'src/used-materials/entities/used-material.entity'
-@InputType()
+import { InputType, Field } from '@nestjs/graphql'
+import { IsBoolean, IsOptional, IsIn, IsDate } from 'class-validator'
+
+export const accidentTypes = [
+  'fell',
+  'unconscious',
+  'bleed',
+  'drug',
+  'allergy',
+  'other',
+]
+@InputType() // for graphql (create query in the service)
 export class CreateCaseInput {
   @Field()
   victimId: string
@@ -11,10 +20,11 @@ export class CreateCaseInput {
   @Field(() => [String], { defaultValue: [] })
   caregiverId: Array<string>
 
+  @IsIn(accidentTypes)
   @Field()
   typeAccident: string
 
-  @Field()
+  @Field(() => Date)
   date: Date
 
   @Field()
@@ -29,21 +39,27 @@ export class CreateCaseInput {
   @Field()
   careGiven: string
 
+  @IsBoolean()
   @Field()
   checkUpRequired: boolean
 
-  @Field()
+  @IsOptional()
+  @Field({ nullable: true })
   checkUpDescription: string
 
+  @IsBoolean()
   @Field()
-  Referred: boolean
+  referred: boolean
 
-  @Field()
+  @IsOptional()
+  @Field({ nullable: true })
   referralDescription: string
 
+  @IsBoolean()
   @Field()
   personalEnsurance: boolean
 
+  @IsBoolean()
   @Field()
   eventEnsurance: boolean
 

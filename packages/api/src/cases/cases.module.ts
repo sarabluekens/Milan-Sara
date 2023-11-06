@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { Case } from './entities/case.entity'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Case])],
+  imports: [TypeOrmModule.forFeature([Case])], //allows to injectrepository into service for entity case
   providers: [CasesResolver, CasesService],
 
   exports: [CasesService],

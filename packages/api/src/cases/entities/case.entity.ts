@@ -1,10 +1,12 @@
 import { ObjectType, Field, Int, ID } from '@nestjs/graphql'
+import { graphql } from 'graphql'
 import { UsedMaterial } from 'src/used-materials/entities/used-material.entity'
-import { Column, ObjectIdColumn } from 'typeorm'
+import { Column, Entity, ObjectIdColumn } from 'typeorm'
 
+@Entity()
 @ObjectType()
 export class Case {
-  @ObjectIdColumn()
+  @ObjectIdColumn() // Database link - Typeorm
   @Field(() => ID)
   id: string
 
@@ -50,15 +52,15 @@ export class Case {
 
   @Column({ nullable: true })
   @Field({ nullable: true })
-  checkUpDescription: string
+  checkUpDescription?: string
 
   @Column()
   @Field()
   referred: boolean
 
-  @Column({ nullable: true })
-  @Field({ nullable: true })
-  referralDescription: string
+  @Column({ nullable: true }) //db
+  @Field({ nullable: true }) //graphql
+  referralDescription?: string
 
   @Column()
   @Field()
