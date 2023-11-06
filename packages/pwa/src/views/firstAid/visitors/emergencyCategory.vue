@@ -19,7 +19,6 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import { ref } from 'vue'
 import EmergencyCard from '../../../components/generic/emergencyCard.vue'
 
 const { push } = useRouter()
@@ -43,9 +42,9 @@ const items = [
   },
 ]
 const setCategory: any = async (category: string) => {
-  console.log(category)
-
-  push({ name: 'map', params: { categoryName: category } })
+  // set the prop category as the value of the category
+  const data = { category }
+  push({ name: 'map', params: data })
 }
 </script>
 

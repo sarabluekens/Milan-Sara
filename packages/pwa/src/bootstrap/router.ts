@@ -12,7 +12,6 @@ const router = createRouter({
       path: '/category',
       component: () =>
         import('../views/firstAid/visitors/emergencyCategory.vue'),
-      props: true,
     },
     {
       path: '/map',
