@@ -10,7 +10,7 @@
         type="text"
         placeholder="Event name"
         id="eventname"
-        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3"
+        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3 subbody-black/80"
         v-model="newEvent.name"
       />
       <label class="body-black col-span-1" for="address">Address</label>
@@ -18,7 +18,7 @@
         type="text"
         placeholder="Address"
         id="address"
-        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3"
+        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3 subbody-black/80"
         v-model="newEvent.address"
       />
       <label class="body-black col-span-1" for="postalcode">PostalCode</label>
@@ -26,7 +26,7 @@
         type="text"
         placeholder="PostalCode"
         id="postalcode"
-        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3"
+        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3 subbody-black/80"
         v-model="newEvent.postalCode"
       />
       <label class="body-black col-span-1" for="city">City</label>
@@ -34,7 +34,7 @@
         type="text"
         placeholder="City"
         id="city"
-        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3"
+        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3 subbody-black/80"
         v-model="newEvent.city"
       />
       <label class="body-black col-span-1" for="dates">Dates</label>
@@ -68,7 +68,7 @@
         type="text"
         placeholder="Contactperson"
         id="contactperson"
-        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3"
+        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3 subbody-black/80"
         v-model="newEvent.contactPerson"
       />
       <label class="body-black col-span-1" for="email">Email</label>
@@ -76,7 +76,7 @@
         type="email"
         placeholder="Email"
         id="email"
-        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3"
+        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3 subbody-black/80"
         v-model="newEvent.email"
       />
       <label class="body-black col-span-1" for="phone-number"
@@ -86,7 +86,7 @@
         type="tel"
         placeholder="Phone number"
         id="phone-number"
-        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3"
+        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3 subbody-black/80"
         v-model="newEvent.phoneNumber"
       />
       <label class="body-black col-span-1" for="btw-number">Btw number</label>
@@ -94,7 +94,7 @@
         type="text"
         placeholder="Btw number"
         id="btw-number"
-        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3"
+        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3 subbody-black/80"
         v-model="newEvent.btwNumber"
       />
       <label class="body-black col-span-1" for="expected-visitor-staff-count"
@@ -104,12 +104,12 @@
         type="number"
         placeholder="Expected visitor / staff count"
         id="expected-visitor-staff-count"
-        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3"
+        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3 subbody-black/80"
         v-model="newEvent.expectedVisitorStaffCount"
         min="0"
       />
       <p class="body-black col-span-1">Children</p>
-      <label class="col-span-2 mx-auto mb-3 w-15vw" for="Yes">
+      <label class="col-span-2 mx-auto mb-3 w-15vw subbody-black/80" for="Yes">
         <input
           type="radio"
           v-bind:value="true"
@@ -118,7 +118,7 @@
         />
         Yes
       </label>
-      <label class="col-span-2 mx-auto mb-3 w-15vw" for="No">
+      <label class="col-span-2 mx-auto mb-3 w-15vw subbody-black/80" for="No">
         <input
           type="radio"
           v-bind:value="false"
@@ -132,11 +132,11 @@
         type="file"
         multiple
         id="maps"
-        class="border-1 border-black w-2/3 h-10 ml-3 bg-white subbody-black/80 col-span-4 mb-3 file:bg-black file:subbody-white file:h-10"
+        class="border-1 border-black w-2/3 h-10 ml-3 bg-white subbody-black/80 col-span-4 mb-6 file:bg-black file:subbody-white file:h-10"
         v-on:change="newEvent.maps"
       />
       <button
-        class="border-1 border-red bg-red/80 col-span-2 col-start-2 body-black"
+        class="border-1 border-red bg-red col-span-2 col-start-2 body-white h-10"
       >
         Create event
       </button>
