@@ -44,66 +44,16 @@
           <p class="col-span-4">Event name</p>
           <p class="col-span-1">Status</p>
         </div>
+        <div v-if="eventsLoading">Loading</div>
+        <div v-if="eventsError">{{ eventsError }}</div>
         <div
+          v-if="events"
+          v-for="event in events.events"
           class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 subbody-black"
         >
-          <p class="col-span-2">25 SEP 20:57</p>
-          <p class="col-span-2">000001</p>
-          <p class="col-span-4">Tommorrowland in the snow</p>
-          <p class="col-span-1">Pending</p>
-          <p class="h-6 px-2 w-auto bg-red col-span-1">event details</p>
-        </div>
-        <div
-          class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 subbody-black"
-        >
-          <p class="col-span-2">25 SEP 20:57</p>
-          <p class="col-span-2">000001</p>
-          <p class="col-span-4">Tommorrowland in the snow</p>
-          <p class="col-span-1">Pending</p>
-          <p class="h-6 px-2 w-auto bg-red col-span-1">event details</p>
-        </div>
-        <div
-          class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 subbody-black"
-        >
-          <p class="col-span-2">25 SEP 20:57</p>
-          <p class="col-span-2">000001</p>
-          <p class="col-span-4">Tommorrowland in the snow</p>
-          <p class="col-span-1">Pending</p>
-          <p class="h-6 px-2 w-auto bg-red col-span-1">event details</p>
-        </div>
-        <div
-          class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 subbody-black"
-        >
-          <p class="col-span-2">25 SEP 20:57</p>
-          <p class="col-span-2">000001</p>
-          <p class="col-span-4">Tommorrowland in the snow</p>
-          <p class="col-span-1">Pending</p>
-          <p class="h-6 px-2 w-auto bg-red col-span-1">event details</p>
-        </div>
-        <div
-          class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 subbody-black"
-        >
-          <p class="col-span-2">25 SEP 20:57</p>
-          <p class="col-span-2">000001</p>
-          <p class="col-span-4">Tommorrowland in the snow</p>
-          <p class="col-span-1">Pending</p>
-          <p class="h-6 px-2 w-auto bg-red col-span-1">event details</p>
-        </div>
-        <div
-          class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 subbody-black"
-        >
-          <p class="col-span-2">25 SEP 20:57</p>
-          <p class="col-span-2">000001</p>
-          <p class="col-span-4">Tommorrowland in the snow</p>
-          <p class="col-span-1">Pending</p>
-          <p class="h-6 px-2 w-auto bg-red col-span-1">event details</p>
-        </div>
-        <div
-          class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 subbody-black"
-        >
-          <p class="col-span-2">25 SEP 20:57</p>
-          <p class="col-span-2">000001</p>
-          <p class="col-span-4">Tommorrowland in the snow</p>
+          <p class="col-span-2">{{ event.createdAt }}</p>
+          <p class="col-span-2">{{ event.id }}</p>
+          <p class="col-span-4">{{ event.name }}</p>
           <p class="col-span-1">Pending</p>
           <p class="h-6 px-2 w-auto bg-red col-span-1">event details</p>
         </div>
@@ -114,15 +64,25 @@
 
 <script lang="ts">
 import useFirebase from '@/composables/useFirebase'
-import { useRouter } from 'vue-router'
+import { useQuery } from '@vue/apollo-composable'
+import { ALL_EVENT } from '../../graphql/event.query'
 
 export default {
   setup() {
     // Composable
     const { firebaseUser } = useFirebase()
 
+    const {
+      loading: eventsLoading,
+      result: events,
+      error: eventsError,
+    } = useQuery(ALL_EVENT)
+
     return {
       firebaseUser,
+      eventsLoading,
+      eventsError,
+      events: events,
     }
   },
 }
