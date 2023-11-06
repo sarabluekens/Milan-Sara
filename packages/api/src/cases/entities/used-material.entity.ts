@@ -1,6 +1,4 @@
-import { ObjectType, Field, Int, InputType, ID } from '@nestjs/graphql'
-import { type } from 'os'
-import { ObjectIdColumn } from 'typeorm'
+import { ObjectType, Field, InputType } from '@nestjs/graphql'
 
 @ObjectType()
 @InputType('UsedMaterialInput')
@@ -13,7 +11,6 @@ export class UsedMaterialClass {
 }
 
 export type UsedMaterial = {
-  id: string
   name: string
   quantity: number
 }

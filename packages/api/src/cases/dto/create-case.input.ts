@@ -26,15 +26,6 @@ export class CreateCaseInput {
   @Field(() => [String], { defaultValue: [], nullable: true })
   caregiverId: Array<string>
 
-  // @IsOptional()
-  // @IsArray()
-  // @Field(() => [UsedMaterialClass], { defaultValue: [], nullable: true })
-  // usedMaterial: Array<UsedMaterial>
-
-  @IsOptional()
-  @Field(() => [UsedMaterialClass], { defaultValue: [], nullable: true })
-  usedMaterials: Array<UsedMaterial>
-
   @IsIn(accidentTypes)
   @Field()
   typeAccident: string
@@ -81,6 +72,7 @@ export class CreateCaseInput {
   @Field({ nullable: true, defaultValue: false })
   eventEnsurance: boolean
 
-  // @Field(() => UsedMaterial)
-  // usedMaterial: UsedMaterial
+  @IsOptional()
+  @Field(() => [UsedMaterialClass], { defaultValue: [], nullable: true })
+  usedMaterials: Array<UsedMaterial>
 }
