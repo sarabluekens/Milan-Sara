@@ -54,7 +54,7 @@ export class Case {
 
   @Column()
   @Field()
-  Referred: boolean
+  referred: boolean
 
   @Column({ nullable: true })
   @Field({ nullable: true })
