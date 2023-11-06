@@ -1,5 +1,10 @@
 import { InputType, Field } from '@nestjs/graphql'
-import { IsBoolean, IsOptional, IsIn, IsDate } from 'class-validator'
+import { IsBoolean, IsOptional, IsIn, isArray, IsArray } from 'class-validator'
+import { type } from 'os'
+import {
+  UsedMaterial,
+  UsedMaterialClass,
+} from 'src/cases/entities/used-material.entity'
 
 export const accidentTypes = [
   'fell',
@@ -11,14 +16,21 @@ export const accidentTypes = [
 ]
 @InputType() // for graphql (create query in the service)
 export class CreateCaseInput {
-  @Field()
+  @IsOptional()
+  @Field({ nullable: true })
   victimId: string
 
   @Field()
   eventId: string
 
-  @Field(() => [String], { defaultValue: [] })
+  @IsOptional()
+  @Field(() => [String], { defaultValue: [], nullable: true })
   caregiverId: Array<string>
+
+  @IsOptional()
+  @IsArray()
+  @Field(() => [UsedMaterialClass], { defaultValue: [], nullable: true })
+  usedMaterial: Array<UsedMaterial>
 
   @IsIn(accidentTypes)
   @Field()
@@ -30,17 +42,20 @@ export class CreateCaseInput {
   @Field()
   priority: number
 
-  @Field()
+  @IsOptional()
+  @Field({ nullable: true })
   accidentDescription: string
 
-  @Field()
+  @IsOptional()
+  @Field({ nullable: true })
   diagnose: string
 
-  @Field()
+  @IsOptional()
+  @Field({ nullable: true })
   careGiven: string
 
   @IsBoolean()
-  @Field()
+  @Field({ nullable: true, defaultValue: false })
   checkUpRequired: boolean
 
   @IsOptional()
@@ -48,7 +63,7 @@ export class CreateCaseInput {
   checkUpDescription: string
 
   @IsBoolean()
-  @Field()
+  @Field({ nullable: true, defaultValue: false })
   referred: boolean
 
   @IsOptional()
@@ -56,11 +71,11 @@ export class CreateCaseInput {
   referralDescription: string
 
   @IsBoolean()
-  @Field()
+  @Field({ nullable: true, defaultValue: true })
   personalEnsurance: boolean
 
   @IsBoolean()
-  @Field()
+  @Field({ nullable: true, defaultValue: false })
   eventEnsurance: boolean
 
   // @Field(() => UsedMaterial)

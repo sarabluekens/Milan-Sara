@@ -6,15 +6,13 @@ import * as caregivers from './data/caregivers.json'
 import { EquipmentsService } from 'src/equipments/equipments.service'
 import { Equipment } from 'src/equipments/entities/equipment.entity'
 import { VictimsService } from 'src/victims/victims.service'
-import { UsedMaterialsService } from 'src/used-materials/used-materials.service'
 
 @Injectable()
 export class SeedService {
   constructor(
     private caregiversService: CaregiversService,
     private equipmentsService: EquipmentsService,
-    private vicrimsService: VictimsService,
-    private usedMaterialsService: UsedMaterialsService,
+    private victimsService: VictimsService,
   ) {}
 
   async addCaregiversFromJson(): Promise<Caregiver[]> {

@@ -19,6 +19,7 @@ export class CasesResolver {
   cases(): Promise<Case[]> {
     return this.casesService.findAll()
   }
+
   @Mutation(() => Case)
   createCase(
     @Args('createCaseInput') createCaseInput: CreateCaseInput,

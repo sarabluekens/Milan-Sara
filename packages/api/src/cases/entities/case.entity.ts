@@ -1,6 +1,10 @@
 import { ObjectType, Field, Int, ID } from '@nestjs/graphql'
 import { graphql } from 'graphql'
-import { UsedMaterial } from 'src/used-materials/entities/used-material.entity'
+import { type } from 'os'
+import {
+  UsedMaterial,
+  UsedMaterialClass,
+} from 'src/cases/entities/used-material.entity'
 import { Column, Entity, ObjectIdColumn } from 'typeorm'
 
 @Entity()
@@ -11,7 +15,7 @@ export class Case {
   id: string
 
   @Column()
-  @Field()
+  @Field({ nullable: true })
   victimId: string
 
   @Column()
@@ -19,7 +23,7 @@ export class Case {
   eventId: string
 
   @Column()
-  @Field(() => [String], { defaultValue: [] })
+  @Field(() => [String], { defaultValue: [], nullable: true })
   caregiverId: Array<string>
 
   @Column()
@@ -35,19 +39,19 @@ export class Case {
   priority: number
 
   @Column()
-  @Field()
+  @Field({ nullable: true })
   accidentDescription: string
 
   @Column()
-  @Field()
+  @Field({ nullable: true })
   diagnose: string
 
   @Column()
-  @Field()
+  @Field({ nullable: true })
   careGiven: string
 
   @Column()
-  @Field()
+  @Field({ defaultValue: false })
   checkUpRequired: boolean
 
   @Column({ nullable: true })
@@ -55,7 +59,7 @@ export class Case {
   checkUpDescription?: string
 
   @Column()
-  @Field()
+  @Field({ defaultValue: false })
   referred: boolean
 
   @Column({ nullable: true }) //db
@@ -63,12 +67,21 @@ export class Case {
   referralDescription?: string
 
   @Column()
-  @Field()
+  @Field({ defaultValue: true })
   personalEnsurance: boolean
 
   @Column()
-  @Field()
+  @Field({ defaultValue: false })
   eventEnsurance: boolean
+
+  @Column()
+  @Field(() => [UsedMaterialClass], { defaultValue: [], nullable: true })
+  usedMaterials: Array<UsedMaterial>
+  type: UsedMaterial
+
+  @Column()
+  @Field(() => [UsedMaterialClass], { defaultValue: [], nullable: true })
+  usedMaterial: Array<UsedMaterial>
 
   // @Column(() => UsedMaterial)
   // @Field(() => [UsedMaterial], { nullable: true })
