@@ -8,7 +8,17 @@ const router = createRouter({
       path: '/',
       component: () => import('../views/Home.vue'),
     },
-
+    {
+      path: '/category',
+      component: () =>
+        import('../views/firstAid/visitors/emergencyCategory.vue'),
+    },
+    {
+      path: '/map',
+      name: 'map',
+      component: () => import('../views/firstAid/visitors/emergencyMap.vue'),
+      props: true,
+    },
     {
       path: '/Help',
       component: () => import('../views/firstAid/Help.vue'),

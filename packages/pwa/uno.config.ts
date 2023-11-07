@@ -27,12 +27,12 @@ export default defineConfig({
     [
       /^title-(.*)$/,
       ([, c]) =>
-        `font-inria text-${c} text-2.5rem md:text-4.4rem lg:text-5rem text-center`,
+        `font-inria text-${c} text-2.5rem md:text-4.4rem lg:text-5rem text-center -mb-1rem`,
     ],
     [
       /^subtitle-(.*)$/,
       ([, c]) =>
-        `font-inria text-${c} text-1.4rem sm:text-1.8rem md:text-2rem lg:text-3rem text-center`,
+        `font-inria text-${c} text-1.4rem sm:text-1.8rem md:text-2rem lg:text-2.3rem text-center`,
     ],
     [
       /^body-(.*)$/,
