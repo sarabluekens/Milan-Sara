@@ -3,6 +3,7 @@
     <h1 class="title-red mb-4rem">Welcome back, Sara</h1>
     <p class="subtitle-black text-left ml-20vw">Waiting Cases</p>
     <section
+      v-if="result.cases.length > 0"
       v-for="item in result.cases"
       class="m-3 flex flex-row justify-center items-center w-full"
     >
@@ -10,12 +11,14 @@
       <div
         class="rounded-xl border-2 border-red p-3 flex flex-row justify-between items-center w-50vw mr-3"
       >
-        <p
-          v-show="item.priority == 1"
-          class="body-red px-2 py-1 border-2 border-red rounded-lg m-0"
-        >
-          Urgent!
-        </p>
+        <div class="w-5vw">
+          <p
+            v-show="item.priority == 1"
+            class="body-red px-2 py-1 border-2 border-red rounded-lg m-0"
+          >
+            Urgent!
+          </p>
+        </div>
         <h1 class="body-black">{{ item.typeAccident }}</h1>
         <p>{{ item.priority }}</p>
         <p class="body-pink">{{ item.date }}</p>
