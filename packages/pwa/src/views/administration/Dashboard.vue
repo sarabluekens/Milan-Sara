@@ -11,7 +11,9 @@
         <div
           class="border-2 m-auto flex flex-col justify-center items-center w-full h-full border-red rounded-xl"
         >
-          <h3 class="subtitle-black">2</h3>
+          <h3 v-if="eventsCompleted" class="subtitle-black">
+            {{ eventsCompleted.eventsByStatus.length }}
+          </h3>
           <p class="text-black">Succesful events</p>
         </div>
       </div>
@@ -27,7 +29,9 @@
         <div
           class="border-2 m-auto flex flex-col justify-center items-center w-full h-full border-red rounded-xl"
         >
-          <h3 class="subtitle-black">28</h3>
+          <h3 v-if="events" class="subtitle-black">
+            {{ events.eventsByStatus.length }}
+          </h3>
           <p class="text-black">Pending events</p>
         </div>
       </div>
@@ -65,7 +69,7 @@
 <script lang="ts">
 import useFirebase from '@/composables/useFirebase'
 import { useQuery } from '@vue/apollo-composable'
-import { ALL_EVENT, GET_EVENT_BY_STATUS } from '../../graphql/event.query'
+import { GET_EVENT_BY_STATUS } from '../../graphql/event.query'
 
 export default {
   setup() {
@@ -78,6 +82,18 @@ export default {
       error: eventsError,
     } = useQuery(GET_EVENT_BY_STATUS, { status: 'Pending' })
 
+    const {
+      loading: eventsCompletedLoading,
+      result: eventsCompleted,
+      error: eventsCompletedError,
+    } = useQuery(GET_EVENT_BY_STATUS, { status: 'Completed' })
+
+    /* const {
+      loading: caseLoading,
+      result: cases,
+      error: caseError,
+    } = useQuery(GET_EVENT_BY_STATUS, { status: 'Cancelled' }) */
+
     console.log(events)
 
     return {
@@ -85,6 +101,9 @@ export default {
       eventsLoading,
       eventsError,
       events: events,
+      eventsCompletedLoading,
+      eventsCompletedError,
+      eventsCompleted: eventsCompleted,
     }
   },
 }
