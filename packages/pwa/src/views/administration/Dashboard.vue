@@ -47,7 +47,7 @@
         <div v-if="eventsError">{{ eventsError }}</div>
         <div
           v-if="events"
-          v-for="event in events.events"
+          v-for="event in events.eventsByStatus"
           class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 subbody-black"
         >
           <p class="col-span-2">{{ event.createdAt }}</p>
@@ -65,7 +65,7 @@
 <script lang="ts">
 import useFirebase from '@/composables/useFirebase'
 import { useQuery } from '@vue/apollo-composable'
-import { ALL_EVENT } from '../../graphql/event.query'
+import { ALL_EVENT, GET_EVENT_BY_STATUS } from '../../graphql/event.query'
 
 export default {
   setup() {
@@ -76,7 +76,7 @@ export default {
       loading: eventsLoading,
       result: events,
       error: eventsError,
-    } = useQuery(ALL_EVENT)
+    } = useQuery(GET_EVENT_BY_STATUS, { status: 'Pending' })
 
     console.log(events)
 
