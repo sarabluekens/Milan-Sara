@@ -40,8 +40,7 @@
         </div>
         <div class="grid grid-cols-10 px-2 mx-6 mb-4 subbody-black">
           <p class="col-span-2">Date added</p>
-          <p class="col-span-2">Event id</p>
-          <p class="col-span-4">Event name</p>
+          <p class="col-span-6">Event name</p>
           <p class="col-span-1">Status</p>
         </div>
         <div v-if="eventsLoading">Loading</div>
@@ -52,10 +51,11 @@
           class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 subbody-black"
         >
           <p class="col-span-2">{{ event.createdAt }}</p>
-          <p class="col-span-2">{{ event.id }}</p>
-          <p class="col-span-4">{{ event.name }}</p>
+          <p class="col-span-6">{{ event.name }}</p>
           <p class="col-span-1">Pending</p>
-          <p class="h-6 px-2 w-auto bg-red col-span-1">event details</p>
+          <p class="h-6 px-2 w-auto bg-red subbody-white col-span-1">
+            event details
+          </p>
         </div>
       </div>
     </section>
