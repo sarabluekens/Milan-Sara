@@ -43,6 +43,8 @@ const items = [
 ]
 const setCategory: any = async (category: string) => {
   // set the prop category as the value of the category
+  console.log(category)
+
   const data = { category }
   push({ name: 'map', params: data })
 }
