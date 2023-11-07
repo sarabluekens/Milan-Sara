@@ -1,51 +1,65 @@
 <template>
-  <section class="ml-5rem bg-beige w-full h-100vh">
-    <h1 class="title-red mb-4rem">Welcome back, Sara</h1>
-    <p class="subtitle-black text-left ml-20vw">Waiting Cases</p>
-    <section
-      v-if="result.cases.length > 0"
-      v-for="item in result.cases"
-      class="m-3 flex flex-row justify-center items-center w-full"
-    >
-      <h2 class="hidden">Case card</h2>
-      <div
-        class="rounded-xl border-2 border-red p-3 flex flex-row justify-between items-center w-50vw mr-3"
-      >
-        <div class="w-5vw">
-          <p
-            v-show="item.priority == 1"
-            class="body-red px-2 py-1 border-2 border-red rounded-lg m-0"
-          >
-            Urgent!
-          </p>
-        </div>
-        <h1 class="body-black">{{ item.typeAccident }}</h1>
-        <p>{{ item.priority }}</p>
-        <p class="body-pink">{{ item.date }}</p>
-
-        <div class="rounded-xl w-1rem h-1rem bg-pink"></div>
-      </div>
-      <button class="bg-red body-beige rounded-lg p-3">Take Case</button>
-    </section>
-  </section>
+  <div id="mapContainer"></div>
 </template>
 
-<script lang="ts">
-import { ALL_CASES } from '@/graphql/case.query'
-import { useQuery } from '@vue/apollo-composable'
+<script>
+import 'leaflet/dist/leaflet.css'
+import L from 'leaflet'
+import '/Tween.js?url'
+import '/leaflet.curve.js?url'
 
 export default {
-  setup() {
-    const { result: defaultCases, loading, error } = useQuery(ALL_CASES)
+  name: 'LeafletMap',
+  data() {
     return {
-      result: defaultCases,
+      map: null,
+    }
+  },
+  mounted() {
+    this.map = L.map('mapContainer').setView([46.05, 11.05], 5)
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+      attribution:
+        '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(this.map)
+    //use a mix of renderers
+    var customPane = this.map.createPane('customPane')
+    var canvasRenderer = L.canvas({ pane: 'customPane' })
+    customPane.style.zIndex = 399 // put just behind the standard overlay pane which is at 400
+    L.marker([50, 14]).addTo(this.map)
+
+    L.marker([53, 20]).addTo(this.map)
+    L.marker([49.5, 19.5]).addTo(this.map)
+    L.marker([49, 25]).addTo(this.map)
+    L.marker([-10, 25]).addTo(this.map)
+    L.marker([10, -25]).addTo(this.map)
+    L.marker([0, 0]).addTo(this.map)
+    var pathOne = L.curve(['M', [50, 14], 'Q', [53, 20], [49, 25]], {
+      renderer: canvasRenderer,
+    }).addTo(this.map)
+    L.curve(['M', [50, 14], 'Q', [52, 20], [49, 25]], {
+      renderer: canvasRenderer,
+    }).addTo(this.map)
+    L.curve(['M', [50, 14], 'Q', [51, 20], [49, 25]], {
+      renderer: canvasRenderer,
+    }).addTo(this.map)
+    L.curve(['M', [50, 14], 'Q', [50, 20], [49, 25]], {
+      renderer: canvasRenderer,
+    }).addTo(this.map)
+    L.curve(['M', [50, 14], 'Q', [47, 20], [49, 25]], {
+      renderer: canvasRenderer,
+    }).addTo(this.map)
+  },
+  onBeforeUnmount() {
+    if (this.map) {
+      this.map.remove()
     }
   },
 }
-
-// read param
 </script>
 
 <style scoped>
-/* Your CSS styles here */
+#mapContainer {
+  width: 100vw;
+  height: 100vh;
+}
 </style>
