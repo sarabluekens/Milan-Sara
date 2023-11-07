@@ -1,13 +1,30 @@
 <template>
-  <div class="ml-7rem">
-    <h1>Emergency Map</h1>
-    <div v-for="item in result.cases" class="bg-red rounded-xl p-3 m-3 w-1/4">
-      <h1>{{ item.typeAccident }}</h1>
-      <p>{{ item.priority }}</p>
-      <p>{{ item.date }}</p>
-    </div>
-    <p></p>
-  </div>
+  <section class="ml-5rem bg-beige w-full h-100vh">
+    <h1 class="title-red mb-4rem">Welcome back, Sara</h1>
+    <p class="subtitle-black text-left ml-20vw">Waiting Cases</p>
+    <section
+      v-for="item in result.cases"
+      class="m-3 flex flex-row justify-center items-center w-full"
+    >
+      <h2 class="hidden">Case card</h2>
+      <div
+        class="rounded-xl border-2 border-red p-3 flex flex-row justify-between items-center w-50vw mr-3"
+      >
+        <p
+          v-show="item.priority == 1"
+          class="body-red px-2 py-1 border-2 border-red rounded-lg m-0"
+        >
+          Urgent!
+        </p>
+        <h1 class="body-black">{{ item.typeAccident }}</h1>
+        <p>{{ item.priority }}</p>
+        <p class="body-pink">{{ item.date }}</p>
+
+        <div class="rounded-xl w-1rem h-1rem bg-pink"></div>
+      </div>
+      <button class="bg-red body-beige rounded-lg p-3">Take Case</button>
+    </section>
+  </section>
 </template>
 
 <script lang="ts">
