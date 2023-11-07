@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql'
 import { EventsService } from './events.service'
-import { Event } from './entities/event.entity'
+import { Event, Status } from './entities/event.entity'
 import { CreateEventInput } from './dto/create-event.input'
 import { UpdateEventInput } from './dto/update-event.input'
 
@@ -11,6 +11,14 @@ export class EventsResolver {
   @Query(() => [Event], { name: 'events' })
   findAll() {
     return this.eventsService.findAll()
+  }
+
+  @Query(() => [Event], { name: 'eventsByStatusAndClient' })
+  findAllByStatusAndClient(
+    @Args('status') status: Status,
+    @Args('contactPerson') contactPerson: string,
+  ) {
+    return this.eventsService.findAllByStatusAndClient(status, contactPerson)
   }
 
   @Query(() => Event, { name: 'event' })

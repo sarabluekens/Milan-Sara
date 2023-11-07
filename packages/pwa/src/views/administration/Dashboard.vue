@@ -52,7 +52,7 @@
         >
           <p class="col-span-2">{{ event.createdAt }}</p>
           <p class="col-span-6">{{ event.name }}</p>
-          <p class="col-span-1">Pending</p>
+          <p class="col-span-1">{{ event.status }}</p>
           <p class="h-6 px-2 w-auto bg-red subbody-white col-span-1">
             event details
           </p>
@@ -77,6 +77,8 @@ export default {
       result: events,
       error: eventsError,
     } = useQuery(ALL_EVENT)
+
+    console.log(events)
 
     return {
       firebaseUser,

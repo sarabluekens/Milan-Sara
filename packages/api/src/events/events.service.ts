@@ -41,6 +41,10 @@ export class EventsService {
     return this.eventRepository.find()
   }
 
+  findAllByStatusAndClient(status: Status, contactPerson: string) {
+    return this.eventRepository.find({ where: { status, contactPerson } })
+  }
+
   findOne(id: number) {
     //@ts-ignore
     return this.eventRepository.findOneBy({ _id: new ObjectId(id) })
