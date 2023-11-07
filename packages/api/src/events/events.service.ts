@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { CreateEventInput } from './dto/create-event.input'
 import { UpdateEventInput } from './dto/update-event.input'
-import { Event } from './entities/event.entity'
+import { Event, Status } from './entities/event.entity'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 
@@ -29,6 +29,7 @@ export class EventsService {
       e.eventWithChildren = createEventInput.eventWithChildren
       e.mapsLink = createEventInput.mapsLink
       e.expectedVisitorStaffCount = createEventInput.expectedVisitorStaffCount
+      e.status = Status.Pending
 
       return this.eventRepository.save(e)
     } catch (error) {
