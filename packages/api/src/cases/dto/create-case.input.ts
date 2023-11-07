@@ -1,52 +1,79 @@
-import { InputType, Int, Field } from '@nestjs/graphql'
-import { UsedMaterial } from 'src/used-materials/entities/used-material.entity'
-@InputType()
+import { InputType, Field } from '@nestjs/graphql'
+import { IsBoolean, IsOptional, IsIn } from 'class-validator'
+import {
+  UsedMaterial,
+  UsedMaterialClass,
+} from '../entities/used-material.entity'
+import { isDate } from 'util/types'
+
+export const accidentTypes = [
+  'fell',
+  'unconscious',
+  'bleed',
+  'drug',
+  'allergy',
+  'other',
+]
+@InputType() // for graphql (create query in the service)
 export class CreateCaseInput {
-  @Field()
+  @IsOptional()
+  @Field({ nullable: true })
   victimId: string
 
   @Field()
   eventId: string
 
-  @Field(() => [String], { defaultValue: [] })
+  @IsOptional()
+  @Field(() => [String], { defaultValue: [], nullable: true })
   caregiverId: Array<string>
 
+  @IsIn(accidentTypes)
   @Field()
   typeAccident: string
 
-  @Field()
+  @Field(() => Date)
   date: Date
 
   @Field()
   priority: number
 
-  @Field()
+  @IsOptional()
+  @Field({ nullable: true })
   accidentDescription: string
 
-  @Field()
+  @IsOptional()
+  @Field({ nullable: true })
   diagnose: string
 
-  @Field()
+  @IsOptional()
+  @Field({ nullable: true })
   careGiven: string
 
-  @Field()
+  @IsBoolean()
+  @Field({ nullable: true, defaultValue: false })
   checkUpRequired: boolean
 
-  @Field()
+  @IsOptional()
+  @Field({ nullable: true })
   checkUpDescription: string
 
-  @Field()
-  Referred: boolean
+  @IsBoolean()
+  @Field({ nullable: true, defaultValue: false })
+  referred: boolean
 
-  @Field()
+  @IsOptional()
+  @Field({ nullable: true })
   referralDescription: string
 
-  @Field()
+  @IsBoolean()
+  @Field({ nullable: true, defaultValue: true })
   personalEnsurance: boolean
 
-  @Field()
+  @IsBoolean()
+  @Field({ nullable: true, defaultValue: false })
   eventEnsurance: boolean
 
-  // @Field(() => UsedMaterial)
-  // usedMaterial: UsedMaterial
+  @IsOptional()
+  @Field(() => [UsedMaterialClass], { defaultValue: [], nullable: true })
+  usedMaterials: Array<UsedMaterial>
 }

@@ -15,6 +15,7 @@
         />
       </div>
       <div
+        @click="clickHandler"
         class="p-4 bg-beige mx-auto sm:m-auto md:my-2 lg:my-5vh w-90% sm:w-70% h-45% md:h-40% lg:w-40vw lg:h-60vh rounded-lg px-8 flex flex-col justify-evenly items-center"
       >
         <h2 class="subtitle-red">I can't walk, I need help.</h2>
@@ -29,6 +30,12 @@
   </div>
 </template>
 
-<script lang="ts">
-export default {}
+<script setup lang="ts">
+import { useRouter } from 'vue-router'
+
+const { push } = useRouter()
+
+const clickHandler = async () => {
+  push('/category')
+}
 </script>

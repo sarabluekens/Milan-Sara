@@ -113,8 +113,7 @@
       />
     </div>
   </nav>
-
-  <nav v-else-if="nav === `top`" class="nav-black w-full h-14">
+  <!-- <nav v-else-if="nav === `top`" class="nav-black w-full h-14">
     <div class="flex justify-end items-center">
       <p class="pr-5">bel</p>
       <p>Dit is een naam</p>
@@ -126,11 +125,11 @@
         height="65"
       />
     </div>
-  </nav>
+  </nav> -->
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 
-let showMenu = ref(false)
+const showMenu = ref(false)
 </script>

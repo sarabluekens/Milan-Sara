@@ -1,15 +1,16 @@
-import { ObjectType, Field, Int, ID } from '@nestjs/graphql'
-import { UsedMaterial } from 'src/used-materials/entities/used-material.entity'
-import { Column, ObjectIdColumn } from 'typeorm'
+import { ObjectType, Field, ID } from '@nestjs/graphql'
+import { UsedMaterial, UsedMaterialClass } from './used-material.entity'
+import { Column, Entity, ObjectIdColumn } from 'typeorm'
 
+@Entity()
 @ObjectType()
 export class Case {
-  @ObjectIdColumn()
+  @ObjectIdColumn() // Database link - Typeorm
   @Field(() => ID)
   id: string
 
   @Column()
-  @Field()
+  @Field({ nullable: true })
   victimId: string
 
   @Column()
@@ -17,7 +18,7 @@ export class Case {
   eventId: string
 
   @Column()
-  @Field(() => [String], { defaultValue: [] })
+  @Field(() => [String], { defaultValue: [], nullable: true })
   caregiverId: Array<string>
 
   @Column()
@@ -33,44 +34,44 @@ export class Case {
   priority: number
 
   @Column()
-  @Field()
+  @Field({ nullable: true })
   accidentDescription: string
 
   @Column()
-  @Field()
+  @Field({ nullable: true })
   diagnose: string
 
   @Column()
-  @Field()
+  @Field({ nullable: true })
   careGiven: string
 
   @Column()
-  @Field()
+  @Field({ defaultValue: false })
   checkUpRequired: boolean
 
   @Column({ nullable: true })
   @Field({ nullable: true })
-  checkUpDescription: string
+  checkUpDescription?: string
 
   @Column()
-  @Field()
-  Referred: boolean
+  @Field({ defaultValue: false })
+  referred: boolean
 
-  @Column({ nullable: true })
-  @Field({ nullable: true })
-  referralDescription: string
+  @Column({ nullable: true }) //db
+  @Field({ nullable: true }) //graphql
+  referralDescription?: string
 
   @Column()
-  @Field()
+  @Field({ defaultValue: true })
   personalEnsurance: boolean
 
   @Column()
-  @Field()
+  @Field({ defaultValue: false })
   eventEnsurance: boolean
 
-  // @Column(() => UsedMaterial)
-  // @Field(() => [UsedMaterial], { nullable: true })
-  // usedMaterials: Array<UsedMaterial>
+  @Column()
+  @Field(() => [UsedMaterialClass], { defaultValue: [], nullable: true })
+  usedMaterials: Array<UsedMaterial>
 
   //column = db
   //field = graphql
