@@ -47,3 +47,27 @@ export const GET_EVENT_BY_STATUS_CLIENT = gql`
     }
   }
 `
+
+export const GET_EVENT_BY_STATUS = gql`
+  query eventsByStatus($status: String!) {
+    eventsByStatus(status: $status) {
+      id
+      name
+      address
+      postalCode
+      city
+      dates
+      startHour
+      endHour
+      contactPerson
+      phoneNumer
+      email
+      btwNumber
+      eventWithChildren
+      mapsLink
+      expectedVisitorStaffCount
+      status
+      createdAt
+    }
+  }
+`

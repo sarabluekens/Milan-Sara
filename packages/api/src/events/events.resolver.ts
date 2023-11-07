@@ -21,6 +21,11 @@ export class EventsResolver {
     return this.eventsService.findAllByStatusAndClient(status, contactPerson)
   }
 
+  @Query(() => [Event], { name: 'eventsByStatus' })
+  findAllByStatus(@Args('status') status: Status) {
+    return this.eventsService.findAllByStatus(status)
+  }
+
   @Query(() => Event, { name: 'event' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.eventsService.findOne(id)
