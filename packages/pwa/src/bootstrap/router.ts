@@ -9,6 +9,19 @@ const router = createRouter({
       component: () => import('../views/Home.vue'),
     },
     {
+      path: '/caregiver',
+      component: () => import('../components/wrappers/CaregiverWrap.vue'),
+      meta: { shouldBeAuthenticated: true },
+      children: [
+        {
+          path: 'dashboard',
+
+          component: () => import('../views/firstAid/caregivers/dashboard.vue'),
+          props: true,
+        },
+      ],
+    },
+    {
       path: '/category',
       component: () =>
         import('../views/firstAid/visitors/emergencyCategory.vue'),
@@ -53,11 +66,7 @@ const router = createRouter({
       component: () => import('../views/Account.vue'),
       meta: { shouldBeAuthenticated: true },
     },
-    {
-      path: '/caregiver',
-      component: () => import('../views/Caregiver.vue'),
-      meta: { shouldBeAuthenticated: true },
-    },
+
     {
       path: '/add',
       component: () => import('../views/AddCaregiver.vue'),
