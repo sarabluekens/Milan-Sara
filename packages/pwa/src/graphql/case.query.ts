@@ -9,7 +9,6 @@ export const ALL_CASES = gql`
       caregiverId
       typeAccident
       date
-      priority
       accidentDescription
       diagnose
       careGiven

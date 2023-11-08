@@ -30,10 +30,6 @@ export class Case {
   date: Date
 
   @Column()
-  @Field()
-  priority: number
-
-  @Column()
   @Field({ nullable: true })
   accidentDescription: string
 

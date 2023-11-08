@@ -34,9 +34,6 @@ export class CreateCaseInput {
   @Field(() => Date)
   date: Date
 
-  @Field()
-  priority: number
-
   @IsOptional()
   @Field({ nullable: true })
   accidentDescription: string

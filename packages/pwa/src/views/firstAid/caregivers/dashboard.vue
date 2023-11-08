@@ -21,7 +21,7 @@
         </div>
         <h1 class="body-black">{{ item.typeAccident }}</h1>
         <p>{{ item.priority }}</p>
-        <p class="body-pink">{{ convertformat(item.date) }}</p>
+        <p class="body-pink">{{ item.date }}</p>
 
         <div class="rounded-xl w-1rem h-1rem bg-pink"></div>
       </div>
@@ -47,16 +47,16 @@ export default {
 
     //   return form_dt
     // }yà^%
-    const convertformat = (dateString: Date) => {
-      const date = dateString
-      // Then specify how you want your dates to be formatted
-      return new Intl.DateTimeFormat('default', { dateStyle: 'short' }).format(
-        date,± ,±
-      )
-    }
+    // const convertformat = (dateString: Date) => {
+    //   const date = dateString
+    //   // Then specify how you want your dates to be formatted
+    //   return new Intl.DateTimeFormat('default', { dateStyle: 'short' }).format(
+    //     date,
+    //   )
+    // }
     return {
       result: defaultCases,
-      convertformat,
+      // convertformat,
     }
   },
 }
