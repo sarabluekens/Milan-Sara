@@ -21,7 +21,7 @@
         </div>
         <h1 class="body-black">{{ item.typeAccident }}</h1>
         <p>{{ item.priority }}</p>
-        <p class="body-pink">{{ item.date }}</p>
+        <p class="body-pink">{{ convertformat(item.date) }}</p>
 
         <div class="rounded-xl w-1rem h-1rem bg-pink"></div>
       </div>
@@ -38,26 +38,25 @@ export default {
   setup() {
     const { result: defaultCases, loading, error } = useQuery(ALL_CASES)
 
-    // const convertformat = result => {
-    //   let curr_dt = result.cases.date
-    //   let form_dt =
-    //     curr_dt.getFullYear() +
-    //     '-' +
-    //     (curr_dt.getMonth() + 1) +
-    //     '-' +
-    //     curr_dt.getDate() +
-    //     ' ' +
-    //     curr_dt.getHours() +
-    //     ':' +
-    //     curr_dt.getMinutes() +
-    //     ':' +
-    //     curr_dt.getSeconds()
-    //   return form_dt
-    // }
+    // const convertformat = (date: any) => {
+    //   let curr_dt = date
+    //   let form_dt = curr_dt
+    //   console.log(form_dt)
 
+    //   return format(date, 'dd.MM.yyyy') // 2022-01-13T14:06:33.612Z
+
+    //   return form_dt
+    // }yà^%
+    const convertformat = (dateString: Date) => {
+      const date = dateString
+      // Then specify how you want your dates to be formatted
+      return new Intl.DateTimeFormat('default', { dateStyle: 'short' }).format(
+        date,± ,±
+      )
+    }
     return {
       result: defaultCases,
-      //   convertformat,
+      convertformat,
     }
   },
 }

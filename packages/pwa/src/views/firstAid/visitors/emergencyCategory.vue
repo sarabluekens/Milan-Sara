@@ -1,5 +1,5 @@
 <template>
-  <article class="ml-7rem">
+  <article class="ml-5rem bg-beige">
     <h1 class="title-red">What happened?</h1>
     <p class="subtitle-red">What kind of help do you need?</p>
     <section class="flex flex-wrap justify-center items-center">
@@ -19,7 +19,7 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import EmergencyCard from '../../../components/generic/emergencyCard.vue'
+import EmergencyCard from '@/components/EmergencyCard.vue'
 
 const { push } = useRouter()
 
