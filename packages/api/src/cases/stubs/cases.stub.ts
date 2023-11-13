@@ -1,6 +1,7 @@
 import { CreateCaseInput } from '../dto/create-case.input'
 import { Case } from '../entities/case.entity'
 
+const newDate = new Date()
 export const createCaseInputStub = (): CreateCaseInput => {
   const newCase = new CreateCaseInput()
   newCase.eventId = 'eventid'
