@@ -14,7 +14,9 @@ describe('EventsService', () => {
         EventsService,
         {
           provide: getRepositoryToken(Event),
-          useValue: {},
+          useValue: {
+            save: jest.fn(),
+          },
         },
       ],
     }).compile()

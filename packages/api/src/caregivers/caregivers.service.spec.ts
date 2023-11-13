@@ -14,7 +14,9 @@ describe('CaregiversService', () => {
         CaregiversService,
         {
           provide: getRepositoryToken(Caregiver),
-          useValue: {},
+          useValue: {
+            save: jest.fn(),
+          },
         },
       ],
     }).compile()

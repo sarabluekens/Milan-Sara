@@ -14,7 +14,9 @@ describe('VictimsService', () => {
         VictimsService,
         {
           provide: getRepositoryToken(Victim),
-          useValue: {},
+          useValue: {
+            save: jest.fn(),
+          },
         },
       ],
     }).compile()

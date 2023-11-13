@@ -14,7 +14,9 @@ describe('CasesService', () => {
         CasesService,
         {
           provide: getRepositoryToken(Case),
-          useValue: {},
+          useValue: {
+            save: jest.fn(),
+          },
         },
       ],
     }).compile()

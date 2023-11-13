@@ -14,7 +14,9 @@ describe('EquipmentsService', () => {
         EquipmentsService,
         {
           provide: getRepositoryToken(Equipment),
-          useValue: {},
+          useValue: {
+            save: jest.fn(),
+          },
         },
       ],
     }).compile()
