@@ -18,13 +18,13 @@ export const accidentTypes = [
 export class CreateCaseInput {
   @IsOptional()
   @Field({ nullable: true })
-  victimId: string
+  victimId?: string
 
   @Field()
   eventId: string
 
   @IsOptional()
-  @Field(() => [String], { defaultValue: [], nullable: true })
+  @Field(() => [String], { defaultValue: [] })
   caregiverId: Array<string>
 
   @IsIn(accidentTypes)
@@ -36,41 +36,41 @@ export class CreateCaseInput {
 
   @IsOptional()
   @Field({ nullable: true })
-  accidentDescription: string
+  accidentDescription?: string
 
   @IsOptional()
   @Field({ nullable: true })
-  diagnose: string
+  diagnose?: string
 
   @IsOptional()
   @Field({ nullable: true })
-  careGiven: string
+  careGiven?: string
 
   @IsBoolean()
-  @Field({ nullable: true, defaultValue: false })
+  @Field({ defaultValue: false })
   checkUpRequired: boolean
 
   @IsOptional()
   @Field({ nullable: true })
-  checkUpDescription: string
+  checkUpDescription?: string
 
   @IsBoolean()
-  @Field({ nullable: true, defaultValue: false })
+  @Field({ defaultValue: false })
   referred: boolean
 
   @IsOptional()
   @Field({ nullable: true })
-  referralDescription: string
+  referralDescription?: string
 
   @IsBoolean()
-  @Field({ nullable: true, defaultValue: true })
+  @Field({ defaultValue: true })
   personalEnsurance: boolean
 
   @IsBoolean()
-  @Field({ nullable: true, defaultValue: false })
+  @Field({ defaultValue: false })
   eventEnsurance: boolean
 
   @IsOptional()
-  @Field(() => [UsedMaterialClass], { defaultValue: [], nullable: true })
+  @Field(() => [UsedMaterialClass], { defaultValue: [] })
   usedMaterials: Array<UsedMaterial>
 }

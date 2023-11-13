@@ -11,14 +11,14 @@ export class Case {
 
   @Column()
   @Field({ nullable: true })
-  victimId: string
+  victimId?: string
 
   @Column()
   @Field()
   eventId: string
 
   @Column()
-  @Field(() => [String], { defaultValue: [], nullable: true })
+  @Field(() => [String], { defaultValue: [] })
   caregiverId: Array<string>
 
   @Column()
@@ -31,21 +31,21 @@ export class Case {
 
   @Column()
   @Field({ nullable: true })
-  accidentDescription: string
+  accidentDescription?: string
 
   @Column()
   @Field({ nullable: true })
-  diagnose: string
+  diagnose?: string
 
   @Column()
   @Field({ nullable: true })
-  careGiven: string
+  careGive?: string
 
   @Column()
   @Field({ defaultValue: false })
   checkUpRequired: boolean
 
-  @Column({ nullable: true })
+  @Column()
   @Field({ nullable: true })
   checkUpDescription?: string
 
@@ -53,7 +53,7 @@ export class Case {
   @Field({ defaultValue: false })
   referred: boolean
 
-  @Column({ nullable: true }) //db
+  @Column() //db
   @Field({ nullable: true }) //graphql
   referralDescription?: string
 
