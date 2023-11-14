@@ -38,19 +38,19 @@ const router = createRouter({
     },
 
     {
-      path: '/administration',
+      path: '/admin',
       component: () => import('../views/administration/events/index.vue'),
       meta: { shouldBeAuthenticated: true },
     },
 
     {
-      path: '/dashboard',
+      path: '/admin/dashboard',
       component: () => import('../views/administration/Dashboard.vue'),
       meta: { shouldBeAuthenticated: true },
     },
 
     {
-      path: '/staff',
+      path: '/admin/staff',
       component: () => import('../views/administration/StaffOverview.vue'),
       meta: { shouldBeAuthenticated: true },
     },

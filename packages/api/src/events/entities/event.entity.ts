@@ -7,6 +7,13 @@ import {
   UpdateDateColumn,
 } from 'typeorm'
 
+export enum Status {
+  Pending = 'Pending',
+  Approved = 'Approved',
+  Rejected = 'Rejected',
+  Completed = 'Completed',
+}
+
 @Entity()
 @ObjectType()
 export class Event {
@@ -69,6 +76,10 @@ export class Event {
   @Column() // Database link - Typeorm
   @Field() //graphql
   expectedVisitorStaffCount: number
+
+  @Column({ default: Status.Pending }) // Database link - Typeorm
+  @Field() //graphql
+  status: Status
 
   @CreateDateColumn({ type: 'timestamp', nullable: true }) // Database link - Typeorm
   @Field() //graphql
