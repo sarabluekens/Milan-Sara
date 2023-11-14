@@ -15,7 +15,10 @@ export class CasesService {
   create(createCaseInput: CreateCaseInput): Promise<Case> {
     try {
       // shorthand for -> newCase = new Case(); newCase.victimId = createCaseInput.victimId; ...
-      const newCase = this.caseRepository.create(createCaseInput)
+      // const newCase = this.caseRepository.create(createCaseInput)
+      const newCase = new Case()
+      newCase.eventId = createCaseInput.eventId
+      newCase.typeAccident = createCaseInput.typeAccident
       newCase.date = new Date()
       return this.caseRepository.save(newCase) // INSERT INTO case
     } catch (error) {

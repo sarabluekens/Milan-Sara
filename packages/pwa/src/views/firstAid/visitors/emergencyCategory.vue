@@ -1,5 +1,5 @@
 <template>
-  <article class="ml-7rem">
+  <article class="ml-5rem bg-beige">
     <h1 class="title-red">What happened?</h1>
     <p class="subtitle-red">What kind of help do you need?</p>
     <section class="flex flex-wrap justify-center items-center">
@@ -10,43 +10,72 @@
           :icon="item.icon"
           :subtitle="item.subtitle"
           :category="item.category"
-          @click="setCategory(item.category)"
+          v-model="caseInput.typeAccident"
+          @click="handleNewCase(item.category)"
+          :value="item.category"
         />
       </div>
     </section>
   </article>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
 import { useRouter } from 'vue-router'
-import EmergencyCard from '../../../components/generic/emergencyCard.vue'
+import EmergencyCard from '@/components/EmergencyCard.vue'
+import { ref } from 'vue'
+import { useMutation } from '@vue/apollo-composable'
+import { ADD_CASE } from '@/graphql/case.mutation'
 
-const { push } = useRouter()
+export default {
+  components: { EmergencyCard },
+  setup() {
+    const { push } = useRouter()
+    const { mutate: addCase } = useMutation(ADD_CASE)
+    const items = [
+      {
+        text: 'Unconscious',
+        category: 'unconscious',
+        icon: 'i-ic-baseline-phone',
+        subtitle: 'You will be called for urgent aid',
+        image: 'unconscious.svg',
+      },
+      { text: 'Fell', image: 'fell.svg', category: 'fell' },
+      {
+        text: 'Drug and/or alcohol abuse',
+        category: 'drugs',
+        image: 'drugs.svg',
+      },
+      { text: 'Heavy bleeding', category: 'bleed', image: 'bleed.svg' },
+      { text: 'Allergic reaction', category: 'allergy', image: 'allergy.svg' },
+      {
+        text: "I don't know, something else",
+        category: 'otherInjury',
+        image: 'otherInjury.svg',
+      },
+    ]
 
-const items = [
-  {
-    text: 'Unconscious',
-    category: 'unconscious',
-    icon: 'i-ic-baseline-phone',
-    subtitle: 'You will be called for urgent aid',
-    image: 'unconscious.svg',
+    const caseInput = ref({
+      date: new Date(),
+      typeAccident: '',
+      eventId: 'tempEventId2',
+    })
+    const handleNewCase = (category: string) => {
+      caseInput.value.typeAccident = category
+      console.log(caseInput.value)
+
+      // TODO check input values
+      addCase({
+        caseInput: caseInput.value,
+      })
+
+      push({ name: 'map' })
+    }
+    return {
+      caseInput,
+      handleNewCase,
+      items,
+    }
   },
-  { text: 'Fell', image: 'fell.svg', category: 'fell' },
-  { text: 'Drug and/or alcohol abuse', category: 'drugs', image: 'drugs.svg' },
-  { text: 'Heavy bleeding', category: 'bleed', image: 'bleed.svg' },
-  { text: 'Allergic reaction', category: 'allergy', image: 'allergy.svg' },
-  {
-    text: "I don't know, something else",
-    category: 'otherInjury',
-    image: 'otherInjury.svg',
-  },
-]
-const setCategory: any = async (category: string) => {
-  // set the prop category as the value of the category
-  console.log(category)
-
-  const data = { category }
-  push({ name: 'map', params: data })
 }
 </script>
 

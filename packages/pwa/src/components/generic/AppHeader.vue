@@ -102,9 +102,10 @@
     <div
       class="flex flex-row sm:flex-col items-center justify-evenly sm:justify-between h-full mb-2 sm:m-0 sm:p-0"
     >
-      <div
+      <button
+        @click="$router.go(-1)"
         class="i-material-symbols-arrow-back-rounded icon icon-5 color-beige"
-      ></div>
+      ></button>
       <div class="bg-beige w-.5 h-full sm:hidden"></div>
       <img
         src="/whiteCross.svg"
