@@ -14,6 +14,7 @@ import { EventsModule } from './events/events.module'
 import { CommandModule } from 'nestjs-command'
 import { VictimsModule } from './victims/victims.module'
 import { CasesModule } from './cases/cases.module'
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { CasesModule } from './cases/cases.module'
     CommandModule,
     VictimsModule,
     CasesModule,
+    NotificationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

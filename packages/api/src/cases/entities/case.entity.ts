@@ -39,7 +39,7 @@ export class Case {
 
   @Column()
   @Field({ nullable: true })
-  careGive?: string
+  careGiven?: string
 
   @Column()
   @Field({ defaultValue: false })

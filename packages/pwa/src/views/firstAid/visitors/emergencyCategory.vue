@@ -25,12 +25,14 @@ import EmergencyCard from '@/components/EmergencyCard.vue'
 import { ref } from 'vue'
 import { useMutation } from '@vue/apollo-composable'
 import { ADD_CASE } from '@/graphql/case.mutation'
+import useRealtime from '@/composables/useRealtime'
 
 export default {
   components: { EmergencyCard },
   setup() {
     const { push } = useRouter()
     const { mutate: addCase } = useMutation(ADD_CASE)
+    const { emit } = useRealtime()
     const items = [
       {
         text: 'Unconscious',
@@ -62,14 +64,15 @@ export default {
     const handleNewCase = (category: string) => {
       caseInput.value.typeAccident = category
       console.log(caseInput.value)
-
+      emit('case:created', caseInput.value)
       // TODO check input values
-      addCase({
-        caseInput: caseInput.value,
-      })
+      // addCase({
+      //   caseInput: caseInput.value,
+      // })
 
       push({ name: 'map' })
     }
+
     return {
       caseInput,
       handleNewCase,
