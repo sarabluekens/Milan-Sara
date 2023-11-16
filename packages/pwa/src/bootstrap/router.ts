@@ -56,6 +56,12 @@ const router = createRouter({
     },
 
     {
+      path: '/admin/equipment',
+      component: () => import('../views/administration/EquipmentOverview.vue'),
+      meta: { shouldBeAuthenticated: true },
+    },
+
+    {
       path: '/event/add',
       component: () => import('../views/administration/events/AddEvent.vue'),
       meta: { shouldBeAuthenticated: true },
