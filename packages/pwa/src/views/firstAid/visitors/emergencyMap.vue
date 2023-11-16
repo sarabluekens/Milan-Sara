@@ -65,7 +65,15 @@
   </article>
 </template>
 <script setup lang="ts">
+import useRealtime from '@/composables/useRealtime'
 import Map from '../../../components/Map.vue'
+import type { Case } from '@/interfaces/case.interface'
+
+const { once } = useRealtime()
+
+once('case:new', (data: Partial<Case>) => {
+  console.log('New case added by a patient', data.id)
+})
 
 const submitHandler = () => {
   const newCase = {

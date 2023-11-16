@@ -65,11 +65,6 @@ export default {
       caseInput.value.typeAccident = category
       console.log(caseInput.value)
       emit('case:created', caseInput.value)
-      // TODO check input values
-      // addCase({
-      //   caseInput: caseInput.value,
-      // })
-
       push({ name: 'map' })
     }
 
