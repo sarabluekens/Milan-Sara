@@ -1,11 +1,17 @@
 <template>
   <div class="ml-3.5rem md:ml-5rem bg-beige h-100vh">
     <h1 class="title-black">Equipment overview</h1>
-    <section class="flex flex-row mx-auto w-1/2">
+    <section class="flex flex-col mx-auto w-1/2">
       <input
         placeholder="Search staff..."
-        class="border-1 border-red w-full mt-3 h-10 ml-3 bg-beige"
+        class="border-1 border-red w-full my-3 h-10 bg-beige"
+        v-model="searchInput"
+        @input="handleFilter"
       />
+      <div class="flex justify-between">
+        <button class="bg-red body-white">Ointment</button>
+        <button class="bg-red body-white">Pill</button>
+      </div>
     </section>
     <section
       class="grid grid-cols-4 gap-5 mx-auto my-10 w-1/2 text-center justify-between"
@@ -13,13 +19,25 @@
       <div v-if="equipmentLoading">Loading</div>
       <div v-if="equipmentError">{{ equipmentError }}</div>
       <div
-        v-if="equipments"
+        v-if="equipments && !filteredEquipments.length && isFiltered"
         v-for="equipment in equipments.equipments"
         class="text-black w-56 h-18 bg-white"
       >
         <p class="body-black">{{ equipment.name }}</p>
         <p class="subbody-black">{{ equipment.category }}</p>
         <p class="subbody-black">Amount: {{ equipment.totalStock }}</p>
+      </div>
+      <div
+        v-if="filteredEquipments.length && isFiltered"
+        v-for="equipment in filteredEquipments"
+        class="text-black w-56 h-18 bg-white"
+      >
+        <p class="body-black">{{ equipment.name }}</p>
+        <p class="subbody-black">{{ equipment.category }}</p>
+        <p class="subbody-black">Amount: {{ equipment.totalStock }}</p>
+      </div>
+      <div v-if="!isFiltered" class="text-black w-56 h-18 bg-white">
+        <p class="body-black">No results found</p>
       </div>
     </section>
   </div>
@@ -28,19 +46,53 @@
 <script lang="ts">
 import { useQuery } from '@vue/apollo-composable'
 import { ALL_EQUIPMENT } from '@/graphql/equipment.query'
+import type { Equipment } from '@/interfaces/equipment.interface'
+import { ref } from 'vue'
 
 export default {
   setup() {
+    const searchInput = ref('')
+    const filteredEquipments = ref<Equipment[]>([])
+    const isFiltered = ref(true)
+
     const {
       result: equipments,
       loading: equipmentLoading,
       error: equipmentError,
     } = useQuery(ALL_EQUIPMENT)
+
     console.log(equipments)
+
+    const handleFilter = () => {
+      if (searchInput.value === '') {
+        filteredEquipments.value = []
+        isFiltered.value = true
+      } else {
+        filteredEquipments.value = []
+        isFiltered.value = true
+        for (let i = 0; i < equipments.value.equipments.length; i++) {
+          if (
+            equipments.value.equipments[i].name
+              .toLowerCase()
+              .includes(searchInput.value.toLowerCase())
+          ) {
+            filteredEquipments.value.push(equipments.value.equipments[i])
+          }
+        }
+        if (filteredEquipments.value.length === 0) {
+          isFiltered.value = false
+        }
+      }
+    }
+
     return {
       equipments: equipments,
       equipmentLoading,
       equipmentError,
+      searchInput,
+      handleFilter,
+      filteredEquipments,
+      isFiltered,
     }
   },
 }

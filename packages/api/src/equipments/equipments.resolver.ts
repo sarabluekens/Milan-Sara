@@ -7,6 +7,7 @@ import { FirebaseGuard } from 'src/authentication/guards/firebase.guard'
 import { UseGuards } from '@nestjs/common'
 import { FirebaseUser } from 'src/authentication/decorators/user.decorator'
 import { UserRecord } from 'firebase-admin/auth'
+import { query } from 'express'
 
 @Resolver(() => Equipment)
 export class EquipmentsResolver {
@@ -36,6 +37,19 @@ export class EquipmentsResolver {
   @Query(() => Equipment, { name: 'equipment' })
   findOne(@Args('id', { type: () => String }) id: string) {
     return this.equipmentsService.findOne(id)
+  }
+
+  @Query(() => [Equipment], { name: 'equipmentByName' })
+  findByName(@Args('name', { type: () => String }) name: string) {
+    if (name === '') {
+      return this.equipmentsService.findAll()
+    }
+    else{
+      this.equipmentsService.findByName(name).then((res) => {
+        
+      })
+    }
+    return this.equipmentsService.findByName(name)
   }
 
   // mutation is een soort van post request
