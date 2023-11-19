@@ -53,6 +53,7 @@
         </div>
         <button
           class="bg-red rounded rounded-md px-10 py-3 body-white self-end mt-3vh"
+          @click="UpdateCase"
         >
           Send
         </button>
@@ -64,16 +65,34 @@
     </section>
   </article>
 </template>
+
 <script setup lang="ts">
 import useRealtime from '@/composables/useRealtime'
 import Map from '../../../components/Map.vue'
 import type { Case } from '@/interfaces/case.interface'
+import { ref } from 'vue'
 
 const { once } = useRealtime()
+let send: boolean = false
 
-once('case:new', (data: Partial<Case>) => {
-  console.log('New case added by a patient', data.id)
+const caseInput = ref({
+  date: new Date(),
+  typeAccident: '',
+  eventId: 'tempEventId2',
 })
+
+// caseId ophalen van MongoDB
+once('case:new', (data: Partial<Case>) => {
+  console.log('Get caseId from MongoDB', data.id)
+  data = caseInput.value
+})
+
+const UpdateCase = () => {
+  caseInput.value.typeAccident = category
+  console.log(caseInput.value)
+  emit('case:created', caseInput.value)
+  send = true
+}
 
 const submitHandler = () => {
   const newCase = {
