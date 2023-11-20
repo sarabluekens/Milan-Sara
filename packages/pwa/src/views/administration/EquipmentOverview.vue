@@ -6,11 +6,13 @@
         placeholder="Search staff..."
         class="border-1 border-red w-full my-3 h-10 bg-beige"
         v-model="searchInput"
-        @input="handleFilter"
+        @input="handleSearch"
       />
       <div class="flex justify-between">
-        <button class="bg-red body-white">Ointment</button>
-        <button class="bg-red body-white">Pill</button>
+        <button @click="handleFilter('Ointment')" class="bg-red body-white">
+          Ointment
+        </button>
+        <button @click="handleFilter('Pill')" class="bg-red body-white">Pill</button>
       </div>
     </section>
     <section
@@ -63,7 +65,7 @@ export default {
 
     console.log(equipments)
 
-    const handleFilter = () => {
+    const handleSearch = () => {
       if (searchInput.value === '') {
         filteredEquipments.value = []
         isFiltered.value = true
@@ -85,11 +87,16 @@ export default {
       }
     }
 
+    const handleFilter = (filter: string) => {
+        console.log(filter)
+    }
+
     return {
       equipments: equipments,
       equipmentLoading,
       equipmentError,
       searchInput,
+      handleSearch,
       handleFilter,
       filteredEquipments,
       isFiltered,

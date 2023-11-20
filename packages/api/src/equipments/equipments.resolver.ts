@@ -39,17 +39,9 @@ export class EquipmentsResolver {
     return this.equipmentsService.findOne(id)
   }
 
-  @Query(() => [Equipment], { name: 'equipmentByName' })
-  findByName(@Args('name', { type: () => String }) name: string) {
-    if (name === '') {
-      return this.equipmentsService.findAll()
-    }
-    else{
-      this.equipmentsService.findByName(name).then((res) => {
-        
-      })
-    }
-    return this.equipmentsService.findByName(name)
+  @Query(() => [Equipment], { name: 'equipmentByCategory' })
+  findByCategory(@Args('category', { type: () => String }) category: string) {
+    return this.equipmentsService.findByCategory(category)
   }
 
   // mutation is een soort van post request

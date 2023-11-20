@@ -42,8 +42,8 @@ export class EquipmentsService {
     return this.equipmentRepository.findOne({ _id: new ObjectId(id) })
   }
 
-  findByName(name: string) {
-    return this.equipmentRepository.find({ where: { name } })
+  findByCategory(category: string) {
+    return this.equipmentRepository.find({ where: { category } })
   }
 
   update(id: number, updateEquipmentInput: UpdateEquipmentInput) {
