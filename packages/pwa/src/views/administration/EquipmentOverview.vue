@@ -9,10 +9,15 @@
         @input="handleSearch"
       />
       <div class="flex justify-between">
+        <button @click="handleFilter('All')" class="bg-red body-white">
+          All
+        </button>
         <button @click="handleFilter('Ointment')" class="bg-red body-white">
           Ointment
         </button>
-        <button @click="handleFilter('Pill')" class="bg-red body-white">Pill</button>
+        <button @click="handleFilter('Pill')" class="bg-red body-white">
+          Pill
+        </button>
       </div>
     </section>
     <section
@@ -88,7 +93,20 @@ export default {
     }
 
     const handleFilter = (filter: string) => {
-        console.log(filter)
+      if (filter === 'All') {
+        filteredEquipments.value = []
+      } else {
+        filteredEquipments.value = []
+        for (let i = 0; i < equipments.value.equipments.length; i++) {
+          if (
+            equipments.value.equipments[i].category
+              .toLowerCase()
+              .includes(filter.toLowerCase())
+          ) {
+            filteredEquipments.value.push(equipments.value.equipments[i])
+          }
+        }
+      }
     }
 
     return {

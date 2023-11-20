@@ -39,11 +39,6 @@ export class EquipmentsResolver {
     return this.equipmentsService.findOne(id)
   }
 
-  @Query(() => [Equipment], { name: 'equipmentByCategory' })
-  findByCategory(@Args('category', { type: () => String }) category: string) {
-    return this.equipmentsService.findByCategory(category)
-  }
-
   // mutation is een soort van post request
   // mutation geeft niet altijd iets terug, hier wel (object Equipment, kan ook bool of string...)
   @Mutation(() => Equipment)
