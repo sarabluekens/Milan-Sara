@@ -40,7 +40,7 @@ const router = createRouter({
     {
       path: '/admin',
       component: () => import('../views/administration/events/index.vue'),
-      meta: { shouldBeAuthenticated: true },
+      meta: { shouldBeAuthenticated: true, role: 'admin' }, // Rol afwerken
     },
 
     {
@@ -52,6 +52,12 @@ const router = createRouter({
     {
       path: '/admin/staff',
       component: () => import('../views/administration/StaffOverview.vue'),
+      meta: { shouldBeAuthenticated: true },
+    },
+
+    {
+      path: '/admin/equipment',
+      component: () => import('../views/administration/EquipmentOverview.vue'),
       meta: { shouldBeAuthenticated: true },
     },
 

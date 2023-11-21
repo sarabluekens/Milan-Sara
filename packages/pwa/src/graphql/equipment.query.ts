@@ -6,10 +6,12 @@ export const ALL_EQUIPMENT = gql`
       __typename
       id
       name
-      fullname
       category
-      amount
+      description
+      totalStock
+      reservedStock
       available
+      expirationDate
       createdAt
       updatedAt
     }

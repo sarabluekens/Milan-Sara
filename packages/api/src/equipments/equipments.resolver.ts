@@ -7,6 +7,7 @@ import { FirebaseGuard } from 'src/authentication/guards/firebase.guard'
 import { UseGuards } from '@nestjs/common'
 import { FirebaseUser } from 'src/authentication/decorators/user.decorator'
 import { UserRecord } from 'firebase-admin/auth'
+import { query } from 'express'
 
 @Resolver(() => Equipment)
 export class EquipmentsResolver {
