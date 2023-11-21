@@ -18,6 +18,9 @@
         <button @click="handleFilter('Pill')" class="bg-red body-white">
           Pill
         </button>
+        <button @click="handleFilter('Bandage')" class="bg-red body-white">
+          bandage
+        </button>
       </div>
     </section>
     <section
@@ -93,8 +96,19 @@ export default {
     }
 
     const handleFilter = (filter: string) => {
-      if (filter === 'All') {
+      if (filter === 'All' && searchInput.value === '') {
         filteredEquipments.value = []
+      } else if (filter === 'All' && searchInput.value != '') {
+        filteredEquipments.value = []
+        for (let i = 0; i < equipments.value.equipments.length; i++) {
+          if (
+            equipments.value.equipments[i].name
+              .toLowerCase()
+              .includes(searchInput.value.toLowerCase())
+          ) {
+            filteredEquipments.value.push(equipments.value.equipments[i])
+          }
+        }
       } else {
         filteredEquipments.value = []
         for (let i = 0; i < equipments.value.equipments.length; i++) {

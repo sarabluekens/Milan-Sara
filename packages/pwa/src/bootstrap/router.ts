@@ -40,7 +40,7 @@ const router = createRouter({
     {
       path: '/admin',
       component: () => import('../views/administration/events/index.vue'),
-      meta: { shouldBeAuthenticated: true },
+      meta: { shouldBeAuthenticated: true, role: 'admin' }, // Rol afwerken
     },
 
     {
