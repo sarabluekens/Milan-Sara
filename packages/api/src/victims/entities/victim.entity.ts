@@ -26,7 +26,7 @@ export class Victim {
   @Field()
   phoneNumber: string
 
-  @CreateDateColumn({ type: 'timestamp', nullable: true })
-  @Field()
-  createdAt: Date
+  @Column()
+  @Field(() => [String], { defaultValue: [] })
+  cases: Array<string>
 }
