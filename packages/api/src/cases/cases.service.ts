@@ -26,7 +26,7 @@ export class CasesService {
     }
   }
 
-  //  graphql demo
+  //  graphql
   async findAll(): Promise<Case[]> {
     return this.caseRepository.find() // SELECT *  case
   }

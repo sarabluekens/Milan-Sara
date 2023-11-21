@@ -8,13 +8,13 @@ import { UpdateVictimInput } from './dto/update-victim.input'
 export class VictimsResolver {
   constructor(private readonly victimsService: VictimsService) {}
 
-  @Query(() => [Victim], { name: 'victims' })
+  @Query(() => [Victim], { name: 'getVictims' })
   findAll() {
     return this.victimsService.findAll()
   }
 
-  @Query(() => Victim, { name: 'victim' })
-  findOne(@Args('id', { type: () => Int }) id: string) {
+  @Query(() => Victim, { name: 'getOneVictim' })
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.victimsService.findOne(id)
   }
 

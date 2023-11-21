@@ -7,20 +7,27 @@ import { ObjectId, Repository } from 'typeorm'
 
 @Injectable()
 export class VictimsService {
-  @InjectRepository(Victim)
-  private readonly victimRepository: Repository<Victim>
-  create(createVictimInput: CreateVictimInput): Promise<Victim> {
-    const v = new Victim()
-    v.firstName = createVictimInput.firstName
-    v.lastName = createVictimInput.lastName
-    v.email = createVictimInput.email
-    v.phoneNumber = createVictimInput.phoneNumber
+  constructor(
+    @InjectRepository(Victim)
+    private readonly victimRepository: Repository<Victim>,
+  ) {}
 
-    return this.victimRepository.save(v)
+  create(createVictimInput: CreateVictimInput): Promise<Victim> {
+    try {
+      const victim = new Victim()
+      victim.firstName = createVictimInput.firstName
+      victim.lastName = createVictimInput.lastName
+      victim.email = createVictimInput.email
+      victim.phoneNumber = createVictimInput.phoneNumber
+
+      return this.victimRepository.save(victim)
+    } catch (error) {
+      throw error
+    }
   }
 
-  findAll() {
-    return this.victimRepository.find()
+  async findAll(): Promise<Victim[]> {
+    return this.victimRepository.find() // SELECT *  victim
   }
 
   findOne(id: string) {

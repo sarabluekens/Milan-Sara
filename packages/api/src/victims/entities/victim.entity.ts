@@ -1,5 +1,8 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql'
 import { Column, CreateDateColumn, Entity, ObjectIdColumn } from 'typeorm'
+import { PhoneNumberMock } from 'graphql-scalars'
+ 
+// Now, use GraphQLScalarName as a type within your GraphQL Schema.
 @Entity()
 @ObjectType()
 export class Victim {
@@ -21,7 +24,7 @@ export class Victim {
 
   @Column()
   @Field()
-  phoneNumber: string
+  phoneNumber: PhoneNumber
 
   @CreateDateColumn({ type: 'timestamp', nullable: true })
   @Field()

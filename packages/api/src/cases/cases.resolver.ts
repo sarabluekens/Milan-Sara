@@ -8,9 +8,8 @@ export class CasesResolver {
   // autmatically create instance of casesService and inject in resolver
   constructor(private readonly casesService: CasesService) {}
 
-  // graphql demo
-  // schrijf je wat iets teruggeeft, hier geeft het equipment terugs
-  @Query(() => Case, { name: 'getCase' })
+  // schrijf je wat iets teruggeeft, hier geeft het cases terugs
+  @Query(() => Case, { name: 'getOneCase' })
   getCase(@Args('id', { type: () => String }) id: string) {
     return this.casesService.findOne(id)
   }
@@ -26,17 +25,12 @@ export class CasesResolver {
   ): Promise<Case> {
     return this.casesService.create(createCaseInput)
   }
-  // graphql demo
+  
 
   @Query(() => [Case], { name: 'cases' })
   findAll() {
     return this.casesService.findAll()
   }
-
-  // @Query(() => Case, { name: 'case' })
-  // findOne(@Args('id', { type: () => String }) id: string) {
-  //   return this.casesService.findOne(id)
-  // }
 
   @Mutation(() => Case)
   updateCase(@Args('updateCaseInput') updateCaseInput: UpdateCaseInput) {

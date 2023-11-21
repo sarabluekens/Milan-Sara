@@ -1,5 +1,5 @@
 import { InputType, Field } from '@nestjs/graphql'
-import { IsBoolean, IsOptional, IsIn } from 'class-validator'
+import { IsBoolean, IsOptional, IsIn, IsDate } from 'class-validator'
 import {
   UsedMaterial,
   UsedMaterialClass,
@@ -31,6 +31,7 @@ export class CreateCaseInput {
   @Field()
   typeAccident: string
 
+  @IsDate()
   @Field(() => Date)
   date: Date
 
