@@ -12,7 +12,7 @@ export const ALL_EVENT = gql`
       startHour
       endHour
       contactPerson
-      phoneNumer
+      phoneNumber
       email
       btwNumber
       eventWithChildren
@@ -36,7 +36,7 @@ export const GET_EVENT_BY_ID = gql`
       startHour
       endHour
       contactPerson
-      phoneNumer
+      phoneNumber
       email
       btwNumber
       eventWithChildren
@@ -60,7 +60,7 @@ export const GET_EVENT_BY_STATUS_CLIENT = gql`
       startHour
       endHour
       contactPerson
-      phoneNumer
+      phoneNumber
       email
       btwNumber
       eventWithChildren
@@ -84,7 +84,7 @@ export const GET_EVENT_BY_STATUS = gql`
       startHour
       endHour
       contactPerson
-      phoneNumer
+      phoneNumber
       email
       btwNumber
       eventWithChildren

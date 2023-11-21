@@ -24,7 +24,7 @@ export class EventsService {
       e.startHour = createEventInput.startHour
       e.endHour = createEventInput.endHour
       e.contactPerson = createEventInput.contactPerson
-      e.phoneNumer = createEventInput.phoneNumer
+      e.phoneNumber = createEventInput.phoneNumer
       e.email = createEventInput.email
       e.btwNumber = createEventInput.btwNumber
       e.eventWithChildren = createEventInput.eventWithChildren
