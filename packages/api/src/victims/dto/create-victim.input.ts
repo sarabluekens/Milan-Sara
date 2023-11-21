@@ -1,6 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql'
 import { IsEmail, IsMobilePhone, IsOptional } from 'class-validator'
-import { GraphQLPhoneNumber } from 'graphql-scalars'
+import { GraphQLPhoneNumber, GraphQLEmailAddress } from 'graphql-scalars'
 @InputType() // for graphql (create query in the service)
 export class CreateVictimInput {
   @Field()
@@ -11,7 +11,7 @@ export class CreateVictimInput {
 
   @IsOptional()
   @IsEmail()
-  @Field()
+  @Field(type => GraphQLEmailAddress)
   email: string
 
   @IsOptional()
