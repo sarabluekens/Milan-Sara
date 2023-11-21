@@ -1,8 +1,7 @@
-import { InputType, Field } from '@nestjs/graphql'
-import { IsEmail, IsMobilePhone, IsNumber, IsOptional } from 'class-validator'
-import { string } from 'yargs'
-
-@InputType()
+import { Field, InputType } from '@nestjs/graphql'
+import { IsEmail, IsMobilePhone, IsOptional } from 'class-validator'
+import { GraphQLPhoneNumber } from 'graphql-scalars'
+@InputType() // for graphql (create query in the service)
 export class CreateVictimInput {
   @Field()
   firstName: string
@@ -17,8 +16,8 @@ export class CreateVictimInput {
 
   @IsOptional()
   @IsMobilePhone()
-  @Field()
-  phoneNumber: Float32Array
+  @Field(type => GraphQLPhoneNumber)
+  phoneNumber: string
 
   @IsOptional()
   @Field(() => [String], { defaultValue: [] })
