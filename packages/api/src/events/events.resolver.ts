@@ -3,6 +3,7 @@ import { EventsService } from './events.service'
 import { Event, Status } from './entities/event.entity'
 import { CreateEventInput } from './dto/create-event.input'
 import { UpdateEventInput } from './dto/update-event.input'
+import { string } from 'yargs'
 
 @Resolver(() => Event)
 export class EventsResolver {
@@ -27,7 +28,7 @@ export class EventsResolver {
   }
 
   @Query(() => Event, { name: 'event' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.eventsService.findOne(id)
   }
 

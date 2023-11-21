@@ -3,7 +3,8 @@ import { CreateEquipmentInput } from './dto/create-equipment.input'
 import { UpdateEquipmentInput } from './dto/update-equipment.input'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Equipment } from './entities/equipment.entity'
-import { ObjectId, Repository } from 'typeorm'
+import { Repository } from 'typeorm'
+import { ObjectId } from 'mongodb'
 
 @Injectable()
 export class EquipmentsService {
