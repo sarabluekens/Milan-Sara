@@ -15,8 +15,8 @@ export class VictimsService {
   create(createVictimInput: CreateVictimInput): Promise<Victim> {
     try {
       const victim = new Victim()
-      victim.firstName = createVictimInput.firstName
-      victim.lastName = createVictimInput.lastName
+      victim.firstName = createVictimInput.firstName.toLowerCase()
+      victim.lastName = createVictimInput.lastName.toLowerCase()
       victim.email = createVictimInput.email
       victim.phoneNumber = createVictimInput.phoneNumber
 
@@ -26,8 +26,13 @@ export class VictimsService {
     }
   }
 
+
   async findAll(): Promise<Victim[]> {
     return this.victimRepository.find() // SELECT *  victim
+  }
+
+  findOneByFullName(firstName: string, lastName: string): Promise<Victim> {
+    return this.victimRepository.findOne({ where: { firstName, lastName } })
   }
 
   findOne(id: string) {

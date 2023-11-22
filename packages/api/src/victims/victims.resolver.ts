@@ -18,6 +18,17 @@ export class VictimsResolver {
     return this.victimsService.findOne(id)
   }
 
+  @Query(() => Victim, { name: 'getVictimByName' })
+  findOneByFullName(
+    @Args('firstName') firstName: string,
+    @Args('lastName') lastName: string,
+  ) {
+    return this.victimsService.findOneByFullName(
+      firstName.toLowerCase(),
+      lastName.toLowerCase(),
+    )
+  }
+
   @Mutation(() => Victim, {
     description: 'Create a Victim using the DTO.',
   })

@@ -16,6 +16,7 @@
               id="firstname"
               required
               class="bg-beige h-4vh"
+              v-model="inputVictim.firstName"
             />
           </div>
           <div class="flex flex-col w-20rem">
@@ -26,6 +27,7 @@
               id="lastname"
               class="bg-beige h-4vh"
               required
+              v-model="inputVictim.firstName"
             />
           </div>
         </div>
@@ -53,7 +55,6 @@
         </div>
         <button
           class="bg-red rounded rounded-md px-10 py-3 body-white self-end mt-3vh"
-          @click="UpdateCase"
         >
           Send
         </button>
@@ -70,7 +71,17 @@
 import useRealtime from '@/composables/useRealtime'
 import Map from '../../../components/Map.vue'
 import type { Case } from '@/interfaces/case.interface'
+
 import { ref } from 'vue'
+import { useQuery } from '@vue/apollo-composable'
+import { GET_VICTIM_BY_NAME } from '@/graphql/victim.query'
+
+const inputVictim = ref({
+  firstName: '',
+  lastName: '',
+  phoneNumber: '',
+  email: '',
+})
 
 const { once } = useRealtime()
 let send: boolean = false
@@ -84,21 +95,18 @@ const caseInput = ref({
 // caseId ophalen van MongoDB
 once('case:new', (data: Partial<Case>) => {
   console.log('Get caseId from MongoDB', data.id)
-  data = caseInput.value
 })
 
-const UpdateCase = () => {
-  caseInput.value.typeAccident = category
-  console.log(caseInput.value)
-  emit('case:created', caseInput.value)
-  send = true
-}
-
 const submitHandler = () => {
-  const newCase = {
-    //
-  }
   console.log('submit')
+  const {
+    result: victim,
+    loading: loadingVictim,
+    error,
+  } = useQuery(GET_VICTIM_BY_NAME, {
+    firstName: 'jef ',
+    lastName: 'bluekens',
+  })
 }
 </script>
 

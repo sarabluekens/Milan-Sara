@@ -12,3 +12,15 @@ export const ALL_Victims = gql`
     }
   }
 `
+export const GET_VICTIM_BY_NAME = gql`
+  query getVictimByName($firstName: String!, $lastName: String!) {
+    getVictimByName(firstName: $firstName, lastName: $lastName) {
+      id
+      firstName
+      lastName
+      email
+      phoneNumber
+      cases
+    }
+  }
+`
