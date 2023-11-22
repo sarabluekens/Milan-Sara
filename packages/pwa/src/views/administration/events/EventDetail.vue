@@ -163,7 +163,6 @@
 import { useQuery } from '@vue/apollo-composable'
 import { GET_EVENT_BY_ID } from '@/graphql/event.query'
 import { useRoute } from 'vue-router'
-import moment from 'moment'
 
 export default {
   setup() {
@@ -186,7 +185,6 @@ export default {
       event: event,
       eventError,
       handleAddEvent,
-      moment,
     }
   },
 }
