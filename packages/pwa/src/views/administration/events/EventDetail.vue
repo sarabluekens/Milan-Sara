@@ -178,7 +178,17 @@
           Add caregivers
         </button>
       </section>
-      <div v-if="AddCaregiver" v-for="caregiver in caregivers.caregivers"></div>
+      <div v-if="AddCaregiver" v-for="caregiver in caregivers.caregivers">
+        <section class="flex flex-col mb-4">
+          <label class="body-black" for="maps">Caregivers</label>
+          <section>
+            <div class="border-1 border-red w-50 text-center mb-4">
+              <p class="body-black">{{ caregiver.name }}</p>
+              <p class="subbody-black">{{ caregiver.role }}</p>
+            </div>
+          </section>
+        </section>
+      </div>
       <section>
         <label class="body-black col-span-1 col-start-1" for="maps"
           >Equipment</label
