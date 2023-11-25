@@ -165,10 +165,12 @@
     <section v-if="isAccepted" class="flex flex-col mx-auto w-1/2">
       <section class="flex flex-col mb-4">
         <label class="body-black" for="maps">Caregivers</label>
-        <section>
+        <section v-for="caregiver in addedCaregivers">
           <div class="border-1 border-red w-50 text-center mb-4">
-            <p class="body-black">Name caregiver</p>
-            <p class="subbody-black">Paramedic</p>
+            <p class="body-black">
+              {{ `${caregiver.firstName} ${caregiver.lastName}` }}
+            </p>
+            <p class="subbody-black">{{ caregiver.profession }}</p>
           </div>
         </section>
         <button
@@ -178,17 +180,29 @@
           Add caregivers
         </button>
       </section>
-      <div v-if="AddCaregiver" v-for="caregiver in caregivers.caregivers">
-        <section class="flex flex-col mb-4">
-          <label class="body-black" for="maps">Caregivers</label>
-          <section>
+      <section>
+        <p class="body-black" for="maps">Caregivers</p>
+        <div
+          v-if="AddCaregiver"
+          v-for="caregiver in caregivers.caregivers"
+          class="flex flex-row"
+        >
+          <input
+            @change="handleAssigned(caregiver.id)"
+            v-bind:id="caregiver.id"
+            type="checkbox"
+            class="hidden"
+          />
+          <label v-bind:for="caregiver.id">
             <div class="border-1 border-red w-50 text-center mb-4">
-              <p class="body-black">{{ caregiver.name }}</p>
-              <p class="subbody-black">{{ caregiver.role }}</p>
+              <p class="body-black">
+                {{ `${caregiver.firstName} ${caregiver.lastName}` }}
+              </p>
+              <p class="subbody-black">{{ caregiver.profession }}</p>
             </div>
-          </section>
-        </section>
-      </div>
+          </label>
+        </div>
+      </section>
       <section>
         <label class="body-black col-span-1 col-start-1" for="maps"
           >Equipment</label
@@ -221,6 +235,7 @@ import { GET_EVENT_BY_ID } from '@/graphql/event.query'
 import { ALL_CAREGIVERS } from '@/graphql/caregiver.query'
 import { ALL_EQUIPMENT } from '@/graphql/equipment.query'
 import type { Equipment } from '@/interfaces/equipment.interface'
+import type { Caregiver } from '@/interfaces/caregiver.interface'
 import { useRoute } from 'vue-router'
 import { ref } from 'vue'
 
@@ -230,6 +245,7 @@ export default {
     const isAccepted = ref(false)
     const AddCaregiver = ref(false)
     const addedEquipment = ref<Equipment[]>([])
+    const addedCaregivers = ref<Caregiver[]>([])
     const EHBO_count = ref(0)
 
     const {
@@ -259,6 +275,32 @@ export default {
     const handleNewCaregiver = () => {
       console.log('new caregiver')
       AddCaregiver.value = true
+      console.log(caregivers)
+    }
+
+    const handleAssigned = (id: string) => {
+      console.log(id)
+      if (addedCaregivers.value.length === 0) {
+        for (const caregiver of caregivers.value.caregivers) {
+          if (caregiver.id === id) {
+            addedCaregivers.value.push(caregiver)
+          }
+        }
+      } else {
+        for (let i = 0; i < addedCaregivers.value.length; i++) {
+          if (addedCaregivers.value[i].id.includes(id)) {
+            addedCaregivers.value.splice(i, 1)
+            return
+          } else {
+            for (const caregiver of caregivers.value.caregivers) {
+              if (caregiver.id === id) {
+                addedCaregivers.value.push(caregiver)
+                return
+              }
+            }
+          }
+        }
+      }
     }
 
     const handleEquipmentCount = (action: string) => {
@@ -287,8 +329,10 @@ export default {
       isAccepted,
       AddCaregiver,
       EHBO_count,
+      addedCaregivers,
       handleAddEvent,
       handleNewCaregiver,
+      handleAssigned,
       handleEquipmentCount,
     }
   },
