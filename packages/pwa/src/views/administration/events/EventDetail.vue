@@ -1,8 +1,8 @@
 <template>
   <div class="ml-3.5rem md:ml-5rem bg-beige h-100vh">
-    <form
-      @submit.prevent="handleAddEvent"
-      v-if="event"
+    <h1 class="title-black mb-5">Event detail</h1>
+    <section
+      v-if="event && isAccepted === false"
       class="grid grid-cols-5 mx-auto w-1/2"
     >
       <label class="body-black col-span-1" for="eventname">Event name</label>
@@ -127,7 +127,7 @@
           v-bind:value="true"
           id="Yes"
           disabled
-          v-model="event.event.children"
+          v-model="event.event.eventWithChildren"
         />
         Yes
       </label>
@@ -137,7 +137,7 @@
           v-bind:value="false"
           id="No"
           disabled
-          v-model="event.event.children"
+          v-model="event.event.eventWithChildren"
         />
         No
       </label>
@@ -151,40 +151,135 @@
         v-on:change="event.event.maps"
       />
       <button
-        class="border-1 border-red bg-red col-span-2 col-start-2 body-white h-10"
+        class="border-1 border-red bg-red col-span-2 body-white h-10"
+        @click="handleAddEvent"
       >
-        Create event
+        Accept event
       </button>
-    </form>
+      <button
+        class="border-1 border-red bg-red col-span-2 col-start-4 body-white h-10"
+      >
+        Decline event
+      </button>
+    </section>
+    <section v-if="isAccepted" class="flex flex-col mx-auto w-1/2">
+      <section class="flex flex-col mb-4">
+        <label class="body-black" for="maps">Caregivers</label>
+        <section>
+          <div class="border-1 border-red w-50 text-center mb-4">
+            <p class="body-black">Name caregiver</p>
+            <p class="subbody-black">Paramedic</p>
+          </div>
+        </section>
+        <button
+          @click="handleNewCaregiver"
+          class="border-1 border-red bg-red col-span-2 body-white h-10"
+        >
+          Add caregivers
+        </button>
+      </section>
+      <div v-if="AddCaregiver" v-for="caregiver in caregivers.caregivers"></div>
+      <section>
+        <label class="body-black col-span-1 col-start-1" for="maps"
+          >Equipment</label
+        >
+        <section>
+          <div class="border-1 border-red w-50 text-center mb-4">
+            <p class="body-black">EHBO kit</p>
+            <p>consists of:</p>
+            <li class="grid grid-cols-4 mb-4">
+              <p class="subbody-black col-span-2">Bandage:</p>
+              <p class="subbody-black col-span-1">2</p>
+              <p class="subbody-black col-span-2">Ointment</p>
+              <p class="subbody-black col-span-1">1</p>
+            </li>
+            <div class="flex flex-row justify-between">
+              <button @click="handleEquipmentCount('minus')">minus</button>
+              <p class="subbody-black">{{ EHBO_count }}</p>
+              <button @click="handleEquipmentCount('plus')">plus</button>
+            </div>
+          </div>
+        </section>
+      </section>
+    </section>
   </div>
 </template>
 
 <script lang="ts">
 import { useQuery } from '@vue/apollo-composable'
 import { GET_EVENT_BY_ID } from '@/graphql/event.query'
+import { ALL_CAREGIVERS } from '@/graphql/caregiver.query'
+import { ALL_EQUIPMENT } from '@/graphql/equipment.query'
+import type { Equipment } from '@/interfaces/equipment.interface'
 import { useRoute } from 'vue-router'
+import { ref } from 'vue'
 
 export default {
   setup() {
     const route = useRoute()
+    const isAccepted = ref(false)
+    const AddCaregiver = ref(false)
+    const addedEquipment = ref<Equipment[]>([])
+    const EHBO_count = ref(0)
+
     const {
       loading: eventLoading,
       result: event,
       error: eventError,
     } = useQuery(GET_EVENT_BY_ID, { id: route.params.id })
 
+    const {
+      loading: caregiverLoading,
+      result: caregivers,
+      error: caregiverError,
+    } = useQuery(ALL_CAREGIVERS, { id: route.params.id })
+
+    const {
+      loading: equipmentLoading,
+      result: equipments,
+      error: equipmentError,
+    } = useQuery(ALL_EQUIPMENT)
+
     const handleAddEvent = () => {
+      isAccepted.value = true
+      console.log(isAccepted)
       console.log(event.value.event)
-      console.log(event.value.event.dates[0])
-      console.log(event.value.event.startHour)
-      console.log(event.value.event.endHour)
+    }
+
+    const handleNewCaregiver = () => {
+      console.log('new caregiver')
+      AddCaregiver.value = true
+    }
+
+    const handleEquipmentCount = (action: string) => {
+      if (action === 'minus') {
+        console.log('minus')
+        if (EHBO_count.value === 0) {
+          return
+        }
+        EHBO_count.value--
+      } else {
+        console.log('plus')
+        EHBO_count.value++
+      }
     }
 
     return {
       eventLoading,
       event: event,
       eventError,
+      caregiverLoading,
+      caregivers: caregivers,
+      caregiverError,
+      equipmentLoading,
+      equipments: equipments,
+      equipmentError,
+      isAccepted,
+      AddCaregiver,
+      EHBO_count,
       handleAddEvent,
+      handleNewCaregiver,
+      handleEquipmentCount,
     }
   },
 }
