@@ -278,26 +278,25 @@ export default {
       console.log(caregivers)
     }
 
-    const handleAssigned = (id: string) => {
-      console.log(id)
+    const handleAssigned = (idOfPerson: string) => {
+      console.log(idOfPerson)
       if (addedCaregivers.value.length === 0) {
         for (const caregiver of caregivers.value.caregivers) {
-          if (caregiver.id === id) {
+          if (caregiver.id === idOfPerson) {
             addedCaregivers.value.push(caregiver)
           }
         }
       } else {
-        for (let i = 0; i < addedCaregivers.value.length; i++) {
-          if (addedCaregivers.value[i].id.includes(id)) {
-            addedCaregivers.value.splice(i, 1)
-            return
-          } else {
-            for (const caregiver of caregivers.value.caregivers) {
-              if (caregiver.id === id) {
-                addedCaregivers.value.push(caregiver)
-                return
+        for (const caregiver of caregivers.value.caregivers) {
+          if (caregiver.id === idOfPerson) {
+            if (addedCaregivers.value.includes(caregiver)) {
+              const index = addedCaregivers.value.indexOf(caregiver)
+              if (index > -1) {
+                addedCaregivers.value.splice(index, 1)
               }
+              return
             }
+            addedCaregivers.value.push(caregiver)
           }
         }
       }
