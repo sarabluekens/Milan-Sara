@@ -165,20 +165,44 @@
     <section v-if="isAccepted" class="flex flex-col mx-auto w-1/2">
       <section class="flex flex-col mb-4">
         <label class="body-black" for="maps">Caregivers</label>
-        <section v-for="caregiver in addedCaregivers">
+        <section v-for="caregiver in addedCaregivers" class="flex flex-row">
           <div class="border-1 border-red w-50 text-center mb-4">
+            <svg
+              class="mx-auto"
+              xmlns="http://www.w3.org/2000/svg"
+              height="96"
+              viewBox="0 -960 960 960"
+              width="96"
+              fill="#A60C0C"
+            >
+              <path
+                d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z"
+              />
+            </svg>
             <p class="body-black">
               {{ `${caregiver.firstName} ${caregiver.lastName}` }}
             </p>
             <p class="subbody-black">{{ caregiver.profession }}</p>
           </div>
         </section>
-        <button
+        <div
+          class="border-1 border-red w-50 text-center mb-4"
           @click="handleNewCaregiver"
-          class="border-1 border-red bg-red col-span-2 body-white h-10"
         >
-          Add caregivers
-        </button>
+          <svg
+            class="mx-auto"
+            xmlns="http://www.w3.org/2000/svg"
+            height="96"
+            viewBox="0 -960 960 960"
+            width="96"
+            fill="#A60C0C"
+          >
+            <path
+              d="M720-400v-120H600v-80h120v-120h80v120h120v80H800v120h-80Zm-360-80q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Zm80-80h480v-32q0-11-5.5-20T580-306q-54-27-109-40.5T360-360q-56 0-111 13.5T140-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T440-640q0-33-23.5-56.5T360-720q-33 0-56.5 23.5T280-640q0 33 23.5 56.5T360-560Zm0-80Zm0 400Z"
+            />
+          </svg>
+          <p class="body-black">Add caregiver</p>
+        </div>
       </section>
       <section>
         <p class="body-black" for="maps">Caregivers</p>
