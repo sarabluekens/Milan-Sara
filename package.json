@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npx lerna run --scope={pwa,api} dev",
+    "dev": "npx lerna run --scope={pwa,api} dev --stream",
     "dev:api": "npx lerna run --scope=api dev",
     "dev:pwa": "npx lerna run --scope=pwa dev",
     "translate:pwa": "npm run translate -w -pwa",
