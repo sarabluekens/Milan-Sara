@@ -93,9 +93,9 @@ const caseInput = ref({
 })
 
 // caseId ophalen van MongoDB
-once('case:new', (data: Partial<Case>) => {
-  console.log('Get caseId from MongoDB', data.id)
-})
+// once('case:new', (data: Partial<Case>) => {
+//   console.log('Get caseId from MongoDB', data.id)
+// })
 
 const submitHandler = () => {
   console.log('submit')

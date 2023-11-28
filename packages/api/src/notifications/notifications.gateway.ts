@@ -56,13 +56,13 @@ export class NotificationsGateway
   async handleNewCase(
     @MessageBody() data: CreateCaseInput,
     @ConnectedSocket() client: Socket,
-  ): Promise<Case> {
+  ): Promise<void> {
     console.log(data)
     try {
-      const newCase = await this.casesService.create(data)
+      const newCase = await this.casesService.findOneByDate(data.date)
       this.server.emit('case:new', newCase) //<- create new listener for clients
 
-      return newCase
+      // return newCase
     } catch (error) {
       console.log(error)
     }

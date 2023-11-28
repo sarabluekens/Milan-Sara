@@ -26,13 +26,16 @@ import { ref } from 'vue'
 import { useMutation } from '@vue/apollo-composable'
 import { ADD_CASE } from '@/graphql/case.mutation'
 import useRealtime from '@/composables/useRealtime'
+import type { Case } from '@/interfaces/case.interface'
+import { once } from 'events'
+import { log } from 'console'
 
 export default {
   components: { EmergencyCard },
   setup() {
     const { push } = useRouter()
     const { mutate: addCase } = useMutation(ADD_CASE)
-    const { emit } = useRealtime()
+    const { emit, once } = useRealtime()
     const items = [
       {
         text: 'Unconscious',
@@ -51,7 +54,7 @@ export default {
       { text: 'Allergic reaction', category: 'allergy', image: 'allergy.svg' },
       {
         text: "I don't know, something else",
-        category: 'otherInjury',
+        category: 'other',
         image: 'otherInjury.svg',
       },
     ]
@@ -61,12 +64,24 @@ export default {
       typeAccident: '',
       eventId: 'tempEventId2',
     })
-    const handleNewCase = (category: string) => {
+    const handleNewCase = async (category: string) => {
       caseInput.value.typeAccident = category
-      console.log(caseInput.value)
+      const result = await addCase({
+        caseInput: caseInput.value,
+      })
+      console.log('result', result)
+
+      // sendMessage('case:created', caseInput.value)
       emit('case:created', caseInput.value)
+      // caseId ophalen van MongoDB
+
+      //
       push({ name: 'map' })
     }
+
+    once('case:new', (data: Partial<Case>) => {
+      console.log('Get caseId from MongoDB on category page', data)
+    })
 
     return {
       caseInput,

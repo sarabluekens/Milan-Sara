@@ -15,6 +15,10 @@ const emit = (event: string, data: any) => {
   socket.emit(event, data)
 }
 
+const emitMessage = (event: string) => {
+  socket.emit(event)
+}
+
 // listen once
 const once = (event: string, callback: (data: any) => void) => {
   socket.once(event, callback)
@@ -31,5 +35,6 @@ export default () => {
     emit,
     on,
     once,
+    emitMessage,
   }
 }

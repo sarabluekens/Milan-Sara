@@ -17,9 +17,21 @@ export class CasesService {
       // shorthand for -> newCase = new Case(); newCase.victimId = createCaseInput.victimId; ...
       // const newCase = this.caseRepository.create(createCaseInput)
       const newCase = new Case()
+      newCase.victimId = createCaseInput.victimId
       newCase.eventId = createCaseInput.eventId
+      newCase.caregiverId = createCaseInput.caregiverId
       newCase.typeAccident = createCaseInput.typeAccident
       newCase.date = new Date()
+      newCase.accidentDescription = createCaseInput.accidentDescription
+      newCase.diagnose = createCaseInput.diagnose
+      newCase.careGiven = createCaseInput.careGiven
+      newCase.checkUpRequired = createCaseInput.checkUpRequired
+      newCase.checkUpDescription = createCaseInput.checkUpDescription
+      newCase.referred = createCaseInput.referred
+      newCase.referralDescription = createCaseInput.referralDescription
+      newCase.usedMaterials = createCaseInput.usedMaterials
+
+
       return this.caseRepository.save(newCase) // INSERT INTO case
     } catch (error) {
       throw error
@@ -31,9 +43,8 @@ export class CasesService {
     return this.caseRepository.find() // SELECT *  case
   }
 
-  findOne(id: string) {
-    //@ts-ignore
-    return this.caseRepository.findOne({ _id: new ObjectId(id) })
+  findOneByDate(date: Date) {
+    return this.caseRepository.find({ where: { date } })
   }
 
   update(id: number, updateCaseInput: UpdateCaseInput) {

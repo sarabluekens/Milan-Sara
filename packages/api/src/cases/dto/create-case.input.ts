@@ -5,12 +5,11 @@ import {
   UsedMaterialClass,
 } from '../entities/used-material.entity'
 import { isDate } from 'util/types'
-
 export const accidentTypes = [
   'fell',
   'unconscious',
   'bleed',
-  'drug',
+  'drugs',
   'allergy',
   'other',
 ]
@@ -31,7 +30,6 @@ export class CreateCaseInput {
   @Field()
   typeAccident: string
 
-  @IsDate()
   @Field(() => Date)
   date: Date
 
