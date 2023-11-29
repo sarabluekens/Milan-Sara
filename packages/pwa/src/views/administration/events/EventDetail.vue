@@ -170,18 +170,9 @@
             v-for="caregiver in addedCaregivers"
             class="border-1 border-red w-50 text-center mb-4"
           >
-            <svg
-              class="mx-auto"
-              xmlns="http://www.w3.org/2000/svg"
-              height="96"
-              viewBox="0 -960 960 960"
-              width="96"
-              fill="#A60C0C"
-            >
-              <path
-                d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z"
-              />
-            </svg>
+            <div
+              class="i-material-symbols-person icon icon-6 color-red mx-auto"
+            ></div>
             <p class="body-black">
               {{ `${caregiver.firstName} ${caregiver.lastName}` }}
             </p>
@@ -191,50 +182,54 @@
             class="border-1 border-red w-50 text-center mb-4"
             @click="handleNewCaregiver"
           >
-            <svg
-              class="mx-auto"
-              xmlns="http://www.w3.org/2000/svg"
-              height="96"
-              viewBox="0 -960 960 960"
-              width="96"
-              fill="#A60C0C"
-            >
-              <path
-                d="M720-400v-120H600v-80h120v-120h80v120h120v80H800v120h-80Zm-360-80q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Zm80-80h480v-32q0-11-5.5-20T580-306q-54-27-109-40.5T360-360q-56 0-111 13.5T140-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T440-640q0-33-23.5-56.5T360-720q-33 0-56.5 23.5T280-640q0 33 23.5 56.5T360-560Zm0-80Zm0 400Z"
-              />
-            </svg>
+            <div
+              class="i-material-symbols-person-add icon icon-6 color-red mx-auto"
+            ></div>
             <p class="body-black">Add caregiver</p>
           </div>
         </section>
       </section>
-      <section>
-        <p class="body-black" for="maps">Caregivers</p>
-        <div
-          v-if="AddCaregiver"
-          v-for="caregiver in caregivers.caregivers"
-          class="flex flex-row"
+      <section v-if="AddCaregiver" class="text-right bg-white my-2 p-2">
+        <p class="body-black text-left mb-2" for="maps">
+          Add
+          {{
+            Math.round(
+              event.event.expectedVisitorStaffCount / 500 -
+                addedCaregivers.length,
+            )
+          }}
+          caregiver(s)
+        </p>
+        <section class="grid grid-cols-4 gap-5">
+          <div v-for="caregiver in caregivers.caregivers">
+            <input
+              @change="handleAssigned(caregiver.id)"
+              v-bind:id="caregiver.id"
+              type="checkbox"
+              class="hidden"
+            />
+            <label v-bind:for="caregiver.id">
+              <div class="border-1 border-red w-50 text-center mb-4">
+                <p class="body-black">
+                  {{ `${caregiver.firstName} ${caregiver.lastName}` }}
+                </p>
+                <p class="subbody-black">{{ caregiver.profession }}</p>
+              </div>
+            </label>
+          </div>
+        </section>
+        <button
+          @click="closeAssigned()"
+          class="h-12 px-2 w-24 bg-red subbody-white col-span-1"
         >
-          <input
-            @change="handleAssigned(caregiver.id)"
-            v-bind:id="caregiver.id"
-            type="checkbox"
-            class="hidden"
-          />
-          <label v-bind:for="caregiver.id">
-            <div class="border-1 border-red w-50 text-center mb-4">
-              <p class="body-black">
-                {{ `${caregiver.firstName} ${caregiver.lastName}` }}
-              </p>
-              <p class="subbody-black">{{ caregiver.profession }}</p>
-            </div>
-          </label>
-        </div>
+          Accept
+        </button>
       </section>
       <section>
         <label class="body-black col-span-1 col-start-1" for="maps"
           >Equipment</label
         >
-        <section>
+        <section class="grid grid-cols-4">
           <div class="border-1 border-red w-50 text-center mb-4">
             <p class="body-black">EHBO kit</p>
             <p>consists of:</p>
@@ -245,13 +240,53 @@
               <p class="subbody-black col-span-1">1</p>
             </li>
             <div class="flex flex-row justify-between">
-              <button @click="handleEquipmentCount('minus')">minus</button>
+              <button
+                @click="handleEquipmentCount('minus', 'EHBO')"
+                class="i-mdi-minus-thick icon icon-2 color-red"
+              >
+                minus
+              </button>
               <p class="subbody-black">{{ EHBO_count }}</p>
-              <button @click="handleEquipmentCount('plus')">plus</button>
+              <button
+                @click="handleEquipmentCount('plus', 'EHBO')"
+                class="i-mdi-plus-thick icon icon-2 color-red"
+              >
+                plus
+              </button>
+            </div>
+          </div>
+          <div class="border-1 border-red w-50 text-center mb-4">
+            <p class="body-black">Wound kit</p>
+            <p>consists of:</p>
+            <li class="grid grid-cols-4 mb-4">
+              <p class="subbody-black col-span-2">Bandage:</p>
+              <p class="subbody-black col-span-1">5</p>
+              <p class="subbody-black col-span-2">Ointment</p>
+              <p class="subbody-black col-span-1">10</p>
+              <p class="subbpdy-black col-span-2">Pill</p>
+              <p class="subbody-black col-span-1">20</p>
+            </li>
+            <div class="flex flex-row justify-between">
+              <button
+                @click="handleEquipmentCount('minus', 'Wound')"
+                class="i-mdi-minus-thick icon icon-2 color-red"
+              >
+                minus
+              </button>
+              <p class="subbody-black">{{ Wound_count }}</p>
+              <button
+                @click="handleEquipmentCount('plus', 'Wound')"
+                class="i-mdi-plus-thick icon icon-2 color-red"
+              >
+                plus
+              </button>
             </div>
           </div>
         </section>
       </section>
+      <button class="h-12 px-2 w-1/2 bg-red subbody-white col-span-1 mx-auto">
+        Add Caregivers & equipment to event
+      </button>
     </section>
   </div>
 </template>
@@ -274,6 +309,7 @@ export default {
     const addedEquipment = ref<Equipment[]>([])
     const addedCaregivers = ref<Caregiver[]>([])
     const EHBO_count = ref(0)
+    const Wound_count = ref(0)
 
     const {
       loading: eventLoading,
@@ -322,23 +358,47 @@ export default {
                 addedCaregivers.value.splice(index, 1)
               }
               return
+            } else if (
+              addedCaregivers.value.length <
+              Math.round(event.value.event.expectedVisitorStaffCount / 500)
+            ) {
+              addedCaregivers.value.push(caregiver)
             }
-            addedCaregivers.value.push(caregiver)
           }
         }
       }
     }
 
-    const handleEquipmentCount = (action: string) => {
-      if (action === 'minus') {
-        console.log('minus')
-        if (EHBO_count.value === 0) {
-          return
-        }
-        EHBO_count.value--
-      } else {
-        console.log('plus')
-        EHBO_count.value++
+    const closeAssigned = () => {
+      AddCaregiver.value = false
+    }
+
+    const handleEquipmentCount = (action: string, type: string) => {
+      switch (type) {
+        case 'EHBO':
+          if (action === 'minus') {
+            console.log('minus')
+            if (EHBO_count.value === 0) {
+              return
+            }
+            EHBO_count.value--
+          } else {
+            console.log('plus')
+            EHBO_count.value++
+          }
+          break
+        case 'Wound':
+          if (action === 'minus') {
+            console.log('minus')
+            if (Wound_count.value === 0) {
+              return
+            }
+            Wound_count.value--
+          } else {
+            console.log('plus')
+            Wound_count.value++
+          }
+          break
       }
     }
 
@@ -355,10 +415,12 @@ export default {
       isAccepted,
       AddCaregiver,
       EHBO_count,
+      Wound_count,
       addedCaregivers,
       handleAddEvent,
       handleNewCaregiver,
       handleAssigned,
+      closeAssigned,
       handleEquipmentCount,
     }
   },
