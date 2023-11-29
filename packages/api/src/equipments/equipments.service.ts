@@ -43,8 +43,25 @@ export class EquipmentsService {
     return this.equipmentRepository.findOne({ _id: new ObjectId(id) })
   }
 
-  update(id: number, updateEquipmentInput: UpdateEquipmentInput) {
-    return `This action updates a #${id} equipment`
+  async update(id: string, updateEquipmentInput: UpdateEquipmentInput) {
+    const equipment = await this.equipmentRepository.findOne({
+      //@ts-ignore
+      _id: new ObjectId(id),
+    })
+
+    equipment.name = updateEquipmentInput.name ?? equipment.name
+    equipment.category = updateEquipmentInput.category ?? equipment.category
+    equipment.description =
+      updateEquipmentInput.description ?? equipment.description
+    equipment.totalStock =
+      updateEquipmentInput.totalStock ?? equipment.totalStock
+    equipment.reservedStock =
+      [...equipment.reservedStock, ...updateEquipmentInput.reservedStock] ??
+      equipment.reservedStock
+    equipment.available = updateEquipmentInput.available ?? equipment.available
+    equipment.expirationDate =
+      updateEquipmentInput.expirationDate ?? equipment.expirationDate
+    return this.equipmentRepository.save(equipment)
   }
 
   remove(id: number) {

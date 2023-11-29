@@ -7,7 +7,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm'
 
-import { ReservedStock } from './reserverdStock.entity'
+import { ReservedStock, ReservedStockType } from './reserverdStock.entity'
 
 @Entity() // Database link - Typeorm
 @ObjectType() //graphql
@@ -34,7 +34,7 @@ export class Equipment {
 
   @Column({ nullable: true }) // Database link - Typeorm
   @Field(() => [ReservedStock], { defaultValue: [], nullable: true }) //graphql
-  reservedStock: Array<ReservedStock>
+  reservedStock: Array<ReservedStockType>
 
   @Column() // Database link - Typeorm
   @Field() //graphql

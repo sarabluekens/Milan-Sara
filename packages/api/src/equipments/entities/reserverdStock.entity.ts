@@ -1,14 +1,19 @@
-import { ObjectType, Field } from '@nestjs/graphql'
-import { Column, Entity } from 'typeorm'
+import { ObjectType, Field, InputType } from '@nestjs/graphql'
+import { Column } from 'typeorm'
 
-@Entity() // Database link - Typeorm
 @ObjectType() //graphql
+@InputType('ReservedStockInput')
 export class ReservedStock {
-  @Column() // Database link - Typeorm
-  @Field()
+  @Column({ nullable: true }) // Database link - Typeorm
+  @Field({ nullable: true })
   eventId: string
 
-  @Column() // Database link - Typeorm
-  @Field() //graphql
-  amount: string
+  @Column({ nullable: true }) // Database link - Typeorm
+  @Field({ nullable: true }) //graphql
+  amount: number
+}
+
+export type ReservedStockType = {
+  eventId: string
+  amount: number
 }
