@@ -39,7 +39,6 @@
               name="email"
               id="email"
               class="bg-beige h-4vh"
-              required
               v-model="victimInput.email"
             />
           </div>
@@ -50,7 +49,6 @@
               name="phone"
               id="phone"
               class="bg-beige h-4vh"
-              required
               v-model="victimInput.phoneNumber"
             />
           </div>
@@ -75,18 +73,13 @@ import Map from '../../../components/Map.vue'
 import type { Victim } from '@/interfaces/victim.interface'
 
 import { ref } from 'vue'
-import { useMutation, useQuery } from '@vue/apollo-composable'
+import { useLazyQuery, useMutation, useQuery } from '@vue/apollo-composable'
 import { GET_VICTIM_BY_NAME } from '@/graphql/victim.query'
 import { ADD_VICTIM } from '@/graphql/victim.mutation'
 
 const { once } = useRealtime()
 const send = ref<boolean>(false)
 const { mutate: addVictim } = useMutation(ADD_VICTIM)
-const caseInput = ref({
-  date: new Date(),
-  typeAccident: '',
-  eventId: 'tempEventId2',
-})
 
 const victimInput = ref({
   firstName: '',
@@ -97,28 +90,30 @@ const victimInput = ref({
 
 const submitHandler = async () => {
   console.log('submit')
-  // const {
-  //   result: victim,
-  //   loading: loadingVictim,
-  //   error,
-  // } = useQuery(GET_VICTIM_BY_NAME, {
-  //   firstName: victimInput.value.firstName,
-  //   lastName: victimInput.value.lastName,
+  const { result: victim, loading: loadingVictim } = useLazyQuery(
+    GET_VICTIM_BY_NAME,
+    () => ({
+      firstName: victimInput.value.firstName.toLowerCase(),
+      lastName: victimInput.value.lastName.toLowerCase(),
+    }),
+  )
+
+  if (!loadingVictim.value) {
+    if (victim.value) {
+      console.log(victim.value)
+      console.log(loadingVictim.value)
+
+      // caseInput.value.victimId = victim.value.id
+    } else {
+      console.log('no victim found')
+      console.log(loadingVictim.value)
+    }
+  }
+  // const result = await addVictim({
+  //   victimInput: victimInput.value,
   // })
 
-  // if (victim.value) {
-  //   console.log(victim.value)
-  //   // caseInput.value.victimId = victim.value.id
-  //   console.log(caseInput.value)
-  // } else {
-  //   console.log('no victim found')
-  // }
-
-  const result = await addVictim({
-    victimInput: victimInput.value,
-  })
-
-  console.log('result', result?.data?.createVictim as Victim)
+  // console.log('result', result?.data?.createVictim as Victim)
 
   return {
     victimInput,
@@ -127,6 +122,4 @@ const submitHandler = async () => {
 }
 </script>
 
-<style scoped>
-/* Your CSS styles here */
-</style>
+<style scoped></style>

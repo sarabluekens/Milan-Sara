@@ -26,7 +26,6 @@ export class VictimsService {
     }
   }
 
-
   async findAll(): Promise<Victim[]> {
     return this.victimRepository.find() // SELECT *  victim
   }

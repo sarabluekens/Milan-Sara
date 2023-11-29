@@ -18,7 +18,7 @@ export class VictimsResolver {
     return this.victimsService.findOne(id)
   }
 
-  @Query(() => Victim, { name: 'getVictimByName' })
+  @Query(() => Victim, { name: 'getVictimByName', nullable: true })
   findOneByFullName(
     @Args('firstName') firstName: string,
     @Args('lastName') lastName: string,

@@ -67,7 +67,7 @@ export default {
       const result = await addCase({
         caseInput: caseInput.value,
       })
-      console.log('result', result)
+      // console.log('result', result?.data?.createCase as Case)
 
       emit('case:created', result?.data?.createCase as Case)
 
