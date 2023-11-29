@@ -72,26 +72,27 @@
 <script setup lang="ts">
 import useRealtime from '@/composables/useRealtime'
 import Map from '../../../components/Map.vue'
-import type { Case } from '@/interfaces/case.interface'
+import type { Victim } from '@/interfaces/victim.interface'
 
 import { ref } from 'vue'
-import { useQuery } from '@vue/apollo-composable'
+import { useMutation, useQuery } from '@vue/apollo-composable'
 import { GET_VICTIM_BY_NAME } from '@/graphql/victim.query'
-
-const victimInput = ref({
-  firstName: '',
-  lastName: '',
-  phoneNumber: '',
-  email: '',
-})
+import { ADD_VICTIM } from '@/graphql/victim.mutation'
 
 const { once } = useRealtime()
-let send: boolean = false
-
+const send = ref<boolean>(false)
+const { mutate: addVictim } = useMutation(ADD_VICTIM)
 const caseInput = ref({
   date: new Date(),
   typeAccident: '',
   eventId: 'tempEventId2',
+})
+
+const victimInput = ref({
+  firstName: '',
+  lastName: '',
+  email: '',
+  phoneNumber: '',
 })
 
 const submitHandler = async () => {
@@ -114,16 +115,14 @@ const submitHandler = async () => {
   // }
 
   const result = await addVictim({
-    firstName: victimInput.value.firstName,
-    lastName: victimInput.value.lastName,
-    phoneNumber: victimInput.value.phoneNumber,
-    email: victimInput.value.email,
+    victimInput: victimInput.value,
   })
+
+  console.log('result', result?.data?.createVictim as Victim)
 
   return {
     victimInput,
     submitHandler,
-    caseInput,
   }
 }
 </script>

@@ -12,5 +12,5 @@ export class UsedMaterialClass {
 
 export type UsedMaterial = {
   name: string
-  quantity: number
+  amount: number
 }

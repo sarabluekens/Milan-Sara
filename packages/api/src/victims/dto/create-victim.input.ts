@@ -15,7 +15,6 @@ export class CreateVictimInput {
   email: string
 
   @IsOptional()
-  @IsMobilePhone()
   @Field(type => GraphQLPhoneNumber)
   phoneNumber: string
 
