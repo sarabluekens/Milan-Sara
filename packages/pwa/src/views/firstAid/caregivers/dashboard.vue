@@ -51,7 +51,10 @@ export default {
 
       newCase.value = data as Case
       liveCases.value.push(data as Case)
+      console.log(newCase.value)
     })
+
+    
 
     return {
       result: computed<Case[]>(() => cases.value.cases),

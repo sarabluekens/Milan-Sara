@@ -54,12 +54,12 @@ export class NotificationsGateway
 
   @SubscribeMessage('case:created')
   async handleNewCase(
-    @MessageBody() data: CreateCaseInput,
+    @MessageBody() data: Case,
     @ConnectedSocket() client: Socket,
   ): Promise<void> {
-    console.log(data)
     try {
-      const newCase = await this.casesService.findOneByDate(data.date)
+      const newCase = data
+      console.log('newCase', newCase)
       this.server.emit('case:new', newCase) //<- create new listener for clients
 
       // return newCase

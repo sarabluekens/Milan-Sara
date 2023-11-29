@@ -20,3 +20,24 @@ export const ADD_CASE: TypedDocumentNode<
     }
   }
 `
+
+export const UPDATE_CASE: TypedDocumentNode<
+  { updateCase: Case },
+  {
+    caseInput: {
+      id: string
+      eventId: string
+      typeAccident: string
+      date: Date
+    }
+  }
+> = gql`
+  mutation updateCase($caseInput: UpdateCaseInput!) {
+    updateCase(updateCaseInput: $caseInput) {
+      id
+      date
+      typeAccident
+      eventId
+    }
+  }
+`

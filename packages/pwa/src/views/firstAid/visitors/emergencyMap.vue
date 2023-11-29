@@ -16,7 +16,7 @@
               id="firstname"
               required
               class="bg-beige h-4vh"
-              v-model="inputVictim.firstName"
+              v-model="victimInput.lastName"
             />
           </div>
           <div class="flex flex-col w-20rem">
@@ -27,7 +27,7 @@
               id="lastname"
               class="bg-beige h-4vh"
               required
-              v-model="inputVictim.firstName"
+              v-model="victimInput.firstName"
             />
           </div>
         </div>
@@ -40,6 +40,7 @@
               id="email"
               class="bg-beige h-4vh"
               required
+              v-model="victimInput.email"
             />
           </div>
           <div class="flex flex-col w-20rem">
@@ -50,6 +51,7 @@
               id="phone"
               class="bg-beige h-4vh"
               required
+              v-model="victimInput.phoneNumber"
             />
           </div>
         </div>
@@ -76,7 +78,7 @@ import { ref } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import { GET_VICTIM_BY_NAME } from '@/graphql/victim.query'
 
-const inputVictim = ref({
+const victimInput = ref({
   firstName: '',
   lastName: '',
   phoneNumber: '',
@@ -92,21 +94,37 @@ const caseInput = ref({
   eventId: 'tempEventId2',
 })
 
-// caseId ophalen van MongoDB
-// once('case:new', (data: Partial<Case>) => {
-//   console.log('Get caseId from MongoDB', data.id)
-// })
-
-const submitHandler = () => {
+const submitHandler = async () => {
   console.log('submit')
-  const {
-    result: victim,
-    loading: loadingVictim,
-    error,
-  } = useQuery(GET_VICTIM_BY_NAME, {
-    firstName: 'jef ',
-    lastName: 'bluekens',
+  // const {
+  //   result: victim,
+  //   loading: loadingVictim,
+  //   error,
+  // } = useQuery(GET_VICTIM_BY_NAME, {
+  //   firstName: victimInput.value.firstName,
+  //   lastName: victimInput.value.lastName,
+  // })
+
+  // if (victim.value) {
+  //   console.log(victim.value)
+  //   // caseInput.value.victimId = victim.value.id
+  //   console.log(caseInput.value)
+  // } else {
+  //   console.log('no victim found')
+  // }
+
+  const result = await addVictim({
+    firstName: victimInput.value.firstName,
+    lastName: victimInput.value.lastName,
+    phoneNumber: victimInput.value.phoneNumber,
+    email: victimInput.value.email,
   })
+
+  return {
+    victimInput,
+    submitHandler,
+    caseInput,
+  }
 }
 </script>
 
