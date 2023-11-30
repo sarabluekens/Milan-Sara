@@ -9,17 +9,6 @@
       >
         <div class="flex flex-row gap-3vw items-start">
           <div class="flex flex-col w-20rem">
-            <label for="firstname" class="body-black mt-1vh">Last Name</label>
-            <input
-              type="text"
-              name="firstname"
-              id="firstname"
-              required
-              class="bg-beige h-4vh"
-              v-model="victimInput.lastName"
-            />
-          </div>
-          <div class="flex flex-col w-20rem">
             <label for="lastname" class="body-black mt-1vh">First Name</label>
             <input
               type="text"
@@ -28,6 +17,17 @@
               class="bg-beige h-4vh"
               required
               v-model="victimInput.firstName"
+            />
+          </div>
+          <div class="flex flex-col w-20rem">
+            <label for="firstname" class="body-black mt-1vh">Last Name</label>
+            <input
+              type="text"
+              name="firstname"
+              id="firstname"
+              required
+              class="bg-beige h-4vh"
+              v-model="victimInput.lastName"
             />
           </div>
         </div>
@@ -84,43 +84,34 @@ const send = ref<boolean>(false)
 const { mutate: addVictim } = useMutation(ADD_VICTIM)
 
 const victimInput = ref({
-  firstName: '',
-  lastName: '',
+  firstName: ''.toLowerCase(),
+  lastName: ''.toLowerCase(),
   email: '',
   phoneNumber: '',
 })
 
-/////// CHECK OF DE VICTIM REEDS IN DE DB ZIT ////////
+/////// VICTIM HANDLER ////////
 
 // Prepare een useLazyQuery voor de submit
 const { load, refetch } = useLazyQuery(GET_VICTIM_BY_NAME, () => ({
-  firstName: victimInput.value.firstName.toLowerCase(),
-  lastName: victimInput.value.lastName.toLowerCase(),
+  firstName: victimInput.value.firstName,
+  lastName: victimInput.value.lastName,
 }))
 
 const submitHandler = async () => {
   // voer de query uit
+  console.log('victimInput:', victimInput.value)
+
   const victim: Victim | boolean = await load()
 
-  // if (Object(victim).getVictimByName === null) {
-  //   console.log('victim does not yet exist')
-  // } else {
-  //   // id van bestaand victim ophalen
-  //   console.log(Object(victim).getVictimByName.id)
-  //   console.log('victim:', victim)
-  // }
-
-  // // refetch als de victim false is (2e keer op submit gedrukt)
-  // if (victim === false) {
-  //   console.log('no victim found')
-  //   const victim = await refetch()
-  //   console.log(victim)
-  // }
-
-  // 2e ronde
-  if (victim !== false) {
+  // bij de eerste druk op submit is victim = true
+  if (victim) {
     if (Object(victim).getVictimByName === null) {
       console.log('victim does not yet exist')
+      const newVictim = await addVictim({
+        victimInput: victimInput.value,
+      })
+      console.log('new victim:', newVictim)
     } else {
       // id van bestaand victim ophalen
       console.log('victim:', Object(victim).getVictimByName.id)
@@ -131,6 +122,10 @@ const submitHandler = async () => {
     const victim = await refetch()
     if (Object(victim).data.getVictimByName === null) {
       console.log('victim does not yet exist')
+      const newVictim = await addVictim({
+        victimInput: victimInput.value,
+      })
+      console.log('new victim:', newVictim)
     } else {
       // id van bestaand victim ophalen
       console.log('victim: ', Object(victim).data.getVictimByName.id)
@@ -138,6 +133,8 @@ const submitHandler = async () => {
   }
   console.log('submit')
 }
+
+///// END VICTIM HANDLER ////////
 </script>
 
 <style scoped></style>
