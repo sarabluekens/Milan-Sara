@@ -39,13 +39,13 @@ export class VictimsService {
     return this.victimRepository.findOneBy({ _id: new ObjectId(id) })
   }
 
-  remove(id: number) {
+  update(id: number, updateVictimInput: UpdateVictimInput) {
     return `This action updates a #${id} victim`
   }
 
-  // update(caseId: string, victimId: string) {
-  //   return this.victimRepository.update(caseId, victimId)
-  // }
+  remove(id: number) {
+    return `This action removes a #${id} victim`
+  }
 
   // logic for seeding
   saveAll(victim: Victim[]): Promise<Victim[]> {

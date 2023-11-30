@@ -1,6 +1,6 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql'
 import { UsedMaterial, UsedMaterialClass } from './used-material.entity'
-import { Column, Entity, ManyToOne, ObjectIdColumn } from 'typeorm'
+import { Column, Entity, ObjectIdColumn } from 'typeorm'
 
 @Entity()
 @ObjectType()
@@ -9,7 +9,7 @@ export class Case {
   @Field(() => ID)
   id: string
 
-  @ManyToOne(() => Victim, victim => victim.cases)
+  @Column()
   @Field({ nullable: true })
   victimId?: string
 

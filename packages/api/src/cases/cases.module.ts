@@ -6,7 +6,7 @@ import { Case } from './entities/case.entity'
 import { VictimsModule } from 'src/victims/victims.module'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Case]), VictimsModule], //allows to injectrepository into service for entity case
+  imports: [TypeOrmModule.forFeature([Case])], //allows to injectrepository into service for entity case
   providers: [CasesResolver, CasesService],
 
   exports: [CasesService],

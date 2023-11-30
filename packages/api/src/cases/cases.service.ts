@@ -11,7 +11,6 @@ export class CasesService {
   constructor(
     @InjectRepository(Case)
     private readonly caseRepository: Repository<Case>,
-    private readonly victimRepository: Repository<Victim>,
   ) {}
 
   create(createCaseInput: CreateCaseInput): Promise<Case> {

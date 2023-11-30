@@ -11,7 +11,7 @@ import { Case } from './entities/case.entity'
 import { CreateCaseInput } from './dto/create-case.input'
 import { UpdateCaseInput } from './dto/update-case.input'
 import { log } from 'console'
-@Resolver(of => Case) // tells nestjs to resolve for the table Case
+@Resolver(() => Case) // tells nestjs to resolve for the table Case
 export class CasesResolver {
   // autmatically create instance of casesService and inject in resolver
   constructor(private readonly casesService: CasesService) {}
@@ -43,12 +43,6 @@ export class CasesResolver {
   findAll() {
     return this.casesService.findAll()
   }
-
-  @ResolveField(() => Case, { name: 'case' })
-  findCaseById(@Args('id', { type: () => String }) id: string) {
-    return this.casesService.getCaseById(id)
-  }
-
   @Mutation(() => Case)
   updateCase(@Args('updateCaseInput') updateCaseInput: UpdateCaseInput) {
     return this.casesService.update(updateCaseInput.id, updateCaseInput)
