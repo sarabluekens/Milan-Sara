@@ -42,17 +42,15 @@ export class VictimsService {
   }
 
   // add caseId to the array in Victim
-  updateCaseId(id: string, caseId: string) {
-    const currentVictim = this.findOne(id)
+  async updateCaseId(id: string, caseId: string) {
+    const currentVictim = await this.findOne(id)
 
-    currentVictim.then(res => {
-      if (res) {
-        res.cases.push(caseId)
-        this.victimRepository.update(id, res)
-      } else {
-        throw new Error('Victim not found')
-      }
-    })
+    if (currentVictim) {
+      currentVictim.cases.push(caseId)
+      this.victimRepository.update(id, currentVictim)
+    } else {
+      throw new Error('Victim not found')
+    }
     return currentVictim
   }
 

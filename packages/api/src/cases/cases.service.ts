@@ -6,6 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { ObjectId } from 'mongodb'
 import { Victim } from 'src/victims/entities/victim.entity'
+import { ObjectIDMock } from 'graphql-scalars'
 @Injectable()
 export class CasesService {
   constructor(
@@ -53,18 +54,15 @@ export class CasesService {
   }
 
   // add victimId to the Case
-  updateVictimId(id: string, victimId: string) {
-    const currentCase = this.getCaseById(id)
+  async updateVictimId(id: string, victimId: string) {
+    const currentCase = await this.getCaseById(id)
 
-    currentCase.then(res => {
-      if (res) {
-        res.id = res.id
-        res.victimId = victimId
-        this.caseRepository.update(id, res)
-      } else {
-        throw new Error('Case not found')
-      }
-    })
+    if (currentCase) {
+      currentCase.victimId = victimId
+      this.caseRepository.update(id, currentCase)
+    } else {
+      throw new Error('Case not found')
+    }
     return currentCase
   }
 
