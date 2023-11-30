@@ -102,21 +102,40 @@ const submitHandler = async () => {
   // voer de query uit
   const victim: Victim | boolean = await load()
 
-  if (Object(victim).getVictimByName === null) {
-    console.log('victim does not yet exist')
+  // if (Object(victim).getVictimByName === null) {
+  //   console.log('victim does not yet exist')
+  // } else {
+  //   // id van bestaand victim ophalen
+  //   console.log(Object(victim).getVictimByName.id)
+  //   console.log('victim:', victim)
+  // }
+
+  // // refetch als de victim false is (2e keer op submit gedrukt)
+  // if (victim === false) {
+  //   console.log('no victim found')
+  //   const victim = await refetch()
+  //   console.log(victim)
+  // }
+
+  // 2e ronde
+  if (victim !== false) {
+    if (Object(victim).getVictimByName === null) {
+      console.log('victim does not yet exist')
+    } else {
+      // id van bestaand victim ophalen
+      console.log('victim:', Object(victim).getVictimByName.id)
+    }
   } else {
-    // id van bestaand victim ophalen
-    console.log(Object(victim).getVictimByName.id)
-    console.log('victim:', victim)
-  }
-
-  // refetch als de victim false is (2e keer op submit gedrukt)
-  if (victim === false) {
-    console.log('no victim found')
+    // refetch als de victim false is (2e keer op submit gedrukt)
+    console.log('nog een keer gesubmit')
     const victim = await refetch()
-    console.log(victim)
+    if (Object(victim).data.getVictimByName === null) {
+      console.log('victim does not yet exist')
+    } else {
+      // id van bestaand victim ophalen
+      console.log('victim: ', Object(victim).data.getVictimByName.id)
+    }
   }
-
   console.log('submit')
 }
 </script>
