@@ -41,18 +41,19 @@ export class VictimsService {
     return this.victimRepository.findOneBy({ _id: new ObjectId(id) })
   }
 
-  update(id: string, caseId: string) {
-    const victim = this.findOne(id)
-    const newCaseId = caseId
-    victim.then(res => {
+  // add caseId to the array in Victim
+  updateCaseId(id: string, caseId: string) {
+    const currentVictim = this.findOne(id)
+
+    currentVictim.then(res => {
       if (res) {
-        res.cases.push(newCaseId)
+        res.cases.push(caseId)
         this.victimRepository.update(id, res)
       } else {
         throw new Error('Victim not found')
       }
     })
-    return victim
+    return currentVictim
   }
 
   remove(id: number) {

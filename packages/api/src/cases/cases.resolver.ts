@@ -43,10 +43,19 @@ export class CasesResolver {
   findAll() {
     return this.casesService.findAll()
   }
+
   @Mutation(() => Case)
-  updateCase(@Args('updateCaseInput') updateCaseInput: UpdateCaseInput) {
-    return this.casesService.update(updateCaseInput.id, updateCaseInput)
+  addVictimToCase(@Args('updateCaseInput') updateCaseInput: UpdateCaseInput) {
+    return this.casesService.updateVictimId(
+      updateCaseInput.caseId,
+      updateCaseInput.victimId,
+    )
   }
+
+  // @Mutation(() => Case)
+  // updateCase(@Args('updateCaseInput') updateCaseInput: UpdateCaseInput) {
+  //   return this.casesService.update(updateCaseInput.id, updateCaseInput)
+  // }
 
   @Mutation(() => Case)
   removeCase(@Args('id', { type: () => Int }) id: number) {

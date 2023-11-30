@@ -42,7 +42,7 @@ export class VictimsResolver {
   addCasetoVictim(
     @Args('updateVictimInput') updateVictimInput: UpdateVictimInput,
   ) {
-    return this.victimsService.update(
+    return this.victimsService.updateCaseId(
       updateVictimInput.victimId,
       updateVictimInput.caseId,
     )

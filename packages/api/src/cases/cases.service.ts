@@ -52,8 +52,20 @@ export class CasesService {
     return this.caseRepository.find({ where: { date } })
   }
 
-  update(id: number, updateCaseInput: UpdateCaseInput) {
-    return `This action updates a #${id} case`
+  // add victimId to the Case
+  updateVictimId(id: string, victimId: string) {
+    const currentCase = this.getCaseById(id)
+
+    currentCase.then(res => {
+      if (res) {
+        res.id = res.id
+        res.victimId = victimId
+        this.caseRepository.update(id, res)
+      } else {
+        throw new Error('Case not found')
+      }
+    })
+    return currentCase
   }
 
   remove(id: number) {
