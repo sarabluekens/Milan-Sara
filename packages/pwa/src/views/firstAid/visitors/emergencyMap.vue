@@ -90,68 +90,35 @@ const victimInput = ref({
   phoneNumber: '',
 })
 
+/////// CHECK OF DE VICTIM REEDS IN DE DB ZIT ////////
+
+// Prepare een useLazyQuery voor de submit
 const { load, refetch } = useLazyQuery(GET_VICTIM_BY_NAME, () => ({
   firstName: victimInput.value.firstName.toLowerCase(),
   lastName: victimInput.value.lastName.toLowerCase(),
 }))
 
 const submitHandler = async () => {
+  // voer de query uit
   const victim: Victim | boolean = await load()
-  console.log(victim)
-  console.log('victim:', victim.getVictimByName)
 
+  if (Object(victim).getVictimByName === null) {
+    console.log('victim does not yet exist')
+  } else {
+    // id van bestaand victim ophalen
+    console.log(Object(victim).getVictimByName.id)
+    console.log('victim:', victim)
+  }
+
+  // refetch als de victim false is (2e keer op submit gedrukt)
   if (victim === false) {
     console.log('no victim found')
     const victim = await refetch()
     console.log(victim)
   }
+
   console.log('submit')
-
-  return {
-    victimInput,
-    submitHandler,
-  }
 }
-// const { result, load } = useLazyQuery(GET_VICTIM_BY_NAME, () => ({
-//   firstName: victimInput.value.firstName.toLowerCase(),
-//   lastName: victimInput.value.lastName.toLowerCase(),
-// }))
-
-// const list = computed(() => result.value?.data?.getVictimByName ?? [])
-
-// console.log('list', list.value)
-// const { result: victim, load: loadingVictim } = useLazyQuery(
-//   GET_VICTIM_BY_NAME,
-//   () => ({
-//     firstName: victimInput.value.firstName.toLowerCase(),
-//     lastName: victimInput.value.lastName.toLowerCase(),
-//   }),
-// )
-// const submitHandler = async () => {
-//   console.log('submit')
-
-//   loadingVictim()
-
-//   if (!victim.value) {
-//     if (victim) {
-//       console.log(victim)
-
-//       // caseInput.value.victimId = victim.value.id
-//     } else {
-//       console.log('no victim found')
-//     }
-//   }
-// const result = await addVictim({
-//   victimInput: victimInput.value,
-// })
-
-// console.log('result', result?.data?.createVictim as Victim)
-
-// return {
-//   victimInput,
-//   submitHandler,
-// }
-// }
 </script>
 
 <style scoped></style>
