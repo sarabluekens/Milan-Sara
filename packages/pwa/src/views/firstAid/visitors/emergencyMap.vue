@@ -76,6 +76,8 @@ import { ref } from 'vue'
 import { useLazyQuery, useMutation, useQuery } from '@vue/apollo-composable'
 import { GET_VICTIM_BY_NAME } from '@/graphql/victim.query'
 import { ADD_VICTIM } from '@/graphql/victim.mutation'
+import { computed } from 'vue'
+import { onMounted } from 'vue'
 
 const { once } = useRealtime()
 const send = ref<boolean>(false)
@@ -88,38 +90,68 @@ const victimInput = ref({
   phoneNumber: '',
 })
 
+const { load, refetch } = useLazyQuery(GET_VICTIM_BY_NAME, () => ({
+  firstName: victimInput.value.firstName.toLowerCase(),
+  lastName: victimInput.value.lastName.toLowerCase(),
+}))
+
 const submitHandler = async () => {
-  console.log('submit')
-  const { result: victim, loading: loadingVictim } = useLazyQuery(
-    GET_VICTIM_BY_NAME,
-    () => ({
-      firstName: victimInput.value.firstName.toLowerCase(),
-      lastName: victimInput.value.lastName.toLowerCase(),
-    }),
-  )
+  const victim: Victim | boolean = await load()
+  console.log(victim)
+  console.log('victim:', victim.getVictimByName)
 
-  if (!loadingVictim.value) {
-    if (victim.value) {
-      console.log(victim.value)
-      console.log(loadingVictim.value)
-
-      // caseInput.value.victimId = victim.value.id
-    } else {
-      console.log('no victim found')
-      console.log(loadingVictim.value)
-    }
+  if (victim === false) {
+    console.log('no victim found')
+    const victim = await refetch()
+    console.log(victim)
   }
-  // const result = await addVictim({
-  //   victimInput: victimInput.value,
-  // })
-
-  // console.log('result', result?.data?.createVictim as Victim)
+  console.log('submit')
 
   return {
     victimInput,
     submitHandler,
   }
 }
+// const { result, load } = useLazyQuery(GET_VICTIM_BY_NAME, () => ({
+//   firstName: victimInput.value.firstName.toLowerCase(),
+//   lastName: victimInput.value.lastName.toLowerCase(),
+// }))
+
+// const list = computed(() => result.value?.data?.getVictimByName ?? [])
+
+// console.log('list', list.value)
+// const { result: victim, load: loadingVictim } = useLazyQuery(
+//   GET_VICTIM_BY_NAME,
+//   () => ({
+//     firstName: victimInput.value.firstName.toLowerCase(),
+//     lastName: victimInput.value.lastName.toLowerCase(),
+//   }),
+// )
+// const submitHandler = async () => {
+//   console.log('submit')
+
+//   loadingVictim()
+
+//   if (!victim.value) {
+//     if (victim) {
+//       console.log(victim)
+
+//       // caseInput.value.victimId = victim.value.id
+//     } else {
+//       console.log('no victim found')
+//     }
+//   }
+// const result = await addVictim({
+//   victimInput: victimInput.value,
+// })
+
+// console.log('result', result?.data?.createVictim as Victim)
+
+// return {
+//   victimInput,
+//   submitHandler,
+// }
+// }
 </script>
 
 <style scoped></style>
