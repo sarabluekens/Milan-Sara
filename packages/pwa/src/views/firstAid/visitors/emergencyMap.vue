@@ -98,38 +98,42 @@ const { load, refetch } = useLazyQuery(GET_VICTIM_BY_NAME, () => ({
   lastName: victimInput.value.lastName,
 }))
 
-const submitHandler = async () => {
-  // voer de query uit
-  console.log('victimInput:', victimInput.value)
+const victimHandler = async (victim: Object) => {
+  {
+    // db returns null if no victim is found
+    if (victim === null) {
+      console.log('victim does not yet exist')
 
+      // voeg een nieuwe victim toe
+      const newVictim = await addVictim({
+        victimInput: victimInput.value,
+      })
+      console.log('new victim:', newVictim)
+    } else {
+      // id van bestaand victim ophalen
+      console.log('found victim:', victim)
+    }
+  }
+}
+
+const updateCase = (caseId: string, victimId: string) => {
+  console.log('update case')
+  updateVictim(caseId, victimId)
+}
+
+const submitHandler = async () => {
+  console.log('form input:', victimInput.value)
+  // voer de query uit
   const victim: Victim | boolean = await load()
 
   // bij de eerste druk op submit is victim = true
   if (victim) {
-    if (Object(victim).getVictimByName === null) {
-      console.log('victim does not yet exist')
-      const newVictim = await addVictim({
-        victimInput: victimInput.value,
-      })
-      console.log('new victim:', newVictim)
-    } else {
-      // id van bestaand victim ophalen
-      console.log('victim:', Object(victim).getVictimByName.id)
-    }
+    victimHandler(Object(victim).getVictimByName)
   } else {
     // refetch als de victim false is (2e keer op submit gedrukt)
     console.log('nog een keer gesubmit')
     const victim = await refetch()
-    if (Object(victim).data.getVictimByName === null) {
-      console.log('victim does not yet exist')
-      const newVictim = await addVictim({
-        victimInput: victimInput.value,
-      })
-      console.log('new victim:', newVictim)
-    } else {
-      // id van bestaand victim ophalen
-      console.log('victim: ', Object(victim).data.getVictimByName.id)
-    }
+    victimHandler(Object(victim).data.getVictimByName)
   }
   console.log('submit')
 }

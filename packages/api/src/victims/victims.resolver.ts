@@ -38,12 +38,13 @@ export class VictimsResolver {
     return this.victimsService.create(createVictimInput)
   }
 
-  @Mutation(() => Victim)
-  updateVictim(
-    @Args('updateVictimInput') updateVictimInput: UpdateVictimInput,
-  ) {
-    return this.victimsService.update(updateVictimInput.id, updateVictimInput)
-  }
+  // @Mutation(() => Victim)
+  // updateCaseId(
+  //   @Args('CaseId') caseId: string,
+  //   @Args('victimId') victimId: string,
+  // ) {
+  //   return this.victimsService.update(caseId, victimId)
+  // }
 
   @Mutation(() => Victim)
   removeVictim(@Args('id', { type: () => Int }) id: number) {

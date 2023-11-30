@@ -1,10 +1,17 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql'
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Int,
+  ResolveField,
+} from '@nestjs/graphql'
 import { CasesService } from './cases.service'
 import { Case } from './entities/case.entity'
 import { CreateCaseInput } from './dto/create-case.input'
 import { UpdateCaseInput } from './dto/update-case.input'
 import { log } from 'console'
-@Resolver(() => Case) // tells nestjs to resolve for the table Case
+@Resolver(of => Case) // tells nestjs to resolve for the table Case
 export class CasesResolver {
   // autmatically create instance of casesService and inject in resolver
   constructor(private readonly casesService: CasesService) {}
@@ -35,6 +42,11 @@ export class CasesResolver {
   @Query(() => [Case], { name: 'cases' })
   findAll() {
     return this.casesService.findAll()
+  }
+
+  @ResolveField(() => Case, { name: 'case' })
+  findCaseById(@Args('id', { type: () => String }) id: string) {
+    return this.casesService.getCaseById(id)
   }
 
   @Mutation(() => Case)

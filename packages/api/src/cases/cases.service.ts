@@ -5,11 +5,13 @@ import { Case } from './entities/case.entity'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { ObjectId } from 'mongodb'
+import { Victim } from 'src/victims/entities/victim.entity'
 @Injectable()
 export class CasesService {
   constructor(
     @InjectRepository(Case)
     private readonly caseRepository: Repository<Case>,
+    private readonly victimRepository: Repository<Victim>,
   ) {}
 
   create(createCaseInput: CreateCaseInput): Promise<Case> {
@@ -31,11 +33,15 @@ export class CasesService {
       newCase.referralDescription = createCaseInput.referralDescription
       newCase.usedMaterials = createCaseInput.usedMaterials
 
-
       return this.caseRepository.save(newCase) // INSERT INTO case
     } catch (error) {
       throw error
     }
+  }
+
+  getCaseById(caseId: string): Promise<Case> {
+    //@ts-ignore
+    return this.caseRepository.findOne({ _id: new ObjectId(caseId) })
   }
 
   //  graphql
