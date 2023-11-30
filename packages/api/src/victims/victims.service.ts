@@ -3,7 +3,9 @@ import { CreateVictimInput } from './dto/create-victim.input'
 import { UpdateVictimInput } from './dto/update-victim.input'
 import { Victim } from './entities/victim.entity'
 import { InjectRepository } from '@nestjs/typeorm'
-import { ObjectId, Repository } from 'typeorm'
+import { Repository } from 'typeorm'
+import { find } from 'rxjs'
+import { ObjectId } from 'mongodb'
 
 @Injectable()
 export class VictimsService {
@@ -39,8 +41,18 @@ export class VictimsService {
     return this.victimRepository.findOneBy({ _id: new ObjectId(id) })
   }
 
-  update(id: number, updateVictimInput: UpdateVictimInput) {
-    return `This action updates a #${id} victim`
+  update(id: string, caseId: string) {
+    const victim = this.findOne(id)
+    const newCaseId = caseId
+    victim.then(res => {
+      if (res) {
+        res.cases.push(newCaseId)
+        this.victimRepository.update(id, res)
+      } else {
+        throw new Error('Victim not found')
+      }
+    })
+    return victim
   }
 
   remove(id: number) {
