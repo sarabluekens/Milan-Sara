@@ -67,11 +67,12 @@ export default {
       const result = await addCase({
         caseInput: caseInput.value,
       })
-      // console.log('result', result?.data?.createCase as Case)
-
+      // add case in the carevigers dashboard
       emit('case:created', result?.data?.createCase as Case)
 
-      push({ name: 'map' })
+      // send caseId to the map
+      const caseId = result?.data?.createCase.id
+      push({ path: `/map/${caseId}` })
     }
 
     return {
