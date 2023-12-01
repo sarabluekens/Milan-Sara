@@ -110,39 +110,81 @@ const updateCase = async (caseId: string, victimId: string) => {
   console.log('case update:', caseUpdate)
 }
 
-const victimHandler = async (victim: Object) => {
-  {
-    // db returns null if no victim is found
-    if (victim === null) {
-      console.log('victim does not yet exist')
+// const victimHandler = async (victim: Object) => {
+//   {
+//     // db returns null if no victim is found
+//     if (victim === null) {
+//       console.log('victim does not yet exist')
+//       // voeg een nieuwe victim toe
+//       const newVictim = await addVictim({
+//         victimInput: victimInput.value,
+//       })
+//       console.log('new victim:', newVictim?.data?.createVictim?.id)
 
-      // voeg een nieuwe victim toe
+//       await updateCase('656705eebb451fdab99652f8', '655cc47db6a5180d6649f8b4')
+//       return newVictim
+//     } else {
+//       // id van bestaand victim ophalen
+//       console.log('found victim:', Object(victim).id)
+//       await updateCase('656705eebb451fdab99652f8', '655cc47db6a5180d6649f8b4')
+//       console.log('updated case:', updateCase)
+//       return victim
+//     }
+//   }
+// }
+
+const submitHandler = async () => {
+  // voer de query uit
+  console.log('victimInput:', victimInput.value)
+  const victim: Victim | boolean = await load()
+  // bij de eerste druk op submit is victim = true
+  if (victim) {
+    if (Object(victim).getVictimByName === null) {
+      console.log('victim does not yet exist')
       const newVictim = await addVictim({
         victimInput: victimInput.value,
       })
-      console.log('new victim:', newVictim)
+      console.log('1st new victim:', newVictim)
+
+      console.log('new victim:', Object(newVictim).data.createVictim.id)
+      await updateCase(
+        '656705eebb451fdab99652f8',
+        Object(newVictim).data.createVictim.id,
+      )
+      return newVictim
     } else {
       // id van bestaand victim ophalen
-      console.log('found victim:', victim)
-      await updateCase('656705eebb451fdab99652f8', '655cc47db6a5180d6649f8b4')
-      console.log('updated case:', updateCase)
+      console.log('1st victim: ', victim)
+      console.log('victim:', Object(victim).getVictimByName.id)
+      await updateCase(
+        '656705eebb451fdab99652f8',
+        Object(victim).getVictimByName.id,
+      )
     }
-  }
-}
-
-const submitHandler = async () => {
-  console.log('form input:', victimInput.value)
-  // voer de query uit
-  const victim: Victim | boolean = await load()
-
-  // bij de eerste druk op submit is victim = true
-  if (victim) {
-    victimHandler(Object(victim).getVictimByName)
   } else {
     // refetch als de victim false is (2e keer op submit gedrukt)
     console.log('nog een keer gesubmit')
     const victim = await refetch()
-    victimHandler(Object(victim).data.getVictimByName)
+    if (Object(victim).data.getVictimByName === null) {
+      console.log('victim does not yet exist')
+      const newVictim = await addVictim({
+        victimInput: victimInput.value,
+      })
+      console.log('2nd new victim: ', newVictim)
+      console.log('new victim:', Object(newVictim).data.createVictim.id)
+      await updateCase(
+        '656705eebb451fdab99652f8',
+        Object(newVictim).data.createVictim.id,
+      )
+    } else {
+      // id van bestaand victim ophalen
+      console.log('2nd victim: ', victim)
+      console.log('victim: ', Object(victim).data.getVictimByName.id)
+      await updateCase(
+        '656705eebb451fdab99652f8',
+        Object(victim).data.getVictimByName.id,
+      )
+    }
   }
   console.log('submit')
 }
