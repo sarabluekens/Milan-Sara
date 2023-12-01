@@ -76,12 +76,14 @@ import { ref } from 'vue'
 import { useLazyQuery, useMutation, useQuery } from '@vue/apollo-composable'
 import { GET_VICTIM_BY_NAME } from '@/graphql/victim.query'
 import { ADD_VICTIM } from '@/graphql/victim.mutation'
+import { ADD_VICTIM_TO_CASE } from '@/graphql/case.mutation'
 import { computed } from 'vue'
 import { onMounted } from 'vue'
 
 const { once } = useRealtime()
 const send = ref<boolean>(false)
 const { mutate: addVictim } = useMutation(ADD_VICTIM)
+const { mutate: addCaseIdToVictim } = useMutation(ADD_VICTIM_TO_CASE)
 
 const victimInput = ref({
   firstName: ''.toLowerCase(),
@@ -98,6 +100,16 @@ const { load, refetch } = useLazyQuery(GET_VICTIM_BY_NAME, () => ({
   lastName: victimInput.value.lastName,
 }))
 
+const updateCase = async (caseId: string, victimId: string) => {
+  const caseUpdate = await addCaseIdToVictim({
+    updateCaseInput: {
+      caseId: caseId,
+      victimId: victimId,
+    },
+  })
+  console.log('case update:', caseUpdate)
+}
+
 const victimHandler = async (victim: Object) => {
   {
     // db returns null if no victim is found
@@ -112,13 +124,10 @@ const victimHandler = async (victim: Object) => {
     } else {
       // id van bestaand victim ophalen
       console.log('found victim:', victim)
+      await updateCase('656705eebb451fdab99652f8', '655cc47db6a5180d6649f8b4')
+      console.log('updated case:', updateCase)
     }
   }
-}
-
-const updateCase = (caseId: string, victimId: string) => {
-  console.log('update case')
-  updateVictim(caseId, victimId)
 }
 
 const submitHandler = async () => {
