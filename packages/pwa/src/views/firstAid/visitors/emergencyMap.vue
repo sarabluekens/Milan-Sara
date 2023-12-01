@@ -77,9 +77,15 @@ import { useLazyQuery, useMutation, useQuery } from '@vue/apollo-composable'
 import { GET_VICTIM_BY_NAME } from '@/graphql/victim.query'
 import { ADD_VICTIM } from '@/graphql/victim.mutation'
 import { ADD_VICTIM_TO_CASE } from '@/graphql/case.mutation'
+import { useRouter } from 'vue-router'
 
 const { mutate: addVictim } = useMutation(ADD_VICTIM)
 const { mutate: addCaseIdToVictim } = useMutation(ADD_VICTIM_TO_CASE)
+
+const router = useRouter()
+
+const caseId: string | string[] = router.currentRoute.value.params.caseId
+console.log('caseId:', caseId)
 
 const victimInput = ref({
   firstName: ''.toLowerCase(),
@@ -125,10 +131,7 @@ const submitHandler = async () => {
       console.log('new victim:', Object(newVictim).data.createVictim.id)
 
       // add victimId to case
-      await updateCase(
-        '656705eebb451fdab99652f8',
-        Object(newVictim).data.createVictim.id,
-      )
+      await updateCase(caseId as string, Object(newVictim).data.createVictim.id)
       return newVictim
     } else {
       //id van bestaand victim ophalen
@@ -136,10 +139,7 @@ const submitHandler = async () => {
       console.log('victim:', Object(victim).getVictimByName.id)
 
       // add victimId to case
-      await updateCase(
-        '656705eebb451fdab99652f8',
-        Object(victim).getVictimByName.id,
-      )
+      await updateCase(caseId as string, Object(victim).getVictimByName.id)
     }
   } else {
     // refetch als de victim false is (2e keer op submit gedrukt)
@@ -158,20 +158,14 @@ const submitHandler = async () => {
       console.log('new victim:', Object(newVictim).data.createVictim.id)
 
       // add victimId to case
-      await updateCase(
-        '656705eebb451fdab99652f8',
-        Object(newVictim).data.createVictim.id,
-      )
+      await updateCase(caseId as string, Object(newVictim).data.createVictim.id)
     } else {
       //id van bestaand victim ophalen
       console.log('2nd victim: ', victim)
       console.log('victim: ', Object(victim).data.getVictimByName.id)
 
       // add victimId to case
-      await updateCase(
-        '656705eebb451fdab99652f8',
-        Object(victim).data.getVictimByName.id,
-      )
+      await updateCase(caseId as string, Object(victim).data.getVictimByName.id)
     }
   }
   console.log('submit')
