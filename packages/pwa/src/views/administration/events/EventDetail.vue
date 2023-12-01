@@ -260,11 +260,11 @@
             <p>consists of:</p>
             <li class="grid grid-cols-4 mb-4">
               <p class="subbody-black col-span-2">Bandage:</p>
-              <p class="subbody-black col-span-1">5</p>
+              <p class="subbody-black col-span-1">{{ woundKit.bandage }}</p>
               <p class="subbody-black col-span-2">Ointment</p>
-              <p class="subbody-black col-span-1">10</p>
+              <p class="subbody-black col-span-1">{{ woundKit.ointment }}</p>
               <p class="subbpdy-black col-span-2">Pill</p>
-              <p class="subbody-black col-span-1">20</p>
+              <p class="subbody-black col-span-1">{{ woundKit.pill }}</p>
             </li>
             <div class="flex flex-row justify-between">
               <button
@@ -273,7 +273,7 @@
               >
                 minus
               </button>
-              <p class="subbody-black">{{ Wound_count }}</p>
+              <p class="subbody-black">{{ woundKit.wound_count }}</p>
               <button
                 @click="handleEquipmentCount('plus', 'Wound')"
                 class="i-mdi-plus-thick icon icon-2 color-red"
@@ -284,7 +284,10 @@
           </div>
         </section>
       </section>
-      <button class="h-12 px-2 w-1/2 bg-red subbody-white col-span-1 mx-auto">
+      <button
+        @click="handleUpdateEquipment()"
+        class="h-12 px-2 w-1/2 bg-red subbody-white col-span-1 mx-auto"
+      >
         Add Caregivers & equipment to event
       </button>
     </section>
@@ -292,10 +295,11 @@
 </template>
 
 <script lang="ts">
-import { useQuery } from '@vue/apollo-composable'
+import { useQuery, useMutation } from '@vue/apollo-composable'
 import { GET_EVENT_BY_ID } from '@/graphql/event.query'
 import { ALL_CAREGIVERS } from '@/graphql/caregiver.query'
 import { ALL_EQUIPMENT } from '@/graphql/equipment.query'
+import { UPDATE_EQUIPMENT } from '@/graphql/equipment.mutation'
 import type { Equipment } from '@/interfaces/equipment.interface'
 import type { Caregiver } from '@/interfaces/caregiver.interface'
 import { useRoute } from 'vue-router'
@@ -306,10 +310,9 @@ export default {
     const route = useRoute()
     const isAccepted = ref(false)
     const AddCaregiver = ref(false)
-    const addedEquipment = ref<Equipment[]>([])
     const addedCaregivers = ref<Caregiver[]>([])
+    const addedEquipment = ref<Equipment[]>([])
     const EHBO_count = ref(0)
-    const Wound_count = ref(0)
 
     const {
       loading: eventLoading,
@@ -328,6 +331,15 @@ export default {
       result: equipments,
       error: equipmentError,
     } = useQuery(ALL_EQUIPMENT)
+
+    const { mutate: updateEquipment } = useMutation(UPDATE_EQUIPMENT)
+
+    const woundKit = ref({
+      bandage: 5,
+      ointment: 10,
+      pill: 20,
+      wound_count: 0,
+    })
 
     const handleAddEvent = () => {
       isAccepted.value = true
@@ -390,15 +402,44 @@ export default {
         case 'Wound':
           if (action === 'minus') {
             console.log('minus')
-            if (Wound_count.value === 0) {
+            if (woundKit.value.wound_count === 0) {
               return
             }
-            Wound_count.value--
+            woundKit.value.wound_count--
           } else {
             console.log('plus')
-            Wound_count.value++
+            woundKit.value.wound_count++
           }
           break
+      }
+    }
+
+    const handleUpdateEquipment = () => {
+      console.log(woundKit.value.ointment * woundKit.value.wound_count)
+      console.log(equipments.value.equipments)
+      if (woundKit.value.wound_count > 0) {
+        for (const equipment of equipments.value.equipments) {
+          console.log(equipment.reservedStock)
+          if (equipment.name === 'Flamigel') {
+            addedEquipment.value.push(equipment)
+          }
+        }
+        for (const equipment of addedEquipment.value) {
+          console.log(addedEquipment.value)
+          console.log(equipment)
+          updateEquipment({
+            updateEquipmentInput: {
+              id: equipment.id,
+              totalStock:
+                equipment.totalStock -
+                woundKit.value.wound_count * woundKit.value.ointment,
+              reservedStock: {
+                eventId: event.value.event.id,
+                amount: woundKit.value.wound_count * woundKit.value.ointment,
+              },
+            },
+          })
+        }
       }
     }
 
@@ -415,13 +456,14 @@ export default {
       isAccepted,
       AddCaregiver,
       EHBO_count,
-      Wound_count,
+      woundKit,
       addedCaregivers,
       handleAddEvent,
       handleNewCaregiver,
       handleAssigned,
       closeAssigned,
       handleEquipmentCount,
+      handleUpdateEquipment,
     }
   },
 }

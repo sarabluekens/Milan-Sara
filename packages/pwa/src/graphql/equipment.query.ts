@@ -9,7 +9,10 @@ export const ALL_EQUIPMENT = gql`
       category
       description
       totalStock
-      reservedStock
+      reservedStock {
+        eventId
+        amount
+      }
       available
       expirationDate
       createdAt
