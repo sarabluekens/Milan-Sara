@@ -77,11 +77,7 @@ import { useLazyQuery, useMutation, useQuery } from '@vue/apollo-composable'
 import { GET_VICTIM_BY_NAME } from '@/graphql/victim.query'
 import { ADD_VICTIM } from '@/graphql/victim.mutation'
 import { ADD_VICTIM_TO_CASE } from '@/graphql/case.mutation'
-import { computed } from 'vue'
-import { onMounted } from 'vue'
 
-const { once } = useRealtime()
-const send = ref<boolean>(false)
 const { mutate: addVictim } = useMutation(ADD_VICTIM)
 const { mutate: addCaseIdToVictim } = useMutation(ADD_VICTIM_TO_CASE)
 
@@ -110,52 +106,36 @@ const updateCase = async (caseId: string, victimId: string) => {
   console.log('case update:', caseUpdate)
 }
 
-// const victimHandler = async (victim: Object) => {
-//   {
-//     // db returns null if no victim is found
-//     if (victim === null) {
-//       console.log('victim does not yet exist')
-//       // voeg een nieuwe victim toe
-//       const newVictim = await addVictim({
-//         victimInput: victimInput.value,
-//       })
-//       console.log('new victim:', newVictim?.data?.createVictim?.id)
-
-//       await updateCase('656705eebb451fdab99652f8', '655cc47db6a5180d6649f8b4')
-//       return newVictim
-//     } else {
-//       // id van bestaand victim ophalen
-//       console.log('found victim:', Object(victim).id)
-//       await updateCase('656705eebb451fdab99652f8', '655cc47db6a5180d6649f8b4')
-//       console.log('updated case:', updateCase)
-//       return victim
-//     }
-//   }
-// }
-
 const submitHandler = async () => {
   // voer de query uit
   console.log('victimInput:', victimInput.value)
   const victim: Victim | boolean = await load()
   // bij de eerste druk op submit is victim = true
   if (victim) {
+    // no victim found
     if (Object(victim).getVictimByName === null) {
       console.log('victim does not yet exist')
+
+      // add victim
       const newVictim = await addVictim({
         victimInput: victimInput.value,
       })
       console.log('1st new victim:', newVictim)
 
       console.log('new victim:', Object(newVictim).data.createVictim.id)
+
+      // add victimId to case
       await updateCase(
         '656705eebb451fdab99652f8',
         Object(newVictim).data.createVictim.id,
       )
       return newVictim
     } else {
-      // id van bestaand victim ophalen
+      //id van bestaand victim ophalen
       console.log('1st victim: ', victim)
       console.log('victim:', Object(victim).getVictimByName.id)
+
+      // add victimId to case
       await updateCase(
         '656705eebb451fdab99652f8',
         Object(victim).getVictimByName.id,
@@ -165,21 +145,29 @@ const submitHandler = async () => {
     // refetch als de victim false is (2e keer op submit gedrukt)
     console.log('nog een keer gesubmit')
     const victim = await refetch()
+
+    // no victim found
     if (Object(victim).data.getVictimByName === null) {
       console.log('victim does not yet exist')
+
+      // add victim
       const newVictim = await addVictim({
         victimInput: victimInput.value,
       })
       console.log('2nd new victim: ', newVictim)
       console.log('new victim:', Object(newVictim).data.createVictim.id)
+
+      // add victimId to case
       await updateCase(
         '656705eebb451fdab99652f8',
         Object(newVictim).data.createVictim.id,
       )
     } else {
-      // id van bestaand victim ophalen
+      //id van bestaand victim ophalen
       console.log('2nd victim: ', victim)
       console.log('victim: ', Object(victim).data.getVictimByName.id)
+
+      // add victimId to case
       await updateCase(
         '656705eebb451fdab99652f8',
         Object(victim).data.getVictimByName.id,
