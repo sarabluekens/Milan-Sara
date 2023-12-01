@@ -33,7 +33,7 @@ export default {
   setup() {
     const { push } = useRouter()
     const { mutate: addCase } = useMutation(ADD_CASE)
-    const { emit, once } = useRealtime()
+    const { emit } = useRealtime()
     const categories = [
       {
         text: 'Unconscious',
