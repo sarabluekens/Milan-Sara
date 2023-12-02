@@ -273,7 +273,7 @@
               >
                 minus
               </button>
-              <p class="subbody-black">{{ woundKit.wound_count }}</p>
+              <p class="subbody-black">{{ woundKit.count }}</p>
               <button
                 @click="handleEquipmentCount('plus', 'Wound')"
                 class="i-mdi-plus-thick icon icon-2 color-red"
@@ -335,10 +335,13 @@ export default {
     const { mutate: updateEquipment } = useMutation(UPDATE_EQUIPMENT)
 
     const woundKit = ref({
+      bandage_name: 'Arm bandage',
       bandage: 5,
+      ointment_name: 'Flamigel',
       ointment: 10,
+      pill_name: 'Dafalgan',
       pill: 20,
-      wound_count: 0,
+      count: 0,
     })
 
     const handleAddEvent = () => {
@@ -402,44 +405,43 @@ export default {
         case 'Wound':
           if (action === 'minus') {
             console.log('minus')
-            if (woundKit.value.wound_count === 0) {
+            if (woundKit.value.count === 0) {
               return
             }
-            woundKit.value.wound_count--
+            woundKit.value.count--
           } else {
             console.log('plus')
-            woundKit.value.wound_count++
+            woundKit.value.count++
           }
           break
       }
     }
 
     const handleUpdateEquipment = () => {
-      console.log(woundKit.value.ointment * woundKit.value.wound_count)
       console.log(equipments.value.equipments)
-      if (woundKit.value.wound_count > 0) {
+      if (woundKit.value.count > 0) {
         for (const equipment of equipments.value.equipments) {
           console.log(equipment.reservedStock)
           if (equipment.name === 'Flamigel') {
             addedEquipment.value.push(equipment)
           }
         }
-        for (const equipment of addedEquipment.value) {
-          console.log(addedEquipment.value)
-          console.log(equipment)
-          updateEquipment({
-            updateEquipmentInput: {
-              id: equipment.id,
-              totalStock:
-                equipment.totalStock -
-                woundKit.value.wound_count * woundKit.value.ointment,
-              reservedStock: {
-                eventId: event.value.event.id,
-                amount: woundKit.value.wound_count * woundKit.value.ointment,
-              },
+      }
+      for (const equipment of addedEquipment.value) {
+        console.log(addedEquipment.value)
+        console.log(equipment)
+        updateEquipment({
+          updateEquipmentInput: {
+            id: equipment.id,
+            totalStock:
+              equipment.totalStock -
+              woundKit.value.count * woundKit.value.ointment,
+            reservedStock: {
+              eventId: event.value.event.id,
+              amount: woundKit.value.count * woundKit.value.ointment,
             },
-          })
-        }
+          },
+        })
       }
     }
 
