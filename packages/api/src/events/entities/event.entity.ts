@@ -55,7 +55,7 @@ export class Event {
 
   @Column() // Database link - Typeorm
   @Field() //graphql
-  phoneNumer: string
+  phoneNumber: string
 
   @Column() // Database link - Typeorm
   @Field() //graphql

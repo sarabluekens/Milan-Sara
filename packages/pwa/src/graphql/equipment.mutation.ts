@@ -1,9 +1,8 @@
 import gql from 'graphql-tag'
 
-export const ALL_EQUIPMENT = gql`
-  query equipments {
-    equipments {
-      __typename
+export const UPDATE_EQUIPMENT = gql`
+  mutation updateEquipment($updateEquipmentInput: UpdateEquipmentInput!) {
+    updateEquipment(updateEquipmentInput: $updateEquipmentInput) {
       id
       name
       category
@@ -15,10 +14,6 @@ export const ALL_EQUIPMENT = gql`
       }
       available
       expirationDate
-      createdAt
-      updatedAt
     }
   }
 `
-
-//hier moet er nog vanalles komen

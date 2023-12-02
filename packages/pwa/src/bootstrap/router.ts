@@ -62,6 +62,12 @@ const router = createRouter({
     },
 
     {
+      path: '/admin/event/detail/:id',
+      component: () => import('../views/administration/events/EventDetail.vue'),
+      meta: { shouldBeAuthenticated: true },
+    },
+
+    {
       path: '/event/add',
       component: () => import('../views/administration/events/AddEvent.vue'),
       meta: { shouldBeAuthenticated: true },

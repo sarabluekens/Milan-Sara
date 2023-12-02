@@ -4,7 +4,12 @@ export interface Equipment {
   category: string
   description: string
   totalStock: number
-  reservedStock: string[]
+  reservedStock: Array<reservedStock>
   available: boolean
   expirationDate: Date
+}
+
+export interface reservedStock {
+  eventId: string
+  amount: number
 }

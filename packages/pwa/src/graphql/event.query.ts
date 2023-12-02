@@ -12,7 +12,31 @@ export const ALL_EVENT = gql`
       startHour
       endHour
       contactPerson
-      phoneNumer
+      phoneNumber
+      email
+      btwNumber
+      eventWithChildren
+      mapsLink
+      expectedVisitorStaffCount
+      status
+      createdAt
+    }
+  }
+`
+
+export const GET_EVENT_BY_ID = gql`
+  query event($id: String!) {
+    event(id: $id) {
+      id
+      name
+      address
+      postalCode
+      city
+      dates
+      startHour
+      endHour
+      contactPerson
+      phoneNumber
       email
       btwNumber
       eventWithChildren
@@ -36,7 +60,7 @@ export const GET_EVENT_BY_STATUS_CLIENT = gql`
       startHour
       endHour
       contactPerson
-      phoneNumer
+      phoneNumber
       email
       btwNumber
       eventWithChildren
@@ -60,7 +84,7 @@ export const GET_EVENT_BY_STATUS = gql`
       startHour
       endHour
       contactPerson
-      phoneNumer
+      phoneNumber
       email
       btwNumber
       eventWithChildren

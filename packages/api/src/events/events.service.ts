@@ -4,6 +4,7 @@ import { UpdateEventInput } from './dto/update-event.input'
 import { Event, Status } from './entities/event.entity'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
+import { ObjectId } from 'mongodb'
 
 @Injectable()
 export class EventsService {
@@ -23,7 +24,7 @@ export class EventsService {
       e.startHour = createEventInput.startHour
       e.endHour = createEventInput.endHour
       e.contactPerson = createEventInput.contactPerson
-      e.phoneNumer = createEventInput.phoneNumer
+      e.phoneNumber = createEventInput.phoneNumer
       e.email = createEventInput.email
       e.btwNumber = createEventInput.btwNumber
       e.eventWithChildren = createEventInput.eventWithChildren
@@ -49,7 +50,7 @@ export class EventsService {
     return this.eventRepository.find({ where: { status } })
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     //@ts-ignore
     return this.eventRepository.findOneBy({ _id: new ObjectId(id) })
   }
