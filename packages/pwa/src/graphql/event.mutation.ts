@@ -12,7 +12,7 @@ export const ADD_EVENT = gql`
       startHour
       endHour
       contactPerson
-      phoneNumer
+      phoneNumber
       email
       btwNumber
       expectedVisitorStaffCount

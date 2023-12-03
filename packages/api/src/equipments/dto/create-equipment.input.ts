@@ -1,5 +1,6 @@
 import { InputType, Int, Field } from '@nestjs/graphql'
-import { IsNotEmpty } from 'class-validator'
+import { IsNotEmpty, IsOptional } from 'class-validator'
+import { ReservedStock } from '../entities/reserverdStock.entity'
 
 @InputType()
 export class CreateEquipmentInput {
@@ -11,15 +12,19 @@ export class CreateEquipmentInput {
   @Field() //graphql
   category: string
 
+  @IsOptional()
   @Field() //graphql
   description?: string
 
+  @IsNotEmpty()
   @Field({ defaultValue: 0 }) //graphql
   totalStock: number
 
-  @Field(() => [String], { nullable: true }) //graphql
-  reservedStock: string[]
+  @IsOptional()
+  @Field(() => [ReservedStock], { defaultValue: [] }) //graphql
+  reservedStock: Array<ReservedStock>
 
+  @IsNotEmpty()
   @Field({ defaultValue: true }) //graphql
   available: boolean
 

@@ -57,9 +57,12 @@
           <p class="col-span-2">{{ event.createdAt }}</p>
           <p class="col-span-6">{{ event.name }}</p>
           <p class="col-span-1">{{ event.status }}</p>
-          <p class="h-6 px-2 w-auto bg-red subbody-white col-span-1">
+          <button
+            @click="handleDetails(event.id)"
+            class="h-6 px-2 w-auto bg-red subbody-white col-span-1"
+          >
             event details
-          </p>
+          </button>
         </div>
       </div>
     </section>
@@ -70,11 +73,13 @@
 import useFirebase from '@/composables/useFirebase'
 import { useQuery } from '@vue/apollo-composable'
 import { GET_EVENT_BY_STATUS } from '../../graphql/event.query'
+import { useRouter } from 'vue-router'
 
 export default {
   setup() {
     // Composable
     const { firebaseUser } = useFirebase()
+    const { push } = useRouter()
 
     const {
       loading: eventsLoading,
@@ -96,6 +101,11 @@ export default {
 
     console.log(events)
 
+    const handleDetails = (id: string) => {
+      console.log('details: ' + id)
+      push({ path: `/admin/event/detail/${id}` })
+    }
+
     return {
       firebaseUser,
       eventsLoading,
@@ -104,6 +114,7 @@ export default {
       eventsCompletedLoading,
       eventsCompletedError,
       eventsCompleted: eventsCompleted,
+      handleDetails,
     }
   },
 }

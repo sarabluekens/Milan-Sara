@@ -4,8 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "todo",
-    "translate:pwa": "npm run translate -w -pwa"
+    "dev": "npx lerna run --scope={pwa,api} dev --stream",
+    "dev:api": "npx lerna run --scope=api dev",
+    "dev:pwa": "npx lerna run --scope=pwa dev",
+    "translate:pwa": "npm run translate -w -pwa",
+    "build:pwa": "npx lerna run --scope=pwa build",
+    "build:api": "npx lerna run --scope=api build"
   },
   "repository": {
     "type": "git",
@@ -28,5 +32,9 @@
     "arrowParens": "avoid",
     "proseWrap": "preserve",
     "htmlWhitespaceSensitivity": "css"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "lerna": "^7.4.2"
   }
 }
