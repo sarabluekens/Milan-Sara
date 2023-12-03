@@ -5,6 +5,8 @@ import { Case } from './entities/case.entity'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { ObjectId } from 'mongodb'
+import { Victim } from 'src/victims/entities/victim.entity'
+import { ObjectIDMock } from 'graphql-scalars'
 @Injectable()
 export class CasesService {
   constructor(
@@ -17,27 +19,51 @@ export class CasesService {
       // shorthand for -> newCase = new Case(); newCase.victimId = createCaseInput.victimId; ...
       // const newCase = this.caseRepository.create(createCaseInput)
       const newCase = new Case()
+      newCase.victimId = createCaseInput.victimId
       newCase.eventId = createCaseInput.eventId
+      newCase.caregiverId = createCaseInput.caregiverId
       newCase.typeAccident = createCaseInput.typeAccident
       newCase.date = new Date()
+      newCase.accidentDescription = createCaseInput.accidentDescription
+      newCase.diagnose = createCaseInput.diagnose
+      newCase.careGiven = createCaseInput.careGiven
+      newCase.checkUpRequired = createCaseInput.checkUpRequired
+      newCase.checkUpDescription = createCaseInput.checkUpDescription
+      newCase.referred = createCaseInput.referred
+      newCase.referralDescription = createCaseInput.referralDescription
+      newCase.usedMaterials = createCaseInput.usedMaterials
+
       return this.caseRepository.save(newCase) // INSERT INTO case
     } catch (error) {
       throw error
     }
   }
 
-  //  graphql demo
+  getCaseById(caseId: string): Promise<Case> {
+    //@ts-ignore
+    return this.caseRepository.findOne({ _id: new ObjectId(caseId) })
+  }
+
+  //  graphql
   async findAll(): Promise<Case[]> {
     return this.caseRepository.find() // SELECT *  case
   }
 
-  findOne(id: string) {
-    //@ts-ignore
-    return this.caseRepository.findOne({ _id: new ObjectId(id) })
+  findOneByDate(date: Date) {
+    return this.caseRepository.find({ where: { date } })
   }
 
-  update(id: number, updateCaseInput: UpdateCaseInput) {
-    return `This action updates a #${id} case`
+  // add victimId to the Case
+  async updateVictimId(id: string, victimId: string) {
+    const currentCase = await this.getCaseById(id)
+
+    if (currentCase) {
+      currentCase.victimId = victimId
+      this.caseRepository.update(id, currentCase)
+    } else {
+      throw new Error('Case not found')
+    }
+    return currentCase
   }
 
   remove(id: number) {

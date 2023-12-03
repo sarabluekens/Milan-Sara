@@ -51,37 +51,16 @@ export default {
 
       newCase.value = data as Case
       liveCases.value.push(data as Case)
+      console.log(newCase.value)
     })
 
-    // const convertformat = (date: any) => {
-    //   let curr_dt = date
-    //   let form_dt = curr_dt
-    //   console.log(form_dt)
+    
 
-    //   return format(date, 'dd.MM.yyyy') // 2022-01-13T14:06:33.612Z
-
-    //   return form_dt
-    // }yà^%
-    // const convertformat = (dateString: Date) => {
-    //   const date = dateString
-    //   // Then specify how you want your dates to be formatted
-    //   return new Intl.DateTimeFormat('default', { dateStyle: 'short' }).format(
-    //     date,
-    //   )
-    // }
     return {
-      // todo interface maken voor case
       result: computed<Case[]>(() => cases.value.cases),
       loadingCases,
       liveCases,
-      // convertformat,
     }
   },
 }
-
-// read param
 </script>
-
-<style scoped>
-/* Your CSS styles here */
-</style>

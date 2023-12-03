@@ -3,7 +3,7 @@
     <h1 class="title-red">What happened?</h1>
     <p class="subtitle-red">What kind of help do you need?</p>
     <section class="flex flex-wrap justify-center items-center">
-      <div v-for="item in items" class="bg-red rounded-xl p-3 m-3 w-1/4">
+      <div v-for="item in categories" class="bg-red rounded-xl p-3 m-3 w-1/4">
         <EmergencyCard
           :image="item.image"
           :title="item.text"
@@ -21,11 +21,12 @@
 
 <script lang="ts">
 import { useRouter } from 'vue-router'
-import EmergencyCard from '@/components/EmergencyCard.vue'
+import EmergencyCard from '@/components/generic/EmergencyCard.vue'
 import { ref } from 'vue'
 import { useMutation } from '@vue/apollo-composable'
 import { ADD_CASE } from '@/graphql/case.mutation'
 import useRealtime from '@/composables/useRealtime'
+import type { Case } from '@/interfaces/case.interface'
 
 export default {
   components: { EmergencyCard },
@@ -33,7 +34,7 @@ export default {
     const { push } = useRouter()
     const { mutate: addCase } = useMutation(ADD_CASE)
     const { emit } = useRealtime()
-    const items = [
+    const categories = [
       {
         text: 'Unconscious',
         category: 'unconscious',
@@ -51,7 +52,7 @@ export default {
       { text: 'Allergic reaction', category: 'allergy', image: 'allergy.svg' },
       {
         text: "I don't know, something else",
-        category: 'otherInjury',
+        category: 'other',
         image: 'otherInjury.svg',
       },
     ]
@@ -61,22 +62,23 @@ export default {
       typeAccident: '',
       eventId: 'tempEventId2',
     })
-    const handleNewCase = (category: string) => {
+    const handleNewCase = async (category: string) => {
       caseInput.value.typeAccident = category
-      console.log(caseInput.value)
-      emit('case:created', caseInput.value)
-      // TODO check input values
-      // addCase({
-      //   caseInput: caseInput.value,
-      // })
+      const result = await addCase({
+        caseInput: caseInput.value,
+      })
+      // add case in the carevigers dashboard
+      emit('case:created', result?.data?.createCase as Case)
 
-      push({ name: 'map' })
+      // send caseId to the map
+      const caseId = result?.data?.createCase.id
+      push({ path: `/map/${caseId}` })
     }
 
     return {
       caseInput,
       handleNewCase,
-      items,
+      categories,
     }
   },
 }
