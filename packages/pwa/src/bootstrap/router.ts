@@ -39,39 +39,38 @@ const router = createRouter({
 
     {
       path: '/admin',
-      component: () => import('../views/administration/events/index.vue'),
+      component: () => import('../components/wrappers/AdminWrap.vue'),
       meta: { shouldBeAuthenticated: true, role: 'admin' }, // Rol afwerken
-    },
-
-    {
-      path: '/admin/dashboard',
-      component: () => import('../views/administration/Dashboard.vue'),
-      meta: { shouldBeAuthenticated: true },
-    },
-
-    {
-      path: '/admin/event',
-      component: () =>
-        import('../views/administration/events/EventsOverview.vue'),
-      meta: { shouldBeAuthenticated: true },
-    },
-
-    {
-      path: '/admin/staff',
-      component: () => import('../views/administration/StaffOverview.vue'),
-      meta: { shouldBeAuthenticated: true },
-    },
-
-    {
-      path: '/admin/equipment',
-      component: () => import('../views/administration/EquipmentOverview.vue'),
-      meta: { shouldBeAuthenticated: true },
-    },
-
-    {
-      path: '/admin/event/detail/:id',
-      component: () => import('../views/administration/events/EventDetail.vue'),
-      meta: { shouldBeAuthenticated: true },
+      children: [
+        {
+          path: 'dashboard',
+          component: () => import('../views/administration/Dashboard.vue'),
+          meta: { shouldBeAuthenticated: true },
+        },
+        {
+          path: 'event',
+          component: () =>
+            import('../views/administration/events/EventsOverview.vue'),
+          meta: { shouldBeAuthenticated: true },
+        },
+        {
+          path: 'staff',
+          component: () => import('../views/administration/StaffOverview.vue'),
+          meta: { shouldBeAuthenticated: true },
+        },
+        {
+          path: 'equipment',
+          component: () =>
+            import('../views/administration/EquipmentOverview.vue'),
+          meta: { shouldBeAuthenticated: true },
+        },
+        {
+          path: 'event/detail/:id',
+          component: () =>
+            import('../views/administration/events/EventDetail.vue'),
+          meta: { shouldBeAuthenticated: true },
+        },
+      ],
     },
 
     {
