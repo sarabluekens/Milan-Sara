@@ -7,6 +7,9 @@ import { Repository } from 'typeorm'
 import { ObjectId } from 'mongodb'
 import { v2 as cloudinary } from 'cloudinary'
 
+const multer = require('multer')
+const upload = multer({ dest: 'uploads/' })
+
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -21,6 +24,7 @@ export class EventsService {
   ) {}
 
   create(createEventInput: CreateEventInput): Promise<Event> {
+    upload.single(createEventInput.mapsLink)
     console.log(createEventInput)
     try {
       cloudinary.uploader.upload(
