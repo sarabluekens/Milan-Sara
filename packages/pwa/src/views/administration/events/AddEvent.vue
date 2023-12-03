@@ -128,13 +128,12 @@
         No
       </label>
       <label class="body-black col-span-1" for="maps">Maps</label>
-      <input
-        type="file"
-        multiple
-        id="maps"
-        class="border-1 border-black w-2/3 h-10 ml-3 bg-white subbody-black/80 col-span-4 mb-6 file:bg-black file:subbody-white file:h-10"
-        v-on:change="newEvent.maps"
-      />
+      <div
+        class="border-1 border-red col-span-2 h-10 mb-4"
+        @click="openUploadWidget()"
+      >
+        upload file
+      </div>
       <button
         class="border-1 border-red bg-red col-span-2 col-start-2 body-white h-10"
       >
@@ -173,6 +172,30 @@ export default {
       loading: addEventLoading,
       onError: addEventError,
     } = useMutation(ADD_EVENT)
+
+    //@ts-ignore
+    const widget = window.cloudinary.createUploadWidget(
+      {
+        cloudName: 'dcw0zn7ly',
+        uploadPreset: 'upload-RedCross',
+      },
+      (error: any, result: any) => {
+        if (!error && result && result.event === 'success') {
+          console.log('Done! Here is the image info: ', result.info.secure_url)
+          newEvent.value.maps = result.info.secure_url
+        }
+      },
+    )
+
+    const handleFileChange = (event: any) => {
+      const file = event.target.files[0]
+      console.log(file)
+      newEvent.value.maps = file.name
+    }
+
+    const openUploadWidget = () => {
+      widget.open()
+    }
 
     const handleAddEvent = () => {
       if (newEvent.value.name === '') {
@@ -215,6 +238,7 @@ export default {
         alert('Please fill in if there are children at the event')
         return
       } else {
+        console.log(newEvent.value.maps)
         alert('Event created')
         addEvent({
           createEventInput: {
@@ -253,6 +277,8 @@ export default {
 
     return {
       newEvent,
+      handleFileChange,
+      openUploadWidget,
       handleAddEvent,
     }
   },

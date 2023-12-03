@@ -142,13 +142,10 @@
         No
       </label>
       <label class="body-black col-span-1" for="maps">Maps</label>
-      <input
-        type="file"
-        multiple
-        id="maps"
-        disabled
-        class="border-1 border-black w-2/3 h-10 ml-3 bg-white subbody-black/80 col-span-4 mb-6 file:bg-black file:subbody-white file:h-10"
-        v-on:change="event.event.maps"
+      <img
+        class="col-span-4 h-auto"
+        :src="event.event.mapsLink"
+        alt="map of the event"
       />
       <button
         class="border-1 border-red bg-red col-span-2 body-white h-10"

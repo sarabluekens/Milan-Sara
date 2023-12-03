@@ -14,6 +14,7 @@ export class EventsService {
   ) {}
 
   create(createEventInput: CreateEventInput): Promise<Event> {
+    console.log(createEventInput)
     try {
       const e = new Event()
       e.name = createEventInput.name
