@@ -134,8 +134,15 @@
       <h2 class="ml-3 mt-0 subtitle-white text-start">Event</h2>
       <ul class="ml-3">
         <div class="h-0.05rem bg-beige w-80% mt-1"></div>
-        <li class="body-white my-10% sm:my-5% md:my-6">All events</li>
-        <li class="body-white my-10% sm:my-5% md:my-6">Pending events</li>
+        <li
+          class="body-white my-10% sm:my-5% md:my-6 cursor-pointer"
+          @click="handlePush('/admin/event')"
+        >
+          All events
+        </li>
+        <li class="body-white my-10% sm:my-5% md:my-6 cursor-pointer">
+          Pending events
+        </li>
         <li class="body-white my-10% sm:my-5% md:my-6">Succesful events</li>
         <li class="body-white my-10% sm:my-5% md:my-6">Cancelled events</li>
       </ul>
@@ -147,7 +154,12 @@
       <h2 class="ml-3 mt-0 subtitle-white text-start">Staff</h2>
       <ul class="ml-3">
         <div class="h-0.05rem bg-beige w-80% mt-1"></div>
-        <li class="body-white my-10% sm:my-5% md:my-6">All staff</li>
+        <li
+          class="body-white my-10% sm:my-5% md:my-6 cursor-pointer"
+          @click="handlePush('/admin/staff')"
+        >
+          All staff
+        </li>
       </ul>
     </section>
     <section
@@ -157,7 +169,12 @@
       <h2 class="ml-3 mt-0 subtitle-white text-start">Equipment</h2>
       <ul class="ml-3">
         <div class="h-0.05rem bg-beige w-80% mt-1"></div>
-        <li class="body-white my-10% sm:my-5% md:my-6">All equipment</li>
+        <li
+          class="body-white my-10% sm:my-5% md:my-6 cursor-pointer"
+          @click="handlePush('/admin/equipment')"
+        >
+          All equipment
+        </li>
       </ul>
     </section>
     <section
@@ -212,6 +229,13 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const { push } = useRouter()
 
 const showMenu = ref(false)
+
+const handlePush = (path: string) => {
+  push(path)
+}
 </script>
