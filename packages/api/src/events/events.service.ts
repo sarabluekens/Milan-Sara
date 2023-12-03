@@ -5,16 +5,6 @@ import { Event, Status } from './entities/event.entity'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { ObjectId } from 'mongodb'
-import { v2 as cloudinary } from 'cloudinary'
-
-const multer = require('multer')
-const upload = multer({ dest: 'uploads/' })
-
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-})
 
 @Injectable()
 export class EventsService {
@@ -24,17 +14,8 @@ export class EventsService {
   ) {}
 
   create(createEventInput: CreateEventInput): Promise<Event> {
-    upload.single(createEventInput.mapsLink)
     console.log(createEventInput)
     try {
-      cloudinary.uploader.upload(
-        createEventInput.mapsLink,
-        { public_id: createEventInput.name },
-        async (error, result) => {
-          console.log(result, error)
-        },
-      )
-
       const e = new Event()
       e.name = createEventInput.name
       e.address = createEventInput.address
