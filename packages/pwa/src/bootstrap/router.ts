@@ -50,6 +50,13 @@ const router = createRouter({
     },
 
     {
+      path: '/admin/event',
+      component: () =>
+        import('../views/administration/events/EventsOverview.vue'),
+      meta: { shouldBeAuthenticated: true },
+    },
+
+    {
       path: '/admin/staff',
       component: () => import('../views/administration/StaffOverview.vue'),
       meta: { shouldBeAuthenticated: true },
