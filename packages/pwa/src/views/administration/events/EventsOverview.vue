@@ -18,16 +18,19 @@
             class="i-ic-sharp-keyboard-arrow-up icon icon-2"
           ></div>
         </div>
-        <section v-if="pendingDown">
+        <div
+          class="subbody-black bg-white mx-6 mt-6 mb-8"
+          v-if="pendingDown && events.eventsByStatus.length === 0"
+        >
+          No pending events at the moment
+        </div>
+        <section v-if="pendingDown && events.eventsByStatus.length > 0">
           <div class="grid grid-cols-10 px-2 mx-6 mb-4 subbody-black">
             <p class="col-span-2">Date added</p>
             <p class="col-span-6">Event name</p>
             <p class="col-span-1">Status</p>
           </div>
-          <div v-if="eventsLoading">Loading</div>
-          <div v-if="eventsError">{{ eventsError }}</div>
           <div
-            v-if="events"
             v-for="event in events.eventsByStatus"
             class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 subbody-black"
           >
@@ -57,7 +60,15 @@
             class="i-ic-sharp-keyboard-arrow-up icon icon-2"
           ></div>
         </div>
-        <section v-if="AcceptedDown">
+        <div
+          class="subbody-black bg-white mx-6 mt-6 mb-8"
+          v-if="AcceptedDown && eventsApproved.eventsByStatus.length === 0"
+        >
+          No Accepted events at the moment
+        </div>
+        <section
+          v-if="AcceptedDown && eventsApproved.eventsByStatus.length > 0"
+        >
           <div class="grid grid-cols-10 px-2 mx-6 mb-4 subbody-black">
             <p class="col-span-2">Date added</p>
             <p class="col-span-6">Event name</p>
@@ -66,7 +77,6 @@
           <div v-if="eventsApprovedLoading">Loading</div>
           <div v-if="eventsApprovedError">{{ eventsApprovedError }}</div>
           <div
-            v-if="events"
             v-for="event in eventsApproved.eventsByStatus"
             class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 subbody-black"
           >
@@ -96,7 +106,15 @@
             class="i-ic-sharp-keyboard-arrow-up icon icon-2"
           ></div>
         </div>
-        <section v-if="CompletedDown">
+        <div
+          class="subbody-black bg-white mx-6 mt-6 mb-8"
+          v-if="CompletedDown && eventsCompleted.eventsByStatus.length === 0"
+        >
+          No Succesful events at the moment
+        </div>
+        <section
+          v-if="CompletedDown && eventsCompleted.eventsByStatus.length > 0"
+        >
           <div class="grid grid-cols-10 px-2 mx-6 mb-4 subbody-black">
             <p class="col-span-2">Date added</p>
             <p class="col-span-6">Event name</p>
@@ -105,7 +123,6 @@
           <div v-if="eventsCompletedLoading">Loading</div>
           <div v-if="eventsCompletedError">{{ eventsCompletedError }}</div>
           <div
-            v-if="events"
             v-for="event in eventsCompleted.eventsByStatus"
             class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 subbody-black"
           >
@@ -135,16 +152,21 @@
             class="i-ic-sharp-keyboard-arrow-up icon icon-2"
           ></div>
         </div>
-        <section v-if="CancelledDown">
+        <div
+          class="subbody-black bg-white mx-6 mt-6 mb-8"
+          v-if="CancelledDown && eventsRejected.eventsByStatus.length === 0"
+        >
+          No Cancelled events at the moment
+        </div>
+        <section
+          v-if="CancelledDown && eventsRejected.eventsByStatus.length > 0"
+        >
           <div class="grid grid-cols-10 px-2 mx-6 mb-4 subbody-black">
             <p class="col-span-2">Date added</p>
             <p class="col-span-6">Event name</p>
             <p class="col-span-1">Status</p>
           </div>
-          <div v-if="eventsRejectedLoading">Loading</div>
-          <div v-if="eventsRejectedError">{{ eventsRejectedError }}</div>
           <div
-            v-if="events"
             v-for="event in eventsRejected.eventsByStatus"
             class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 subbody-black"
           >
