@@ -8,6 +8,7 @@ export const ADD_VICTIM: TypedDocumentNode<
       lastName: string
       email: string
       phoneNumber: string
+      caseId: string
     }
   }
 > = gql`
@@ -18,6 +19,25 @@ export const ADD_VICTIM: TypedDocumentNode<
       lastName
       email
       phoneNumber
+      cases
+    }
+  }
+`
+
+export const ADD_CASE_TO_VICTIM: TypedDocumentNode<
+  { addCaseToVictim: Victim },
+  {
+    updateVictimInput: {
+      victimId: string
+      caseId: string
+    }
+  }
+> = gql`
+  mutation addCaseToVictim($updateVictimInput: UpdateVictimInput!) {
+    addCasetoVictim(updateVictimInput: $updateVictimInput) {
+      id
+      firstName
+      lastName
       cases
     }
   }

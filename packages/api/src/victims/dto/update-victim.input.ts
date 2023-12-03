@@ -8,4 +8,5 @@ export class UpdateVictimInput extends PartialType(CreateVictimInput) {
 
   @Field(() => String)
   caseId: string
+
 }

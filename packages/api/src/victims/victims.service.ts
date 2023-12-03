@@ -6,6 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { find } from 'rxjs'
 import { ObjectId } from 'mongodb'
+import { log } from 'console'
 
 @Injectable()
 export class VictimsService {
@@ -21,7 +22,10 @@ export class VictimsService {
       victim.lastName = createVictimInput.lastName.toLowerCase()
       victim.email = createVictimInput.email
       victim.phoneNumber = createVictimInput.phoneNumber
-
+      victim.cases = victim.cases
+        ? [...victim.cases, createVictimInput.caseId]
+        : [createVictimInput.caseId]
+      console.log('victims cases field:', victim.cases)
       return this.victimRepository.save(victim)
     } catch (error) {
       throw error
@@ -42,12 +46,14 @@ export class VictimsService {
   }
 
   // add caseId to the array in Victim
-  async updateCaseId(id: string, caseId: string) {
-    const currentVictim = await this.findOne(id)
+  async updateCaseId(_id: string, caseId: string) {
+    const currentVictim = await this.findOne(_id)
 
     if (currentVictim) {
-      currentVictim.cases.push(caseId)
-      this.victimRepository.update(id, currentVictim)
+      // currentVictim.cases.push(caseId)
+      currentVictim.cases = [...currentVictim.cases, caseId]
+      currentVictim.id = _id
+      this.victimRepository.update(_id, currentVictim)
     } else {
       throw new Error('Victim not found')
     }

@@ -75,23 +75,22 @@ import type { Victim } from '@/interfaces/victim.interface'
 import { ref } from 'vue'
 import { useLazyQuery, useMutation, useQuery } from '@vue/apollo-composable'
 import { GET_VICTIM_BY_NAME } from '@/graphql/victim.query'
-import { ADD_VICTIM } from '@/graphql/victim.mutation'
 import { ADD_VICTIM_TO_CASE } from '@/graphql/case.mutation'
+import { ADD_VICTIM, ADD_CASE_TO_VICTIM } from '@/graphql/victim.mutation'
 import { useRouter } from 'vue-router'
 
 const { mutate: addVictim } = useMutation(ADD_VICTIM)
-const { mutate: addCaseIdToVictim } = useMutation(ADD_VICTIM_TO_CASE)
+const { mutate: addVictimIdToCase } = useMutation(ADD_VICTIM_TO_CASE)
+const { mutate: addCaseToVictim } = useMutation(ADD_CASE_TO_VICTIM)
 
 const router = useRouter()
-
-const caseId: string | string[] = router.currentRoute.value.params.caseId
-console.log('caseId:', caseId)
 
 const victimInput = ref({
   firstName: ''.toLowerCase(),
   lastName: ''.toLowerCase(),
   email: '',
   phoneNumber: '',
+  caseId: router.currentRoute.value.params.caseId as string,
 })
 
 /////// VICTIM HANDLER ////////
@@ -102,8 +101,9 @@ const { load, refetch } = useLazyQuery(GET_VICTIM_BY_NAME, () => ({
   lastName: victimInput.value.lastName,
 }))
 
+// Add victimId to case
 const updateCase = async (caseId: string, victimId: string) => {
-  const caseUpdate = await addCaseIdToVictim({
+  const caseUpdate = await addVictimIdToCase({
     updateCaseInput: {
       caseId: caseId,
       victimId: victimId,
@@ -112,10 +112,21 @@ const updateCase = async (caseId: string, victimId: string) => {
   console.log('case update:', caseUpdate)
 }
 
+const updateVictim = async (victimId: string, caseId: string) => {
+  const victimUpdate = await addCaseToVictim({
+    updateVictimInput: {
+      victimId: victimId,
+      caseId: caseId,
+    },
+  })
+  console.log('victim update:', victimUpdate)
+}
+
 const submitHandler = async () => {
-  // voer de query uit
+  // voer de lazyQuery uit
   console.log('victimInput:', victimInput.value)
   const victim: Victim | boolean = await load()
+
   // bij de eerste druk op submit is victim = true
   if (victim) {
     // no victim found
@@ -131,7 +142,11 @@ const submitHandler = async () => {
       console.log('new victim:', Object(newVictim).data.createVictim.id)
 
       // add victimId to case
-      await updateCase(caseId as string, Object(newVictim).data.createVictim.id)
+      await updateCase(
+        victimInput.value.caseId.toString() as string,
+        Object(newVictim).data.createVictim.id,
+      )
+
       return newVictim
     } else {
       //id van bestaand victim ophalen
@@ -139,7 +154,10 @@ const submitHandler = async () => {
       console.log('victim:', Object(victim).getVictimByName.id)
 
       // add victimId to case
-      await updateCase(caseId as string, Object(victim).getVictimByName.id)
+      await updateCase(
+        victimInput.value.caseId.toString() as string,
+        Object(victim).getVictimByName.id,
+      )
     }
   } else {
     // refetch als de victim false is (2e keer op submit gedrukt)
@@ -158,19 +176,24 @@ const submitHandler = async () => {
       console.log('new victim:', Object(newVictim).data.createVictim.id)
 
       // add victimId to case
-      await updateCase(caseId as string, Object(newVictim).data.createVictim.id)
+      await updateCase(
+        victimInput.value.caseId.toString() as string,
+        Object(newVictim).data.createVictim.id,
+      )
     } else {
       //id van bestaand victim ophalen
       console.log('2nd victim: ', victim)
       console.log('victim: ', Object(victim).data.getVictimByName.id)
 
       // add victimId to case
-      await updateCase(caseId as string, Object(victim).data.getVictimByName.id)
+      await updateCase(
+        victimInput.value.caseId.toString() as string,
+        Object(victim).data.getVictimByName.id,
+      )
     }
   }
   console.log('submit')
 }
-
 ///// END VICTIM HANDLER ////////
 </script>
 

@@ -19,6 +19,6 @@ export class CreateVictimInput {
   phoneNumber: string
 
   @IsOptional()
-  @Field(() => [String], { defaultValue: [] })
-  cases: Array<string>
+  @Field(() => String, { defaultValue: '' })
+  caseId: string
 }
