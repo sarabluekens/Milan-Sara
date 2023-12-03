@@ -128,15 +128,12 @@
         No
       </label>
       <label class="body-black col-span-1" for="maps">Maps</label>
-      <input
-        type="file"
-        multiple
-        accept="image/*"
-        id="maps"
-        class="border-1 border-black w-2/3 h-10 ml-3 bg-white subbody-black/80 col-span-4 mb-6 file:bg-black file:subbody-white file:h-10"
-        v-on:change="handleFileChange"
-      />
-      <button @click="openUploadWidget()">upload file</button>
+      <div
+        class="border-1 border-red col-span-2 h-10 mb-4"
+        @click="openUploadWidget()"
+      >
+        upload file
+      </div>
       <button
         class="border-1 border-red bg-red col-span-2 col-start-2 body-white h-10"
       >
@@ -185,6 +182,7 @@ export default {
       (error: any, result: any) => {
         if (!error && result && result.event === 'success') {
           console.log('Done! Here is the image info: ', result.info.secure_url)
+          newEvent.value.maps = result.info.secure_url
         }
       },
     )
