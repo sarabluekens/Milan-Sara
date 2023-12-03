@@ -23,6 +23,7 @@ export default {
         '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(this.map)
     //use a mix of renderers
+    // @ts-ignore
     if (this.map) var customPane = this.map.createPane('customPane')
     var canvasRenderer = L.canvas({ pane: 'customPane' })
     customPane.style.zIndex = 399 // put just behind the standard overlay pane which is at 400
@@ -52,6 +53,7 @@ export default {
   },
   onBeforeUnmount() {
     if (this.map) {
+      // @ts-ignore
       this.map.remove()
     }
   },

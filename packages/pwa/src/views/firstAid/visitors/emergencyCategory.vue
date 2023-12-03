@@ -21,7 +21,7 @@
 
 <script lang="ts">
 import { useRouter } from 'vue-router'
-import EmergencyCard from '@/components/generic/EmergencyCard.vue'
+import EmergencyCard from '@/components/EmergencyCard.vue'
 import { ref } from 'vue'
 import { useMutation } from '@vue/apollo-composable'
 import { ADD_CASE } from '@/graphql/case.mutation'
