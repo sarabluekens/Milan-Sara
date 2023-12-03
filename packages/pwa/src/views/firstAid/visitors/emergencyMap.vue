@@ -112,7 +112,7 @@ const updateCase = async (caseId: string, victimId: string) => {
   console.log('case update:', caseUpdate)
 }
 
-const updateVictim = async (victimId: string, caseId: string) => {
+const updateVictim = async (caseId: string, victimId: string) => {
   const victimUpdate = await addCaseToVictim({
     updateVictimInput: {
       victimId: victimId,
@@ -146,7 +146,6 @@ const submitHandler = async () => {
         victimInput.value.caseId.toString() as string,
         Object(newVictim).data.createVictim.id,
       )
-
       return newVictim
     } else {
       //id van bestaand victim ophalen
@@ -155,6 +154,12 @@ const submitHandler = async () => {
 
       // add victimId to case
       await updateCase(
+        victimInput.value.caseId.toString() as string,
+        Object(victim).getVictimByName.id,
+      )
+
+      // add caseId to victim
+      await updateVictim(
         victimInput.value.caseId.toString() as string,
         Object(victim).getVictimByName.id,
       )
@@ -187,6 +192,12 @@ const submitHandler = async () => {
 
       // add victimId to case
       await updateCase(
+        victimInput.value.caseId.toString() as string,
+        Object(victim).data.getVictimByName.id,
+      )
+
+      // add caseId to victim
+      await updateVictim(
         victimInput.value.caseId.toString() as string,
         Object(victim).data.getVictimByName.id,
       )
