@@ -133,7 +133,7 @@
         multiple
         id="maps"
         class="border-1 border-black w-2/3 h-10 ml-3 bg-white subbody-black/80 col-span-4 mb-6 file:bg-black file:subbody-white file:h-10"
-        v-on:change="newEvent.maps"
+        v-on:change="handleFileChange"
       />
       <button
         class="border-1 border-red bg-red col-span-2 col-start-2 body-white h-10"
@@ -168,11 +168,19 @@ export default {
       maps: '',
     })
 
+    console.log(newEvent.value.maps)
+
     const {
       mutate: addEvent,
       loading: addEventLoading,
       onError: addEventError,
     } = useMutation(ADD_EVENT)
+
+    const handleFileChange = (event: any) => {
+      const file = event.target.files[0]
+      console.log(file)
+      newEvent.value.maps = file.name
+    }
 
     const handleAddEvent = () => {
       if (newEvent.value.name === '') {
@@ -215,6 +223,7 @@ export default {
         alert('Please fill in if there are children at the event')
         return
       } else {
+        console.log(newEvent.value.maps)
         alert('Event created')
         addEvent({
           createEventInput: {
@@ -253,6 +262,7 @@ export default {
 
     return {
       newEvent,
+      handleFileChange,
       handleAddEvent,
     }
   },
