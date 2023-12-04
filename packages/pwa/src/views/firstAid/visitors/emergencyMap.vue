@@ -62,7 +62,6 @@
     </section>
 
     <section class="flex flex-wrap justify-center items-center">
-      <GoogleMaps />
       <Map />
     </section>
   </article>
@@ -71,7 +70,8 @@
 <script setup lang="ts">
 import useRealtime from '@/composables/useRealtime'
 import Map from '../../../components/Map.vue'
-import GoogleMaps from '../../../components/GoogleMaps.vue'
+import GoogleMap from '../../../components/GoogleMap.vue'
+
 import type { Victim } from '@/interfaces/victim.interface'
 
 import { ref } from 'vue'

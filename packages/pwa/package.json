@@ -13,7 +13,9 @@
   },
   "dependencies": {
     "@elfalem/leaflet-curve": "0.7.0",
+    "@fawmi/vue-google-maps": "0.9.79",
     "@google-cloud/local-auth": "^2.1.0",
+    "@googlemaps/js-api-loader": "^1.16.2",
     "@tweenjs/tween.js": "17.2.0",
     "@vue/apollo-composable": "^4.0.0-beta.11",
     "@vue/apollo-util": "^4.0.0-beta.6",
