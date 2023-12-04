@@ -1,30 +1,29 @@
 <template>
-  <p>{{ (coords.latitude, '+', coords.longitude) }}</p>
   <div id="map" style="width: 50%; height: 50%"></div>
-  <GoogleMap
-    :api-key="apikey"
-    style="width: 50%; height: 20rem"
-    :center="center"
-    :zoom="9"
-  >
-    <Marker :options="{ position: center }" />
-  </GoogleMap>
 </template>
 <script setup lang="ts">
-/* eslint-disable no-undef */
-import { GoogleMap, Marker } from 'vue3-google-map'
-import { useGeolocation } from '@vueuse/core'
-import { ref } from 'vue'
+import { google } from 'googleapis'
 
-// get coords, locatedAt, error, resume, pause of device
-const { coords, locatedAt, error, resume, pause } = useGeolocation()
 const apikey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 
-const center = ref({
-  lat: coords.value.latitude,
-  lng: coords.value.longitude,
-})
-// load map
+const initMap = () => {
+  console.log('initMap')
 
-const zoom = 8
+  // let uluru = { lat: -25.344, lng: 131.036 }
+  // let map = new google.maps.Map(document.getElementById('map'), {
+  //   zoom: 4,
+  //   center: uluru,
+  // })
+  // let marker = new google.maps.Marker({
+  //   position: uluru,
+  //   map: map,
+  // })
+}
+
+const url = `https://maps.googleapis.com/maps/api/js?key=${apikey}callback=${initMap}&v=weekly`
+const script = document.createElement('script')
+script.src = url
+script.defer = true
+script.async = true
+document.head.appendChild(script)
 </script>
