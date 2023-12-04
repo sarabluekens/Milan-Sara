@@ -62,15 +62,13 @@
     </section>
 
     <section class="flex flex-wrap justify-center items-center">
-      <Map />
+      <Maps />
     </section>
   </article>
 </template>
 
 <script setup lang="ts">
-import useRealtime from '@/composables/useRealtime'
-import Map from '../../../components/Map.vue'
-import GoogleMap from '../../../components/GoogleMap.vue'
+import Maps from '../../../components/Maps.vue'
 
 import type { Victim } from '@/interfaces/victim.interface'
 

@@ -12,18 +12,14 @@
     "pwa": "npm run build && npx serve dist -p 5001"
   },
   "dependencies": {
-    "@elfalem/leaflet-curve": "0.7.0",
-    "@fawmi/vue-google-maps": "0.9.79",
     "@google-cloud/local-auth": "^2.1.0",
     "@googlemaps/js-api-loader": "^1.16.2",
-    "@tweenjs/tween.js": "17.2.0",
     "@vue/apollo-composable": "^4.0.0-beta.11",
     "@vue/apollo-util": "^4.0.0-beta.6",
     "@vueuse/core": "^10.6.1",
     "cloudinary": "^1.41.0",
     "firebase": "^10.4.0",
     "googleapis": "^105.0.0",
-    "leaflet": "1.7.1",
     "lucide-vue-next": "^0.279.0",
     "serve": "^14.2.1",
     "socket.io-client": "^4.7.2",
