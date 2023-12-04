@@ -1,31 +1,30 @@
 <template>
-  <div ref="mapDiv" style="width: 50%; height: 50%"></div>
+  <p>{{ (coords.latitude, '+', coords.longitude) }}</p>
+  <div id="map" style="width: 50%; height: 50%"></div>
+  <GoogleMap
+    :api-key="apikey"
+    style="width: 50%; height: 20rem"
+    :center="center"
+    :zoom="9"
+  >
+    <Marker :options="{ position: center }" />
+  </GoogleMap>
 </template>
 <script setup lang="ts">
 /* eslint-disable no-undef */
+import { GoogleMap, Marker } from 'vue3-google-map'
 import { useGeolocation } from '@vueuse/core'
-import { Loader } from '@googlemaps/js-api-loader'
-import { onMounted, computed } from 'vue'
 import { ref } from 'vue'
 
 // get coords, locatedAt, error, resume, pause of device
 const { coords, locatedAt, error, resume, pause } = useGeolocation()
-
-// load map
-const center = { lat: 45.508, lng: -73.587 }
-const zoom = 8
-
 const apikey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 
-const loader = new Loader({
-  apiKey: apikey,
+const center = ref({
+  lat: coords.value.latitude,
+  lng: coords.value.longitude,
 })
-const mapDiv = ref(null)
-onMounted(async () => {
-  await loader.load()
-  mapDiv.value = new google.maps.Map(mapDiv.value, {
-    center: center,
-    zoom: zoom,
-  })
-})
+// load map
+
+const zoom = 8
 </script>
