@@ -62,7 +62,7 @@
     </section>
 
     <section class="flex flex-wrap justify-center items-center">
-      <fawmiMap />
+      <JustinMap />
     </section>
   </article>
 </template>
@@ -79,6 +79,8 @@ import { ADD_VICTIM_TO_CASE } from '@/graphql/case.mutation'
 import { ADD_VICTIM, ADD_CASE_TO_VICTIM } from '@/graphql/victim.mutation'
 import { useRouter } from 'vue-router'
 import fawmiMap from '@/components/fawmiMap.vue'
+import Vue3MapVue from '@/components/vue3Map.vue'
+import JustinMap from '@/components/JustinMap.vue'
 
 const { mutate: addVictim } = useMutation(ADD_VICTIM)
 const { mutate: addVictimIdToCase } = useMutation(ADD_VICTIM_TO_CASE)
