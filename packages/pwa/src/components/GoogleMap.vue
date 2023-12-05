@@ -1,11 +1,8 @@
-export const overlay = new google.maps.OverlayView()
-
 <script setup lang="ts">
 import { useGeolocation } from '@vueuse/core'
 import { Loader } from '@googlemaps/js-api-loader'
-
 import { ref } from 'vue'
-import { computed } from 'vue'
+
 import { onMounted } from 'vue'
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 
