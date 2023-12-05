@@ -21,6 +21,7 @@ const loader = new Loader({
   libraries: ['geometry'],
 })
 const mapDiv = ref()
+const loading = ref(true)
 
 const loadMap = async (coords: any) => {
   await loader.load()
@@ -36,13 +37,16 @@ const loadMap = async (coords: any) => {
 }
 onMounted(async () => {
   while (!isFinite(coords.value.latitude)) {
+    loading.value = true
     await new Promise(resolve => setTimeout(resolve, 100))
   }
   loadMap(coords)
+  loading.value = false
 })
 </script>
 
 <template>
   <p>latitude: {{ coords.latitude }}, longtitude: {{ coords.longitude }}</p>
+  <div v-if="loading" style="width: 80%; height: 50vh">loading</div>
   <div ref="mapDiv" style="width: 80%; height: 50vh"></div>
 </template>
