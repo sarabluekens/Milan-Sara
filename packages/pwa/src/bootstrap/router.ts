@@ -65,6 +65,11 @@ const router = createRouter({
           meta: { shouldBeAuthenticated: true },
         },
         {
+          path: 'case',
+          component: () => import('../views/administration/CaseOverview.vue'),
+          meta: { shouldBeAuthenticated: true },
+        },
+        {
           path: 'event/detail/:id',
           component: () =>
             import('../views/administration/events/EventDetail.vue'),
