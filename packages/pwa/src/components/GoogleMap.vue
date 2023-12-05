@@ -5,24 +5,34 @@ import { ref } from 'vue'
 
 import { onMounted } from 'vue'
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
-
 const { coords, locatedAt, error, resume, pause } = useGeolocation()
+
 const center = ref({
   lat: coords.value.latitude,
   lng: coords.value.longitude,
 })
 
+const caregiverCO = ref({
+  lat: coords.value.latitude,
+  lng: coords.value.longitude,
+})
+
+let caregiverMarker: google.maps.Marker
+
 const loader = new Loader({
   apiKey: GOOGLE_MAPS_API_KEY,
   version: 'weekly',
-  libraries: ['geometry'],
+  libraries: ['geometry', 'places'],
 })
+
 const mapDiv = ref()
 const loading = ref(true)
+let map: google.maps.Map
 
 const loadMap = async (coords: any) => {
   await loader.load()
-  new google.maps.Map(mapDiv.value, {
+
+  map = new google.maps.Map(mapDiv.value, {
     center: {
       lat: coords.value.latitude,
       lng: coords.value.longitude,
@@ -32,13 +42,59 @@ const loadMap = async (coords: any) => {
 
   console.log('map loaded', coords.value.latitude, coords.value.longitude)
 }
+
+const showCaregiver = async (coords: any) => {
+  caregiverMarker = new google.maps.Marker({
+    position: {
+      lat: coords.value.latitude,
+      lng: coords.value.longitude,
+    },
+    map: map,
+  })
+}
+
 onMounted(async () => {
   while (!isFinite(coords.value.latitude)) {
     loading.value = true
     await new Promise(resolve => setTimeout(resolve, 100))
   }
-  loadMap(coords)
+  await loadMap(coords)
+  showCaregiver(coords)
   loading.value = false
+
+  const options = {
+    enableHighAccuracy: false,
+    timeout: 30000,
+    maximumAge: 0,
+  }
+
+  function success(pos: any) {
+    const crd = pos.coords
+
+    center.value = {
+      lat: crd.latitude,
+      lng: crd.longitude,
+    }
+    console.log('Your current position is:')
+    console.log(`Latitude : ${crd.latitude}`)
+    console.log(`Longitude: ${crd.longitude}`)
+    console.log(`More or less ${crd.accuracy} meters.`)
+
+    center.value = {
+      lat: crd.latitude,
+      lng: crd.longitude,
+    }
+
+    caregiverMarker.setPosition({ lat: crd.latitude, lng: crd.longitude })
+
+    showCaregiver()
+  }
+
+  function error(err: any) {
+    console.warn(`ERROR(${err.code}): ${err.message}`)
+  }
+  navigator.geolocation.watchPosition(success, error, options)
+  console.log('watching position')
 })
 </script>
 
