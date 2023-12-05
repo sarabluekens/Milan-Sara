@@ -5,101 +5,111 @@ import { ref } from 'vue'
 
 import { onMounted } from 'vue'
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
-const { coords, locatedAt, error, resume, pause } = useGeolocation()
+const { coords: victimCO, locatedAt, error, resume, pause } = useGeolocation()
 
-const center = ref({
-  lat: coords.value.latitude,
-  lng: coords.value.longitude,
-})
+// reference to map div in html
+const mapDiv = ref()
 
+// loading state
+const loading = ref(true)
+
+// coordinates of victim
+
+// coordinates of caregiver
 const caregiverCO = ref({
-  lat: coords.value.latitude,
-  lng: coords.value.longitude,
+  latitude: victimCO.value.latitude,
+  longitude: victimCO.value.longitude,
 })
 
+let map: google.maps.Map
+let victimMarker: google.maps.Marker
 let caregiverMarker: google.maps.Marker
 
+// google maps loader
 const loader = new Loader({
   apiKey: GOOGLE_MAPS_API_KEY,
   version: 'weekly',
   libraries: ['geometry', 'places'],
 })
 
-const mapDiv = ref()
-const loading = ref(true)
-let map: google.maps.Map
-
-const loadMap = async (coords: any) => {
+// load the map with the loader
+const loadMap = async () => {
   await loader.load()
 
   map = new google.maps.Map(mapDiv.value, {
     center: {
-      lat: coords.value.latitude,
-      lng: coords.value.longitude,
+      lat: victimCO.value.latitude,
+      lng: victimCO.value.longitude,
     },
-    zoom: 17,
+    zoom: 18,
   })
 
-  console.log('map loaded', coords.value.latitude, coords.value.longitude)
-}
-
-const showCaregiver = async (coords: any) => {
-  navigator.geolocation.watchPosition(position => {
-    caregiverCO.value = {
-      lat: position.coords.latitude,
-      lng: position.coords.longitude,
-    }
-  })
-  caregiverMarker = new google.maps.Marker({
+  victimMarker = new google.maps.Marker({
     position: {
-      lat: caregiverCO.value.lat,
-      lng: caregiverCO.value.lng,
+      lat: victimCO.value.latitude,
+      lng: victimCO.value.longitude,
     },
     map: map,
   })
+
+  console.log('map loaded', victimCO.value.latitude, victimCO.value.longitude)
+}
+
+const showCaregiver = async () => {
+  navigator.geolocation.watchPosition(position => {
+    caregiverCO.value = {
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude,
+    }
+  })
+  
+  caregiverMarker = new google.maps.Marker({
+    position: {
+      lat: caregiverCO.value.latitude,
+      lng: caregiverCO.value.longitude,
+    },
+    map: map,
+  })
+
+  console.log(
+    'caregiver shown',
+    caregiverCO.value.latitude,
+    caregiverCO.value.longitude,
+  )
 }
 
 onMounted(async () => {
-  while (!isFinite(coords.value.latitude)) {
+  while (!isFinite(victimCO.value.latitude)) {
     loading.value = true
     await new Promise(resolve => setTimeout(resolve, 100))
   }
-  await loadMap(coords)
-  showCaregiver(coords)
+  await loadMap()
+  showCaregiver()
   loading.value = false
 
   const options = {
     enableHighAccuracy: false,
     timeout: 3000,
-    maximumAge: 0,
+    maximumAge: 500,
   }
 
   function success(pos: any) {
     const crd = pos.coords
-
-    center.value = {
-      lat: crd.latitude,
-      lng: crd.longitude,
-    }
-
-    console.log(center.value.lat, typeof center.value.lng)
-
     console.log('Your current position is:')
     console.log(`Latitude : ${crd.latitude}`)
     console.log(`Longitude: ${crd.longitude}`)
     console.log(`More or less ${crd.accuracy} meters.`)
+    console.log('tracked at', new Date(pos.timestamp))
 
-    center.value = {
-      lat: crd.latitude,
-      lng: crd.longitude,
+    caregiverCO.value = {
+      latitude: crd.latitude,
+      longitude: crd.longitude,
     }
 
     caregiverMarker.setPosition({
-      lat: crd.latitude as number,
-      lng: crd.longitude as number,
+      lat: caregiverCO.value.latitude,
+      lng: caregiverCO.value.longitude,
     })
-
-    showCaregiver(caregiverCO)
   }
 
   function error(err: any) {
@@ -111,7 +121,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <p>latitude: {{ coords.latitude }}, longtitude: {{ coords.longitude }}</p>
+  <p>latitude: {{ victimCO.latitude }}, longtitude: {{ victimCO.longitude }}</p>
   <div v-if="loading" style="width: 80%; height: 50vh">loading</div>
   <div ref="mapDiv" style="width: 80%; height: 50vh"></div>
 </template>
