@@ -163,17 +163,8 @@
       <section class="flex flex-col mb-4">
         <label class="body-black" for="maps">Caregivers</label>
         <section class="grid grid-cols-4 gap-5">
-          <div
-            v-for="caregiver in addedCaregivers"
-            class="border-1 border-red w-50 text-center mb-4"
-          >
-            <div
-              class="i-material-symbols-person icon icon-6 color-red mx-auto"
-            ></div>
-            <p class="body-black">
-              {{ `${caregiver.firstName} ${caregiver.lastName}` }}
-            </p>
-            <p class="subbody-black">{{ caregiver.profession }}</p>
+          <div v-for="caregiver in addedCaregivers">
+            <StaffCard :caregiver="caregiver" />
           </div>
           <div
             class="border-1 border-red w-50 text-center mb-4"
@@ -301,8 +292,10 @@ import type { Equipment } from '@/interfaces/equipment.interface'
 import type { Caregiver } from '@/interfaces/caregiver.interface'
 import { useRoute } from 'vue-router'
 import { ref } from 'vue'
+import StaffCard from '@/components/StaffCard.vue'
 
 export default {
+  components: { StaffCard },
   setup() {
     const route = useRoute()
     const isAccepted = ref(false)
