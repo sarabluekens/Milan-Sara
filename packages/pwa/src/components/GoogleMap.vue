@@ -13,8 +13,6 @@ const mapDiv = ref()
 // loading state
 const loading = ref(true)
 
-// coordinates of victim
-
 // coordinates of caregiver
 const caregiverCO = ref({
   latitude: victimCO.value.latitude,
@@ -44,6 +42,15 @@ const loadMap = async () => {
     zoom: 18,
   })
 
+  const floorplan = new google.maps.GroundOverlay('/mapOverlay.png', {
+    north: victimCO.value.latitude + 0.0008,
+    south: victimCO.value.latitude - 0.0008,
+    east: victimCO.value.longitude + 0.004,
+    west: victimCO.value.longitude - 0.004,
+  })
+
+  floorplan.setMap(map)
+
   victimMarker = new google.maps.Marker({
     position: {
       lat: victimCO.value.latitude,
@@ -62,7 +69,7 @@ const showCaregiver = async () => {
       longitude: position.coords.longitude,
     }
   })
-  
+
   caregiverMarker = new google.maps.Marker({
     position: {
       lat: caregiverCO.value.latitude,
@@ -70,26 +77,25 @@ const showCaregiver = async () => {
     },
     map: map,
   })
-
-  console.log(
-    'caregiver shown',
-    caregiverCO.value.latitude,
-    caregiverCO.value.longitude,
-  )
 }
 
 onMounted(async () => {
+  //await victim coordinates to load the map
   while (!isFinite(victimCO.value.latitude)) {
     loading.value = true
     await new Promise(resolve => setTimeout(resolve, 100))
   }
+
+  //load the map
   await loadMap()
+
+  //add the caregiver marker
   showCaregiver()
   loading.value = false
 
   const options = {
     enableHighAccuracy: false,
-    timeout: 3000,
+    timeout: 100,
     maximumAge: 500,
   }
 
