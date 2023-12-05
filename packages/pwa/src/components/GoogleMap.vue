@@ -44,10 +44,16 @@ const loadMap = async (coords: any) => {
 }
 
 const showCaregiver = async (coords: any) => {
+  navigator.geolocation.watchPosition(position => {
+    caregiverCO.value = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude,
+    }
+  })
   caregiverMarker = new google.maps.Marker({
     position: {
-      lat: coords.value.latitude,
-      lng: coords.value.longitude,
+      lat: caregiverCO.value.lat,
+      lng: caregiverCO.value.lng,
     },
     map: map,
   })
@@ -64,7 +70,7 @@ onMounted(async () => {
 
   const options = {
     enableHighAccuracy: false,
-    timeout: 30000,
+    timeout: 3000,
     maximumAge: 0,
   }
 
@@ -75,6 +81,9 @@ onMounted(async () => {
       lat: crd.latitude,
       lng: crd.longitude,
     }
+
+    console.log(center.value.lat, typeof center.value.lng)
+
     console.log('Your current position is:')
     console.log(`Latitude : ${crd.latitude}`)
     console.log(`Longitude: ${crd.longitude}`)
@@ -85,9 +94,12 @@ onMounted(async () => {
       lng: crd.longitude,
     }
 
-    caregiverMarker.setPosition({ lat: crd.latitude, lng: crd.longitude })
+    caregiverMarker.setPosition({
+      lat: crd.latitude as number,
+      lng: crd.longitude as number,
+    })
 
-    showCaregiver()
+    showCaregiver(caregiverCO)
   }
 
   function error(err: any) {
