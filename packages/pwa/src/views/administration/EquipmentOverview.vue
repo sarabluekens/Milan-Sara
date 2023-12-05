@@ -30,21 +30,15 @@
       <div v-if="equipmentError">{{ equipmentError }}</div>
       <div
         v-if="equipments && !filteredEquipments.length && isFiltered"
-        v-for="equipment in equipments.equipments"
-        class="text-black w-56 h-18 bg-white"
+        v-for="equipmentItem in equipments.equipments"
       >
-        <p class="body-black">{{ equipment.name }}</p>
-        <p class="subbody-black">{{ equipment.category }}</p>
-        <p class="subbody-black">Amount: {{ equipment.totalStock }}</p>
+        <EquipmentCard :equipment="equipmentItem" />
       </div>
       <div
         v-if="filteredEquipments.length && isFiltered"
-        v-for="equipment in filteredEquipments"
-        class="text-black w-56 h-18 bg-white"
+        v-for="equipmentItem in filteredEquipments"
       >
-        <p class="body-black">{{ equipment.name }}</p>
-        <p class="subbody-black">{{ equipment.category }}</p>
-        <p class="subbody-black">Amount: {{ equipment.totalStock }}</p>
+        <EquipmentCard :equipment="equipmentItem" />
       </div>
       <div v-if="!isFiltered" class="text-black w-56 h-18 bg-white">
         <p class="body-black">No results found</p>
@@ -58,8 +52,10 @@ import { useQuery } from '@vue/apollo-composable'
 import { ALL_EQUIPMENT } from '@/graphql/equipment.query'
 import type { Equipment } from '@/interfaces/equipment.interface'
 import { ref } from 'vue'
+import EquipmentCard from '@/components/EquipmentCard.vue'
 
 export default {
+  components: { EquipmentCard },
   setup() {
     const searchInput = ref('')
     const filteredEquipments = ref<Equipment[]>([])

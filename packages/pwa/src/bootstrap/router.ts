@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import useFirebase from '@/composables/useFirebase'
+import { useQuery } from '@vue/apollo-composable'
+import { GET_USER_BY_UID } from '@/graphql/user.query'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -40,7 +42,7 @@ const router = createRouter({
     {
       path: '/admin',
       component: () => import('../components/wrappers/AdminWrap.vue'),
-      meta: { shouldBeAuthenticated: true, role: 'admin' }, // Rol afwerken
+      meta: { shouldBeAuthenticated: true, role: 'ADMIN' }, // Rol afwerken
       children: [
         {
           path: 'dashboard',
@@ -73,6 +75,20 @@ const router = createRouter({
           path: 'event/detail/:id',
           component: () =>
             import('../views/administration/events/EventDetail.vue'),
+          meta: { shouldBeAuthenticated: true },
+        },
+      ],
+    },
+
+    {
+      path: '/company',
+      component: () => import('../components/wrappers/CompanyWrap.vue'),
+      meta: { shouldBeAuthenticated: true, role: 'company' }, // Rol afwerken
+      children: [
+        {
+          path: 'event/add',
+          component: () =>
+            import('../views/administration/events/AddEvent.vue'),
           meta: { shouldBeAuthenticated: true },
         },
       ],
@@ -124,9 +140,23 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   const { firebaseUser } = useFirebase()
 
+  const { result: user } = useQuery(GET_USER_BY_UID, {
+    uid: firebaseUser.value?.uid,
+  })
+
+  console.log(firebaseUser.value)
+
   if (to.meta.shouldBeAuthenticated && !firebaseUser.value) {
     console.log('User is not authenticated')
     next({ path: '/auth/login' })
+  }
+  if (to.meta.role && firebaseUser.value) {
+    if (to.meta.role === user.value.userByUid.role) {
+      return next()
+    } else {
+      console.log('User does not have the right role')
+      next({ path: '/' })
+    }
   }
   if (to.meta.preventLoggedIn && firebaseUser.value) {
     console.log('User is already logged in')

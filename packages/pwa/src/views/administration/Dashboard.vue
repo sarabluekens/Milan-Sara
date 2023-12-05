@@ -1,9 +1,8 @@
 <template>
   <div>
-    <h1 class="title-black">
+    <h1 class="title-black mb-4">
       Good to see you again, {{ firebaseUser?.displayName }}
     </h1>
-
     <section
       class="flex sm:h-20vh h-24vh sm:flex-row sm:justify-evenly sm:w-48vw m-auto h-"
     >
@@ -52,7 +51,7 @@
         <div
           v-if="events"
           v-for="event in events.eventsByStatus"
-          class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 subbody-black"
+          class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 subbody-black rounded-md"
         >
           <p class="col-span-2">{{ event.createdAt }}</p>
           <p class="col-span-6">{{ event.name }}</p>
@@ -92,12 +91,6 @@ export default {
       result: eventsCompleted,
       error: eventsCompletedError,
     } = useQuery(GET_EVENT_BY_STATUS, { status: 'Completed' })
-
-    /* const {
-      loading: caseLoading,
-      result: cases,
-      error: caseError,
-    } = useQuery(GET_EVENT_BY_STATUS, { status: 'Cancelled' }) */
 
     console.log(events)
 
