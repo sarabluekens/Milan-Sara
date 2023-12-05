@@ -42,6 +42,7 @@ const loadMap = async () => {
     zoom: 18,
   })
 
+  // floorplan settings
   const floorplan = new google.maps.GroundOverlay('/mapOverlay.png', {
     north: victimCO.value.latitude + 0.0008,
     south: victimCO.value.latitude - 0.0008,
@@ -49,8 +50,10 @@ const loadMap = async () => {
     west: victimCO.value.longitude - 0.004,
   })
 
+  // add floorplan to map
   floorplan.setMap(map)
 
+  // add victim marker to map
   victimMarker = new google.maps.Marker({
     position: {
       lat: victimCO.value.latitude,
@@ -63,13 +66,7 @@ const loadMap = async () => {
 }
 
 const showCaregiver = async () => {
-  navigator.geolocation.watchPosition(position => {
-    caregiverCO.value = {
-      latitude: position.coords.latitude,
-      longitude: position.coords.longitude,
-    }
-  })
-
+  // add caregiver marker to map
   caregiverMarker = new google.maps.Marker({
     position: {
       lat: caregiverCO.value.latitude,
@@ -77,24 +74,9 @@ const showCaregiver = async () => {
     },
     map: map,
   })
-}
-
-onMounted(async () => {
-  //await victim coordinates to load the map
-  while (!isFinite(victimCO.value.latitude)) {
-    loading.value = true
-    await new Promise(resolve => setTimeout(resolve, 100))
-  }
-
-  //load the map
-  await loadMap()
-
-  //add the caregiver marker
-  showCaregiver()
-  loading.value = false
 
   const options = {
-    enableHighAccuracy: false,
+    enableHighAccuracy: true,
     timeout: 100,
     maximumAge: 500,
   }
@@ -121,13 +103,29 @@ onMounted(async () => {
   function error(err: any) {
     console.warn(`ERROR(${err.code}): ${err.message}`)
   }
+
+  // watch caregiver position
   navigator.geolocation.watchPosition(success, error, options)
   console.log('watching position')
+}
+
+onMounted(async () => {
+  //await victim coordinates to load the map
+  while (!isFinite(victimCO.value.latitude)) {
+    loading.value = true
+    await new Promise(resolve => setTimeout(resolve, 100))
+  }
+
+  //load the map
+  await loadMap()
+
+  //add the caregiver marker
+  showCaregiver()
+  loading.value = false
 })
 </script>
 
 <template>
-  <p>latitude: {{ victimCO.latitude }}, longtitude: {{ victimCO.longitude }}</p>
   <div v-if="loading" style="width: 80%; height: 50vh">loading</div>
   <div ref="mapDiv" style="width: 80%; height: 50vh"></div>
 </template>
