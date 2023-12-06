@@ -59,7 +59,7 @@
 <script lang="ts">
 import useFirebase from '@/composables/useFirebase'
 import { useQuery } from '@vue/apollo-composable'
-import { GET_EVENT_BY_STATUS } from '../../graphql/event.query'
+import { GET_EVENT_BY_STATUS } from '@/graphql/event.query'
 import EventCard from '@/components/EventCard.vue'
 
 export default {

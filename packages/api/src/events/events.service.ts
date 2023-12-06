@@ -43,8 +43,8 @@ export class EventsService {
     return this.eventRepository.find()
   }
 
-  findAllByStatusAndClient(status: Status, contactPerson: string) {
-    return this.eventRepository.find({ where: { status, contactPerson } })
+  findAllByStatusAndClient(status: Status, email: string) {
+    return this.eventRepository.find({ where: { status, email } })
   }
 
   findAllByStatus(status: Status) {

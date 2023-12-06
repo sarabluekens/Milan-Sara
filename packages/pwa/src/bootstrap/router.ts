@@ -46,7 +46,8 @@ const router = createRouter({
       children: [
         {
           path: 'dashboard',
-          component: () => import('../views/administration/Dashboard.vue'),
+          component: () =>
+            import('../views/administration/redCross/Dashboard.vue'),
           meta: { shouldBeAuthenticated: true },
         },
         {
@@ -57,18 +58,20 @@ const router = createRouter({
         },
         {
           path: 'staff',
-          component: () => import('../views/administration/StaffOverview.vue'),
+          component: () =>
+            import('../views/administration/redCross/StaffOverview.vue'),
           meta: { shouldBeAuthenticated: true },
         },
         {
           path: 'equipment',
           component: () =>
-            import('../views/administration/EquipmentOverview.vue'),
+            import('../views/administration/redCross/EquipmentOverview.vue'),
           meta: { shouldBeAuthenticated: true },
         },
         {
           path: 'case',
-          component: () => import('../views/administration/CaseOverview.vue'),
+          component: () =>
+            import('../views/administration/redCross/CaseOverview.vue'),
           meta: { shouldBeAuthenticated: true },
         },
         {
@@ -83,8 +86,14 @@ const router = createRouter({
     {
       path: '/company',
       component: () => import('../components/wrappers/CompanyWrap.vue'),
-      meta: { shouldBeAuthenticated: true, role: 'company' }, // Rol afwerken
+      meta: { shouldBeAuthenticated: true, role: 'COMPANY' }, // Rol afwerken
       children: [
+        {
+          path: 'dashboard',
+          component: () =>
+            import('../views/administration/exteriorCompany/Dashboard.vue'),
+          meta: { shouldBeAuthenticated: true },
+        },
         {
           path: 'event/add',
           component: () =>
