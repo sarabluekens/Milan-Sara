@@ -19,10 +19,10 @@
           ></div>
         </div>
         <div
-          class="subbody-black bg-white mx-6 mt-6 mb-8"
+          class="flex subbody-black bg-white mx-6 mt-6 mb-8 h-10 px-2 items-center rounded-lg"
           v-if="pendingDown && events.eventsByStatus.length === 0"
         >
-          No pending events at the moment
+          <p>No pending events at the moment</p>
         </div>
         <section v-if="pendingDown && events.eventsByStatus.length > 0">
           <div class="grid grid-cols-10 px-2 mx-6 mb-4 subbody-black">
@@ -50,10 +50,10 @@
           ></div>
         </div>
         <div
-          class="subbody-black bg-white mx-6 mt-6 mb-8"
+          class="flex subbody-black bg-white mx-6 mt-6 mb-8 h-10 px-2 items-center rounded-lg"
           v-if="AcceptedDown && eventsApproved.eventsByStatus.length === 0"
         >
-          No Accepted events at the moment
+          <p>No Accepted events at the moment</p>
         </div>
         <section
           v-if="AcceptedDown && eventsApproved.eventsByStatus.length > 0"
@@ -85,10 +85,10 @@
           ></div>
         </div>
         <div
-          class="subbody-black bg-white mx-6 mt-6 mb-8"
+          class="flex subbody-black bg-white mx-6 mt-6 mb-8 h-10 px-2 items-center rounded-lg"
           v-if="CompletedDown && eventsCompleted.eventsByStatus.length === 0"
         >
-          No Succesful events at the moment
+          <p>No Succesful events at the moment</p>
         </div>
         <section
           v-if="CompletedDown && eventsCompleted.eventsByStatus.length > 0"
@@ -120,10 +120,10 @@
           ></div>
         </div>
         <div
-          class="subbody-black bg-white mx-6 mt-6 mb-8"
+          class="flex subbody-black bg-white mx-6 mt-6 mb-8 h-10 px-2 items-center rounded-lg"
           v-if="CancelledDown && eventsRejected.eventsByStatus.length === 0"
         >
-          No Cancelled events at the moment
+          <p>No Cancelled events at the moment</p>
         </div>
         <section
           v-if="CancelledDown && eventsRejected.eventsByStatus.length > 0"
