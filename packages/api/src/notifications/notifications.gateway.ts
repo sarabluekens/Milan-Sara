@@ -7,6 +7,7 @@ import {
   MessageBody,
   ConnectedSocket,
 } from '@nestjs/websockets'
+import { log } from 'console'
 import { Server, Socket } from 'socket.io'
 import { CasesService } from 'src/cases/cases.service'
 import { CreateCaseInput } from 'src/cases/dto/create-case.input'
@@ -53,14 +54,15 @@ export class NotificationsGateway
 
   @SubscribeMessage('case:created')
   async handleNewCase(
-    @MessageBody() data: CreateCaseInput,
+    @MessageBody() data: Case,
     @ConnectedSocket() client: Socket,
-  ): Promise<Case> {
-    console.log(data)
+  ): Promise<void> {
     try {
-      const newCase = await this.casesService.create(data)
+      const newCase = data
+      console.log('newCase', newCase)
       this.server.emit('case:new', newCase) //<- create new listener for clients
-      return newCase
+
+      // return newCase
     } catch (error) {
       console.log(error)
     }

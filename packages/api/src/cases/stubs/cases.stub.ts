@@ -11,7 +11,7 @@ export const createCaseInputStub = (): CreateCaseInput => {
   newCase.referred = false
   newCase.personalEnsurance = true
   newCase.eventEnsurance = false
-  newCase.usedMaterials = [{ name: 'materialid', quantity: 1 }]
+  newCase.usedMaterials = [{ name: 'materialid', amount: 1 }]
 
   return newCase
 }
@@ -27,7 +27,7 @@ export const caseStub = (): Case => {
   newCase.referred = false
   newCase.personalEnsurance = true
   newCase.eventEnsurance = false
-  newCase.usedMaterials = [{ name: 'materialid', quantity: 1 }]
+  newCase.usedMaterials = [{ name: 'materialid', amount: 1 }]
 
   return newCase
 }

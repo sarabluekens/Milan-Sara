@@ -29,7 +29,7 @@ const router = createRouter({
         import('../views/firstAid/visitors/emergencyCategory.vue'),
     },
     {
-      path: '/map',
+      path: '/map/:caseId',
       name: 'map',
       component: () => import('../views/firstAid/visitors/emergencyMap.vue'),
       props: true,

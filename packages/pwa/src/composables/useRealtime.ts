@@ -10,10 +10,21 @@ const socket: Socket = io('http://localhost:3004', {
   },
 })
 
+// send data to server
 const emit = (event: string, data: any) => {
   socket.emit(event, data)
 }
 
+const emitMessage = (event: string) => {
+  socket.emit(event)
+}
+
+// listen once
+const once = (event: string, callback: (data: any) => void) => {
+  socket.once(event, callback)
+}
+
+// listen continuously
 const on = (event: string, callback: (data: any) => void) => {
   socket.on(event, callback)
 }
@@ -21,8 +32,9 @@ const on = (event: string, callback: (data: any) => void) => {
 export default () => {
   return {
     socket,
-
     emit,
     on,
+    once,
+    emitMessage,
   }
 }

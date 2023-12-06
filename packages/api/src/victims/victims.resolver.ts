@@ -8,14 +8,25 @@ import { UpdateVictimInput } from './dto/update-victim.input'
 export class VictimsResolver {
   constructor(private readonly victimsService: VictimsService) {}
 
-  @Query(() => [Victim], { name: 'victims' })
+  @Query(() => [Victim], { name: 'getVictims' })
   findAll() {
     return this.victimsService.findAll()
   }
 
-  @Query(() => Victim, { name: 'victim' })
-  findOne(@Args('id', { type: () => Int }) id: string) {
+  @Query(() => Victim, { name: 'getOneVictim' })
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.victimsService.findOne(id)
+  }
+
+  @Query(() => Victim, { name: 'getVictimByName', nullable: true })
+  findOneByFullName(
+    @Args('firstName') firstName: string,
+    @Args('lastName') lastName: string,
+  ) {
+    return this.victimsService.findOneByFullName(
+      firstName.toLowerCase(),
+      lastName.toLowerCase(),
+    )
   }
 
   @Mutation(() => Victim, {
@@ -28,10 +39,13 @@ export class VictimsResolver {
   }
 
   @Mutation(() => Victim)
-  updateVictim(
+  addCasetoVictim(
     @Args('updateVictimInput') updateVictimInput: UpdateVictimInput,
   ) {
-    return this.victimsService.update(updateVictimInput.id, updateVictimInput)
+    return this.victimsService.updateCaseId(
+      updateVictimInput.victimId,
+      updateVictimInput.caseId,
+    )
   }
 
   @Mutation(() => Victim)
