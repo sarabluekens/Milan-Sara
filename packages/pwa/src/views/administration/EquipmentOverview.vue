@@ -4,22 +4,34 @@
     <section class="flex flex-col mx-auto w-1/2">
       <input
         placeholder="Search staff..."
-        class="border-1 border-red w-full my-3 h-10 bg-beige"
+        class="border-2 border-red w-full my-3 h-10 bg-beige rounded-xl px-2"
         v-model="searchInput"
         @input="handleSearch"
       />
-      <div class="flex justify-between">
-        <button @click="handleFilter('All')" class="bg-red body-white">
+      <div class="flex justify-start gap-4">
+        <button
+          @click="handleFilter('All')"
+          class="bg-red body-white w-36 h-7 rounded-full"
+        >
           All
         </button>
-        <button @click="handleFilter('Ointment')" class="bg-red body-white">
+        <button
+          @click="handleFilter('Ointment')"
+          class="bg-red body-white w-36 h-7 rounded-full"
+        >
           Ointment
         </button>
-        <button @click="handleFilter('Pill')" class="bg-red body-white">
+        <button
+          @click="handleFilter('Pill')"
+          class="bg-red body-white w-36 h-7 rounded-full"
+        >
           Pill
         </button>
-        <button @click="handleFilter('Bandage')" class="bg-red body-white">
-          bandage
+        <button
+          @click="handleFilter('Bandage')"
+          class="bg-red body-white w-36 h-7 rounded-full"
+        >
+          Bandage
         </button>
       </div>
     </section>
@@ -36,9 +48,9 @@
       </div>
       <div
         v-if="filteredEquipments.length && isFiltered"
-        v-for="equipmentItem in filteredEquipments"
+        v-for="equipment in filteredEquipments"
       >
-        <EquipmentCard :equipment="equipmentItem" />
+        <EquipmentCard :equipment="equipment" />
       </div>
       <div v-if="!isFiltered" class="text-black w-56 h-18 bg-white">
         <p class="body-black">No results found</p>
@@ -94,17 +106,6 @@ export default {
     const handleFilter = (filter: string) => {
       if (filter === 'All' && searchInput.value === '') {
         filteredEquipments.value = []
-      } else if (filter === 'All' && searchInput.value != '') {
-        filteredEquipments.value = []
-        for (let i = 0; i < equipments.value.equipments.length; i++) {
-          if (
-            equipments.value.equipments[i].name
-              .toLowerCase()
-              .includes(searchInput.value.toLowerCase())
-          ) {
-            filteredEquipments.value.push(equipments.value.equipments[i])
-          }
-        }
       } else {
         filteredEquipments.value = []
         for (let i = 0; i < equipments.value.equipments.length; i++) {
@@ -113,7 +114,9 @@ export default {
               .toLowerCase()
               .includes(filter.toLowerCase())
           ) {
+            console.log(equipments.value.equipments[i])
             filteredEquipments.value.push(equipments.value.equipments[i])
+            console.log(filteredEquipments.value)
           }
         }
       }

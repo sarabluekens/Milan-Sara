@@ -30,19 +30,8 @@
             <p class="col-span-6">Event name</p>
             <p class="col-span-1">Status</p>
           </div>
-          <div
-            v-for="event in events.eventsByStatus"
-            class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 subbody-black"
-          >
-            <p class="col-span-2">{{ event.createdAt }}</p>
-            <p class="col-span-6">{{ event.name }}</p>
-            <p class="col-span-1">{{ event.status }}</p>
-            <button
-              @click="handleDetails(event.id)"
-              class="h-6 px-2 w-auto bg-red subbody-white col-span-1"
-            >
-              event details
-            </button>
+          <div v-for="event in events.eventsByStatus">
+            <EventCard :event="event" />
           </div>
         </section>
         <div
@@ -76,19 +65,8 @@
           </div>
           <div v-if="eventsApprovedLoading">Loading</div>
           <div v-if="eventsApprovedError">{{ eventsApprovedError }}</div>
-          <div
-            v-for="event in eventsApproved.eventsByStatus"
-            class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 subbody-black"
-          >
-            <p class="col-span-2">{{ event.createdAt }}</p>
-            <p class="col-span-6">{{ event.name }}</p>
-            <p class="col-span-1">{{ event.status }}</p>
-            <button
-              @click="handleDetails(event.id)"
-              class="h-6 px-2 w-auto bg-red subbody-white col-span-1"
-            >
-              event details
-            </button>
+          <div v-for="event in eventsApproved.eventsByStatus">
+            <EventCard :event="event" />
           </div>
         </section>
         <div
@@ -122,19 +100,8 @@
           </div>
           <div v-if="eventsCompletedLoading">Loading</div>
           <div v-if="eventsCompletedError">{{ eventsCompletedError }}</div>
-          <div
-            v-for="event in eventsCompleted.eventsByStatus"
-            class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 subbody-black"
-          >
-            <p class="col-span-2">{{ event.createdAt }}</p>
-            <p class="col-span-6">{{ event.name }}</p>
-            <p class="col-span-1">{{ event.status }}</p>
-            <button
-              @click="handleDetails(event.id)"
-              class="h-6 px-2 w-auto bg-red subbody-white col-span-1"
-            >
-              event details
-            </button>
+          <div v-for="event in eventsCompleted.eventsByStatus">
+            <EventCard :event="event" />
           </div>
         </section>
         <div
@@ -166,19 +133,8 @@
             <p class="col-span-6">Event name</p>
             <p class="col-span-1">Status</p>
           </div>
-          <div
-            v-for="event in eventsRejected.eventsByStatus"
-            class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 subbody-black"
-          >
-            <p class="col-span-2">{{ event.createdAt }}</p>
-            <p class="col-span-6">{{ event.name }}</p>
-            <p class="col-span-1">{{ event.status }}</p>
-            <button
-              @click="handleDetails(event.id)"
-              class="h-6 px-2 w-auto bg-red subbody-white col-span-1"
-            >
-              event details
-            </button>
+          <div v-for="event in eventsRejected.eventsByStatus">
+            <EventCard :event="event" />
           </div>
         </section>
       </div>
@@ -191,8 +147,10 @@ import { useQuery } from '@vue/apollo-composable'
 import { GET_EVENT_BY_STATUS } from '@/graphql/event.query'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import EventCard from '@/components/EventCard.vue'
 
 export default {
+  components: { EventCard },
   setup() {
     const { push } = useRouter()
 

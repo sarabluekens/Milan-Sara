@@ -48,20 +48,8 @@
         </div>
         <div v-if="eventsLoading">Loading</div>
         <div v-if="eventsError">{{ eventsError }}</div>
-        <div
-          v-if="events"
-          v-for="event in events.eventsByStatus"
-          class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 subbody-black rounded-md"
-        >
-          <p class="col-span-2">{{ event.createdAt }}</p>
-          <p class="col-span-6">{{ event.name }}</p>
-          <p class="col-span-1">{{ event.status }}</p>
-          <button
-            @click="handleDetails(event.id)"
-            class="h-6 px-2 w-auto bg-red subbody-white col-span-1"
-          >
-            event details
-          </button>
+        <div v-if="events" v-for="event in events.eventsByStatus">
+          <EventCard :event="event" />
         </div>
       </div>
     </section>
@@ -72,13 +60,13 @@
 import useFirebase from '@/composables/useFirebase'
 import { useQuery } from '@vue/apollo-composable'
 import { GET_EVENT_BY_STATUS } from '../../graphql/event.query'
-import { useRouter } from 'vue-router'
+import EventCard from '@/components/EventCard.vue'
 
 export default {
+  components: { EventCard },
   setup() {
     // Composable
     const { firebaseUser } = useFirebase()
-    const { push } = useRouter()
 
     const {
       loading: eventsLoading,
@@ -94,11 +82,6 @@ export default {
 
     console.log(events)
 
-    const handleDetails = (id: string) => {
-      console.log('details: ' + id)
-      push({ path: `/admin/event/detail/${id}` })
-    }
-
     return {
       firebaseUser,
       eventsLoading,
@@ -107,7 +90,6 @@ export default {
       eventsCompletedLoading,
       eventsCompletedError,
       eventsCompleted: eventsCompleted,
-      handleDetails,
     }
   },
 }

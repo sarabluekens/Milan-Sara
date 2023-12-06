@@ -1,5 +1,4 @@
 export interface Event {
-@ObjectIdColumn() // Database link - Typeorm
   id: string
   name: string
   address: string

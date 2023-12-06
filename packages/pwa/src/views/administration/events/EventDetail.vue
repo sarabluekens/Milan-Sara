@@ -314,7 +314,7 @@ export default {
       loading: caregiverLoading,
       result: caregivers,
       error: caregiverError,
-    } = useQuery(ALL_CAREGIVERS, { id: route.params.id })
+    } = useQuery(ALL_CAREGIVERS)
 
     const {
       loading: equipmentLoading,
