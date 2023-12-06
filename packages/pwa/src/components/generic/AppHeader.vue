@@ -134,8 +134,15 @@
       <h2 class="ml-3 mt-0 subtitle-white text-start">Event</h2>
       <ul class="ml-3">
         <div class="h-0.05rem bg-beige w-80% mt-1"></div>
-        <li class="body-white my-10% sm:my-5% md:my-6">All events</li>
-        <li class="body-white my-10% sm:my-5% md:my-6">Pending events</li>
+        <li
+          class="body-white my-10% sm:my-5% md:my-6 cursor-pointer"
+          @click="handlePush('/admin/event')"
+        >
+          All events
+        </li>
+        <li class="body-white my-10% sm:my-5% md:my-6 cursor-pointer">
+          Pending events
+        </li>
         <li class="body-white my-10% sm:my-5% md:my-6">Succesful events</li>
         <li class="body-white my-10% sm:my-5% md:my-6">Cancelled events</li>
       </ul>
@@ -147,7 +154,12 @@
       <h2 class="ml-3 mt-0 subtitle-white text-start">Staff</h2>
       <ul class="ml-3">
         <div class="h-0.05rem bg-beige w-80% mt-1"></div>
-        <li class="body-white my-10% sm:my-5% md:my-6">All staff</li>
+        <li
+          class="body-white my-10% sm:my-5% md:my-6 cursor-pointer"
+          @click="handlePush('/admin/staff')"
+        >
+          All staff
+        </li>
       </ul>
     </section>
     <section
@@ -157,7 +169,12 @@
       <h2 class="ml-3 mt-0 subtitle-white text-start">Equipment</h2>
       <ul class="ml-3">
         <div class="h-0.05rem bg-beige w-80% mt-1"></div>
-        <li class="body-white my-10% sm:my-5% md:my-6">All equipment</li>
+        <li
+          class="body-white my-10% sm:my-5% md:my-6 cursor-pointer"
+          @click="handlePush('/admin/equipment')"
+        >
+          All equipment
+        </li>
       </ul>
     </section>
     <section
@@ -167,9 +184,97 @@
       <h2 class="ml-3 mt-0 subtitle-white text-start">Case</h2>
       <ul class="ml-3">
         <div class="h-0.05rem bg-beige w-80% mt-1"></div>
-        <li class="body-white my-10% sm:my-5% md:my-6">All cases</li>
+        <li
+          class="body-white my-10% sm:my-5% md:my-6 cursor-pointer"
+          @click="handlePush('/admin/case')"
+        >
+          All cases
+        </li>
         <li class="body-white my-10% sm:my-5% md:my-6">Ongoing cases</li>
         <li class="body-white my-10% sm:my-5% md:my-6">Closed cases</li>
+      </ul>
+    </section>
+  </nav>
+
+  <!-- header for the company flow -->
+  <nav
+    v-else-if="$route.path.includes(`company`)"
+    :class="showMenu ? 'bg-red py-4 h-full' : 'bg-beige w-full py-1 h-auto'"
+    class="absolute flex-col items-stretch justify-between z-1 w-85% px-4 text-subtitle text-beige md:text-title md:flex-col-reverse md:py-0 md:h-full md:bg-red md:w-15rem xl:w-17rem"
+  >
+    <div
+      :class="showMenu ? 'mb-3' : 'flex-row-reverse my-1'"
+      class="flex justify-between items-center ml-7 h-auto"
+    >
+      <img
+        src="/whiteCross.svg"
+        alt="Red Cross logo in white"
+        :class="{ hidden: !showMenu }"
+        class="w-1/8 md:inline md:mx-auto md:mt-5 md:w-1/4 md:h-auto lg:w-1/3"
+        width="90"
+        height="90"
+      />
+      <img
+        src="/redCross.svg"
+        alt="Red Cross logo in white"
+        :class="{ hidden: showMenu }"
+        class="w-3rem md:hidden"
+        width="90"
+        height="90"
+      />
+      <div
+        :class="showMenu ? 'i-ci-close-lg' : 'i-ci-hamburger-lg text-red'"
+        class="icon-3 icon color-beige md:hidden block align-right"
+        @click="showMenu = !showMenu"
+      ></div>
+    </div>
+
+    <section
+      :class="{ hidden: !showMenu }"
+      class="h-auto md:flex md:flex-col md:h-auto md:items-stretch"
+    >
+      <h2 class="ml-3 mt-0 subtitle-white text-start">Event</h2>
+      <ul class="ml-3">
+        <div class="h-0.05rem bg-beige w-80% mt-1"></div>
+        <li
+          class="body-white my-10% sm:my-5% md:my-6 cursor-pointer"
+          @click="handlePush('/admin/event')"
+        >
+          All events
+        </li>
+        <li class="body-white my-10% sm:my-5% md:my-6">Create new event</li>
+        <li class="body-white my-10% sm:my-5% md:my-6">Succesful events</li>
+        <li class="body-white my-10% sm:my-5% md:my-6">Cancelled events</li>
+      </ul>
+    </section>
+    <section
+      :class="{ hidden: !showMenu }"
+      class="h-auto md:flex md:flex-col md:h-auto md:items-stretch"
+    >
+      <h2 class="ml-3 mt-0 subtitle-white text-start">Equipment</h2>
+      <ul class="ml-3">
+        <div class="h-0.05rem bg-beige w-80% mt-1"></div>
+        <li
+          class="body-white my-10% sm:my-5% md:my-6 cursor-pointer"
+          @click="handlePush('/admin/equipment')"
+        >
+          All equipment
+        </li>
+      </ul>
+    </section>
+    <section
+      :class="{ hidden: !showMenu }"
+      class="h-auto md:flex md:flex-col md:h-auto md:items-stretch"
+    >
+      <h2 class="ml-3 mt-0 subtitle-white text-start">Case</h2>
+      <ul class="ml-3">
+        <div class="h-0.05rem bg-beige w-80% mt-1"></div>
+        <li
+          class="body-white my-10% sm:my-5% md:my-6 cursor-pointer"
+          @click="handlePush('/admin/case')"
+        >
+          All cases
+        </li>
       </ul>
     </section>
   </nav>
@@ -212,6 +317,13 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const { push } = useRouter()
 
 const showMenu = ref(false)
+
+const handlePush = (path: string) => {
+  push(path)
+}
 </script>
