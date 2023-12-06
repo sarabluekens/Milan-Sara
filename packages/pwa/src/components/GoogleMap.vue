@@ -2,13 +2,16 @@
 import { useGeolocation } from '@vueuse/core'
 import { Loader } from '@googlemaps/js-api-loader'
 import { ref } from 'vue'
+import useLocation from '@/composables/useLocation'
 
 import { onMounted } from 'vue'
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 const { coords: victimCO, locatedAt, error, resume, pause } = useGeolocation()
+const { getCoords } = useLocation()
 
 // reference to map div in html
 const mapDiv = ref()
+const coordinatesFromUse = ref({ latitude: 0, longitude: 0 })
 
 // loading state
 const loading = ref(true)
@@ -88,6 +91,7 @@ const showCaregiver = async () => {
     console.log(`Longitude: ${crd.longitude}`)
     console.log(`More or less ${crd.accuracy} meters.`)
     console.log('tracked at', new Date(pos.timestamp))
+    console.log('coordinates from use', coordinatesFromUse)
 
     caregiverCO.value = {
       latitude: crd.latitude,
