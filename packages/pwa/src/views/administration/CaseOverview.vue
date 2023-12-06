@@ -18,8 +18,11 @@
             class="i-ic-sharp-keyboard-arrow-up icon icon-2"
           ></div>
         </div>
-        <div class="subbody-black bg-white mx-6 mt-6 mb-8" v-if="OpenCases">
-          No open cases at the moment
+        <div
+          class="flex subbody-black bg-white mx-6 mt-6 mb-8 h-10 px-2 items-center rounded-lg"
+          v-if="OpenCases"
+        >
+          <p>No open cases at the moment</p>
         </div>
         <div
           class="flex flex-row justify-between mx-6 mt-6 mb-8 body-black border-b border-red"
@@ -36,8 +39,11 @@
             class="i-ic-sharp-keyboard-arrow-up icon icon-2"
           ></div>
         </div>
-        <div class="subbody-black bg-white mx-6 mt-6 mb-8" v-if="OngoingCases">
-          No ongoing cases at the moment
+        <div
+          class="flex subbody-black bg-white mx-6 mt-6 mb-8 h-10 px-2 items-center rounded-lg"
+          v-if="OngoingCases"
+        >
+          <p>No ongoing cases at the moment</p>
         </div>
         <div
           class="flex flex-row justify-between mx-6 mt-6 mb-8 body-black border-b border-red"
@@ -54,8 +60,11 @@
             class="i-ic-sharp-keyboard-arrow-up icon icon-2"
           ></div>
         </div>
-        <div class="subbody-black bg-white mx-6 mt-6 mb-8" v-if="ClosedCases">
-          No closed cases at the moment
+        <div
+          class="flex subbody-black bg-white mx-6 mt-6 mb-8 h-10 px-2 items-center rounded-lg"
+          v-if="ClosedCases"
+        >
+          <p>No closed cases at the moment</p>
         </div>
       </div>
     </section>
