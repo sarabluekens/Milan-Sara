@@ -4,29 +4,31 @@
     <section class="flex flex-col mx-auto w-1/2">
       <input
         placeholder="Search staff..."
+        v-model="searchInput"
+        @input="handleSearch"
         class="border-2 border-red w-full my-3 h-10 bg-beige rounded-xl px-2"
       />
       <div class="flex justify-start gap-4">
         <button
-          class="bg-red body-white w-36 h-7 rounded-full"
+          class="flex justify-center items-center bg-red body-white w-36 h-7 rounded-full py-4"
           @click="handleFilter('All')"
         >
           All
         </button>
         <button
-          class="bg-red body-white w-36 h-7 rounded-full"
+          class="flex justify-center items-center bg-red body-white w-36 h-7 rounded-full py-4"
           @click="handleFilter('Doctor')"
         >
           Doctor
         </button>
         <button
-          class="bg-red body-white w-36 h-7 rounded-full"
+          class="flex justify-center items-center bg-red body-white w-36 h-7 rounded-full py-4"
           @click="handleFilter('Nurse')"
         >
           Nurse
         </button>
         <button
-          class="bg-red body-white w-36 h-7 rounded-full"
+          class="flex justify-center items-center bg-red body-white w-36 h-7 rounded-full py-4"
           @click="handleFilter('Paramedic')"
         >
           Paramedic
@@ -39,12 +41,14 @@
       <div
         v-if="caregivers && !filteredCaregivers.length && !isFiltered"
         v-for="caregiver in caregivers.caregivers"
+        :key="caregiver.id"
       >
         <StaffCard :caregiver="caregiver" />
       </div>
       <div
         v-if="isFiltered && filteredCaregivers.length"
         v-for="caregiver in filteredCaregivers"
+        :key="caregiver.id"
       >
         <StaffCard :caregiver="caregiver" />
       </div>
@@ -63,7 +67,10 @@ export default {
   components: { StaffCard },
   setup() {
     const isFiltered = ref(false)
+    const searchInput = ref('')
+    const filterInput = ref('')
     const filteredCaregivers = ref<Caregiver[]>([])
+    const previousInput = ref('')
 
     const {
       loading: caregiverLoading,
@@ -71,18 +78,70 @@ export default {
       error: caregiverError,
     } = useQuery(ALL_CAREGIVERS)
 
+    const handleSearch = () => {
+      if (searchInput.value === '' && filterInput.value === '') {
+        filteredCaregivers.value = []
+        isFiltered.value = false
+      } else if (searchInput.value === '' && filterInput.value != '') {
+        handleFilter(filterInput.value)
+        isFiltered.value = true
+      } else if (
+        filteredCaregivers.value.length > 0 &&
+        filterInput.value != ''
+      ) {
+        console.log(searchInput.value)
+        for (let i = 0; i < filteredCaregivers.value.length; i++) {
+          if (
+            filteredCaregivers.value[i].firstName
+              .toLowerCase()
+              .includes(searchInput.value.toLowerCase()) ||
+            filteredCaregivers.value[i].lastName
+              .toLowerCase()
+              .includes(searchInput.value.toLowerCase())
+          ) {
+            return
+          } else {
+            filteredCaregivers.value.splice(i, 1)
+          }
+        }
+        previousInput.value = searchInput.value
+      } else {
+        filteredCaregivers.value.splice(0, filteredCaregivers.value.length)
+        isFiltered.value = true
+        for (let i = 0; i < caregivers.value.caregivers.length; i++) {
+          if (
+            caregivers.value.caregivers[i].firstName
+              .toLowerCase()
+              .includes(searchInput.value.toLowerCase()) ||
+            caregivers.value.caregivers[i].lastName
+              .toLowerCase()
+              .includes(searchInput.value.toLowerCase())
+          ) {
+            filteredCaregivers.value.push(caregivers.value.caregivers[i])
+          }
+        }
+        if (filteredCaregivers.value.length === 0) {
+          isFiltered.value = false
+        }
+      }
+    }
+
     const handleFilter = (filter: string) => {
       if (filter === 'All') {
         isFiltered.value = false
         filteredCaregivers.value = []
+        filterInput.value = ''
       } else {
-        isFiltered.value = true
-        filteredCaregivers.value = []
+        filteredCaregivers.value.splice(0, filteredCaregivers.value.length)
+        console.log(filteredCaregivers.value)
         for (let i = 0; i < caregivers.value.caregivers.length; i++) {
           if (caregivers.value.caregivers[i].profession === filter) {
+            console.log(caregivers.value.caregivers[i])
             filteredCaregivers.value.push(caregivers.value.caregivers[i])
           }
         }
+        isFiltered.value = true
+        filterInput.value = filter
         console.log(filteredCaregivers.value)
       }
     }
@@ -93,6 +152,8 @@ export default {
       caregiverError,
       isFiltered,
       filteredCaregivers,
+      searchInput,
+      handleSearch,
       handleFilter,
     }
   },

@@ -27,4 +27,6 @@ const props = defineProps<{
 }>()
 
 const caregiver: Caregiver = props.caregiver
+
+console.log(caregiver)
 </script>

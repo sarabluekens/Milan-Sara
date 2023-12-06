@@ -11,25 +11,25 @@
       <div class="flex justify-start gap-4">
         <button
           @click="handleFilter('All')"
-          class="bg-red body-white w-36 h-7 rounded-full"
+          class="flex justify-center items-center bg-red body-white w-36 h-7 rounded-full py-4"
         >
           All
         </button>
         <button
           @click="handleFilter('Ointment')"
-          class="bg-red body-white w-36 h-7 rounded-full"
+          class="flex justify-center items-center bg-red body-white w-36 h-7 rounded-full py-4"
         >
           Ointment
         </button>
         <button
           @click="handleFilter('Pill')"
-          class="bg-red body-white w-36 h-7 rounded-full"
+          class="flex justify-center items-center bg-red body-white w-36 h-7 rounded-full py-4"
         >
           Pill
         </button>
         <button
           @click="handleFilter('Bandage')"
-          class="bg-red body-white w-36 h-7 rounded-full"
+          class="flex justify-center items-center bg-red body-white w-36 h-7 rounded-full py-4"
         >
           Bandage
         </button>
@@ -43,12 +43,14 @@
       <div
         v-if="equipments && !filteredEquipments.length && isFiltered"
         v-for="equipmentItem in equipments.equipments"
+        :key="equipmentItem.id"
       >
         <EquipmentCard :equipment="equipmentItem" />
       </div>
       <div
         v-if="filteredEquipments.length && isFiltered"
         v-for="equipment in filteredEquipments"
+        :key="equipment.id"
       >
         <EquipmentCard :equipment="equipment" />
       </div>
