@@ -50,10 +50,14 @@
         <div v-if="eventsError">{{ eventsError }}</div>
         <div
           v-if="events"
-          v-for="event in [...liveEvents, ...events.eventsByStatus]"
-          :key="event.id"
+          class="w-full h-35vh overflow-y-auto scrollbar scrollbar-rounded scrollbar-w-2 scrollbar-track-color-beige scrollbar-thumb-rounded scrollbar-thumb-color-red scrolling-touch"
         >
-          <EventCard :event="event" />
+          <div
+            v-for="event in [...liveEvents, ...events.eventsByStatus]"
+            :key="event.id"
+          >
+            <EventCard :event="event" />
+          </div>
         </div>
       </div>
     </section>

@@ -9,7 +9,7 @@
       @click="handleDetails(event.id)"
       class="h-6 px-2 w-auto bg-red rounded-md subbody-white col-span-1"
     >
-      event details
+      details
     </button>
   </div>
 </template>
