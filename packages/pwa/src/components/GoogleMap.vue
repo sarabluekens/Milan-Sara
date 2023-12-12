@@ -2,29 +2,40 @@
 import { useGeolocation } from '@vueuse/core'
 import { Loader } from '@googlemaps/js-api-loader'
 import { ref } from 'vue'
-import useLocation from '@/composables/useLocation'
 
 import { onMounted } from 'vue'
+import useRealtime from '@/composables/useRealtime'
+import { useRouter } from 'vue-router'
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
-const { coords: victimCO, locatedAt, error, resume, pause } = useGeolocation()
-const { getCoords } = useLocation()
+
+const { on, emit } = useRealtime()
+const Router = useRouter()
+
+const caseId = Router.currentRoute.value.params.id
+const currentCo = ref({
+  latitude: 50.8,
+  longitude: 3.2,
+})
+
+navigator.geolocation.getCurrentPosition((pos: any) => {
+  currentCo.value = pos.coords
+})
 
 // reference to map div in html
 const mapDiv = ref()
-const coordinatesFromUse = ref({ latitude: 0, longitude: 0 })
 
-// loading state
+// getting CO's loading state
 const loading = ref(true)
 
-// coordinates of caregiver
-const caregiverCO = ref({
-  latitude: victimCO.value.latitude,
-  longitude: victimCO.value.longitude,
+// coordinates of destination
+const destinationCo = ref({
+  latitude: currentCo.value.latitude + 1,
+  longitude: currentCo.value.longitude + 1,
 })
 
 let map: google.maps.Map
-let victimMarker: google.maps.Marker
-let caregiverMarker: google.maps.Marker
+let currentMarker: google.maps.Marker
+let destinationMarker: google.maps.Marker
 
 // google maps loader
 const loader = new Loader({
@@ -37,43 +48,55 @@ const loader = new Loader({
 const loadMap = async () => {
   await loader.load()
 
+  // load map centered on your current location
   map = new google.maps.Map(mapDiv.value, {
     center: {
-      lat: victimCO.value.latitude,
-      lng: victimCO.value.longitude,
+      lat: currentCo.value.latitude,
+      lng: currentCo.value.longitude,
     },
     zoom: 18,
   })
 
   // floorplan settings
+  // to do convert to Milans CO
   const floorplan = new google.maps.GroundOverlay('/mapOverlay.png', {
-    north: victimCO.value.latitude + 0.0008,
-    south: victimCO.value.latitude - 0.0008,
-    east: victimCO.value.longitude + 0.004,
-    west: victimCO.value.longitude - 0.004,
+    north: currentCo.value.latitude + 0.0008,
+    south: currentCo.value.latitude - 0.0008,
+    east: currentCo.value.longitude + 0.004,
+    west: currentCo.value.longitude - 0.004,
   })
 
   // add floorplan to map
   floorplan.setMap(map)
 
   // add victim marker to map
-  victimMarker = new google.maps.Marker({
+  currentMarker = new google.maps.Marker({
     position: {
-      lat: victimCO.value.latitude,
-      lng: victimCO.value.longitude,
+      lat: currentCo.value.latitude,
+      lng: currentCo.value.longitude,
+    },
+    icon: {
+      url: '/youMarker.png',
+      scaledSize: new google.maps.Size(198, 78),
     },
     map: map,
   })
 
-  console.log('map loaded', victimCO.value.latitude, victimCO.value.longitude)
+  console.log('map loaded', currentCo.value.latitude, currentCo.value.longitude)
 }
 
-const showCaregiver = async () => {
-  // add caregiver marker to map
-  caregiverMarker = new google.maps.Marker({
+const showDestination = async () => {
+  // add destination marker to map
+  destinationMarker = new google.maps.Marker({
     position: {
-      lat: caregiverCO.value.latitude,
-      lng: caregiverCO.value.longitude,
+      lat: destinationCo.value.latitude,
+      lng: destinationCo.value.longitude,
+    },
+    icon: {
+      url: Router.currentRoute.value.path.includes('caregiver')
+        ? '/victimMarker.png'
+        : '/caregiverMarker.png',
+      scaledSize: new google.maps.Size(217, 97),
     },
     map: map,
   })
@@ -84,27 +107,22 @@ const showCaregiver = async () => {
     maximumAge: 500,
   }
 
-  function success(pos: any) {
+  const success = (pos: any) => {
     const crd = pos.coords
     console.log('Your current position is:')
     console.log(`Latitude : ${crd.latitude}`)
     console.log(`Longitude: ${crd.longitude}`)
     console.log(`More or less ${crd.accuracy} meters.`)
     console.log('tracked at', new Date(pos.timestamp))
-    console.log('coordinates from use', coordinatesFromUse)
 
-    caregiverCO.value = {
+    emit('coords:updated', {
       latitude: crd.latitude,
       longitude: crd.longitude,
-    }
-
-    caregiverMarker.setPosition({
-      lat: caregiverCO.value.latitude,
-      lng: caregiverCO.value.longitude,
+  
     })
   }
 
-  function error(err: any) {
+  const error = (err: any) => {
     console.warn(`ERROR(${err.code}): ${err.message}`)
   }
 
@@ -115,7 +133,7 @@ const showCaregiver = async () => {
 
 onMounted(async () => {
   //await victim coordinates to load the map
-  while (!isFinite(victimCO.value.latitude)) {
+  while (!isFinite(currentCo.value.latitude)) {
     loading.value = true
     await new Promise(resolve => setTimeout(resolve, 100))
   }
@@ -124,8 +142,21 @@ onMounted(async () => {
   await loadMap()
 
   //add the caregiver marker
-  showCaregiver()
+  showDestination()
   loading.value = false
+})
+
+// update coordinates
+on('coords:new', (data: Partial<Object>) => {
+  console.log('New coords added by a patient', data)
+  destinationCo.value = data as any
+
+  // update marker
+  destinationMarker.setPosition({
+    lat: destinationCo.value.latitude,
+    lng: destinationCo.value.longitude,
+  })
+  console.log('new coords:', destinationCo.value)
 })
 </script>
 

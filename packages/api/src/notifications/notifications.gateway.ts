@@ -8,6 +8,7 @@ import {
   ConnectedSocket,
 } from '@nestjs/websockets'
 import { log } from 'console'
+import { subscribe } from 'diagnostics_channel'
 import { Server, Socket } from 'socket.io'
 import { CasesService } from 'src/cases/cases.service'
 import { CreateCaseInput } from 'src/cases/dto/create-case.input'
@@ -52,6 +53,22 @@ export class NotificationsGateway
     this.server.emit('number of users on this server: ', this.numberOfUsers)
   }
 
+  @SubscribeMessage('case:joined')
+  async handleCaseJoined(
+    @MessageBody() data: any,
+    @ConnectedSocket() client: Socket,
+  ): Promise<void> {
+    try {
+      const caseId = data
+      client.join(caseId)
+      console.log('caregiver joined case', caseId)
+
+      // return newCase
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   @SubscribeMessage('case:created')
   async handleNewCase(
     @MessageBody() data: Case,
@@ -62,6 +79,27 @@ export class NotificationsGateway
       console.log('newCase', newCase)
       this.server.emit('case:new', newCase) //<- create new listener for clients
 
+      // doet niets?
+      //wie is client, victim of caregiver?
+      client.join(newCase.id)
+      console.log('victim joined case', newCase.id)
+
+      // return newCase
+    } catch (error) {
+      console.log(error)
+    }
+
+    console.log('rooms', client.rooms)
+  }
+
+  //
+  @SubscribeMessage('coords:updated')
+  async handleNewCoords(
+    @MessageBody() data: any,
+    @ConnectedSocket() client: Socket,
+  ): Promise<void> {
+    try {
+      this.server.emit('coords:new', data) //<- create new listener for clients
       // return newCase
     } catch (error) {
       console.log(error)
