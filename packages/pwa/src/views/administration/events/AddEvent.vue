@@ -147,6 +147,8 @@
 import { ref } from 'vue'
 import { useMutation } from '@vue/apollo-composable'
 import { ADD_EVENT } from '@/graphql/event.mutation'
+import useRealtime from '@/composables/useRealtime'
+import type { Event } from '@/interfaces/event.interface'
 
 export default {
   setup() {
@@ -166,6 +168,8 @@ export default {
       children: false,
       maps: '',
     })
+
+    const { emit } = useRealtime()
 
     const {
       mutate: addEvent,
@@ -197,7 +201,7 @@ export default {
       widget.open()
     }
 
-    const handleAddEvent = () => {
+    const handleAddEvent = async () => {
       if (newEvent.value.name === '') {
         alert('Please fill in the name of the event')
         return
@@ -240,7 +244,7 @@ export default {
       } else {
         console.log(newEvent.value.maps)
         alert('Event created')
-        addEvent({
+        const result = await addEvent({
           createEventInput: {
             name: newEvent.value.name,
             address: newEvent.value.address,
@@ -258,6 +262,10 @@ export default {
             mapsLink: newEvent.value.maps,
           },
         })
+
+        console.log(result)
+        // add event in the RedCross dashboard
+        emit('event:created', result?.data?.createEvent as Event)
       }
       console.log(newEvent.value.name)
       console.log(newEvent.value.address)

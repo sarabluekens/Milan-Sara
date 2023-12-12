@@ -241,7 +241,7 @@
         </li>
         <li
           class="body-white my-10% sm:my-5% md:my-6 cursor-pointer"
-          @click="handlePush('/event/add')"
+          @click="handlePush('event/add')"
         >
           Create new event
         </li>

@@ -42,7 +42,7 @@ const router = createRouter({
     {
       path: '/admin',
       component: () => import('../components/wrappers/AdminWrap.vue'),
-      meta: { shouldBeAuthenticated: true, role: 'ADMIN' }, // Rol afwerken
+      meta: { shouldBeAuthenticated: true }, // Only persons with role admin can access this route
       children: [
         {
           path: 'dashboard',
@@ -86,7 +86,7 @@ const router = createRouter({
     {
       path: '/company',
       component: () => import('../components/wrappers/CompanyWrap.vue'),
-      meta: { shouldBeAuthenticated: true, role: 'COMPANY' }, // Rol afwerken
+      meta: { shouldBeAuthenticated: true, role: 'COMPANY' }, // Only persons with role company can access this route
       children: [
         {
           path: 'dashboard',
@@ -101,12 +101,6 @@ const router = createRouter({
           meta: { shouldBeAuthenticated: true },
         },
       ],
-    },
-
-    {
-      path: '/event/add',
-      component: () => import('../views/administration/events/AddEvent.vue'),
-      meta: { shouldBeAuthenticated: true },
     },
 
     {
