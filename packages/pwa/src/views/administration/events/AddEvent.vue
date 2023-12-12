@@ -10,57 +10,99 @@
         type="text"
         placeholder="Event name"
         id="eventname"
-        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3 subbody-black/80"
+        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 subbody-black/80"
         v-model="newEvent.name"
       />
+      <span
+        class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+        v-for="error in v$.name.$errors"
+        :key="error.$uid"
+        >The event name is required</span
+      >
       <label class="body-black col-span-1" for="address">Address</label>
       <input
         type="text"
         placeholder="Address"
         id="address"
-        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3 subbody-black/80"
+        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mt-3 subbody-black/80"
         v-model="newEvent.address"
       />
+      <span
+        class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+        v-for="error in v$.address.$errors"
+        :key="error.$uid"
+        >The event address is required</span
+      >
       <label class="body-black col-span-1" for="postalcode">PostalCode</label>
       <input
         type="text"
         placeholder="PostalCode"
         id="postalcode"
-        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3 subbody-black/80"
+        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mt-3 subbody-black/80"
         v-model="newEvent.postalCode"
       />
+      <span
+        class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+        v-for="error in v$.postalCode.$errors"
+        :key="error.$uid"
+        >The postalcode is required</span
+      >
       <label class="body-black col-span-1" for="city">City</label>
       <input
         type="text"
         placeholder="City"
         id="city"
-        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3 subbody-black/80"
+        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mt-3 subbody-black/80"
         v-model="newEvent.city"
       />
+      <span
+        class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+        v-for="error in v$.city.$errors"
+        :key="error.$uid"
+        >The city is required</span
+      >
       <label class="body-black col-span-1" for="dates">Dates</label>
       <input
         type="date"
         placeholder="Dates"
         id="dates"
-        class="border-1 border-black w-2/3 h-10 ml-3 subbody-black/80 bg-white col-span-4 mb-3"
+        class="border-1 border-black w-2/3 h-10 ml-3 subbody-black/80 bg-white col-span-4 mt-3"
         v-model="newEvent.dates"
       />
+      <span
+        class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+        v-for="error in v$.dates.$errors"
+        :key="error.$uid"
+        >The event dates are required</span
+      >
       <label class="body-black col-span-1" for="starttime">Start time</label>
       <input
         type="time"
         placeholder="Start time"
         id="starttime"
-        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3 subbody-black/80"
+        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mt-3 subbody-black/80"
         v-model="newEvent.startTime"
       />
+      <span
+        class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+        v-for="error in v$.startTime.$errors"
+        :key="error.$uid"
+        >The startTime of the event is required</span
+      >
       <label class="body-black col-span-1" for="endtime">End time</label>
       <input
         type="time"
         placeholder="End time"
         id="endtime"
-        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3 subbody-black/80"
+        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mt-3 subbody-black/80"
         v-model="newEvent.endTime"
       />
+      <span
+        class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+        v-for="error in v$.endTime.$errors"
+        :key="error.$uid"
+        >The endTime of the event is required</span
+      >
       <label class="body-black col-span-1" for="contactperson"
         >Contactperson</label
       >
@@ -68,17 +110,29 @@
         type="text"
         placeholder="Contactperson"
         id="contactperson"
-        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3 subbody-black/80"
+        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mt-3 subbody-black/80"
         v-model="newEvent.contactPerson"
       />
+      <span
+        class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+        v-for="error in v$.contactPerson.$errors"
+        :key="error.$uid"
+        >The contactperson is required</span
+      >
       <label class="body-black col-span-1" for="email">Email</label>
       <input
         type="email"
         placeholder="Email"
         id="email"
-        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3 subbody-black/80"
+        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mt-3 subbody-black/80"
         v-model="newEvent.email"
       />
+      <span
+        class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+        v-for="error in v$.email.$errors"
+        :key="error.$uid"
+        >The email of the contactperson is required</span
+      >
       <label class="body-black col-span-1" for="phone-number"
         >Phone number</label
       >
@@ -86,17 +140,29 @@
         type="tel"
         placeholder="Phone number"
         id="phone-number"
-        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3 subbody-black/80"
+        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mt-3 subbody-black/80"
         v-model="newEvent.phoneNumber"
       />
+      <span
+        class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+        v-for="error in v$.phoneNumber.$errors"
+        :key="error.$uid"
+        >The phonenumber of the contactperson is required</span
+      >
       <label class="body-black col-span-1" for="btw-number">Btw number</label>
       <input
         type="text"
         placeholder="Btw number"
         id="btw-number"
-        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3 subbody-black/80"
+        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mt-3 subbody-black/80"
         v-model="newEvent.btwNumber"
       />
+      <span
+        class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+        v-for="error in v$.btwNumber.$errors"
+        :key="error.$uid"
+        >The btwNumber is required</span
+      >
       <label class="body-black col-span-1" for="expected-visitor-staff-count"
         >Expected visitor / staff count</label
       >
@@ -104,12 +170,18 @@
         type="number"
         placeholder="Expected visitor / staff count"
         id="expected-visitor-staff-count"
-        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mb-3 subbody-black/80"
+        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mt-3 subbody-black/80"
         v-model="newEvent.expectedVisitorStaffCount"
         min="0"
       />
+      <span
+        class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+        v-for="error in v$.expectedVisitorStaffCount.$errors"
+        :key="error.$uid"
+        >The expected visitors and staff count is required</span
+      >
       <p class="body-black col-span-1">Children</p>
-      <label class="col-span-2 mx-auto mb-3 w-15vw subbody-black/80" for="Yes">
+      <label class="col-span-2 mx-auto mt-3 w-15vw subbody-black/80" for="Yes">
         <input
           type="radio"
           v-bind:value="true"
@@ -118,7 +190,7 @@
         />
         Yes
       </label>
-      <label class="col-span-2 mx-auto mb-3 w-15vw subbody-black/80" for="No">
+      <label class="col-span-2 mx-auto mt-3 w-15vw subbody-black/80" for="No">
         <input
           type="radio"
           v-bind:value="false"
@@ -127,15 +199,27 @@
         />
         No
       </label>
+      <span
+        class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+        v-for="error in v$.children.$errors"
+        :key="error.$uid"
+        >Please fill in if there are children at the event</span
+      >
       <label class="body-black col-span-1" for="maps">Maps</label>
       <div
-        class="border-1 border-red col-span-2 h-10 mb-4"
+        class="border-1 border-red col-span-2 h-10 ml-3 mt-3"
         @click="openUploadWidget()"
       >
         upload file
       </div>
+      <span
+        class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+        v-for="error in v$.maps.$errors"
+        :key="error.$uid"
+        >The maps of the event are required</span
+      >
       <button
-        class="border-1 border-red bg-red col-span-2 col-start-2 body-white h-10"
+        class="border-1 border-red bg-red col-span-2 col-start-2 body-white h-10 mt-4"
       >
         Create event
       </button>
@@ -149,6 +233,8 @@ import { useMutation } from '@vue/apollo-composable'
 import { ADD_EVENT } from '@/graphql/event.mutation'
 import useRealtime from '@/composables/useRealtime'
 import type { Event } from '@/interfaces/event.interface'
+import useValidate from '@vuelidate/core' // validation
+import { required, email, minLength } from '@vuelidate/validators' // validation
 
 export default {
   setup() {
@@ -169,13 +255,28 @@ export default {
       maps: '',
     })
 
+    const validationRules = {
+      name: { required },
+      address: { required },
+      postalCode: { required },
+      city: { required },
+      dates: { required },
+      startTime: { required },
+      endTime: { required },
+      contactPerson: { required },
+      email: { required, email },
+      phoneNumber: { required },
+      btwNumber: { required },
+      expectedVisitorStaffCount: { required },
+      children: { required },
+      maps: { required },
+    }
+
+    const v$ = useValidate(validationRules, newEvent)
+
     const { emit } = useRealtime()
 
-    const {
-      mutate: addEvent,
-      loading: addEventLoading,
-      onError: addEventError,
-    } = useMutation(ADD_EVENT)
+    const { mutate: addEvent } = useMutation(ADD_EVENT)
 
     //@ts-ignore
     const widget = window.cloudinary.createUploadWidget(
@@ -202,47 +303,8 @@ export default {
     }
 
     const handleAddEvent = async () => {
-      if (newEvent.value.name === '') {
-        alert('Please fill in the name of the event')
-        return
-      } else if (newEvent.value.address === '') {
-        alert('Please fill in the address of the event')
-        return
-      } else if (newEvent.value.postalCode === '') {
-        alert('Please fill in the postal code of the event')
-        return
-      } else if (newEvent.value.city === '') {
-        alert('Please fill in the city of the event')
-        return
-      } else if (newEvent.value.dates === '') {
-        alert('Please fill in the dates of the event')
-        return
-      } else if (newEvent.value.startTime === '') {
-        alert('Please fill in the start time of the event')
-        return
-      } else if (newEvent.value.endTime === '') {
-        alert('Please fill in the end time of the event')
-        return
-      } else if (newEvent.value.contactPerson === '') {
-        alert('Please fill in the contact person of the event')
-        return
-      } else if (newEvent.value.email === '') {
-        alert('Please fill in the email of the event')
-        return
-      } else if (newEvent.value.phoneNumber === '') {
-        alert('Please fill in the phone number of the event')
-        return
-      } else if (newEvent.value.btwNumber === '') {
-        alert('Please fill in the btw number of the event')
-        return
-      } else if (newEvent.value.expectedVisitorStaffCount === '') {
-        alert('Please fill in the expected visitor / staff count of the event')
-        return
-      } else if (newEvent.value.children === undefined) {
-        alert('Please fill in if there are children at the event')
-        return
-      } else {
-        console.log(newEvent.value.maps)
+      const validationResult = await v$.value.$validate()
+      if (validationResult) {
         alert('Event created')
         const result = await addEvent({
           createEventInput: {
@@ -267,24 +329,11 @@ export default {
         // add event in the RedCross dashboard
         emit('event:created', result?.data?.createEvent as Event)
       }
-      console.log(newEvent.value.name)
-      console.log(newEvent.value.address)
-      console.log(newEvent.value.postalCode)
-      console.log(newEvent.value.city)
-      console.log(newEvent.value.dates)
-      console.log(newEvent.value.startTime)
-      console.log(newEvent.value.endTime)
-      console.log(newEvent.value.contactPerson)
-      console.log(newEvent.value.email)
-      console.log(newEvent.value.phoneNumber)
-      console.log(newEvent.value.btwNumber)
-      console.log(newEvent.value.expectedVisitorStaffCount)
-      console.log(newEvent.value.children)
-      console.log(newEvent.value.maps)
     }
 
     return {
       newEvent,
+      v$,
       handleFileChange,
       openUploadWidget,
       handleAddEvent,

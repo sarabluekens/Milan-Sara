@@ -42,7 +42,7 @@ const router = createRouter({
     {
       path: '/admin',
       component: () => import('../components/wrappers/AdminWrap.vue'),
-      meta: { shouldBeAuthenticated: true }, // Only persons with role admin can access this route
+      meta: { shouldBeAuthenticated: true, role: 'ADMIN' }, // Only persons with role admin can access this route
       children: [
         {
           path: 'dashboard',

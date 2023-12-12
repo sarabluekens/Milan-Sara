@@ -17,6 +17,8 @@
     "@tweenjs/tween.js": "17.2.0",
     "@vue/apollo-composable": "^4.0.0-beta.11",
     "@vue/apollo-util": "^4.0.0-beta.6",
+    "@vuelidate/core": "^2.0.3",
+    "@vuelidate/validators": "^2.0.4",
     "cloudinary": "^1.41.0",
     "firebase": "^10.4.0",
     "googleapis": "^105.0.0",
