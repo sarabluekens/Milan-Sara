@@ -48,8 +48,16 @@
         </div>
         <div v-if="eventsLoading">Loading</div>
         <div v-if="eventsError">{{ eventsError }}</div>
-        <div v-if="events" v-for="event in events.eventsByStatus">
-          <EventCard :event="event" />
+        <div
+          v-if="events"
+          class="w-full h-35vh overflow-y-auto scrollbar scrollbar-rounded scrollbar-w-2 scrollbar-track-color-beige scrollbar-thumb-rounded scrollbar-thumb-color-red scrolling-touch"
+        >
+          <div
+            v-for="event in [...liveEvents, ...events.eventsByStatus]"
+            :key="event.id"
+          >
+            <EventCard :event="event" />
+          </div>
         </div>
       </div>
     </section>
@@ -59,14 +67,20 @@
 <script lang="ts">
 import useFirebase from '@/composables/useFirebase'
 import { useQuery } from '@vue/apollo-composable'
-import { GET_EVENT_BY_STATUS } from '../../graphql/event.query'
+import { GET_EVENT_BY_STATUS } from '@/graphql/event.query'
 import EventCard from '@/components/EventCard.vue'
+import type { Event } from '@/interfaces/event.interface'
+import useRealtime from '@/composables/useRealtime'
+import { ref } from 'vue'
 
 export default {
   components: { EventCard },
   setup() {
     // Composable
     const { firebaseUser } = useFirebase()
+    const newEvent = ref<Event | null>()
+    const liveEvents = ref<Event[]>([])
+    const { on } = useRealtime()
 
     const {
       loading: eventsLoading,
@@ -80,7 +94,16 @@ export default {
       error: eventsCompletedError,
     } = useQuery(GET_EVENT_BY_STATUS, { status: 'Completed' })
 
-    console.log(events)
+    on('event:new', (data: Partial<Event>) => {
+      console.log('New event added by a company', data)
+      console.log(data as Event)
+      data.status = 'Pending'
+      data.createdAt = new Date()
+      newEvent.value = data as Event
+      liveEvents.value.push(data as Event)
+      console.log(newEvent.value)
+      console.log(liveEvents.value)
+    })
 
     return {
       firebaseUser,
@@ -90,6 +113,7 @@ export default {
       eventsCompletedLoading,
       eventsCompletedError,
       eventsCompleted: eventsCompleted,
+      liveEvents,
     }
   },
 }

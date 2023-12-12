@@ -1,9 +1,11 @@
 import { defineConfig, presetUno, presetIcons, presetWebFonts } from 'unocss'
+import { presetScrollbar } from 'unocss-preset-scrollbar'
 
 export default defineConfig({
   presets: [
     presetIcons({}),
     presetUno(),
+    presetScrollbar({}),
 
     presetWebFonts({
       provider: 'google', // default provider
