@@ -2,7 +2,7 @@
 import { useGeolocation } from '@vueuse/core'
 import { Loader } from '@googlemaps/js-api-loader'
 import { ref } from 'vue'
-
+import { uuid } from 'vue-uuid'
 import { onMounted } from 'vue'
 import useRealtime from '@/composables/useRealtime'
 import { useRouter } from 'vue-router'
@@ -10,11 +10,18 @@ const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 
 const { on, emit } = useRealtime()
 const Router = useRouter()
-
+const userId = uuid.v4()
 const caseId = Router.currentRoute.value.params.id
 const currentCo = ref({
   latitude: 50.8,
   longitude: 3.2,
+})
+
+const newCo = ref({
+  latitude: null as number | null,
+  longitude: null as number | null,
+  userId: '',
+  caseId: '',
 })
 
 navigator.geolocation.getCurrentPosition((pos: any) => {
@@ -28,14 +35,14 @@ const mapDiv = ref()
 const loading = ref(true)
 
 // coordinates of destination
-const destinationCo = ref({
-  latitude: currentCo.value.latitude + 1,
-  longitude: currentCo.value.longitude + 1,
+const othersCo = ref({
+  latitude: currentCo.value.latitude + 0.001,
+  longitude: currentCo.value.longitude + 0.001,
 })
 
 let map: google.maps.Map
 let currentMarker: google.maps.Marker
-let destinationMarker: google.maps.Marker
+let othersMarker: google.maps.Marker
 
 // google maps loader
 const loader = new Loader({
@@ -54,7 +61,7 @@ const loadMap = async () => {
       lat: currentCo.value.latitude,
       lng: currentCo.value.longitude,
     },
-    zoom: 18,
+    zoom: 5,
   })
 
   // floorplan settings
@@ -82,15 +89,17 @@ const loadMap = async () => {
     map: map,
   })
 
+  console.log(userId)
+
   console.log('map loaded', currentCo.value.latitude, currentCo.value.longitude)
 }
 
 const showDestination = async () => {
   // add destination marker to map
-  destinationMarker = new google.maps.Marker({
+  othersMarker = new google.maps.Marker({
     position: {
-      lat: destinationCo.value.latitude,
-      lng: destinationCo.value.longitude,
+      lat: othersCo.value.latitude,
+      lng: othersCo.value.longitude,
     },
     icon: {
       url: Router.currentRoute.value.path.includes('caregiver')
@@ -118,7 +127,8 @@ const showDestination = async () => {
     emit('coords:updated', {
       latitude: crd.latitude,
       longitude: crd.longitude,
-  
+      caseId: caseId,
+      userId: userId,
     })
   }
 
@@ -149,14 +159,22 @@ onMounted(async () => {
 // update coordinates
 on('coords:new', (data: Partial<Object>) => {
   console.log('New coords added by a patient', data)
-  destinationCo.value = data as any
+  newCo.value = data as any
 
-  // update marker
-  destinationMarker.setPosition({
-    lat: destinationCo.value.latitude,
-    lng: destinationCo.value.longitude,
-  })
-  console.log('new coords:', destinationCo.value)
+  // if the new coords are not from the current user
+  if (newCo.value.userId !== userId) {
+    // update the other marker
+    othersMarker.setPosition({
+      lat: newCo.value.latitude as number,
+      lng: newCo.value.longitude as number,
+    })
+    console.log('new coords:', newCo.value)
+  } else {
+    currentMarker.setPosition({
+      lat: newCo.value.latitude as number,
+      lng: newCo.value.longitude as number,
+    })
+  }
 })
 </script>
 

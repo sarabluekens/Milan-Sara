@@ -78,9 +78,6 @@ export class NotificationsGateway
       const newCase = data
       console.log('newCase', newCase)
       this.server.emit('case:new', newCase) //<- create new listener for clients
-
-      // doet niets?
-      //wie is client, victim of caregiver?
       client.join(newCase.id)
       console.log('victim joined case', newCase.id)
 
@@ -100,6 +97,7 @@ export class NotificationsGateway
   ): Promise<void> {
     try {
       this.server.emit('coords:new', data) //<- create new listener for clients
+      // this.server.emit('coords:new', data) //<- create new listener for clients
       // return newCase
     } catch (error) {
       console.log(error)
