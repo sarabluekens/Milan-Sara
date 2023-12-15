@@ -1,6 +1,6 @@
 <template>
   <div class="ml-3.5rem md:ml-5rem bg-beige h-100vh">
-    <h1 class="title-black">New event</h1>
+    <h1 class="title-black mb-4">New event</h1>
     <form
       @submit.prevent="handleAddEvent"
       class="grid grid-cols-5 mx-auto w-1/2"
@@ -62,12 +62,14 @@
         >The city is required</span
       >
       <label class="body-black col-span-1" for="dates">Dates</label>
-      <input
-        type="date"
+      <Calendar
         placeholder="Dates"
         id="dates"
         class="border-1 border-black w-2/3 h-10 ml-3 subbody-black/80 bg-white col-span-4 mt-3"
         v-model="newEvent.dates"
+        selectionMode="multiple"
+        :manualInput="false"
+        showIcon
       />
       <span
         class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
@@ -207,7 +209,7 @@
       >
       <label class="body-black col-span-1" for="maps">Maps</label>
       <div
-        class="border-1 border-red col-span-2 h-10 ml-3 mt-3"
+        class="border-1 bg-red text-center py-1 body-white border-red col-span-1 h-10 ml-3 mt-3"
         @click="openUploadWidget()"
       >
         upload file
@@ -234,7 +236,7 @@ import { ADD_EVENT } from '@/graphql/event.mutation'
 import useRealtime from '@/composables/useRealtime'
 import type { Event } from '@/interfaces/event.interface'
 import useValidate from '@vuelidate/core' // validation
-import { required, email, minLength } from '@vuelidate/validators' // validation
+import { required, email } from '@vuelidate/validators' // validation
 
 export default {
   setup() {
@@ -254,7 +256,6 @@ export default {
       children: false,
       maps: '',
     })
-
     const validationRules = {
       name: { required },
       address: { required },
@@ -271,13 +272,9 @@ export default {
       children: { required },
       maps: { required },
     }
-
     const v$ = useValidate(validationRules, newEvent)
-
     const { emit } = useRealtime()
-
     const { mutate: addEvent } = useMutation(ADD_EVENT)
-
     //@ts-ignore
     const widget = window.cloudinary.createUploadWidget(
       {
@@ -291,17 +288,14 @@ export default {
         }
       },
     )
-
     const handleFileChange = (event: any) => {
       const file = event.target.files[0]
       console.log(file)
       newEvent.value.maps = file.name
     }
-
     const openUploadWidget = () => {
       widget.open()
     }
-
     const handleAddEvent = async () => {
       const validationResult = await v$.value.$validate()
       if (validationResult) {
@@ -324,13 +318,11 @@ export default {
             mapsLink: newEvent.value.maps,
           },
         })
-
         console.log(result)
         // add event in the RedCross dashboard
         emit('event:created', result?.data?.createEvent as Event)
       }
     }
-
     return {
       newEvent,
       v$,
