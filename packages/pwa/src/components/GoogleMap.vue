@@ -8,6 +8,7 @@ import { useRouter } from 'vue-router'
 import { useMutation, useQuery } from '@vue/apollo-composable'
 import { ADD_VICTIM_CO, ADD_CAREGIVER_CO } from '@/graphql/case.mutation'
 import { CASE_BY_ID } from '@/graphql/case.query'
+import { onUnmounted } from 'vue'
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 
 const { on, emit } = useRealtime()
@@ -17,7 +18,7 @@ const router = useRouter()
 // const { mutate: addVictimCo } = useMutation(')
 const userId = uuid.v4()
 const caseId = router.currentRoute.value.params.caseId as string
-
+const watchId = ref<number>()
 const newCo = ref({
   latitude: null as number | null,
   longitude: null as number | null,
@@ -143,8 +144,8 @@ const showDestination = async () => {
   }
 
   // watch caregiver position
-  navigator.geolocation.watchPosition(success, error, options)
-  console.log('watching position')
+  watchId.value = navigator.geolocation.watchPosition(success, error, options)
+  console.log('watching position', watchId.value)
 }
 
 onMounted(async () => {
@@ -178,7 +179,7 @@ onMounted(async () => {
     }
     // TODO if on victim page get foreach caregiver the coordinates and add them to the map
   }
-  
+
   //await your victimCoordinates to load the map
   while (
     currentCo.value.latitude === null &&
@@ -243,6 +244,11 @@ onMounted(async () => {
   //add the caregiver marker
   showDestination()
   loading.value = false
+})
+
+onUnmounted(() => {
+  console.log('unmounted')
+  navigator.geolocation.clearWatch(watchId.value as number)
 })
 
 // update victimCoordinates
