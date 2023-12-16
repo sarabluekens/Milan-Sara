@@ -1,4 +1,4 @@
-import { InputType, Int, Field } from '@nestjs/graphql'
+import { InputType, Field } from '@nestjs/graphql'
 import { IsNotEmpty, IsOptional } from 'class-validator'
 import { ReservedStock } from '../entities/reserverdStock.entity'
 
@@ -13,7 +13,7 @@ export class CreateEquipmentInput {
   category: string
 
   @IsOptional()
-  @Field() //graphql
+  @Field({ nullable: true }) //graphql
   description?: string
 
   @IsNotEmpty()
@@ -28,7 +28,7 @@ export class CreateEquipmentInput {
   @Field({ defaultValue: true }) //graphql
   available: boolean
 
-  @IsNotEmpty()
-  @Field() //graphql
-  expirationDate: Date
+  @IsOptional()
+  @Field({ nullable: true }) //graphql
+  expirationDate?: Date
 }
