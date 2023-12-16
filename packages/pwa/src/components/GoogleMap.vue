@@ -1,3 +1,8 @@
+<template>
+  <div v-if="loading" style="width: 80%; height: 50vh">loading</div>
+  <div ref="mapDiv" style="width: 80%; height: 50vh"></div>
+</template>
+
 <script setup lang="ts">
 import { Loader } from '@googlemaps/js-api-loader'
 import { ref } from 'vue'
@@ -147,7 +152,38 @@ const showDestination = async () => {
   watchId.value = navigator.geolocation.watchPosition(success, error, options)
   console.log('watching position', watchId.value)
 }
+const updateCoordinates = (coords: any) => {
+  if (!router.currentRoute.value.path.includes('caregiver')) {
+    addVictimCo({
+      updateCaseInput: {
+        caseId: caseId as string,
+        victimCoordinates: {
+          lat: coords.value.latitude!,
+          lng: coords.value.longitude!,
+        },
+      },
+    })
 
+    console.log(
+      'victim coords added to db: ' + coords.value.latitude,
+      coords.value.longitude,
+    )
+  } else {
+    addCaregiverCo({
+      updateCaseInput: {
+        caseId: caseId as string,
+        caregiverCoordinates: {
+          lat: coords.value.latitude!,
+          lng: coords.value.longitude!,
+        },
+      },
+    })
+    console.log(
+      'caregiver coords added to db: ' + coords.value.latitude,
+      coords.value.longitude,
+    )
+  }
+}
 onMounted(async () => {
   // get caseobject from db
   const {
@@ -195,51 +231,7 @@ onMounted(async () => {
   console.log('caseid in map:', caseId)
 
   // add your first coordinates to the db
-  if (!router.currentRoute.value.path.includes('caregiver')) {
-    addVictimCo({
-      updateCaseInput: {
-        caseId: caseId as string,
-        victimCoordinates: {
-          lat: currentCo.value.latitude!,
-          lng: currentCo.value.longitude!,
-        },
-      },
-    })
-
-    console.log(
-      'victim coords added to db: ' + currentCo.value.latitude,
-      currentCo.value.longitude,
-    )
-  } else {
-    addCaregiverCo({
-      updateCaseInput: {
-        caseId: caseId as string,
-        caregiverCoordinates: {
-          lat: currentCo.value.latitude!,
-          lng: currentCo.value.longitude!,
-        },
-      },
-    })
-    console.log(
-      'caregiver coords added to db: ' + currentCo.value.latitude,
-      currentCo.value.longitude,
-    )
-    // get victimCoordinates of the victim
-    //   const {
-    //     result: currentCase,
-    //     loading: loadingCase,
-    //     error,
-    //   } = useQuery(CASE_BY_ID, () => ({
-    //     caseId: caseId.toString(),
-    //   }))
-    //   while (loadingCase.value) {
-    //     await new Promise(resolve => setTimeout(resolve, 100))
-    //     console.log('waiting for case')
-    //   }
-    //   console.log('currentCase:', currentCase.value.caseById)
-    //   othersCo.value.latitude = currentCase.value.caseById.victimCoordinates.lat
-    //   othersCo.value.longitude = currentCase.value.caseById.victimCoordinates.lng
-  }
+  updateCoordinates(currentCo)
 
   //add the caregiver marker
   showDestination()
@@ -269,38 +261,9 @@ on('coords:new', (data: Partial<Object>) => {
       lat: newCo.value.latitude as number,
       lng: newCo.value.longitude as number,
     })
+
+    // update the db
+    updateCoordinates(newCo)
   }
-
-  // TODO update the victimCoordinates in the db
-  // TODO update the caregiverCoordinates in the db
-
-  // if (router.currentRoute.value.path.includes('caregiver')) {
-  //   addCaregiverCo({
-  //     updateCaseInput: {
-  //       caseId: caseId as string,
-  //       caregiverCoordinates: {
-  //         lat: currentCo.value.latitude!,
-  //         lng: currentCo.value.longitude!,
-  //       },
-  //     },
-  //   })
-  //   // update the victimCoordinates in the db
-  // } else {
-  //   addVictimCo({
-  //     updateCaseInput: {
-  //       caseId: caseId as string,
-  //       victimCoordinates: {
-  //         lat: currentCo.value.latitude!,
-  //         lng: currentCo.value.longitude!,
-  //       },
-  //     },
-  //   })
-  // }
-  //
 })
 </script>
-
-<template>
-  <div v-if="loading" style="width: 80%; height: 50vh">loading</div>
-  <div ref="mapDiv" style="width: 80%; height: 50vh"></div>
-</template>
