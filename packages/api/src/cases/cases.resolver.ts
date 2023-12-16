@@ -40,7 +40,7 @@ export class CasesResolver {
   }
 
   @Query(() => Case, { name: 'caseById' })
-  findOne(@Args('id', { type: () => Int }) id: string) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.casesService.getCaseById(id)
   }
 

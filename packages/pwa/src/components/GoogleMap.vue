@@ -180,10 +180,15 @@ onMounted(async () => {
       loading: loadingCase,
       error,
     } = useQuery(CASE_BY_ID, () => ({
-      caseId: caseId,
+      caseId: caseId.toString(),
     }))
-
-    console.log('currentCase:', currentCase.value)
+    while (loadingCase.value) {
+      await new Promise(resolve => setTimeout(resolve, 100))
+      console.log('waiting for case')
+    }
+    othersCo.value.latitude = currentCase.value.caseById.coordinates.lat
+    othersCo.value.longitude = currentCase.value.caseById.coordinates.lng
+    console.log('currentCase:', currentCase.value.caseById.coordinates.lat)
   }
 
   //add the caregiver marker
