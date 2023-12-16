@@ -242,6 +242,7 @@ import { required, email } from '@vuelidate/validators' // validation
 import EventMap from '@/components/EventMap.vue'
 
 export default {
+  components: { EventMap },
   setup() {
     const newEvent = ref({
       name: '',

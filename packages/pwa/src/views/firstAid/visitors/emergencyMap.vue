@@ -63,7 +63,6 @@
 
     <section class="flex flex-wrap justify-center items-center">
       <EmergencyMap />
-      <EventMap />
     </section>
   </article>
 </template>
