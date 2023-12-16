@@ -68,11 +68,31 @@ export class CasesService {
   }
 
   // add victim coordinates to the Case
-  async updateVictimCo(id: string, coordinates: { lat: number; lng: number }) {
+  async updateVictimCo(
+    id: string,
+    victimCoordinates: { lat: number; lng: number },
+  ) {
     const currentCase = await this.getCaseById(id)
 
     if (currentCase) {
-      currentCase.coordinates = coordinates
+      currentCase.victimCoordinates = victimCoordinates
+      this.caseRepository.update(id, currentCase)
+      console.log('currentCase', currentCase)
+    } else {
+      throw new Error('Case not found')
+    }
+    return currentCase
+  }
+
+  // add victim coordinates to the Case
+  async updateCaregiverCo(
+    id: string,
+    caregiverCoordinates: { lat: number; lng: number },
+  ) {
+    const currentCase = await this.getCaseById(id)
+
+    if (currentCase) {
+      currentCase.caregiverCoordinates = caregiverCoordinates
       this.caseRepository.update(id, currentCase)
       console.log('currentCase', currentCase)
     } else {

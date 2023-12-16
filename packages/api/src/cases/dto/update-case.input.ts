@@ -17,5 +17,9 @@ export class UpdateCaseInput extends PartialType(CreateCaseInput) {
 
   @IsOptional()
   @Field(() => VictimCoordsClass, { nullable: true })
-  coordinates: VictimCoords
+  victimCoordinates: VictimCoords
+
+  @IsOptional()
+  @Field(() => VictimCoordsClass, { nullable: true })
+  caregiverCoordinates: VictimCoords
 }

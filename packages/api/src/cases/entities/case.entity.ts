@@ -72,7 +72,12 @@ export class Case {
 
   @Column()
   @Field(() => VictimCoordsClass, { nullable: true })
-  coordinates: VictimCoords
+  victimCoordinates: VictimCoords
+
+  @Column()
+  @Field(() => VictimCoordsClass, { nullable: true })
+  caregiverCoordinates: VictimCoords
+
   //column = db
   //field = graphql
   //field en daarin store je object van linked entity

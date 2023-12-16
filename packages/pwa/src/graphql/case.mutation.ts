@@ -61,18 +61,38 @@ export const ADD_VICTIM_TO_CASE: TypedDocumentNode<
   }
 `
 export const ADD_VICTIM_COORDS_TO_CASE: TypedDocumentNode<
-  { addVictimCoordsToCase: Case },
+  { addVictimCo: Case },
   {
     updateCaseInput: {
       caseId: string
-      coordinates: VictimCoords
+      victimCoordinates: VictimCoords
     }
   }
 > = gql`
   mutation addVictimCo($updateCaseInput: UpdateCaseInput!) {
     addVictimCo(updateCaseInput: $updateCaseInput) {
       id
-      coordinates {
+      victimCoordinates {
+        lat
+        lng
+      }
+    }
+  }
+`
+
+export const ADD_CAREGIVER_COORDS_TO_CASE: TypedDocumentNode<
+  { addCaregiverCo: Case },
+  {
+    updateCaseInput: {
+      caseId: string
+      caregiverCoordinates: VictimCoords
+    }
+  }
+> = gql`
+  mutation addVictimCo($updateCaseInput: UpdateCaseInput!) {
+    addVictimCo(updateCaseInput: $updateCaseInput) {
+      id
+      caregiverCoordinates {
         lat
         lng
       }

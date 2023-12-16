@@ -30,7 +30,7 @@ export const CASE_BY_ID = gql`
   query caseById($caseId: String!) {
     caseById(id: $caseId) {
       id
-      coordinates {
+      victimCoordinates {
         lat
         lng
       }

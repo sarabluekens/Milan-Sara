@@ -61,7 +61,14 @@ export class CasesResolver {
   addVictimCo(@Args('updateCaseInput') updateCaseInput: UpdateCaseInput) {
     return this.casesService.updateVictimCo(
       updateCaseInput.caseId,
-      updateCaseInput.coordinates,
+      updateCaseInput.victimCoordinates,
+    )
+  }
+  @Mutation(() => Case)
+  addCaregiverCo(@Args('updateCaseInput') updateCaseInput: UpdateCaseInput) {
+    return this.casesService.updateVictimCo(
+      updateCaseInput.caseId,
+      updateCaseInput.victimCoordinates,
     )
   }
 
