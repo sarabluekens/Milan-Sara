@@ -25,3 +25,15 @@ export const ALL_CASES = gql`
     }
   }
 `
+
+export const CASE_BY_ID = gql`
+  query caseById($id: String!) {
+    caseById(id: $id) {
+      id
+      coords {
+        lat
+        lng
+      }
+    }
+  }
+`

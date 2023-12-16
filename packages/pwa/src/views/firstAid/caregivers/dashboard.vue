@@ -65,8 +65,7 @@ export default {
     const handleClick = async (id: string) => {
       console.log(id)
       emit('case:joined', id)
-
-      push('caregiversMap')
+      push({ path: `/caregiver/map/${id}` })
     }
     return {
       result: computed<Case[]>(() => cases.value.cases),

@@ -20,7 +20,8 @@ const router = createRouter({
           props: true,
         },
         {
-          path: 'caregiversMap',
+          path: '/caregiver/map/:id',
+          name: 'caregiversMap',
           component: () => import('../views/firstAid/caregivers/caseMap.vue'),
           props: true,
         },

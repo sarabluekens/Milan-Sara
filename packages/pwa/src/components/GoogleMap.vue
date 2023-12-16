@@ -5,13 +5,14 @@ import { uuid } from 'vue-uuid'
 import { onMounted } from 'vue'
 import useRealtime from '@/composables/useRealtime'
 import { useRouter } from 'vue-router'
-import { useMutation } from '@vue/apollo-composable'
+import { useMutation, useQuery } from '@vue/apollo-composable'
 import { ADD_VICTIM_COORDS_TO_CASE } from '@/graphql/case.mutation'
-
+import { CASE_BY_ID } from '@/graphql/case.query'
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 
 const { on, emit } = useRealtime()
 const { mutate: updateVictimCo } = useMutation(ADD_VICTIM_COORDS_TO_CASE)
+
 const router = useRouter()
 // const { mutate: addVictimCo } = useMutation(')
 const userId = uuid.v4()
@@ -174,7 +175,15 @@ onMounted(async () => {
     })
   } else {
     // get coordinates of the victim
-    
+    const {
+      result: currentCase,
+      loading: loadingCase,
+      error,
+    } = useQuery(CASE_BY_ID, () => ({
+      caseId: caseId,
+    }))
+
+    console.log('currentCase:', currentCase.value)
   }
 
   //add the caregiver marker

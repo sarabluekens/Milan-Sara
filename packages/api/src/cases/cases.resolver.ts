@@ -39,6 +39,11 @@ export class CasesResolver {
     return this.casesService.findOneByDate(date)
   }
 
+  @Query(() => Case, { name: 'caseById' })
+  findOne(@Args('id', { type: () => Int }) id: string) {
+    return this.casesService.getCaseById(id)
+  }
+
   @Query(() => [Case], { name: 'cases' })
   findAll() {
     return this.casesService.findAll()
