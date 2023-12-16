@@ -5,7 +5,3 @@ export interface Victim {
   phone: String
 }
 
-export interface VictimCoords {
-  lat: number
-  lng: number
-}

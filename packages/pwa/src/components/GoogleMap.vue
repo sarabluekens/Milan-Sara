@@ -6,17 +6,13 @@ import { onMounted } from 'vue'
 import useRealtime from '@/composables/useRealtime'
 import { useRouter } from 'vue-router'
 import { useMutation, useQuery } from '@vue/apollo-composable'
-import {
-  ADD_VICTIM_COORDS_TO_CASE,
-  ADD_CAREGIVER_COORDS_TO_CASE,
-} from '@/graphql/case.mutation'
+import { ADD_VICTIM_CO, ADD_CAREGIVER_CO } from '@/graphql/case.mutation'
 import { CASE_BY_ID } from '@/graphql/case.query'
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 
 const { on, emit } = useRealtime()
-const { mutate: addVictimCo } = useMutation(ADD_VICTIM_COORDS_TO_CASE)
-const { mutate: updateCaregiverCo } = useMutation(ADD_CAREGIVER_COORDS_TO_CASE)
-
+const { mutate: addVictimCo } = useMutation(ADD_VICTIM_CO)
+const { mutate: addCaregiverCo } = useMutation(ADD_CAREGIVER_CO)
 const router = useRouter()
 // const { mutate: addVictimCo } = useMutation(')
 const userId = uuid.v4()
@@ -152,6 +148,10 @@ const showDestination = async () => {
 }
 
 onMounted(async () => {
+  // TODO get caseobject from db
+
+  // TODO if on victim page get foreach caregiver the coordinates and add them to the map
+  // TODO if on caregiver page get the victim coordinates and add them to the map
   //await your victimCoordinates to load the map
   while (
     currentCo.value.latitude === null &&
@@ -166,7 +166,7 @@ onMounted(async () => {
   await loadMap()
   console.log('caseid in map:', caseId)
 
-  // add your victimCoordinates to the db
+  // add your first coordinates to the db
   if (!router.currentRoute.value.path.includes('caregiver')) {
     addVictimCo({
       updateCaseInput: {
@@ -183,21 +183,34 @@ onMounted(async () => {
       currentCo.value.longitude,
     )
   } else {
+    addCaregiverCo({
+      updateCaseInput: {
+        caseId: caseId as string,
+        caregiverCoordinates: {
+          lat: currentCo.value.latitude!,
+          lng: currentCo.value.longitude!,
+        },
+      },
+    })
+    console.log(
+      'caregiver coords added to db: ' + currentCo.value.latitude,
+      currentCo.value.longitude,
+    )
     // get victimCoordinates of the victim
-    const {
-      result: currentCase,
-      loading: loadingCase,
-      error,
-    } = useQuery(CASE_BY_ID, () => ({
-      caseId: caseId.toString(),
-    }))
-    while (loadingCase.value) {
-      await new Promise(resolve => setTimeout(resolve, 100))
-      console.log('waiting for case')
-    }
-    console.log('currentCase:', currentCase.value.caseById)
-    othersCo.value.latitude = currentCase.value.caseById.victimCoordinates.lat
-    othersCo.value.longitude = currentCase.value.caseById.victimCoordinates.lng
+    //   const {
+    //     result: currentCase,
+    //     loading: loadingCase,
+    //     error,
+    //   } = useQuery(CASE_BY_ID, () => ({
+    //     caseId: caseId.toString(),
+    //   }))
+    //   while (loadingCase.value) {
+    //     await new Promise(resolve => setTimeout(resolve, 100))
+    //     console.log('waiting for case')
+    //   }
+    //   console.log('currentCase:', currentCase.value.caseById)
+    //   othersCo.value.latitude = currentCase.value.caseById.victimCoordinates.lat
+    //   othersCo.value.longitude = currentCase.value.caseById.victimCoordinates.lng
   }
 
   //add the caregiver marker
@@ -225,18 +238,31 @@ on('coords:new', (data: Partial<Object>) => {
     })
   }
 
-  if (router.currentRoute.value.path.includes('caregiver')) {
-    updateCaregiverCo({
-      updateCaseInput: {
-        caseId: caseId as string,
-        caregiverCoordinates: {
-          lat: currentCo.value.latitude!,
-          lng: currentCo.value.longitude!,
-        },
-      },
-    })
-    // update the caregiver victimCoordinates in the db
-  }
+  // TODO update the victimCoordinates in the db
+  // TODO update the caregiverCoordinates in the db
+
+  // if (router.currentRoute.value.path.includes('caregiver')) {
+  //   addCaregiverCo({
+  //     updateCaseInput: {
+  //       caseId: caseId as string,
+  //       caregiverCoordinates: {
+  //         lat: currentCo.value.latitude!,
+  //         lng: currentCo.value.longitude!,
+  //       },
+  //     },
+  //   })
+  //   // update the victimCoordinates in the db
+  // } else {
+  //   addVictimCo({
+  //     updateCaseInput: {
+  //       caseId: caseId as string,
+  //       victimCoordinates: {
+  //         lat: currentCo.value.latitude!,
+  //         lng: currentCo.value.longitude!,
+  //       },
+  //     },
+  //   })
+  // }
   //
 })
 </script>

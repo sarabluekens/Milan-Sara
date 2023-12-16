@@ -4,8 +4,8 @@ import { GraphQLLongitude, GraphQLLatitude } from 'graphql-scalars'
 import { Double } from 'typeorm'
 
 @ObjectType()
-@InputType('VictimCoordsInput')
-export class VictimCoordsClass {
+@InputType('CoordsInput')
+export class CoordsClass {
   @Field(() => GraphQLLatitude)
   lat: Double
 
@@ -13,7 +13,7 @@ export class VictimCoordsClass {
   lng: Double
 }
 
-export type VictimCoords = {
+export type Coords = {
   lat: number
   lng: number
 }

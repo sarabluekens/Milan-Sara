@@ -77,7 +77,7 @@ export class CasesService {
     if (currentCase) {
       currentCase.victimCoordinates = victimCoordinates
       this.caseRepository.update(id, currentCase)
-      console.log('currentCase', currentCase)
+      console.log('currentCase update', currentCase)
     } else {
       throw new Error('Case not found')
     }

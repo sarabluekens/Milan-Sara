@@ -1,10 +1,7 @@
 import { IsOptional } from 'class-validator'
 import { CreateCaseInput } from './create-case.input'
 import { InputType, Field, PartialType } from '@nestjs/graphql'
-import {
-  VictimCoords,
-  VictimCoordsClass,
-} from '../entities/victim-coords.entity'
+import { Coords, CoordsClass } from '../entities/coords.entity'
 
 @InputType()
 export class UpdateCaseInput extends PartialType(CreateCaseInput) {
@@ -16,10 +13,10 @@ export class UpdateCaseInput extends PartialType(CreateCaseInput) {
   victimId: string
 
   @IsOptional()
-  @Field(() => VictimCoordsClass, { nullable: true })
-  victimCoordinates: VictimCoords
+  @Field(() => CoordsClass, { nullable: true })
+  victimCoordinates: Coords
 
   @IsOptional()
-  @Field(() => VictimCoordsClass, { nullable: true })
-  caregiverCoordinates: VictimCoords
+  @Field(() => CoordsClass, { nullable: true })
+  caregiverCoordinates: Coords
 }
