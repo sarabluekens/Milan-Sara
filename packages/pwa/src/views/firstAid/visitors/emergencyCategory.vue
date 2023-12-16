@@ -7,8 +7,6 @@
         <EmergencyCard
           :image="item.image"
           :title="item.text"
-          :icon="item.icon"
-          :subtitle="item.subtitle"
           :category="item.category"
           v-model="caseInput.typeAccident"
           @click="handleNewCase(item.category)"
@@ -38,8 +36,8 @@ export default {
       {
         text: 'Unconscious',
         category: 'unconscious',
-        icon: 'i-ic-baseline-phone',
-        subtitle: 'You will be called for urgent aid',
+        // icon: 'i-ic-baseline-phone',
+        // subtitle: 'You will be called for urgent aid',
         image: 'unconscious.svg',
       },
       { text: 'Fell', image: 'fell.svg', category: 'fell' },
