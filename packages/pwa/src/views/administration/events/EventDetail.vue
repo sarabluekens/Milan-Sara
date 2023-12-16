@@ -219,12 +219,15 @@
         >
         <section class="grid grid-cols-4">
           <div
-            v-if="ehboKit_available"
+            v-if="kits.ehboKit.available"
             class="border-1 border-red w-50 text-center mb-4"
           >
             <p class="body-black">EHBO kit</p>
             <p>consists of:</p>
-            <li v-for="equipment in ehboKit" class="grid grid-cols-4">
+            <li
+              v-for="equipment in kits.ehboKit.contents"
+              class="grid grid-cols-4"
+            >
               <p class="subbody-black col-span-2">
                 {{ equipment.categoryName }}
               </p>
@@ -237,7 +240,7 @@
               >
                 minus
               </button>
-              <p class="subbody-black">{{ ehboKit_count }}</p>
+              <p class="subbody-black">{{ kits.ehboKit.count }}</p>
               <button
                 @click="handleEquipmentCount('plus', 'EHBO')"
                 class="i-mdi-plus-thick icon icon-2 color-red"
@@ -247,12 +250,15 @@
             </div>
           </div>
           <div
-            v-if="woundKit_available"
+            v-if="kits.woundKit.available"
             class="border-1 border-red w-50 text-center mb-4"
           >
             <p class="body-black">Wound kit</p>
             <p>consists of:</p>
-            <li v-for="equipment in woundKit" class="grid grid-cols-4">
+            <li
+              v-for="equipment in kits.woundKit.contents"
+              class="grid grid-cols-4"
+            >
               <p class="subbody-black col-span-2">
                 {{ equipment.categoryName }}:
               </p>
@@ -265,7 +271,7 @@
               >
                 minus
               </button>
-              <p class="subbody-black">{{ woundKit_count }}</p>
+              <p class="subbody-black">{{ kits.woundKit.count }}</p>
               <button
                 @click="handleEquipmentCount('plus', 'Wound')"
                 class="i-mdi-plus-thick icon icon-2 color-red"
@@ -331,16 +337,82 @@ export default {
 
     const { mutate: updateEquipment } = useMutation(UPDATE_EQUIPMENT)
 
-    const woundKit = ref([
-      { categoryName: 'Bandage', name: 'Arm bandage', count: 5 },
-      { categoryName: 'Ointment', name: 'Flamigel', count: 10 },
-      { categoryName: 'Pill', name: 'Dafalgan', count: 20 },
-    ])
-
-    const ehboKit = ref([
-      { categoryName: 'Bandage', name: 'Arm bandage', count: 4 },
-      { categoryName: 'Ointment', name: 'Flamigel', count: 2 },
-    ])
+    const kits = ref({
+      unconsciousKit: {
+        contents: [
+          { categoryName: 'Other', name: 'AED', count: 1 },
+          { categoryName: 'Other', name: 'Spineboard', count: 1 },
+          { categoryName: 'Pill', name: 'Motilium', count: 2 },
+        ],
+        count: 0,
+        available: true,
+      },
+      fellKit: {
+        contents: [
+          { categoryName: 'Other', name: 'spineboard', count: 1 },
+          { categoryName: 'Pill', name: 'Paracetamol', count: 3 },
+        ],
+        count: 0,
+        available: true,
+      },
+      drugsKit: {
+        contents: [
+          { categoryName: 'Other', name: 'AED', count: 1 },
+          { categoryName: 'Pill', name: 'Naloxone', count: 5 },
+          { categoryName: 'Pill', name: 'Motilium', count: 2 },
+        ],
+        count: 0,
+        available: true,
+      },
+      bleedKit: {
+        contents: [
+          { categoryName: 'Bandage', name: 'Compress pads', count: 5 },
+          { categoryName: 'Bandage', name: 'Bandage', count: 5 },
+          { categoryName: 'Pill', name: 'Paracetamol', count: 3 },
+          { categoryName: 'Ointment', name: 'Iso-Betadine', count: 2 },
+        ],
+        count: 0,
+        available: true,
+      },
+      allergyKit: {
+        contents: [
+          { categoryName: 'Syringe', name: 'EpiPen', count: 1 },
+          { categoryName: 'Pill', name: 'Paracetamol', count: 4 },
+          { categoryName: 'Ointment', name: 'Flamigel', count: 2 },
+        ],
+        count: 0,
+        available: true,
+      },
+      otherKit: {
+        contents: [
+          { categoryName: 'Other', name: 'AED', count: 1 },
+          { categoryName: 'Other', name: 'Spineboard', count: 1 },
+          { categoryName: 'Pill', name: 'Paracetamol', count: 10 },
+          { categoryName: 'Pill', name: 'Motilium', count: 10 },
+          { categoryName: 'Bandage', name: 'Compress pads', count: 4 },
+          { categoryName: 'Ointment', name: 'Flamigel', count: 5 },
+        ],
+        count: 0,
+        available: true,
+      },
+      woundKit: {
+        contents: [
+          { categoryName: 'Bandage', name: 'Arm bandage', count: 5 },
+          { categoryName: 'Ointment', name: 'Flamigel', count: 10 },
+          { categoryName: 'Pill', name: 'Dafalgan', count: 20 },
+        ],
+        count: 0,
+        available: true,
+      },
+      ehboKit: {
+        contents: [
+          { categoryName: 'Bandage', name: 'Arm bandage', count: 4 },
+          { categoryName: 'Ointment', name: 'Flamigel', count: 2 },
+        ],
+        count: 0,
+        available: true,
+      },
+    })
 
     const handleAddEvent = () => {
       isAccepted.value = true
@@ -389,26 +461,19 @@ export default {
 
     const checkEquipmentAvailability = () => {
       for (const equipment of equipments.value.equipments) {
-        for (const equipmentName of woundKit.value) {
+        for (const equipmentName of kits.value.woundKit.contents) {
           if (equipment.name === equipmentName.name) {
-            if (
-              equipment.totalStock -
-                woundKit_count.value * equipmentName.count <
-              0
-            ) {
-              woundKit_available.value = false
+            if (equipment.totalStock < equipmentName.count) {
+              kits.value.woundKit.available = false
             }
           }
         }
       }
       for (const equipment of equipments.value.equipments) {
-        for (const equipmentName of ehboKit.value) {
+        for (const equipmentName of kits.value.ehboKit.contents) {
           if (equipment.name === equipmentName.name) {
-            if (
-              equipment.totalStock - ehboKit_count.value * equipmentName.count <
-              0
-            ) {
-              ehboKit_available.value = false
+            if (equipment.totalStock < equipmentName.count) {
+              kits.value.ehboKit.available = false
             }
           }
         }
@@ -420,72 +485,72 @@ export default {
         case 'EHBO':
           if (action === 'minus') {
             console.log('minus')
-            if (ehboKit_count.value === 0) {
+            if (kits.value.ehboKit.count === 0) {
               return
             }
-            ehboKit_count.value--
+            kits.value.ehboKit.count--
           } else {
             console.log('plus')
-            ehboKit_count.value++
+            kits.value.ehboKit.count++
           }
           break
         case 'Wound':
           if (action === 'minus') {
             console.log('minus')
-            if (woundKit_count.value === 0) {
+            if (kits.value.woundKit.count === 0) {
               return
             }
-            woundKit_count.value--
+            kits.value.woundKit.count--
           } else {
             console.log('plus')
-            woundKit_count.value++
+            kits.value.woundKit.count++
           }
           break
       }
     }
 
     const handleUpdateEquipment = () => {
-      if (woundKit_count.value > 0) {
+      if (kits.value.woundKit.count > 0) {
         for (const equipment of equipments.value.equipments) {
-          for (const equipmentName of woundKit.value) {
+          for (const equipmentName of kits.value.woundKit.contents) {
             if (equipment.name === equipmentName.name) {
+              console.log('woundKit: ', equipment.name)
               updateEquipment({
                 updateEquipmentInput: {
                   id: equipment.id,
                   totalStock:
                     equipment.totalStock -
-                    woundKit_count.value * equipmentName.count,
+                    kits.value.woundKit.count * equipmentName.count,
                   reservedStock: {
                     eventId: event.value.event.id,
-                    amount: woundKit_count.value * equipmentName.count,
+                    amount: kits.value.woundKit.count * equipmentName.count,
                   },
                 },
               })
             }
           }
         }
-        console.log('woundkit added')
       }
-      if (ehboKit_count.value > 0) {
+      if (kits.value.ehboKit.count > 0) {
         for (const equipment of equipments.value.equipments) {
-          for (const equipmentName of ehboKit.value) {
+          for (const equipmentName of kits.value.ehboKit.contents) {
             if (equipment.name === equipmentName.name) {
+              console.log('ehboKit: ', equipment.name)
               updateEquipment({
                 updateEquipmentInput: {
                   id: equipment.id,
                   totalStock:
                     equipment.totalStock -
-                    ehboKit_count.value * equipmentName.count,
+                    kits.value.ehboKit.count * equipmentName.count,
                   reservedStock: {
                     eventId: event.value.event.id,
-                    amount: ehboKit_count.value * equipmentName.count,
+                    amount: kits.value.ehboKit.count * equipmentName.count,
                   },
                 },
               })
             }
           }
         }
-        console.log('ehbokit added')
       }
     }
 
@@ -501,10 +566,9 @@ export default {
       equipmentError,
       isAccepted,
       AddCaregiver,
-      ehboKit,
+      kits,
       ehboKit_count,
       ehboKit_available,
-      woundKit,
       woundKit_count,
       woundKit_available,
       addedCaregivers,
