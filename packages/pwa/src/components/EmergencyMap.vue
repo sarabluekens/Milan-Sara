@@ -215,7 +215,7 @@ onMounted(async () => {
   }
   console.log('dbCase:', currentCase.value.caseById)
 
-  // TODO if on caregiver page get the victim coordinates and add them to the map
+  // on caregiver page get the victim coordinates and add them to the map
   if (router.currentRoute.value.path.includes('caregiver')) {
     othersCo.value.latitude = currentCase.value.caseById.victimCoordinates.lat
     othersCo.value.longitude = currentCase.value.caseById.victimCoordinates.lng
@@ -229,7 +229,6 @@ onMounted(async () => {
         currentCase.value.caseById.caregiverCoordinates.lng
       console.log('othersCo:', othersCo.value)
     }
-    // TODO if on victim page get foreach caregiver the coordinates and add them to the map
   }
 
   //await your victimCoordinates to load the map

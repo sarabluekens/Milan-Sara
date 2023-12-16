@@ -25,7 +25,6 @@ import { useMutation } from '@vue/apollo-composable'
 import { ADD_CASE } from '@/graphql/case.mutation'
 import useRealtime from '@/composables/useRealtime'
 import type { Case } from '@/interfaces/case.interface'
-
 export default {
   components: { EmergencyCard },
   setup() {
