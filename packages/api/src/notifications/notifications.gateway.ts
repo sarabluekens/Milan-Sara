@@ -13,6 +13,7 @@ import { Server, Socket } from 'socket.io'
 import { CasesService } from 'src/cases/cases.service'
 import { CreateCaseInput } from 'src/cases/dto/create-case.input'
 import { Case } from 'src/cases/entities/case.entity'
+import { Event } from 'src/events/entities/event.entity'
 @WebSocketGateway(+process.env.WS_PORT || 3004, {
   cors: {
     origin: [
@@ -99,6 +100,22 @@ export class NotificationsGateway
       this.server.emit('coords:new', data) //<- create new listener for clients
       // this.server.emit('coords:new', data) //<- create new listener for clients
       // return newCase
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  @SubscribeMessage('event:created')
+  async handleNewEvent(
+    @MessageBody() data: Event,
+    @ConnectedSocket() client: Socket,
+  ): Promise<void> {
+    try {
+      const newEvent = data
+      console.log('newEvent', newEvent)
+      this.server.emit('event:new', newEvent) //<- create new listener for clients
+
+      // return newEvent
     } catch (error) {
       console.log(error)
     }

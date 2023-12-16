@@ -4,22 +4,34 @@
     <section class="flex flex-col mx-auto w-1/2">
       <input
         placeholder="Search staff..."
-        class="border-1 border-red w-full my-3 h-10 bg-beige"
+        class="border-2 border-red w-full my-3 h-10 bg-beige rounded-xl px-2"
         v-model="searchInput"
         @input="handleSearch"
       />
-      <div class="flex justify-between">
-        <button @click="handleFilter('All')" class="bg-red body-white">
+      <div class="flex justify-start gap-4">
+        <button
+          @click="handleFilter('All')"
+          class="flex justify-center items-center bg-red body-white w-36 h-7 rounded-full py-4"
+        >
           All
         </button>
-        <button @click="handleFilter('Ointment')" class="bg-red body-white">
+        <button
+          @click="handleFilter('Ointment')"
+          class="flex justify-center items-center bg-red body-white w-36 h-7 rounded-full py-4"
+        >
           Ointment
         </button>
-        <button @click="handleFilter('Pill')" class="bg-red body-white">
+        <button
+          @click="handleFilter('Pill')"
+          class="flex justify-center items-center bg-red body-white w-36 h-7 rounded-full py-4"
+        >
           Pill
         </button>
-        <button @click="handleFilter('Bandage')" class="bg-red body-white">
-          bandage
+        <button
+          @click="handleFilter('Bandage')"
+          class="flex justify-center items-center bg-red body-white w-36 h-7 rounded-full py-4"
+        >
+          Bandage
         </button>
       </div>
     </section>
@@ -30,21 +42,17 @@
       <div v-if="equipmentError">{{ equipmentError }}</div>
       <div
         v-if="equipments && !filteredEquipments.length && isFiltered"
-        v-for="equipment in equipments.equipments"
-        class="text-black w-56 h-18 bg-white"
+        v-for="equipmentItem in equipments.equipments"
+        :key="equipmentItem.id"
       >
-        <p class="body-black">{{ equipment.name }}</p>
-        <p class="subbody-black">{{ equipment.category }}</p>
-        <p class="subbody-black">Amount: {{ equipment.totalStock }}</p>
+        <EquipmentCard :equipment="equipmentItem" />
       </div>
       <div
         v-if="filteredEquipments.length && isFiltered"
         v-for="equipment in filteredEquipments"
-        class="text-black w-56 h-18 bg-white"
+        :key="equipment.id"
       >
-        <p class="body-black">{{ equipment.name }}</p>
-        <p class="subbody-black">{{ equipment.category }}</p>
-        <p class="subbody-black">Amount: {{ equipment.totalStock }}</p>
+        <EquipmentCard :equipment="equipment" />
       </div>
       <div v-if="!isFiltered" class="text-black w-56 h-18 bg-white">
         <p class="body-black">No results found</p>
@@ -58,8 +66,10 @@ import { useQuery } from '@vue/apollo-composable'
 import { ALL_EQUIPMENT } from '@/graphql/equipment.query'
 import type { Equipment } from '@/interfaces/equipment.interface'
 import { ref } from 'vue'
+import EquipmentCard from '@/components/EquipmentCard.vue'
 
 export default {
+  components: { EquipmentCard },
   setup() {
     const searchInput = ref('')
     const filteredEquipments = ref<Equipment[]>([])
@@ -98,17 +108,6 @@ export default {
     const handleFilter = (filter: string) => {
       if (filter === 'All' && searchInput.value === '') {
         filteredEquipments.value = []
-      } else if (filter === 'All' && searchInput.value != '') {
-        filteredEquipments.value = []
-        for (let i = 0; i < equipments.value.equipments.length; i++) {
-          if (
-            equipments.value.equipments[i].name
-              .toLowerCase()
-              .includes(searchInput.value.toLowerCase())
-          ) {
-            filteredEquipments.value.push(equipments.value.equipments[i])
-          }
-        }
       } else {
         filteredEquipments.value = []
         for (let i = 0; i < equipments.value.equipments.length; i++) {
@@ -117,7 +116,9 @@ export default {
               .toLowerCase()
               .includes(filter.toLowerCase())
           ) {
+            console.log(equipments.value.equipments[i])
             filteredEquipments.value.push(equipments.value.equipments[i])
+            console.log(filteredEquipments.value)
           }
         }
       }

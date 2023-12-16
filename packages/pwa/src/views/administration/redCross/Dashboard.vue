@@ -1,9 +1,8 @@
 <template>
   <div>
-    <h1 class="title-black">
+    <h1 class="title-black mb-4">
       Good to see you again, {{ firebaseUser?.displayName }}
     </h1>
-
     <section
       class="flex sm:h-20vh h-24vh sm:flex-row sm:justify-evenly sm:w-48vw m-auto h-"
     >
@@ -51,18 +50,14 @@
         <div v-if="eventsError">{{ eventsError }}</div>
         <div
           v-if="events"
-          v-for="event in events.eventsByStatus"
-          class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 subbody-black"
+          class="w-full h-35vh overflow-y-auto scrollbar scrollbar-rounded scrollbar-w-2 scrollbar-track-color-beige scrollbar-thumb-rounded scrollbar-thumb-color-red scrolling-touch"
         >
-          <p class="col-span-2">{{ event.createdAt }}</p>
-          <p class="col-span-6">{{ event.name }}</p>
-          <p class="col-span-1">{{ event.status }}</p>
-          <button
-            @click="handleDetails(event.id)"
-            class="h-6 px-2 w-auto bg-red subbody-white col-span-1"
+          <div
+            v-for="event in [...liveEvents, ...events.eventsByStatus]"
+            :key="event.id"
           >
-            event details
-          </button>
+            <EventCard :event="event" />
+          </div>
         </div>
       </div>
     </section>
@@ -72,14 +67,20 @@
 <script lang="ts">
 import useFirebase from '@/composables/useFirebase'
 import { useQuery } from '@vue/apollo-composable'
-import { GET_EVENT_BY_STATUS } from '../../graphql/event.query'
-import { useRouter } from 'vue-router'
+import { GET_EVENT_BY_STATUS } from '@/graphql/event.query'
+import EventCard from '@/components/EventCard.vue'
+import type { Event } from '@/interfaces/event.interface'
+import useRealtime from '@/composables/useRealtime'
+import { ref } from 'vue'
 
 export default {
+  components: { EventCard },
   setup() {
     // Composable
     const { firebaseUser } = useFirebase()
-    const { push } = useRouter()
+    const newEvent = ref<Event | null>()
+    const liveEvents = ref<Event[]>([])
+    const { on } = useRealtime()
 
     const {
       loading: eventsLoading,
@@ -93,18 +94,16 @@ export default {
       error: eventsCompletedError,
     } = useQuery(GET_EVENT_BY_STATUS, { status: 'Completed' })
 
-    /* const {
-      loading: caseLoading,
-      result: cases,
-      error: caseError,
-    } = useQuery(GET_EVENT_BY_STATUS, { status: 'Cancelled' }) */
-
-    console.log(events)
-
-    const handleDetails = (id: string) => {
-      console.log('details: ' + id)
-      push({ path: `/admin/event/detail/${id}` })
-    }
+    on('event:new', (data: Partial<Event>) => {
+      console.log('New event added by a company', data)
+      console.log(data as Event)
+      data.status = 'Pending'
+      data.createdAt = new Date()
+      newEvent.value = data as Event
+      liveEvents.value.push(data as Event)
+      console.log(newEvent.value)
+      console.log(liveEvents.value)
+    })
 
     return {
       firebaseUser,
@@ -114,7 +113,7 @@ export default {
       eventsCompletedLoading,
       eventsCompletedError,
       eventsCompleted: eventsCompleted,
-      handleDetails,
+      liveEvents,
     }
   },
 }

@@ -49,8 +49,8 @@ export const GET_EVENT_BY_ID = gql`
 `
 
 export const GET_EVENT_BY_STATUS_CLIENT = gql`
-  query eventsByStatusAndClient($status: String!, $contactPerson: String!) {
-    eventsByStatusAndClient(status: $status, contactPerson: $contactPerson) {
+  query eventsByStatusAndClient($status: String!, $email: String!) {
+    eventsByStatusAndClient(status: $status, email: $email) {
       id
       name
       address

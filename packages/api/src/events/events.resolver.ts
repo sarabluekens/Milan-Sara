@@ -17,9 +17,9 @@ export class EventsResolver {
   @Query(() => [Event], { name: 'eventsByStatusAndClient' })
   findAllByStatusAndClient(
     @Args('status') status: Status,
-    @Args('contactPerson') contactPerson: string,
+    @Args('email') email: string,
   ) {
-    return this.eventsService.findAllByStatusAndClient(status, contactPerson)
+    return this.eventsService.findAllByStatusAndClient(status, email)
   }
 
   @Query(() => [Event], { name: 'eventsByStatus' })
