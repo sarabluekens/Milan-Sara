@@ -218,56 +218,34 @@
           >Equipment</label
         >
         <section class="grid grid-cols-4">
-          <div class="border-1 border-red w-50 text-center mb-4">
-            <p class="body-black">EHBO kit</p>
-            <p>consists of:</p>
-            <li class="grid grid-cols-4 mb-4">
-              <p class="subbody-black col-span-2">Bandage:</p>
-              <p class="subbody-black col-span-1">2</p>
-              <p class="subbody-black col-span-2">Ointment</p>
-              <p class="subbody-black col-span-1">1</p>
-            </li>
-            <div class="flex flex-row justify-between">
-              <button
-                @click="handleEquipmentCount('minus', 'EHBO')"
-                class="i-mdi-minus-thick icon icon-2 color-red"
-              >
-                minus
-              </button>
-              <p class="subbody-black">{{ EHBO_count }}</p>
-              <button
-                @click="handleEquipmentCount('plus', 'EHBO')"
-                class="i-mdi-plus-thick icon icon-2 color-red"
-              >
-                plus
-              </button>
-            </div>
-          </div>
-          <div class="border-1 border-red w-50 text-center mb-4">
-            <p class="body-black">Wound kit</p>
-            <p>consists of:</p>
-            <li class="grid grid-cols-4 mb-4">
-              <p class="subbody-black col-span-2">Bandage:</p>
-              <p class="subbody-black col-span-1">{{ woundKit.bandage }}</p>
-              <p class="subbody-black col-span-2">Ointment</p>
-              <p class="subbody-black col-span-1">{{ woundKit.ointment }}</p>
-              <p class="subbpdy-black col-span-2">Pill</p>
-              <p class="subbody-black col-span-1">{{ woundKit.pill }}</p>
-            </li>
-            <div class="flex flex-row justify-between">
-              <button
-                @click="handleEquipmentCount('minus', 'Wound')"
-                class="i-mdi-minus-thick icon icon-2 color-red"
-              >
-                minus
-              </button>
-              <p class="subbody-black">{{ woundKit.count }}</p>
-              <button
-                @click="handleEquipmentCount('plus', 'Wound')"
-                class="i-mdi-plus-thick icon icon-2 color-red"
-              >
-                plus
-              </button>
+          <div v-for="item in kits">
+            <div
+              v-if="item.available"
+              class="border-1 border-red w-50 text-center mb-4"
+            >
+              <p class="body-black">{{ item.kitName }}</p>
+              <p>consists of:</p>
+              <li v-for="equipment in item.contents" class="grid grid-cols-4">
+                <p class="subbody-black col-span-2">
+                  {{ equipment.name }}
+                </p>
+                <p class="subbody-black col-span-1">{{ equipment.count }}</p>
+              </li>
+              <div class="flex flex-row justify-between mt-4">
+                <button
+                  @click="handleEquipmentCount('minus', item.kitName)"
+                  class="i-mdi-minus-thick icon icon-2 color-red"
+                >
+                  minus
+                </button>
+                <p class="subbody-black">{{ item.count }}</p>
+                <button
+                  @click="handleEquipmentCount('plus', item.kitName)"
+                  class="i-mdi-plus-thick icon icon-2 color-red"
+                >
+                  plus
+                </button>
+              </div>
             </div>
           </div>
         </section>
@@ -288,11 +266,12 @@ import { GET_EVENT_BY_ID } from '@/graphql/event.query'
 import { ALL_CAREGIVERS } from '@/graphql/caregiver.query'
 import { ALL_EQUIPMENT } from '@/graphql/equipment.query'
 import { UPDATE_EQUIPMENT } from '@/graphql/equipment.mutation'
-import type { Equipment } from '@/interfaces/equipment.interface'
 import type { Caregiver } from '@/interfaces/caregiver.interface'
+import type { Equipment } from '@/interfaces/equipment.interface'
 import { useRoute } from 'vue-router'
 import { ref } from 'vue'
 import StaffCard from '@/components/StaffCard.vue'
+import { cp } from 'fs'
 
 export default {
   components: { StaffCard },
@@ -301,8 +280,13 @@ export default {
     const isAccepted = ref(false)
     const AddCaregiver = ref(false)
     const addedCaregivers = ref<Caregiver[]>([])
-    const addedEquipment = ref<Equipment[]>([])
-    const EHBO_count = ref(0)
+    const addedEquipment = ref<
+      { categoryName: string; name: string; count: number }[]
+    >([])
+    const woundKit_count = ref(0)
+    const woundKit_available = ref(true)
+    const ehboKit_count = ref(0)
+    const ehboKit_available = ref(true)
 
     const {
       loading: eventLoading,
@@ -324,20 +308,77 @@ export default {
 
     const { mutate: updateEquipment } = useMutation(UPDATE_EQUIPMENT)
 
-    const woundKit = ref({
-      bandage_name: 'Arm bandage',
-      bandage: 5,
-      ointment_name: 'Flamigel',
-      ointment: 10,
-      pill_name: 'Dafalgan',
-      pill: 20,
-      count: 0,
-    })
+    const kits = ref([
+      {
+        kitName: 'unconsciousKit',
+        contents: [
+          { categoryName: 'Other', name: 'AED', count: 1 },
+          { categoryName: 'Other', name: 'Spineboard', count: 1 },
+          { categoryName: 'Pill', name: 'Motilium', count: 2 },
+        ],
+        count: 0,
+        available: true,
+      },
+      {
+        kitName: 'fellKit',
+        contents: [
+          { categoryName: 'Other', name: 'Spineboard', count: 1 },
+          { categoryName: 'Pill', name: 'Paracetamol', count: 3 },
+        ],
+        count: 0,
+        available: true,
+      },
+      {
+        kitName: 'drugsKit',
+        contents: [
+          { categoryName: 'Other', name: 'AED', count: 1 },
+          { categoryName: 'Pill', name: 'Naloxone', count: 5 },
+          { categoryName: 'Pill', name: 'Motilium', count: 2 },
+        ],
+        count: 0,
+        available: true,
+      },
+      {
+        kitName: 'bleedKit',
+        contents: [
+          { categoryName: 'Bandage', name: 'Compress pads', count: 5 },
+          { categoryName: 'Bandage', name: 'Bandage', count: 5 },
+          { categoryName: 'Pill', name: 'Paracetamol', count: 3 },
+          { categoryName: 'Ointment', name: 'Iso-Betadine', count: 2 },
+        ],
+        count: 0,
+        available: true,
+      },
+      {
+        kitName: 'allergyKit',
+        contents: [
+          { categoryName: 'Syringe', name: 'EpiPen', count: 1 },
+          { categoryName: 'Pill', name: 'Paracetamol', count: 4 },
+          { categoryName: 'Ointment', name: 'Flamigel', count: 2 },
+        ],
+        count: 0,
+        available: true,
+      },
+      {
+        kitName: 'otherKit',
+        contents: [
+          { categoryName: 'Other', name: 'AED', count: 1 },
+          { categoryName: 'Other', name: 'Spineboard', count: 1 },
+          { categoryName: 'Pill', name: 'Paracetamol', count: 10 },
+          { categoryName: 'Pill', name: 'Motilium', count: 10 },
+          { categoryName: 'Bandage', name: 'Compress pads', count: 4 },
+          { categoryName: 'Ointment', name: 'Flamigel', count: 5 },
+        ],
+        count: 0,
+        available: true,
+      },
+    ])
 
     const handleAddEvent = () => {
       isAccepted.value = true
       console.log(isAccepted)
       console.log(event.value.event)
+      checkEquipmentAvailability()
     }
 
     const handleNewCaregiver = () => {
@@ -378,60 +419,86 @@ export default {
       AddCaregiver.value = false
     }
 
+    const checkEquipmentAvailability = () => {
+      for (const equipment of equipments.value.equipments) {
+        for (const kitIem of kits.value) {
+          for (const equipmentName of kitIem.contents) {
+            if (equipment.name === equipmentName.name) {
+              if (equipment.totalStock < equipmentName.count) {
+                kitIem.available = false
+              }
+            }
+          }
+        }
+      }
+    }
+
     const handleEquipmentCount = (action: string, type: string) => {
-      switch (type) {
-        case 'EHBO':
-          if (action === 'minus') {
-            console.log('minus')
-            if (EHBO_count.value === 0) {
-              return
+      for (const kitIem of kits.value) {
+        if (kitIem.kitName === type) {
+          if (action === 'plus') {
+            kitIem.count++
+          } else if (action === 'minus') {
+            if (kitIem.count > 0) {
+              kitIem.count--
             }
-            EHBO_count.value--
-          } else {
-            console.log('plus')
-            EHBO_count.value++
           }
-          break
-        case 'Wound':
-          if (action === 'minus') {
-            console.log('minus')
-            if (woundKit.value.count === 0) {
-              return
-            }
-            woundKit.value.count--
-          } else {
-            console.log('plus')
-            woundKit.value.count++
-          }
-          break
+        }
       }
     }
 
     const handleUpdateEquipment = () => {
-      console.log(equipments.value.equipments)
-      if (woundKit.value.count > 0) {
-        for (const equipment of equipments.value.equipments) {
-          console.log(equipment.reservedStock)
-          if (equipment.name === 'Flamigel') {
-            addedEquipment.value.push(equipment)
+      for (const kitItem of kits.value) {
+        if (kitItem.count > 0) {
+          for (const equipment of equipments.value.equipments) {
+            for (const equipmentItem of kitItem.contents) {
+              if (equipment.name === equipmentItem.name) {
+                console.log(kitItem.kitName, ': ', equipmentItem.name)
+                if (addedEquipment.value.length === 0) {
+                  addedEquipment.value.push({
+                    categoryName: equipmentItem.categoryName,
+                    name: equipmentItem.name,
+                    count: kitItem.count * equipmentItem.count,
+                  })
+                } else if (addedEquipment.value.length > 0) {
+                  let found = addedEquipment.value.find(
+                    element => element.name === equipmentItem.name,
+                  )
+                  if (found) {
+                    found.count += kitItem.count * equipmentItem.count
+                  } else {
+                    addedEquipment.value.push({
+                      categoryName: equipmentItem.categoryName,
+                      name: equipmentItem.name,
+                      count: kitItem.count * equipmentItem.count,
+                    })
+                  }
+                }
+              }
+            }
           }
         }
       }
-      for (const equipment of addedEquipment.value) {
-        console.log(addedEquipment.value)
-        console.log(equipment)
-        updateEquipment({
-          updateEquipmentInput: {
-            id: equipment.id,
-            totalStock:
-              equipment.totalStock -
-              woundKit.value.count * woundKit.value.ointment,
-            reservedStock: {
-              eventId: event.value.event.id,
-              amount: woundKit.value.count * woundKit.value.ointment,
-            },
-          },
-        })
+      updateEquipmentFromArray()
+    }
+
+    const updateEquipmentFromArray = () => {
+      for (const equipment of equipments.value.equipments) {
+        for (const equipmentItem of addedEquipment.value) {
+          if (equipment.name === equipmentItem.name) {
+            console.log(equipment.name, ': ', equipmentItem.name)
+            updateEquipment({
+              updateEquipmentInput: {
+                id: equipment.id,
+                totalStock: equipment.totalStock - equipmentItem.count,
+                reservedStock: {
+                  eventId: event.value.event.id,
+                  amount: equipmentItem.count,
+                },
+              },
+            })
+          }
+        }
       }
     }
 
@@ -447,8 +514,11 @@ export default {
       equipmentError,
       isAccepted,
       AddCaregiver,
-      EHBO_count,
-      woundKit,
+      kits,
+      ehboKit_count,
+      ehboKit_available,
+      woundKit_count,
+      woundKit_available,
       addedCaregivers,
       handleAddEvent,
       handleNewCaregiver,
