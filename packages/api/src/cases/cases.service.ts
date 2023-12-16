@@ -1,13 +1,10 @@
 import { Injectable } from '@nestjs/common'
 import { CreateCaseInput } from './dto/create-case.input'
-import { UpdateCaseInput } from './dto/update-case.input'
 import { Case } from './entities/case.entity'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { ObjectId } from 'mongodb'
-import { Victim } from 'src/victims/entities/victim.entity'
-import { ObjectIDMock } from 'graphql-scalars'
-import { log } from 'console'
+
 @Injectable()
 export class CasesService {
   constructor(

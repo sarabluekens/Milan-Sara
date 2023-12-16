@@ -4,9 +4,7 @@ import { UpdateVictimInput } from './dto/update-victim.input'
 import { Victim } from './entities/victim.entity'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { find } from 'rxjs'
 import { ObjectId } from 'mongodb'
-import { log } from 'console'
 
 @Injectable()
 export class VictimsService {
