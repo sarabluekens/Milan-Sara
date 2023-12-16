@@ -447,6 +447,7 @@ export default {
       }
     }
 
+    // This function adds the equipment to an array so it can check if it already exists and if it does it adds the count to the existing equipment
     const handleUpdateEquipment = () => {
       for (const kitItem of kits.value) {
         if (kitItem.count > 0) {
@@ -482,6 +483,7 @@ export default {
       updateEquipmentFromArray()
     }
 
+    // This function updates the equipment in the database
     const updateEquipmentFromArray = () => {
       for (const equipment of equipments.value.equipments) {
         for (const equipmentItem of addedEquipment.value) {
