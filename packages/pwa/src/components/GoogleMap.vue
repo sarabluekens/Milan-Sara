@@ -148,10 +148,37 @@ const showDestination = async () => {
 }
 
 onMounted(async () => {
-  // TODO get caseobject from db
+  // get caseobject from db
+  const {
+    result: currentCase,
+    loading: loadingCurrentCase,
+    error,
+  } = useQuery(CASE_BY_ID, () => ({
+    id: caseId.toString(),
+  }))
+  while (loadingCurrentCase.value) {
+    await new Promise(resolve => setTimeout(resolve, 100))
+    console.log('waiting for case')
+  }
+  console.log('dbCase:', currentCase.value.caseById)
 
-  // TODO if on victim page get foreach caregiver the coordinates and add them to the map
   // TODO if on caregiver page get the victim coordinates and add them to the map
+  if (router.currentRoute.value.path.includes('caregiver')) {
+    othersCo.value.latitude = currentCase.value.caseById.victimCoordinates.lat
+    othersCo.value.longitude = currentCase.value.caseById.victimCoordinates.lng
+    console.log('othersCo:', othersCo.value)
+  } else {
+    // check is caregiverCoordinates exist -> if caregiver is assigned
+    if (currentCase.value.caseById.caregiverCoordinates) {
+      othersCo.value.latitude =
+        currentCase.value.caseById.caregiverCoordinates.lat
+      othersCo.value.longitude =
+        currentCase.value.caseById.caregiverCoordinates.lng
+      console.log('othersCo:', othersCo.value)
+    }
+    // TODO if on victim page get foreach caregiver the coordinates and add them to the map
+  }
+  
   //await your victimCoordinates to load the map
   while (
     currentCo.value.latitude === null &&

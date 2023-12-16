@@ -55,8 +55,11 @@ export class CasesService {
   }
 
   // add victimId to the Case
-  async updateVictimId(id: string, victimId: string) {
-    const currentCase = await this.getCaseById(id)
+  async updateVictimId(id: string, victimId: string): Promise<Case> {
+    const currentCase = await this.caseRepository.findOne({
+      //@ts-ignore
+      _id: new ObjectId(id),
+    })
 
     if (currentCase) {
       currentCase.victimId = victimId
@@ -72,7 +75,10 @@ export class CasesService {
     id: string,
     victimCoordinates: { lat: number; lng: number },
   ) {
-    const currentCase = await this.getCaseById(id)
+    const currentCase = await this.caseRepository.findOne({
+      //@ts-ignore
+      _id: new ObjectId(id),
+    })
 
     if (currentCase) {
       currentCase.victimCoordinates = victimCoordinates
@@ -89,7 +95,10 @@ export class CasesService {
     id: string,
     caregiverCoordinates: { lat: number; lng: number },
   ) {
-    const currentCase = await this.getCaseById(id)
+    const currentCase = await this.caseRepository.findOne({
+      //@ts-ignore
+      _id: new ObjectId(id),
+    })
 
     if (currentCase) {
       currentCase.caregiverCoordinates = caregiverCoordinates
