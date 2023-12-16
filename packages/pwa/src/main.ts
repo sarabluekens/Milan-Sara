@@ -14,6 +14,8 @@ import useCustomUser from './composables/useCustomUser'
 import 'primevue/resources/themes/saga-blue/theme.css' //theme
 import 'primevue/resources/primevue.min.css' //core css
 import Calendar from 'primevue/calendar'
+import VueGoogleMaps from '@fawmi/vue-google-maps'
+import withUUID from 'vue-uuid'
 
 const app = createApp(App)
 const { restoreUser, firebaseUser } = useFirebase()
@@ -28,5 +30,11 @@ app.use(i18n) // moet altijd voor de router!
   app.use(PrimeVue)
   app.component('Calendar', Calendar)
   app.use(router)
+  app.use(withUUID)
+  app.use(VueGoogleMaps, {
+    load: {
+      key: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
+    },
+  })
   app.mount('#app')
 })()

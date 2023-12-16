@@ -1,5 +1,3 @@
-// const loadMessages = () => async ()
-
 import { SUPPORTED_LOCALES } from '@/bootstrap/i18n'
 import { useI18n } from 'vue-i18n'
 

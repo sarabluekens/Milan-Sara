@@ -14,12 +14,11 @@ export class CaregiversResolver {
   }
 
   @Query(() => Caregiver, { name: 'caregiver', nullable: true })
-  findOne(@Args('id', { type: () => Int }) id: string) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.caregiversService.findOne(id)
   }
-  @Mutation(() => Caregiver, {
-    description: 'Create a Caregiver using the DTO.',
-  })
+
+  @Mutation(() => Caregiver)
   createCaregiver(
     @Args('createCaregiverInput') createCaregiverInput: CreateCaregiverInput, // gebruikt de dto (met de defaultinput)
   ): Promise<Caregiver> {
@@ -27,11 +26,11 @@ export class CaregiversResolver {
   }
 
   @Mutation(() => Caregiver)
-  updateCaregiver(
+  updateCaregiverJobs(
     @Args('updateCaregiverInput') updateCaregiverInput: UpdateCaregiverInput,
   ) {
-    return this.caregiversService.update(
-      updateCaregiverInput.id,
+    return this.caregiversService.updateJobs(
+      updateCaregiverInput.caregiverId,
       updateCaregiverInput,
     )
   }

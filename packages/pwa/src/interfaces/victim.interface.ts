@@ -4,3 +4,4 @@ export interface Victim {
   email: String
   phone: String
 }
+

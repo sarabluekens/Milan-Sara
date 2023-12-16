@@ -21,7 +21,7 @@
 
 <script lang="ts">
 import { useRouter } from 'vue-router'
-import EmergencyCard from '@/components/generic/EmergencyCard.vue'
+import EmergencyCard from '@/components/EmergencyCard.vue'
 import { ref } from 'vue'
 import { useMutation } from '@vue/apollo-composable'
 import { ADD_CASE } from '@/graphql/case.mutation'
@@ -69,6 +69,7 @@ export default {
       })
       // add case in the carevigers dashboard
       emit('case:created', result?.data?.createCase as Case)
+      console.log('HEEEEEEEREEEEEEEEEEEE')
 
       // send caseId to the map
       const caseId = result?.data?.createCase.id

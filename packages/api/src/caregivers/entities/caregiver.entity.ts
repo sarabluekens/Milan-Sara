@@ -6,10 +6,11 @@ import {
   ObjectIdColumn,
   UpdateDateColumn,
 } from 'typeorm'
+import { Jobs, JobsClass } from './jobs.entity'
 @Entity() // Database link - Typeorm
 @ObjectType()
 export class Caregiver {
-  @ObjectIdColumn() // Database link - Typeorm
+  @ObjectIdColumn()
   @Field(() => ID)
   id: string
 
@@ -40,4 +41,8 @@ export class Caregiver {
   @UpdateDateColumn({ type: 'timestamp', nullable: true }) // Database link - Typeorm
   @Field() //graphql
   updatedAt: Date
+
+  @Column() // Database link - Typeorm
+  @Field(() => [JobsClass], { defaultValue: [] })
+  jobs: Array<Jobs>
 }
