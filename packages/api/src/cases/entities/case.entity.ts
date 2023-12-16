@@ -1,6 +1,7 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql'
 import { UsedMaterial, UsedMaterialClass } from './used-material.entity'
 import { Column, Entity, ObjectIdColumn } from 'typeorm'
+import { Coords, CoordsClass } from './coords.entity'
 
 @Entity()
 @ObjectType()
@@ -68,6 +69,14 @@ export class Case {
   @Column()
   @Field(() => [UsedMaterialClass], { defaultValue: [], nullable: true })
   usedMaterials: Array<UsedMaterial>
+
+  @Column()
+  @Field(() => CoordsClass, { nullable: true })
+  victimCoordinates: Coords
+
+  @Column()
+  @Field(() => CoordsClass, { nullable: true })
+  caregiverCoordinates: Coords
 
   //column = db
   //field = graphql

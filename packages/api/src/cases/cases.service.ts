@@ -1,12 +1,10 @@
 import { Injectable } from '@nestjs/common'
 import { CreateCaseInput } from './dto/create-case.input'
-import { UpdateCaseInput } from './dto/update-case.input'
 import { Case } from './entities/case.entity'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { ObjectId } from 'mongodb'
-import { Victim } from 'src/victims/entities/victim.entity'
-import { ObjectIDMock } from 'graphql-scalars'
+
 @Injectable()
 export class CasesService {
   constructor(
@@ -54,12 +52,55 @@ export class CasesService {
   }
 
   // add victimId to the Case
-  async updateVictimId(id: string, victimId: string) {
-    const currentCase = await this.getCaseById(id)
+  async updateVictimId(id: string, victimId: string): Promise<Case> {
+    const currentCase = await this.caseRepository.findOne({
+      //@ts-ignore
+      _id: new ObjectId(id),
+    })
 
     if (currentCase) {
       currentCase.victimId = victimId
       this.caseRepository.update(id, currentCase)
+    } else {
+      throw new Error('Case not found')
+    }
+    return currentCase
+  }
+
+  // add victim coordinates to the Case
+  async updateVictimCo(
+    id: string,
+    victimCoordinates: { lat: number; lng: number },
+  ) {
+    const currentCase = await this.caseRepository.findOne({
+      //@ts-ignore
+      _id: new ObjectId(id),
+    })
+
+    if (currentCase) {
+      currentCase.victimCoordinates = victimCoordinates
+      this.caseRepository.update(id, currentCase)
+      console.log('currentCase update', currentCase)
+    } else {
+      throw new Error('Case not found')
+    }
+    return currentCase
+  }
+
+  // add victim coordinates to the Case
+  async updateCaregiverCo(
+    id: string,
+    caregiverCoordinates: { lat: number; lng: number },
+  ) {
+    const currentCase = await this.caseRepository.findOne({
+      //@ts-ignore
+      _id: new ObjectId(id),
+    })
+
+    if (currentCase) {
+      currentCase.caregiverCoordinates = caregiverCoordinates
+      this.caseRepository.update(id, currentCase)
+      console.log('currentCase', currentCase)
     } else {
       throw new Error('Case not found')
     }

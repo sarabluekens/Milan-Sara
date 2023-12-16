@@ -62,14 +62,12 @@
     </section>
 
     <section class="flex flex-wrap justify-center items-center">
-      <Map />
+      <GoogleMap />
     </section>
   </article>
 </template>
 
 <script setup lang="ts">
-import useRealtime from '@/composables/useRealtime'
-import Map from '../../../components/Map.vue'
 import type { Victim } from '@/interfaces/victim.interface'
 
 import { ref } from 'vue'
@@ -78,6 +76,7 @@ import { GET_VICTIM_BY_NAME } from '@/graphql/victim.query'
 import { ADD_VICTIM_TO_CASE } from '@/graphql/case.mutation'
 import { ADD_VICTIM, ADD_CASE_TO_VICTIM } from '@/graphql/victim.mutation'
 import { useRouter } from 'vue-router'
+import GoogleMap from '@/components/GoogleMap.vue'
 
 const { mutate: addVictim } = useMutation(ADD_VICTIM)
 const { mutate: addVictimIdToCase } = useMutation(ADD_VICTIM_TO_CASE)

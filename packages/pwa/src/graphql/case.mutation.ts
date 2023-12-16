@@ -1,4 +1,5 @@
 import type { Case } from '@/interfaces/case.interface'
+import type { Coords } from '@/interfaces/coords.interface'
 import { gql, type TypedDocumentNode } from '@apollo/client/core'
 
 export const ADD_CASE: TypedDocumentNode<
@@ -56,6 +57,45 @@ export const ADD_VICTIM_TO_CASE: TypedDocumentNode<
       id
       victimId
       date
+    }
+  }
+`
+export const ADD_VICTIM_CO: TypedDocumentNode<
+  { addVictimCo: Case },
+  {
+    updateCaseInput: {
+      caseId: string
+      victimCoordinates: Coords
+    }
+  }
+> = gql`
+  mutation addVictimCo($updateCaseInput: UpdateCaseInput!) {
+    addVictimCo(updateCaseInput: $updateCaseInput) {
+      id
+      victimCoordinates {
+        lat
+        lng
+      }
+    }
+  }
+`
+
+export const ADD_CAREGIVER_CO: TypedDocumentNode<
+  { addCaregiverCo: Case },
+  {
+    updateCaseInput: {
+      caseId: string
+      caregiverCoordinates: Coords
+    }
+  }
+> = gql`
+  mutation addCaregiverCo($updateCaseInput: UpdateCaseInput!) {
+    addCaregiverCo(updateCaseInput: $updateCaseInput) {
+      id
+      caregiverCoordinates {
+        lat
+        lng
+      }
     }
   }
 `

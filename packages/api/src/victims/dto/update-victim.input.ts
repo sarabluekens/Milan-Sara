@@ -1,12 +1,13 @@
 import { CreateVictimInput } from './create-victim.input'
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql'
+import { InputType, Field, PartialType } from '@nestjs/graphql'
+import { IsOptional } from 'class-validator'
 
 @InputType()
 export class UpdateVictimInput extends PartialType(CreateVictimInput) {
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   victimId: string
 
-  @Field(() => String)
+  @IsOptional()
+  @Field(() => String, { nullable: true })
   caseId: string
-
 }
