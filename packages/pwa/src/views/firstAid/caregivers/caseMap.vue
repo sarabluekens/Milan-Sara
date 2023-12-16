@@ -1,7 +1,7 @@
 <template>
   <div>Dit is de emergency map</div>
-  <GoogleMap />
+  <EmergencyMap />
 </template>
 <script setup lang="ts">
-import GoogleMap from '@/components/GoogleMap.vue'
+import EmergencyMap from '@/components/EmergencyMap.vue'
 </script>

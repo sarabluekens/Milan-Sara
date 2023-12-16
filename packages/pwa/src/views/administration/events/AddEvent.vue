@@ -226,6 +226,8 @@
         Create event
       </button>
     </form>
+
+    <EventMap />
   </div>
 </template>
 
@@ -237,8 +239,10 @@ import useRealtime from '@/composables/useRealtime'
 import type { Event } from '@/interfaces/event.interface'
 import useValidate from '@vuelidate/core' // validation
 import { required, email } from '@vuelidate/validators' // validation
+import EventMap from '@/components/EventMap.vue'
 
 export default {
+  components: { EventMap },
   setup() {
     const newEvent = ref({
       name: '',

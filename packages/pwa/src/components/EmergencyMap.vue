@@ -55,7 +55,7 @@ const othersCo = ref({
 let map: google.maps.Map
 let currentMarker: google.maps.Marker
 let othersMarker: google.maps.Marker
-
+let distance: number
 // google maps loader
 const loader = new Loader({
   apiKey: GOOGLE_MAPS_API_KEY,
@@ -183,6 +183,22 @@ const updateCoordinates = (coords: any) => {
       coords.value.longitude,
     )
   }
+
+  if (
+    othersCo.value.latitude &&
+    othersCo.value.longitude &&
+    coords.value.latitude &&
+    coords.value.longitude
+  ) {
+    distance = google.maps.geometry.spherical.computeDistanceBetween(
+      new google.maps.LatLng(othersCo.value.latitude, othersCo.value.longitude),
+      new google.maps.LatLng(coords.value.latitude, coords.value.longitude),
+    )
+    console.log('distance:', distance)
+    if (distance < 10) {
+      console.log('you are close to the victim')
+    }
+  }
 }
 onMounted(async () => {
   // get caseobject from db
@@ -199,7 +215,7 @@ onMounted(async () => {
   }
   console.log('dbCase:', currentCase.value.caseById)
 
-  // TODO if on caregiver page get the victim coordinates and add them to the map
+  // on caregiver page get the victim coordinates and add them to the map
   if (router.currentRoute.value.path.includes('caregiver')) {
     othersCo.value.latitude = currentCase.value.caseById.victimCoordinates.lat
     othersCo.value.longitude = currentCase.value.caseById.victimCoordinates.lng
@@ -213,7 +229,6 @@ onMounted(async () => {
         currentCase.value.caseById.caregiverCoordinates.lng
       console.log('othersCo:', othersCo.value)
     }
-    // TODO if on victim page get foreach caregiver the coordinates and add them to the map
   }
 
   //await your victimCoordinates to load the map
