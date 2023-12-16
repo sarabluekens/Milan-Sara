@@ -24,6 +24,11 @@ let addressInput: string
 let map: google.maps.Map
 let geocoder: google.maps.Geocoder
 let infoWindow: google.maps.InfoWindow
+let marker: google.maps.Marker
+const coordinates = ref({
+  lat: 50.835,
+  lng: 3.264,
+})
 
 const loader = new Loader({
   apiKey: GOOGLE_MAPS_API_KEY,
@@ -45,7 +50,14 @@ const loadMap = async () => {
 
   geocoder = new google.maps.Geocoder()
   console.log('map loaded')
-  
+
+  marker = new google.maps.Marker({
+    map: map,
+    position: {
+      lat: 50.835,
+      lng: 3.264,
+    },
+  })
 }
 
 const showInfoWindow = () => {
@@ -64,7 +76,7 @@ const handleClick = () => {
   map.addListener('click', mapsMouseEvent => {
     // Close the current InfoWindow.
     infoWindow.close()
-
+    coordinates.value = mapsMouseEvent.latLng.toJSON()
     // Create a new InfoWindow.
     infoWindow = new google.maps.InfoWindow({
       position: mapsMouseEvent.latLng,
@@ -73,6 +85,7 @@ const handleClick = () => {
       JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2),
     )
     infoWindow.open(map)
+    console.log(coordinates.value)
   })
 }
 const codeAddress = () => {
@@ -82,10 +95,7 @@ const codeAddress = () => {
     function (results: any, status: any) {
       if (status == 'OK') {
         map.setCenter(results[0].geometry.location)
-        var marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location,
-        })
+        marker.setPosition(results[0].geometry.location)
       } else {
         alert('Geocode was not successful for the following reason: ' + status)
       }
