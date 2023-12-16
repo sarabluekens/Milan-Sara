@@ -4,3 +4,8 @@ export interface Victim {
   email: String
   phone: String
 }
+
+export interface VictimCoords {
+  lat: number
+  lng: number
+}

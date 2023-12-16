@@ -7,6 +7,7 @@ import { Repository } from 'typeorm'
 import { ObjectId } from 'mongodb'
 import { Victim } from 'src/victims/entities/victim.entity'
 import { ObjectIDMock } from 'graphql-scalars'
+import { log } from 'console'
 @Injectable()
 export class CasesService {
   constructor(
@@ -60,6 +61,20 @@ export class CasesService {
     if (currentCase) {
       currentCase.victimId = victimId
       this.caseRepository.update(id, currentCase)
+    } else {
+      throw new Error('Case not found')
+    }
+    return currentCase
+  }
+
+  // add victim coordinates to the Case
+  async updateVictimCo(id: string, coordinates: { lat: number; lng: number }) {
+    const currentCase = await this.getCaseById(id)
+
+    if (currentCase) {
+      currentCase.coordinates = coordinates
+      this.caseRepository.update(id, currentCase)
+      console.log('currentCase', currentCase)
     } else {
       throw new Error('Case not found')
     }

@@ -1,6 +1,7 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql'
 import { UsedMaterial, UsedMaterialClass } from './used-material.entity'
 import { Column, Entity, ObjectIdColumn } from 'typeorm'
+import { VictimCoords, VictimCoordsClass } from './victim-coords.entity'
 
 @Entity()
 @ObjectType()
@@ -69,6 +70,9 @@ export class Case {
   @Field(() => [UsedMaterialClass], { defaultValue: [], nullable: true })
   usedMaterials: Array<UsedMaterial>
 
+  @Column()
+  @Field(() => VictimCoordsClass, { nullable: true })
+  coordinates: VictimCoords
   //column = db
   //field = graphql
   //field en daarin store je object van linked entity

@@ -1,7 +1,5 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql'
 import { Column, CreateDateColumn, Entity, ObjectIdColumn } from 'typeorm'
-import { GraphQLPhoneNumber } from 'graphql-scalars'
-// Now, use GraphQLScalarName as a type within your GraphQL Schema.
 
 @Entity()
 @ObjectType()

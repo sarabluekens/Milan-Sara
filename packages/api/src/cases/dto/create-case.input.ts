@@ -5,6 +5,7 @@ import {
   UsedMaterialClass,
 } from '../entities/used-material.entity'
 import { isDate } from 'util/types'
+
 export const accidentTypes = [
   'fell',
   'unconscious',
