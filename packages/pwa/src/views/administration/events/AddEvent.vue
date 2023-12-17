@@ -220,37 +220,6 @@
         :key="error.$uid"
         >The maps of the event are required</span
       >
-      <div class="col-span-5 grid grid-cols-5 mt-4">
-        <label class="body-black col-span-5">Map coordinates</label>
-        <label class="body-black col-span-1 mt-3">Top right corner</label>
-        <input
-          type="text"
-          placeholder="Top right corner"
-          id="top-right-corner"
-          class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mt-3 subbody-black/80"
-        />
-        <label class="body-black col-span-1 mt-3">Bottom left corner</label>
-        <input
-          type="text"
-          placeholder="Bottom left corner"
-          id="bottom-left-corner"
-          class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mt-3 subbody-black/80"
-        />
-        <label class="body-black col-span-1 mt-3">Top left corner</label>
-        <input
-          type="text"
-          placeholder="Top left corner"
-          id="top-left-corner"
-          class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mt-3 subbody-black/80"
-        />
-        <label class="body-black col-span-1 mt-3">Bottom right corner</label>
-        <input
-          type="text"
-          placeholder="Bottom right corner"
-          id="bottom-right-corner"
-          class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mt-3 subbody-black/80"
-        />
-      </div>
       <div class="col-span-5"><EventMap /></div>
 
       <button
