@@ -30,6 +30,7 @@ export class EventsService {
       e.btwNumber = createEventInput.btwNumber
       e.eventWithChildren = createEventInput.eventWithChildren
       e.mapsLink = createEventInput.mapsLink
+      e.mapCoords = createEventInput.mapCoords
       e.expectedVisitorStaffCount = createEventInput.expectedVisitorStaffCount
       e.status = Status.Pending
 
@@ -56,8 +57,32 @@ export class EventsService {
     return this.eventRepository.findOneBy({ _id: new ObjectId(id) })
   }
 
-  update(id: number, updateEventInput: UpdateEventInput) {
-    return `This action updates a #${id} event`
+  async update(id: string, updateEventInput: UpdateEventInput) {
+    const event = await this.eventRepository.findOne({
+      //@ts-ignore
+      _id: new ObjectId(id),
+    })
+
+    event.name = updateEventInput.name ?? event.name
+    event.address = updateEventInput.address ?? event.address
+    event.postalCode = updateEventInput.postalCode ?? event.postalCode
+    event.city = updateEventInput.city ?? event.city
+    event.dates = updateEventInput.dates ?? event.dates
+    event.startHour = updateEventInput.startHour ?? event.startHour
+    event.endHour = updateEventInput.endHour ?? event.endHour
+    event.contactPerson = updateEventInput.contactPerson ?? event.contactPerson
+    event.phoneNumber = updateEventInput.phoneNumer ?? event.phoneNumber
+    event.email = updateEventInput.email ?? event.email
+    event.btwNumber = updateEventInput.btwNumber ?? event.btwNumber
+    event.eventWithChildren =
+      updateEventInput.eventWithChildren ?? event.eventWithChildren
+    event.mapsLink = updateEventInput.mapsLink ?? event.mapsLink
+    event.mapCoords = updateEventInput.mapCoords ?? event.mapCoords
+    event.expectedVisitorStaffCount =
+      updateEventInput.expectedVisitorStaffCount ??
+      event.expectedVisitorStaffCount
+    event.status = updateEventInput.status ?? event.status
+    return this.eventRepository.save(event)
   }
 
   remove(id: number) {
