@@ -220,38 +220,9 @@
         :key="error.$uid"
         >The maps of the event are required</span
       >
-      <div class="col-span-5 grid grid-cols-5 mt-4">
-        <label class="body-black col-span-5">Map coordinates</label>
-        <label class="body-black col-span-1 mt-3">Top right corner</label>
-        <input
-          type="text"
-          placeholder="Top right corner"
-          id="top-right-corner"
-          class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mt-3 subbody-black/80"
-        />
-        <label class="body-black col-span-1 mt-3">Bottom left corner</label>
-        <input
-          type="text"
-          placeholder="Bottom left corner"
-          id="bottom-left-corner"
-          class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mt-3 subbody-black/80"
-        />
-        <label class="body-black col-span-1 mt-3">Top left corner</label>
-        <input
-          type="text"
-          placeholder="Top left corner"
-          id="top-left-corner"
-          class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mt-3 subbody-black/80"
-        />
-        <label class="body-black col-span-1 mt-3">Bottom right corner</label>
-        <input
-          type="text"
-          placeholder="Bottom right corner"
-          id="bottom-right-corner"
-          class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mt-3 subbody-black/80"
-        />
+      <div class="col-span-5">
+        <EventMap @coordinates="receiveCoordinates" />
       </div>
-      <div class="col-span-5"><EventMap /></div>
 
       <button
         class="border-1 border-red bg-red col-span-2 col-start-2 body-white h-10 mt-4"
@@ -290,6 +261,18 @@ export default {
       expectedVisitorStaffCount: '',
       children: false,
       maps: '',
+      coords: [
+        {
+          corner: 'topLeft',
+          lat: 0,
+          lng: 0,
+        },
+        {
+          corner: 'bottomRight',
+          lat: 0,
+          lng: 0,
+        },
+      ],
     })
     const validationRules = {
       name: { required },
@@ -310,12 +293,14 @@ export default {
     const v$ = useValidate(validationRules, newEvent)
     const { emit } = useRealtime()
     const { mutate: addEvent } = useMutation(ADD_EVENT)
+    const CLOUDNAME = import.meta.env.VITE_CLOUDNAME
+    const UPLOADPRESET = import.meta.env.VITE_CLOUD_UPLOAD_PRESET
 
     //@ts-ignore
     const widget = window.cloudinary.createUploadWidget(
       {
-        cloudName: 'dcw0zn7ly',
-        uploadPreset: 'upload-RedCross',
+        cloudName: CLOUDNAME,
+        uploadPreset: UPLOADPRESET,
       },
       (error: any, result: any) => {
         if (!error && result && result.event === 'success') {
@@ -351,10 +336,12 @@ export default {
             contactPerson: newEvent.value.contactPerson,
             phoneNumer: newEvent.value.phoneNumber,
             email: newEvent.value.email,
+            status: 'Pending',
             btwNumber: newEvent.value.btwNumber,
             expectedVisitorStaffCount: newEvent.value.expectedVisitorStaffCount,
             eventWithChildren: newEvent.value.children,
             mapsLink: newEvent.value.maps,
+            mapCoords: newEvent.value.coords,
           },
         })
         console.log(result)
@@ -363,12 +350,22 @@ export default {
       }
     }
 
+    const receiveCoordinates = (coordinates: any) => {
+      console.log(coordinates)
+      for (let i = 0; i < coordinates.length; i++) {
+        newEvent.value.coords[i].lat = parseFloat(coordinates[i].lat)
+        newEvent.value.coords[i].lng = parseFloat(coordinates[i].lng)
+      }
+      console.log(newEvent.value.coords)
+    }
+
     return {
       newEvent,
       v$,
       handleFileChange,
       openUploadWidget,
       handleAddEvent,
+      receiveCoordinates,
     }
   },
 }
