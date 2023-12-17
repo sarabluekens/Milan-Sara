@@ -3,7 +3,7 @@
   <div class="col-span-5 grid grid-cols-5 mt-4">
     <label class="body-black col-span-5">Map coordinates</label>
     <p class="subbody-black col-span-5">
-      Click the 4 corners of the event place on the map in the order of the
+      Click the 2 corners of the event place on the map in the order of the
       input fields
     </p>
     <div v-for="corner in corners" class="col-span-5 grid grid-cols-4">
@@ -34,6 +34,7 @@ import { Loader } from '@googlemaps/js-api-loader'
 import { onMounted } from 'vue'
 
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+const emit = defineEmits(['coordinates'])
 
 const loading = ref(true)
 const mapDiv = ref()
@@ -48,16 +49,6 @@ const coordinates = ref({
 })
 
 const corners = ref([
-  {
-    cornerName: 'topRight',
-    lat: 0,
-    lng: 0,
-  },
-  {
-    cornerName: 'bottomLeft',
-    lat: 0,
-    lng: 0,
-  },
   {
     cornerName: 'topLeft',
     lat: 0,
@@ -129,11 +120,12 @@ const handleClick = () => {
     infoWindow.open(map)
     console.log(coordinates.value)
     chosenCorners.value.push(coordinates.value)
-    if (chosenCorners.value.length === 4) {
+    if (chosenCorners.value.length === 2) {
       for (let i = 0; i < chosenCorners.value.length; i++) {
         corners.value[i].lat = chosenCorners.value[i].lat.toFixed(8)
         corners.value[i].lng = chosenCorners.value[i].lng.toFixed(8)
       }
+      emit('coordinates', corners.value)
     }
   })
 }

@@ -220,7 +220,9 @@
         :key="error.$uid"
         >The maps of the event are required</span
       >
-      <div class="col-span-5"><EventMap /></div>
+      <div class="col-span-5">
+        <EventMap @coordinates="receiveCoordinates" />
+      </div>
 
       <button
         class="border-1 border-red bg-red col-span-2 col-start-2 body-white h-10 mt-4"
@@ -279,12 +281,14 @@ export default {
     const v$ = useValidate(validationRules, newEvent)
     const { emit } = useRealtime()
     const { mutate: addEvent } = useMutation(ADD_EVENT)
+    const CLOUDNAME = import.meta.env.VITE_CLOUDNAME
+    const UPLOADPRESET = import.meta.env.VITE_CLOUD_UPLOAD_PRESET
 
     //@ts-ignore
     const widget = window.cloudinary.createUploadWidget(
       {
-        cloudName: 'dcw0zn7ly',
-        uploadPreset: 'upload-RedCross',
+        cloudName: CLOUDNAME,
+        uploadPreset: UPLOADPRESET,
       },
       (error: any, result: any) => {
         if (!error && result && result.event === 'success') {
@@ -320,6 +324,7 @@ export default {
             contactPerson: newEvent.value.contactPerson,
             phoneNumer: newEvent.value.phoneNumber,
             email: newEvent.value.email,
+            status: 'Pending',
             btwNumber: newEvent.value.btwNumber,
             expectedVisitorStaffCount: newEvent.value.expectedVisitorStaffCount,
             eventWithChildren: newEvent.value.children,
@@ -332,12 +337,17 @@ export default {
       }
     }
 
+    const receiveCoordinates = (coordinates: any) => {
+      console.log(coordinates)
+    }
+
     return {
       newEvent,
       v$,
       handleFileChange,
       openUploadWidget,
       handleAddEvent,
+      receiveCoordinates,
     }
   },
 }
