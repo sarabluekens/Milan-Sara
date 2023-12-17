@@ -69,7 +69,7 @@ import useFirebase from '@/composables/useFirebase'
 import { useQuery } from '@vue/apollo-composable'
 import { GET_EVENT_BY_STATUS } from '@/graphql/event.query'
 import EventCard from '@/components/EventCard.vue'
-import type { Event } from '@/interfaces/event.interface'
+import type { Event, Status } from '@/interfaces/event.interface'
 import useRealtime from '@/composables/useRealtime'
 import { ref } from 'vue'
 
@@ -97,7 +97,7 @@ export default {
     on('event:new', (data: Partial<Event>) => {
       console.log('New event added by a company', data)
       console.log(data as Event)
-      data.status = 'Pending'
+      data.status = 'Pending' as Status
       data.createdAt = new Date()
       newEvent.value = data as Event
       liveEvents.value.push(data as Event)

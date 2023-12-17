@@ -29,11 +29,13 @@
     "serve": "^14.2.1",
     "socket.io-client": "^4.7.2",
     "vue": "^3.3.4",
+    "vue-easy-spinner": "^0.1.0",
     "vue-i18n": "^9.5.0",
     "vue-router": "^4.2.4",
     "vue-toast-notification": "^3.1.2",
     "vue-uuid": "^3.0.0",
-    "vue3-google-map": "^0.18.0"
+    "vue3-google-map": "^0.18.0",
+    "vue3-spinners": "^1.2.2"
   },
   "devDependencies": {
     "@iconify/json": "^2.2.133",

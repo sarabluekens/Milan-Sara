@@ -1,6 +1,15 @@
 <template>
-  <div v-if="loading" style="width: 80%; height: 50vh">loading</div>
-  <div ref="mapDiv" style="width: 80%; height: 50vh"></div>
+  <div
+    v-if="loading && !flicker"
+    class="w-80% h-50vh bg-beige flex flex-col items-center justify-center"
+  >
+    <VueSpinner size="150" class="color-red" />
+    <p class="subtitle-red">Loading the map</p>
+  </div>
+  <div v-if="flicker">
+    <Flicker />
+  </div>
+  <div v-else="!flicker" ref="mapDiv" style="width: 80%; height: 50vh"></div>
 </template>
 
 <script setup lang="ts">
@@ -12,8 +21,16 @@ import useRealtime from '@/composables/useRealtime'
 import { useRouter } from 'vue-router'
 import { useMutation, useQuery } from '@vue/apollo-composable'
 import { ADD_VICTIM_CO, ADD_CAREGIVER_CO } from '@/graphql/case.mutation'
+import { GET_EVENT_BY_ID } from '@/graphql/event.query'
 import { CASE_BY_ID } from '@/graphql/case.query'
 import { onUnmounted } from 'vue'
+import { VueSpinner } from 'vue3-spinners'
+import Flicker from './Flicker.vue'
+
+defineProps<{
+  size?: string
+}>()
+
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 
 const { on, emit } = useRealtime()
@@ -22,6 +39,7 @@ const { mutate: addCaregiverCo } = useMutation(ADD_CAREGIVER_CO)
 const router = useRouter()
 // const { mutate: addVictimCo } = useMutation(')
 const userId = uuid.v4()
+
 const caseId = router.currentRoute.value.params.caseId as string
 const watchId = ref<number>()
 const newCo = ref({
@@ -29,6 +47,16 @@ const newCo = ref({
   longitude: null as number | null,
   userId: '',
   caseId: '',
+})
+
+const mapsPNG = ref('')
+const mapsPNGTopLeft = ref({
+  lat: null as number | null,
+  lng: null as number | null,
+})
+const mapsPNGBottomRight = ref({
+  lat: null as number | null,
+  lng: null as number | null,
 })
 
 navigator.geolocation.getCurrentPosition((pos: any) => {
@@ -63,6 +91,8 @@ const loader = new Loader({
   libraries: ['geometry', 'places'],
 })
 
+const flicker = ref(false)
+
 // load the map with the loader
 const loadMap = async () => {
   await loader.load()
@@ -77,12 +107,11 @@ const loadMap = async () => {
   })
 
   // floorplan settings
-  // to do convert to Milans CO
-  const floorplan = new google.maps.GroundOverlay('/mapOverlay.png', {
-    north: currentCo.value.latitude! + 0.0008,
-    south: currentCo.value.latitude! - 0.0008,
-    east: currentCo.value.longitude! + 0.004,
-    west: currentCo.value.longitude! - 0.004,
+  const floorplan = new google.maps.GroundOverlay(mapsPNG.value, {
+    north: mapsPNGTopLeft.value.lat!,
+    south: mapsPNGBottomRight.value.lat!,
+    east: mapsPNGBottomRight.value.lng!,
+    west: mapsPNGTopLeft.value.lng!,
   })
 
   // add floorplan to map
@@ -103,7 +132,7 @@ const loadMap = async () => {
 
   console.log(userId)
 
-  console.log('map loaded', currentCo.value.latitude, currentCo.value.longitude)
+  // console.log('map loaded', currentCo.value.latitude, currentCo.value.longitude)
 }
 
 const showDestination = async () => {
@@ -130,11 +159,11 @@ const showDestination = async () => {
 
   const success = (pos: any) => {
     const crd = pos.coords
-    console.log('Your current position is:')
-    console.log(`Latitude : ${crd.latitude}`)
-    console.log(`Longitude: ${crd.longitude}`)
-    console.log(`More or less ${crd.accuracy} meters.`)
-    console.log('tracked at', new Date(pos.timestamp))
+    // console.log('Your current position is:')
+    // console.log(`Latitude : ${crd.latitude}`)
+    // console.log(`Longitude: ${crd.longitude}`)
+    // console.log(`More or less ${crd.accuracy} meters.`)
+    // console.log('tracked at', new Date(pos.timestamp))
 
     emit('coords:updated', {
       latitude: crd.latitude,
@@ -150,7 +179,38 @@ const showDestination = async () => {
 
   // watch caregiver position
   watchId.value = navigator.geolocation.watchPosition(success, error, options)
-  console.log('watching position', watchId.value)
+  // console.log('watching position', watchId.value)
+}
+
+const checkDistance = (myCoordinates: any, otherCoordinates: any) => {
+  if (
+    !myCoordinates.value.latitude ||
+    !otherCoordinates.value.latitude ||
+    myCoordinates.value.longitude != 0 ||
+    otherCoordinates.value.longitude != 0
+  ) {
+    return
+  } else {
+    distance = google.maps.geometry.spherical.computeDistanceBetween(
+      new google.maps.LatLng(
+        myCoordinates.value.latitude,
+        myCoordinates.value.longitude,
+      ),
+      new google.maps.LatLng(
+        otherCoordinates.value.latitude!,
+        otherCoordinates.value.longitude,
+      ),
+    )
+    console.log('distance:', distance)
+    if (distance < 10) {
+      console.log('you are close to the victim')
+      if (!router.currentRoute.value.path.includes('caregiver')) {
+        setTimeout(() => {
+          router.push({ path: '/map/flicker' })
+        }, 3000)
+      }
+    }
+  }
 }
 const updateCoordinates = (coords: any) => {
   if (!router.currentRoute.value.path.includes('caregiver')) {
@@ -163,11 +223,6 @@ const updateCoordinates = (coords: any) => {
         },
       },
     })
-
-    console.log(
-      'victim coords added to db: ' + coords.value.latitude,
-      coords.value.longitude,
-    )
   } else {
     addCaregiverCo({
       updateCaseInput: {
@@ -178,30 +233,14 @@ const updateCoordinates = (coords: any) => {
         },
       },
     })
-    console.log(
-      'caregiver coords added to db: ' + coords.value.latitude,
-      coords.value.longitude,
-    )
   }
 
-  if (
-    othersCo.value.latitude &&
-    othersCo.value.longitude &&
-    coords.value.latitude &&
-    coords.value.longitude
-  ) {
-    distance = google.maps.geometry.spherical.computeDistanceBetween(
-      new google.maps.LatLng(othersCo.value.latitude, othersCo.value.longitude),
-      new google.maps.LatLng(coords.value.latitude, coords.value.longitude),
-    )
-    console.log('distance:', distance)
-    if (distance < 10) {
-      console.log('you are close to the victim')
-    }
-  }
+  console.log('updateCoordinates executed', coords.value, othersCo.value)
 }
 onMounted(async () => {
+  navigator.geolocation.clearWatch(watchId.value as number)
   // get caseobject from db
+
   const {
     result: currentCase,
     loading: loadingCurrentCase,
@@ -211,15 +250,30 @@ onMounted(async () => {
   }))
   while (loadingCurrentCase.value) {
     await new Promise(resolve => setTimeout(resolve, 100))
-    console.log('waiting for case')
+    // console.log('waiting for case')
   }
-  console.log('dbCase:', currentCase.value.caseById)
+  // console.log('dbCase:', currentCase.value.caseById)
+
+  const { result: event, loading: loadingEvent } = useQuery(
+    GET_EVENT_BY_ID,
+    () => ({
+      // TODO: dynamc event id
+      id: '657efd690bbf10085efdfd09',
+    }),
+  )
+
+  while (loadingEvent.value) {
+    await new Promise(resolve => setTimeout(resolve, 100))
+    // console.log('waiting for event')
+  }
+  mapsPNG.value = event.value.event.mapsLink
+  mapsPNGTopLeft.value = event.value.event.mapCoords[0]
+  mapsPNGBottomRight.value = event.value.event.mapCoords[1]
 
   // on caregiver page get the victim coordinates and add them to the map
   if (router.currentRoute.value.path.includes('caregiver')) {
     othersCo.value.latitude = currentCase.value.caseById.victimCoordinates.lat
     othersCo.value.longitude = currentCase.value.caseById.victimCoordinates.lng
-    console.log('othersCo:', othersCo.value)
   } else {
     // check is caregiverCoordinates exist -> if caregiver is assigned
     if (currentCase.value.caseById.caregiverCoordinates) {
@@ -227,7 +281,6 @@ onMounted(async () => {
         currentCase.value.caseById.caregiverCoordinates.lat
       othersCo.value.longitude =
         currentCase.value.caseById.caregiverCoordinates.lng
-      console.log('othersCo:', othersCo.value)
     }
   }
 
@@ -243,11 +296,12 @@ onMounted(async () => {
 
   //load the map
   await loadMap()
-  console.log('caseid in map:', caseId)
+  // console.log('caseid in map:', caseId)
 
   // add your first coordinates to the db
   updateCoordinates(currentCo)
-
+  console.log('updated coords through mount function')
+  checkDistance(currentCo, othersCo)
   //add the caregiver marker
   showDestination()
   loading.value = false
@@ -256,6 +310,16 @@ onMounted(async () => {
 onUnmounted(() => {
   console.log('unmounted')
   navigator.geolocation.clearWatch(watchId.value as number)
+  const deleteCo = ref({
+    latitude: 0,
+    longitude: 0,
+    userId: userId,
+    caseId: caseId,
+  })
+  console.log('deleteCo', deleteCo)
+
+  updateCoordinates(deleteCo)
+  console.log('deleted coords')
 })
 
 // update victimCoordinates
@@ -271,14 +335,19 @@ on('coords:new', (data: Partial<Object>) => {
       lng: newCo.value.longitude as number,
     })
     console.log('new coords:', newCo.value)
+    // update the db
+    updateCoordinates(newCo)
+    checkDistance(currentCo, newCo)
+    console.log('updated coords through on function')
   } else {
     currentMarker.setPosition({
       lat: newCo.value.latitude as number,
       lng: newCo.value.longitude as number,
     })
-
-    // update the db
     updateCoordinates(newCo)
+    checkDistance(newCo, othersCo)
   }
 })
 </script>
+
+<style scoped></style>
