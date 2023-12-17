@@ -41,6 +41,10 @@ export const GET_EVENT_BY_ID = gql`
       btwNumber
       eventWithChildren
       mapsLink
+      mapCoords {
+        lat
+        lng
+      }
       expectedVisitorStaffCount
       status
       createdAt

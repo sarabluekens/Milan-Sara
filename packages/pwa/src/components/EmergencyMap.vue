@@ -12,6 +12,7 @@ import useRealtime from '@/composables/useRealtime'
 import { useRouter } from 'vue-router'
 import { useMutation, useQuery } from '@vue/apollo-composable'
 import { ADD_VICTIM_CO, ADD_CAREGIVER_CO } from '@/graphql/case.mutation'
+import { GET_EVENT_BY_ID } from '@/graphql/event.query'
 import { CASE_BY_ID } from '@/graphql/case.query'
 import { onUnmounted } from 'vue'
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
@@ -29,6 +30,16 @@ const newCo = ref({
   longitude: null as number | null,
   userId: '',
   caseId: '',
+})
+
+const mapsPNG = ref('')
+const mapsPNGTopLeft = ref({
+  lat: null as number | null,
+  lng: null as number | null,
+})
+const mapsPNGBottomRight = ref({
+  lat: null as number | null,
+  lng: null as number | null,
 })
 
 navigator.geolocation.getCurrentPosition((pos: any) => {
@@ -78,12 +89,23 @@ const loadMap = async () => {
 
   // floorplan settings
   // to do convert to Milans CO
-  const floorplan = new google.maps.GroundOverlay('/mapOverlay.png', {
-    north: currentCo.value.latitude! + 0.0008,
-    south: currentCo.value.latitude! - 0.0008,
-    east: currentCo.value.longitude! + 0.004,
-    west: currentCo.value.longitude! - 0.004,
+  const floorplan = new google.maps.GroundOverlay(mapsPNG.value, {
+    north: mapsPNGTopLeft.value.lat!,
+    south: mapsPNGBottomRight.value.lat!,
+    east: mapsPNGBottomRight.value.lng!,
+    west: mapsPNGTopLeft.value.lng!,
   })
+
+  console.log(
+    'north:',
+    mapsPNGTopLeft.value.lat!,
+    'south:',
+    mapsPNGBottomRight.value.lat!,
+    'west:',
+    mapsPNGBottomRight.value.lng!,
+    'east:',
+    mapsPNGTopLeft.value.lng!,
+  )
 
   // add floorplan to map
   floorplan.setMap(map)
@@ -214,6 +236,23 @@ onMounted(async () => {
     console.log('waiting for case')
   }
   console.log('dbCase:', currentCase.value.caseById)
+
+  const { result: event, loading: loadingEvent } = useQuery(
+    GET_EVENT_BY_ID,
+    () => ({
+      id: '657efd690bbf10085efdfd09',
+    }),
+  )
+
+  while (loadingEvent.value) {
+    await new Promise(resolve => setTimeout(resolve, 100))
+    console.log('waiting for event')
+  }
+  console.log('dbEvent:', event.value.event.mapCoords[0])
+  mapsPNG.value = event.value.event.mapsLink
+  mapsPNGTopLeft.value = event.value.event.mapCoords[0]
+  mapsPNGBottomRight.value = event.value.event.mapCoords[1]
+  console.log('mapsPNG:', mapsPNGBottomRight.value)
 
   // on caregiver page get the victim coordinates and add them to the map
   if (router.currentRoute.value.path.includes('caregiver')) {

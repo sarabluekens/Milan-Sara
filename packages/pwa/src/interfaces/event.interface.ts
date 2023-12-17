@@ -13,8 +13,19 @@ export interface Event {
   btwNumber: string
   eventWithChildren: boolean
   mapsLink: string
+  mapCoords: {
+    lat: number
+    lng: number
+  }
   expectedVisitorStaffCount: number
   status: Status
   createdAt: Date
   updatedAt: Date
+}
+
+export enum Status {
+  Pending = 'Pending',
+  Approved = 'Approved',
+  Rejected = 'Rejected',
+  Completed = 'Completed',
 }
