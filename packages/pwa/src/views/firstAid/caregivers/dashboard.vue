@@ -42,7 +42,8 @@ import type { Case } from '@/interfaces/case.interface'
 import { ref } from 'vue'
 import useRealtime from '@/composables/useRealtime'
 import { useRouter } from 'vue-router'
-import useToast from '@/composables/useToast'
+import { useToast } from 'vue-toast-notification'
+import 'vue-toast-notification/dist/theme-sugar.css'
 import { onMounted } from 'vue'
 
 export default {
@@ -51,7 +52,9 @@ export default {
 
     const newCase = ref<Case | null>()
     const liveCases = ref<Case[]>([])
-    const { showToast, clearToast } = useToast()
+
+    const $toast = useToast()
+
     const { on } = useRealtime()
     const { emit } = useRealtime()
     const { push } = useRouter()
@@ -63,7 +66,18 @@ export default {
       console.log(newCase.value)
 
       console.log('time for a toast HEEEEEEEEEERE')
-      showToast()
+
+      // popups
+
+      $toast.warning('New case!', {
+        position: 'top-right',
+        duration: 2000,
+        dismissible: true,
+        pauseOnHover: true,
+        onClick: () => {
+          push({ path: `/caregiver/dashboard` })
+        },
+      })
     })
 
     const handleClick = async (id: string) => {
@@ -74,7 +88,7 @@ export default {
 
     onMounted(() => {
       console.log('mounted')
-      clearToast()
+      $toast.clear()
     })
     return {
       result: computed<Case[]>(() => cases.value.cases),
