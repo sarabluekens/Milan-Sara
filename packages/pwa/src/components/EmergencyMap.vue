@@ -1,5 +1,11 @@
 <template>
-  <div v-if="loading" style="width: 80%; height: 50vh">loading</div>
+  <div
+    v-if="loading"
+    class="w-80% h-50vh bg-beige flex flex-col items-center justify-center"
+  >
+    <VueSpinner size="150" class="color-red" />
+    <p class="subtitle-red">Loading the map</p>
+  </div>
   <div ref="mapDiv" style="width: 80%; height: 50vh"></div>
 </template>
 
@@ -15,6 +21,8 @@ import { ADD_VICTIM_CO, ADD_CAREGIVER_CO } from '@/graphql/case.mutation'
 import { GET_EVENT_BY_ID } from '@/graphql/event.query'
 import { CASE_BY_ID } from '@/graphql/case.query'
 import { onUnmounted } from 'vue'
+import { VueSpinner } from 'vue3-spinners'
+
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 
 const { on, emit } = useRealtime()
@@ -88,24 +96,12 @@ const loadMap = async () => {
   })
 
   // floorplan settings
-  // to do convert to Milans CO
   const floorplan = new google.maps.GroundOverlay(mapsPNG.value, {
     north: mapsPNGTopLeft.value.lat!,
     south: mapsPNGBottomRight.value.lat!,
     east: mapsPNGBottomRight.value.lng!,
     west: mapsPNGTopLeft.value.lng!,
   })
-
-  console.log(
-    'north:',
-    mapsPNGTopLeft.value.lat!,
-    'south:',
-    mapsPNGBottomRight.value.lat!,
-    'west:',
-    mapsPNGBottomRight.value.lng!,
-    'east:',
-    mapsPNGTopLeft.value.lng!,
-  )
 
   // add floorplan to map
   floorplan.setMap(map)
@@ -240,6 +236,7 @@ onMounted(async () => {
   const { result: event, loading: loadingEvent } = useQuery(
     GET_EVENT_BY_ID,
     () => ({
+      // TODO: dynamc event id
       id: '657efd690bbf10085efdfd09',
     }),
   )
@@ -248,17 +245,15 @@ onMounted(async () => {
     await new Promise(resolve => setTimeout(resolve, 100))
     console.log('waiting for event')
   }
-  console.log('dbEvent:', event.value.event.mapCoords[0])
+
   mapsPNG.value = event.value.event.mapsLink
   mapsPNGTopLeft.value = event.value.event.mapCoords[0]
   mapsPNGBottomRight.value = event.value.event.mapCoords[1]
-  console.log('mapsPNG:', mapsPNGBottomRight.value)
 
   // on caregiver page get the victim coordinates and add them to the map
   if (router.currentRoute.value.path.includes('caregiver')) {
     othersCo.value.latitude = currentCase.value.caseById.victimCoordinates.lat
     othersCo.value.longitude = currentCase.value.caseById.victimCoordinates.lng
-    console.log('othersCo:', othersCo.value)
   } else {
     // check is caregiverCoordinates exist -> if caregiver is assigned
     if (currentCase.value.caseById.caregiverCoordinates) {
@@ -266,7 +261,6 @@ onMounted(async () => {
         currentCase.value.caseById.caregiverCoordinates.lat
       othersCo.value.longitude =
         currentCase.value.caseById.caregiverCoordinates.lng
-      console.log('othersCo:', othersCo.value)
     }
   }
 
@@ -293,7 +287,6 @@ onMounted(async () => {
 })
 
 onUnmounted(() => {
-  console.log('unmounted')
   navigator.geolocation.clearWatch(watchId.value as number)
 })
 

@@ -33,7 +33,6 @@
     "proseWrap": "preserve",
     "htmlWhitespaceSensitivity": "css"
   },
-  "dependencies": {},
   "devDependencies": {
     "lerna": "^7.4.2"
   }

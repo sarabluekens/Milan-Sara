@@ -30,12 +30,6 @@ app.use(i18n) // moet altijd voor de router!
   app.use(PrimeVue)
   app.component('Calendar', Calendar)
   app.use(router)
-  app.use(withUUID)
 
-  app.use(VueGoogleMaps, {
-    load: {
-      key: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
-    },
-  })
   app.mount('#app')
 })()
