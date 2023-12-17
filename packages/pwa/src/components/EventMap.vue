@@ -1,5 +1,22 @@
 <template>
   <div v-if="loading" style="width: 80%; height: 50vh">loading</div>
+  <div class="col-span-5 grid grid-cols-5 mt-4">
+    <label class="body-black col-span-5">Map coordinates</label>
+    <p class="subbody-black col-span-5">
+      Click the 2 corners of the event place on the map in the order of the
+      input fields
+    </p>
+    <div v-for="corner in corners" class="col-span-5 grid grid-cols-4">
+      <label class="body-black col-span-1 mt-3">{{ corner.cornerName }}</label>
+      <input
+        type="text"
+        placeholder="Top right corner"
+        id="top-right-corner"
+        class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-3 mt-3 subbody-black/80"
+        v-bind:value="`lat: ${corner.lat}, long: ${corner.lng}`"
+      />
+    </div>
+  </div>
   <div ref="mapDiv" style="width: 80%; height: 50vh"></div>
   <form class="flex flex-col" @submit.prevent="codeAddress">
     <input ref="addressInput" type="textbox" value="Sydney, NSW" />
@@ -17,6 +34,7 @@ import { Loader } from '@googlemaps/js-api-loader'
 import { onMounted } from 'vue'
 
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+const emit = defineEmits(['coordinates'])
 
 const loading = ref(true)
 const mapDiv = ref()
@@ -29,6 +47,21 @@ const coordinates = ref({
   lat: 50.835,
   lng: 3.264,
 })
+
+const corners = ref([
+  {
+    corner: 'topLeft',
+    lat: 0,
+    lng: 0,
+  },
+  {
+    corner: 'bottomRight',
+    lat: 0,
+    lng: 0,
+  },
+])
+
+const chosenCorners = ref<{ lat: number; lng: number }[]>([])
 
 const loader = new Loader({
   apiKey: GOOGLE_MAPS_API_KEY,
@@ -45,7 +78,7 @@ const loadMap = async () => {
       lat: 50.835,
       lng: 3.264,
     },
-    zoom: 5,
+    zoom: 16,
   })
 
   geocoder = new google.maps.Geocoder()
@@ -86,6 +119,14 @@ const handleClick = () => {
     )
     infoWindow.open(map)
     console.log(coordinates.value)
+    chosenCorners.value.push(coordinates.value)
+    if (chosenCorners.value.length === 2) {
+      for (let i = 0; i < chosenCorners.value.length; i++) {
+        corners.value[i].lat = chosenCorners.value[i].lat.toFixed(8)
+        corners.value[i].lng = chosenCorners.value[i].lng.toFixed(8)
+      }
+      emit('coordinates', corners.value)
+    }
   })
 }
 const codeAddress = () => {

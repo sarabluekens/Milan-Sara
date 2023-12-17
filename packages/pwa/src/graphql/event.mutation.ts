@@ -15,9 +15,14 @@ export const ADD_EVENT = gql`
       phoneNumber
       email
       btwNumber
-      expectedVisitorStaffCount
       eventWithChildren
+      status
       mapsLink
+      mapCoords {
+        corner
+        lat
+        lng
+      }
     }
   }
 `
