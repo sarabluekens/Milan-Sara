@@ -6,6 +6,7 @@ import {
   ObjectIdColumn,
   UpdateDateColumn,
 } from 'typeorm'
+import { MapCoords, MapCoordsType } from './mapCoords.entity'
 
 export enum Status {
   Pending = 'Pending',
@@ -72,6 +73,10 @@ export class Event {
   @Column() // Database link - Typeorm
   @Field() //graphql
   mapsLink: string
+
+  @Column({ nullable: true }) // Database link - Typeorm
+  @Field(() => [MapCoords], { defaultValue: [], nullable: true }) //graphql
+  mapCoords: Array<MapCoordsType>
 
   @Column() // Database link - Typeorm
   @Field() //graphql
