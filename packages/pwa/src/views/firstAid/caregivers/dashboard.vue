@@ -42,7 +42,9 @@ import type { Case } from '@/interfaces/case.interface'
 import { ref } from 'vue'
 import useRealtime from '@/composables/useRealtime'
 import { useRouter } from 'vue-router'
-import { Socket } from 'socket.io-client'
+import { useToast } from 'vue-toast-notification'
+import 'vue-toast-notification/dist/theme-sugar.css'
+import { onMounted } from 'vue'
 
 export default {
   setup() {
@@ -50,6 +52,8 @@ export default {
 
     const newCase = ref<Case | null>()
     const liveCases = ref<Case[]>([])
+
+    const $toast = useToast()
 
     const { on } = useRealtime()
     const { emit } = useRealtime()
@@ -60,6 +64,20 @@ export default {
       newCase.value = data as Case
       liveCases.value.push(data as Case)
       console.log(newCase.value)
+
+      console.log('time for a toast HEEEEEEEEEERE')
+
+      // popups
+
+      $toast.warning('New case!', {
+        position: 'top-right',
+        duration: 2000,
+        dismissible: true,
+        pauseOnHover: true,
+        onClick: () => {
+          push({ path: `/caregiver/dashboard` })
+        },
+      })
     })
 
     const handleClick = async (id: string) => {
@@ -67,6 +85,11 @@ export default {
       emit('case:joined', id)
       push({ path: `/caregiver/map/${id}` })
     }
+
+    onMounted(() => {
+      console.log('mounted')
+      $toast.clear()
+    })
     return {
       result: computed<Case[]>(() => cases.value.cases),
       loadingCases,
@@ -76,3 +99,24 @@ export default {
   },
 }
 </script>
+<style>
+.v-toast__item .v-toast__text {
+  color: #f5e9e9 !important;
+  background-color: #a60c0c !important;
+  font-size: 3vh !important;
+  padding: 2vh !important;
+}
+
+.v-toast__item--warning {
+  color: #f5e9e9 !important;
+  background-color: #a60c0c !important;
+}
+
+.v-toast__item.v-toast__item--warning .v-toast__icon {
+  background: url(/warning.svg) no-repeat center center / contain !important;
+  color: #f5e9e9 !important;
+  background-color: #a60c0c !important;
+  width: 5vw !important;
+  height: 5vh !important;
+}
+</style>
