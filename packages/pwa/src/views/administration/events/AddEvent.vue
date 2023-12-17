@@ -220,14 +220,45 @@
         :key="error.$uid"
         >The maps of the event are required</span
       >
+      <div class="col-span-5 grid grid-cols-5 mt-4">
+        <label class="body-black col-span-5">Map coordinates</label>
+        <label class="body-black col-span-1 mt-3">Top right corner</label>
+        <input
+          type="text"
+          placeholder="Top right corner"
+          id="top-right-corner"
+          class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mt-3 subbody-black/80"
+        />
+        <label class="body-black col-span-1 mt-3">Bottom left corner</label>
+        <input
+          type="text"
+          placeholder="Bottom left corner"
+          id="bottom-left-corner"
+          class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mt-3 subbody-black/80"
+        />
+        <label class="body-black col-span-1 mt-3">Top left corner</label>
+        <input
+          type="text"
+          placeholder="Top left corner"
+          id="top-left-corner"
+          class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mt-3 subbody-black/80"
+        />
+        <label class="body-black col-span-1 mt-3">Bottom right corner</label>
+        <input
+          type="text"
+          placeholder="Bottom right corner"
+          id="bottom-right-corner"
+          class="border-1 border-black w-2/3 h-10 ml-3 bg-white col-span-4 mt-3 subbody-black/80"
+        />
+      </div>
+      <div class="col-span-5"><EventMap /></div>
+
       <button
         class="border-1 border-red bg-red col-span-2 col-start-2 body-white h-10 mt-4"
       >
         Create event
       </button>
     </form>
-
-    <EventMap />
   </div>
 </template>
 
@@ -279,6 +310,7 @@ export default {
     const v$ = useValidate(validationRules, newEvent)
     const { emit } = useRealtime()
     const { mutate: addEvent } = useMutation(ADD_EVENT)
+
     //@ts-ignore
     const widget = window.cloudinary.createUploadWidget(
       {
@@ -292,14 +324,17 @@ export default {
         }
       },
     )
+
     const handleFileChange = (event: any) => {
       const file = event.target.files[0]
       console.log(file)
       newEvent.value.maps = file.name
     }
+
     const openUploadWidget = () => {
       widget.open()
     }
+
     const handleAddEvent = async () => {
       const validationResult = await v$.value.$validate()
       if (validationResult) {
@@ -327,6 +362,7 @@ export default {
         emit('event:created', result?.data?.createEvent as Event)
       }
     }
+
     return {
       newEvent,
       v$,
