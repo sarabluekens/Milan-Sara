@@ -1,12 +1,15 @@
 <template>
   <div
-    v-if="loading"
+    v-if="loading && !flicker"
     class="w-80% h-50vh bg-beige flex flex-col items-center justify-center"
   >
     <VueSpinner size="150" class="color-red" />
     <p class="subtitle-red">Loading the map</p>
   </div>
-  <div ref="mapDiv" style="width: 80%; height: 50vh"></div>
+  <div v-if="flicker">
+    <Flicker />
+  </div>
+  <div v-else="!flicker" ref="mapDiv" style="width: 80%; height: 50vh"></div>
 </template>
 
 <script setup lang="ts">
@@ -22,6 +25,7 @@ import { GET_EVENT_BY_ID } from '@/graphql/event.query'
 import { CASE_BY_ID } from '@/graphql/case.query'
 import { onUnmounted } from 'vue'
 import { VueSpinner } from 'vue3-spinners'
+import Flicker from './Flicker.vue'
 
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 
@@ -81,6 +85,8 @@ const loader = new Loader({
   version: 'weekly',
   libraries: ['geometry', 'places'],
 })
+
+const flicker = ref(false)
 
 // load the map with the loader
 const loadMap = async () => {
@@ -215,6 +221,12 @@ const updateCoordinates = (coords: any) => {
     console.log('distance:', distance)
     if (distance < 10) {
       console.log('you are close to the victim')
+      if (!router.currentRoute.value.path.includes('caregiver')) {
+        setTimeout(() => {
+          flicker.value = true
+          loading.value = false
+        }, 3000)
+      }
     }
   }
 }
@@ -314,3 +326,5 @@ on('coords:new', (data: Partial<Object>) => {
   }
 })
 </script>
+
+<style scoped></style>
