@@ -183,11 +183,15 @@ const showDestination = async () => {
 }
 
 const checkDistance = (myCoordinates: any, otherCoordinates: any) => {
+  console.log('distance checked')
+  console.log('myCoordinates:', myCoordinates.value)
+  console.log('otherCoordinates:', otherCoordinates.value)
+
   if (
     !myCoordinates.value.latitude ||
     !otherCoordinates.value.latitude ||
-    myCoordinates.value.longitude != 0 ||
-    otherCoordinates.value.longitude != 0
+    myCoordinates.value.longitude == 0 ||
+    otherCoordinates.value.longitude == 0
   ) {
     return
   } else {
@@ -209,6 +213,8 @@ const checkDistance = (myCoordinates: any, otherCoordinates: any) => {
           router.push({ path: '/map/flicker' })
         }, 3000)
       }
+    } else {
+      console.log('you are not close to the victim')
     }
   }
 }

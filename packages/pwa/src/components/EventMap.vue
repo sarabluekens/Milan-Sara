@@ -7,7 +7,7 @@
       input fields
     </p>
     <div v-for="corner in corners" class="col-span-5 grid grid-cols-4">
-      <label class="body-black col-span-1 mt-3">{{ corner.cornerName }}</label>
+      <label class="body-black col-span-1 mt-3">{{ corner.corner }}</label>
       <input
         type="text"
         placeholder="Top right corner"
@@ -122,8 +122,8 @@ const handleClick = () => {
     chosenCorners.value.push(coordinates.value)
     if (chosenCorners.value.length === 2) {
       for (let i = 0; i < chosenCorners.value.length; i++) {
-        corners.value[i].lat = chosenCorners.value[i].lat.toFixed(8)
-        corners.value[i].lng = chosenCorners.value[i].lng.toFixed(8)
+        corners.value[i].lat = parseFloat(chosenCorners.value[i].lat.toFixed(8))
+        corners.value[i].lng = parseFloat(chosenCorners.value[i].lng.toFixed(8))
       }
       emit('coordinates', corners.value)
     }
