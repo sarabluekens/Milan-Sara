@@ -283,6 +283,26 @@
 
   <!-- header for the visitors flow -->
   <nav
+    v-else-if="$route.path.includes(`flicker`)"
+    class="nav-red h-4rem w-full fixed sm:h-full w-3rem sm:w-5rem bottom-0"
+  >
+    <div
+      class="flex flex-row sm:flex-col items-center justify-evenly sm:justify-between h-full mb-2 sm:m-0 sm:p-0"
+    >
+      <button
+        @click="$router.push('/')"
+        class="i-material-symbols-other-houses icon icon-4 color-beige"
+      ></button>
+      <div class="bg-beige w-.5 h-full sm:hidden"></div>
+      <img
+        src="/whiteCross.svg"
+        alt="Red Cross logo"
+        class="sm:pb-3 h-3rem sm:h-5rem sm:w-90% sm:mx-auto"
+      />
+    </div>
+  </nav>
+
+  <nav
     v-else
     class="nav-red h-4rem w-full fixed sm:h-full w-3rem sm:w-5rem bottom-0"
   >

@@ -14,8 +14,6 @@ import useCustomUser from './composables/useCustomUser'
 import 'primevue/resources/themes/saga-blue/theme.css' //theme
 import 'primevue/resources/primevue.min.css' //core css
 import Calendar from 'primevue/calendar'
-import VueGoogleMaps from '@fawmi/vue-google-maps'
-import withUUID from 'vue-uuid'
 
 const app = createApp(App)
 const { restoreUser, firebaseUser } = useFirebase()

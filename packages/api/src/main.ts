@@ -9,6 +9,8 @@ async function bootstrap() {
     origin: [
       'http://localhost:5173',
       'http://localhost:3001',
+      'http://0.0.0.0:3004',
+
       process.env.URL_FRONTEND,
       //   //staging/TEST
       //   https://staging-redCross.be,
