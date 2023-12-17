@@ -261,6 +261,18 @@ export default {
       expectedVisitorStaffCount: '',
       children: false,
       maps: '',
+      coords: [
+        {
+          corner: 'topLeft',
+          lat: 0,
+          lng: 0,
+        },
+        {
+          corner: 'bottomRight',
+          lat: 0,
+          lng: 0,
+        },
+      ],
     })
     const validationRules = {
       name: { required },
@@ -329,6 +341,7 @@ export default {
             expectedVisitorStaffCount: newEvent.value.expectedVisitorStaffCount,
             eventWithChildren: newEvent.value.children,
             mapsLink: newEvent.value.maps,
+            mapCoords: newEvent.value.coords,
           },
         })
         console.log(result)
@@ -339,6 +352,11 @@ export default {
 
     const receiveCoordinates = (coordinates: any) => {
       console.log(coordinates)
+      for (let i = 0; i < coordinates.length; i++) {
+        newEvent.value.coords[i].lat = parseFloat(coordinates[i].lat)
+        newEvent.value.coords[i].lng = parseFloat(coordinates[i].lng)
+      }
+      console.log(newEvent.value.coords)
     }
 
     return {

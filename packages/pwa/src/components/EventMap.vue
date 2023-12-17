@@ -50,12 +50,12 @@ const coordinates = ref({
 
 const corners = ref([
   {
-    cornerName: 'topLeft',
+    corner: 'topLeft',
     lat: 0,
     lng: 0,
   },
   {
-    cornerName: 'bottomRight',
+    corner: 'bottomRight',
     lat: 0,
     lng: 0,
   },
