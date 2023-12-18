@@ -13,7 +13,7 @@ const router = createRouter({
     {
       path: '/caregiver',
       component: () => import('../components/wrappers/CaregiverWrap.vue'),
-      meta: { shouldBeAuthenticated: true },
+      meta: { shouldBeAuthenticated: true, role: 'CAREGIVER' },
       children: [
         {
           path: 'dashboard',
@@ -41,9 +41,9 @@ const router = createRouter({
       props: true,
     },
     {
-      path: "/map/flicker",
-      name: "flicker",
-      component: () => import("../views/firstAid/visitors/flickerScreen.vue"),
+      path: '/map/flicker',
+      name: 'flicker',
+      component: () => import('../views/firstAid/visitors/flickerScreen.vue'),
       props: true,
     },
     // {

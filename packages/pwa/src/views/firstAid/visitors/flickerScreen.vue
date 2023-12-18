@@ -29,8 +29,9 @@
         >
           Stop flickering screen
         </button>
+f
         <div
-          class="animate-[flash_0.7s_ease-in-out_infinite] w-95vw h-100vh bg-red m-auto z-0"
+          class="animate-flash w-95vw h-100vh bg-red m-auto z-0 important-animate-count-infinite"
         >
           <img src="/whiteCross.svg" alt="" />
         </div>

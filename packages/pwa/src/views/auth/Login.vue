@@ -53,6 +53,8 @@
 import { ref } from 'vue'
 import useFirebase from '@/composables/useFirebase'
 import { useRouter } from 'vue-router'
+import { GET_USER_BY_UID } from '@/graphql/user.query'
+import { useQuery } from '@vue/apollo-composable'
 
 export default {
   setup() {
@@ -71,11 +73,31 @@ export default {
         () => {
           console.log('Logged in')
           console.log(firebaseUser.value?.uid)
-          push({ path: '/' })
+          // push({ path: '/' })
+          redirect()
         },
       )
     }
 
+    const redirect = () => {
+      return new Promise<void>(resolve => {
+        const { onResult } = useQuery(GET_USER_BY_UID, {
+          uid: firebaseUser.value?.uid,
+        })
+        onResult(result => {
+          if (result.data) {
+            if (result.data.userByUid.role === 'CAREGIVER') {
+              push({ path: '/caregiver/dashboard' })
+            } else if (result.data.userByUid.role === 'ADMIN') {
+              push({ path: '/admin/dashboard' })
+            } else if (result.data.userByUid.role === 'COMPANY') {
+              push({ path: '/company/dashboard' })
+              resolve()
+            }
+          }
+        })
+      })
+    }
     // Return
     return {
       loginCredentials,
