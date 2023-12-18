@@ -16,7 +16,6 @@ const props = defineProps<{
   title: string
   icon?: string
   subtitle?: string
-
 }>()
 
 const category: string = props.category
