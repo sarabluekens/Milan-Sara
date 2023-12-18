@@ -131,19 +131,23 @@ const loadMap = async () => {
 
 const showDestination = async () => {
   // add destination marker to map
-  othersMarker = new google.maps.Marker({
-    position: {
-      lat: othersCo.value.latitude!,
-      lng: othersCo.value.longitude!,
-    },
-    icon: {
-      url: router.currentRoute.value.path.includes('caregiver')
-        ? '/victimMarker.png'
-        : '/caregiverMarker.png',
-      scaledSize: new google.maps.Size(217, 97),
-    },
-    map: map,
-  })
+  if (othersCo.value.latitude === null) {
+    return
+  } else {
+    othersMarker = new google.maps.Marker({
+      position: {
+        lat: othersCo.value.latitude!,
+        lng: othersCo.value.longitude!,
+      },
+      icon: {
+        url: router.currentRoute.value.path.includes('caregiver')
+          ? '/victimMarker.png'
+          : '/caregiverMarker.png',
+        scaledSize: new google.maps.Size(217, 97),
+      },
+      map: map,
+    })
+  }
 
   const options = {
     enableHighAccuracy: true,
@@ -153,11 +157,6 @@ const showDestination = async () => {
 
   const success = (pos: any) => {
     const crd = pos.coords
-    // console.log('Your current position is:')
-    // console.log(`Latitude : ${crd.latitude}`)
-    // console.log(`Longitude: ${crd.longitude}`)
-    // console.log(`More or less ${crd.accuracy} meters.`)
-    // console.log('tracked at', new Date(pos.timestamp))
 
     emit('coords:updated', {
       latitude: crd.latitude,
@@ -207,6 +206,11 @@ const checkDistance = (myCoordinates: any, otherCoordinates: any) => {
           router.push({ path: '/map/flicker' })
         }, 3000)
       }
+      if (router.currentRoute.value.path.includes('caregiver')) {
+        setTimeout(() => {
+          router.push({ path: '/caregiver/dashboard' })
+        }, 3000)
+      }
     } else {
       console.log('you are not close to the victim')
     }
@@ -253,7 +257,6 @@ onMounted(async () => {
     // console.log('waiting for case')
   }
   // console.log('dbCase:', currentCase.value.caseById)
-
   const { result: event, loading: loadingEvent } = useQuery(
     GET_EVENT_BY_ID,
     () => ({
@@ -316,7 +319,13 @@ onUnmounted(() => {
     userId: userId,
     caseId: caseId,
   })
+
+  currentMarker.setMap(null)
   console.log('deleteCo', deleteCo)
+
+  emit('coords:deleted', {
+    caseId: caseId,
+  })
 
   updateCoordinates(deleteCo)
   console.log('deleted coords')
@@ -326,19 +335,38 @@ onUnmounted(() => {
 on('coords:new', (data: Partial<Object>) => {
   console.log('updated coords received: ', data)
   newCo.value = data as any
-
+  if (newCo.value.latitude === null && newCo.value.longitude === null) {
+    return
+  }
   // if the new coords are not from the current user
-  if (newCo.value.userId !== userId) {
-    // update the other marker
-    othersMarker.setPosition({
-      lat: newCo.value.latitude as number,
-      lng: newCo.value.longitude as number,
-    })
+  else if (newCo.value.userId !== userId) {
+    if (othersMarker === undefined) {
+      othersMarker = new google.maps.Marker({
+        position: {
+          lat: newCo.value.latitude!,
+          lng: newCo.value.longitude!,
+        },
+        icon: {
+          url: router.currentRoute.value.path.includes('caregiver')
+            ? '/victimMarker.png'
+            : '/caregiverMarker.png',
+          scaledSize: new google.maps.Size(217, 97),
+        },
+        map: map,
+      })
+    } else {
+      // update the other marker
+      othersMarker.setPosition({
+        lat: newCo.value.latitude as number,
+        lng: newCo.value.longitude as number,
+      })
+    }
     console.log('new coords:', newCo.value)
     // update the db
     updateCoordinates(newCo)
     checkDistance(currentCo, newCo)
     console.log('updated coords through on function')
+    console.log('other still here')
   } else {
     currentMarker.setPosition({
       lat: newCo.value.latitude as number,
@@ -347,6 +375,11 @@ on('coords:new', (data: Partial<Object>) => {
     updateCoordinates(newCo)
     checkDistance(newCo, othersCo)
   }
+})
+
+on('coords:deleted', (data: Partial<Object>) => {
+  console.log('other person left ', data)
+  othersMarker.setMap(null)
 })
 </script>
 

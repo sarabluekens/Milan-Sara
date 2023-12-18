@@ -62,7 +62,7 @@ export class NotificationsGateway
     try {
       const caseId = data
       client.join(caseId)
-      console.log('caregiver joined case', caseId)
+      console.log('caregiver joined', caseId)
 
       // return newCase
     } catch (error) {
@@ -77,7 +77,6 @@ export class NotificationsGateway
   ): Promise<void> {
     try {
       const newCase = data
-      console.log('newCase', newCase)
       this.server.emit('case:new', newCase) //<- create new listener for clients
       client.join(newCase.id)
       console.log('victim joined case', newCase.id)
@@ -97,7 +96,7 @@ export class NotificationsGateway
     @ConnectedSocket() client: Socket,
   ): Promise<void> {
     try {
-      this.server.emit('coords:new', data) //<- create new listener for clients
+      this.server.to(data.caseId).emit('coords:new', data) //<- create new listener for clients
       // this.server.emit('coords:new', data) //<- create new listener for clients
       // return newCase
     } catch (error) {
@@ -112,10 +111,25 @@ export class NotificationsGateway
   ): Promise<void> {
     try {
       const newEvent = data
-      console.log('newEvent', newEvent)
       this.server.emit('event:new', newEvent) //<- create new listener for clients
 
       // return newEvent
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  @SubscribeMessage('coords:deleted')
+  async handelDeleteCoords(
+    @MessageBody() data: any,
+    @ConnectedSocket() client: Socket,
+  ): Promise<void> {
+    try {
+      client.leave(data.caseId)
+      // this.server.emit('coords:new', data) //<- create new listener for clients
+      // return newCase
+      this.server.to(data.caseId).emit('coords:deleted', data) //<- create new listener for clients
+      console.log('user left room', data.caseId)
+      console.log('rooms', client.rooms)
     } catch (error) {
       console.log(error)
     }
