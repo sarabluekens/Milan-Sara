@@ -177,9 +177,6 @@ const showDestination = async () => {
 
 const checkDistance = (myCoordinates: any, otherCoordinates: any) => {
   console.log('distance checked')
-  console.log('myCoordinates:', myCoordinates.value)
-  console.log('otherCoordinates:', otherCoordinates.value)
-
   if (
     !myCoordinates.value.latitude ||
     !otherCoordinates.value.latitude ||
@@ -204,11 +201,13 @@ const checkDistance = (myCoordinates: any, otherCoordinates: any) => {
       if (!router.currentRoute.value.path.includes('caregiver')) {
         setTimeout(() => {
           router.push({ path: '/map/flicker' })
+          exitMap()
         }, 3000)
       }
       if (router.currentRoute.value.path.includes('caregiver')) {
         setTimeout(() => {
           router.push({ path: '/caregiver/dashboard' })
+          exitMap()
         }, 3000)
       }
     } else {
@@ -275,15 +274,31 @@ onMounted(async () => {
 
   // on caregiver page get the victim coordinates and add them to the map
   if (router.currentRoute.value.path.includes('caregiver')) {
-    othersCo.value.latitude = currentCase.value.caseById.victimCoordinates.lat
-    othersCo.value.longitude = currentCase.value.caseById.victimCoordinates.lng
+    if (
+      currentCase.value.caseById.victimCoordinates.lat === 0 &&
+      currentCase.value.caseById.victimCoordinates.lng === 0
+    ) {
+      othersCo.value.latitude = null
+      othersCo.value.longitude = null
+    } else {
+      othersCo.value.latitude = currentCase.value.caseById.victimCoordinates.lat
+      othersCo.value.longitude =
+        currentCase.value.caseById.victimCoordinates.lng
+    }
   } else {
     // check is caregiverCoordinates exist -> if caregiver is assigned
-    if (currentCase.value.caseById.caregiverCoordinates) {
+    if (
+      currentCase.value.caseById.caregiverCoordinates &&
+      currentCase.value.caseById.caregiverCoordinates.lat !== 0 &&
+      currentCase.value.caseById.caregiverCoordinates.lng !== 0
+    ) {
       othersCo.value.latitude =
         currentCase.value.caseById.caregiverCoordinates.lat
       othersCo.value.longitude =
         currentCase.value.caseById.caregiverCoordinates.lng
+    } else {
+      othersCo.value.latitude = null
+      othersCo.value.longitude = null
     }
   }
 
@@ -310,8 +325,7 @@ onMounted(async () => {
   loading.value = false
 })
 
-onUnmounted(() => {
-  console.log('unmounted')
+const exitMap = () => {
   navigator.geolocation.clearWatch(watchId.value as number)
   const deleteCo = ref({
     latitude: 0,
@@ -329,6 +343,11 @@ onUnmounted(() => {
 
   updateCoordinates(deleteCo)
   console.log('deleted coords')
+}
+
+onUnmounted(() => {
+  console.log('unmounted')
+  exitMap()
 })
 
 // update victimCoordinates
