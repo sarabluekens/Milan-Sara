@@ -1,15 +1,12 @@
 <template>
   <div
-    v-if="loading && !flicker"
+    v-if="loading"
     class="w-80% h-50vh bg-beige flex flex-col items-center justify-center"
   >
     <VueSpinner size="150" class="color-red" />
     <p class="subtitle-red">Loading the map</p>
   </div>
-  <div v-if="flicker">
-    <Flicker />
-  </div>
-  <div v-else="!flicker" ref="mapDiv" style="width: 80%; height: 50vh"></div>
+  <div ref="mapDiv" style="width: 80%; height: 50vh"></div>
 </template>
 
 <script setup lang="ts">
@@ -25,7 +22,6 @@ import { GET_EVENT_BY_ID } from '@/graphql/event.query'
 import { CASE_BY_ID } from '@/graphql/case.query'
 import { onUnmounted } from 'vue'
 import { VueSpinner } from 'vue3-spinners'
-import Flicker from './Flicker.vue'
 
 defineProps<{
   size?: string
@@ -90,8 +86,6 @@ const loader = new Loader({
   version: 'weekly',
   libraries: ['geometry', 'places'],
 })
-
-const flicker = ref(false)
 
 // load the map with the loader
 const loadMap = async () => {
