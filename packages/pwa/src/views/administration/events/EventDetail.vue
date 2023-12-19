@@ -189,7 +189,7 @@
           caregiver(s)
         </p>
         <section class="grid grid-cols-4 gap-5">
-          <div v-for="caregiver in caregivers.caregivers">
+          <div v-for="caregiver in availableCaregivers">
             <input
               @change="handleAssigned(caregiver.id)"
               v-bind:id="caregiver.id"
@@ -396,24 +396,13 @@ export default {
         } else {
           for (const job of caregiver.jobs) {
             for (const eventDate of event.value.event.dates) {
-              if (!job.workdays.includes(eventDate.substring(0, 10))) {
+              if (!job.workdays.includes(eventDate)) {
                 availableCaregivers.value.push(caregiver)
               }
             }
           }
         }
       }
-      /*       for (const equipment of equipments.value.equipments) {
-        for (const kitIem of kits.value) {
-          for (const equipmentName of kitIem.contents) {
-            if (equipment.name === equipmentName.name) {
-              if (equipment.totalStock < equipmentName.count) {
-                kitIem.available = false
-              }
-            }
-          }
-        }
-      } */
     }
 
     const handleAssigned = (idOfPerson: string) => {
@@ -573,6 +562,7 @@ export default {
       woundKit_count,
       woundKit_available,
       addedCaregivers,
+      availableCaregivers,
       handleAddEvent,
       handleNewCaregiver,
       handleAssigned,
