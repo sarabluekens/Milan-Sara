@@ -2,7 +2,12 @@
   <!-- Header for the homepage -->
   <nav
     v-if="$route.path === `/`"
-    class="nav-beige h-4rem w-full fixed sm:h-full w-3rem sm:w-5rem bottom-0"
+    class="nav-red h-4rem w-full fixed sm:h-full w-3rem sm:w-5rem bottom-0 border-t-2"
+  ></nav>
+
+  <nav
+    v-else-if="$route.path.includes(`home`)"
+    class="nav-beige h-4rem w-full fixed sm:h-full w-3rem sm:w-5rem bottom-0 border-t-2"
   >
     <div
       class="flex flex-row sm:flex-col items-center justify-evenly sm:justify-between h-full mb-2 sm:m-0 sm:p-0"

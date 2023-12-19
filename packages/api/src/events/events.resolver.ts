@@ -27,6 +27,11 @@ export class EventsResolver {
     return this.eventsService.findAllByStatus(status)
   }
 
+  @Query(() => [Event], { name: 'eventsToday' })
+  findAllToday() {
+    return this.eventsService.findAllByDate()
+  }
+
   @Query(() => Event, { name: 'event' })
   findOne(@Args('id', { type: () => String }) id: string) {
     return this.eventsService.findOne(id)
