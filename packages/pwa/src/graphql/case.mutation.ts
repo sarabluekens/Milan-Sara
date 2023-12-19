@@ -99,3 +99,26 @@ export const ADD_CAREGIVER_CO: TypedDocumentNode<
     }
   }
 `
+
+export const ADD_CAREGIVER: TypedDocumentNode<
+  { updateCase: Case },
+  {
+    caseInput: {
+      id: string
+      eventId: string
+      typeAccident: string
+      date: Date
+    }
+  }
+> = gql`
+  mutation assignCaregiverToCase($caseInput: UpdateCaseInput!) {
+    assignCaregiverToCase(updateCaseInput: $caseInput) {
+      id
+      date
+      typeAccident
+      eventId
+      caregiverId
+      status
+    }
+  }
+`

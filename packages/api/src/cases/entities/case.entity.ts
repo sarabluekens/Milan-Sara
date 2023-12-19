@@ -19,8 +19,8 @@ export class Case {
   eventId: string
 
   @Column()
-  @Field(() => [String], { defaultValue: [] })
-  caregiverId: Array<string>
+  @Field(() => String, { defaultValue: "" })
+  caregiverId: string
 
   @Column()
   @Field()
@@ -78,6 +78,9 @@ export class Case {
   @Field(() => CoordsClass, { nullable: true })
   caregiverCoordinates: Coords
 
+  @Column()
+  @Field({ defaultValue: 'pending' })
+  status: string
   //column = db
   //field = graphql
   //field en daarin store je object van linked entity

@@ -84,6 +84,16 @@ export class CasesResolver {
     )
   }
 
+  @Mutation(() => Case, { name: 'assignCaregiverToCase' })
+  assignCaregiverToCase(
+    @Args('updateCaseInput') updateCaseInput: UpdateCaseInput,
+  ) {
+    return this.casesService.assignCaregiverToCase(
+      updateCaseInput.caseId,
+      updateCaseInput.caregiverId,
+    )
+  }
+
   // @Mutation(() => Case)
   // updateCase(@Args('updateCaseInput') updateCaseInput: UpdateCaseInput) {
   //   return this.casesService.update(updateCaseInput.id, updateCaseInput)

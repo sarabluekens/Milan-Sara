@@ -101,6 +101,8 @@ export default {
       console.log(id)
       emit('case:joined', id)
       push({ path: `/caregiver/map/${id}` })
+
+      // mutation schrijven
     }
 
     onMounted(() => {

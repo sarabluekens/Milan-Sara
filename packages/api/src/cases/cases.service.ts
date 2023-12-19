@@ -140,6 +140,24 @@ export class CasesService {
     return currentCase
   }
 
+  async assignCaregiverToCase(caseId: string, caregiverId: string) {
+    const currentCase = await this.caseRepository.findOne({
+      //@ts-ignore
+      _id: new ObjectId(caseId),
+    })
+
+    if (currentCase) {
+      currentCase.caregiverId = caregiverId
+      currentCase.status = 'ongoing'
+      this.caseRepository.update(caseId, currentCase)
+
+      console.log('currentCase', currentCase)
+    } else {
+      throw new Error('Case not found')
+    }
+    return currentCase
+  }
+
   remove(id: number) {
     return `This action removes a #${id} case`
   }

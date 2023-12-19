@@ -4,7 +4,7 @@ import { Case } from '../entities/case.entity'
 export const createCaseInputStub = (): CreateCaseInput => {
   const newCase = new CreateCaseInput()
   newCase.eventId = 'eventid'
-  newCase.caregiverId = ['caregiverid1', 'caregiverid2']
+  newCase.caregiverId = 'caregiverid1'
   newCase.typeAccident = 'fell'
   newCase.date = new Date()
   newCase.checkUpRequired = false
@@ -20,7 +20,7 @@ export const caseStub = (): Case => {
   const newCase = new Case()
   newCase.id = 'caseid'
   newCase.eventId = 'eventid'
-  newCase.caregiverId = ['caregiverid1', 'caregiverid2']
+  newCase.caregiverId = 'caregiverid1'
   newCase.typeAccident = 'fell'
   newCase.date = new Date()
   newCase.checkUpRequired = false
