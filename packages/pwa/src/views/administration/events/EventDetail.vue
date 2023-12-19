@@ -164,7 +164,10 @@
         <label class="body-black" for="maps">Caregivers</label>
         <section class="grid grid-cols-4 gap-5">
           <div v-for="caregiver in addedCaregivers">
-            <StaffCard :caregiver="caregiver" />
+            <StaffCard
+              :caregiver="caregiver"
+              @Click="handleAssigned(caregiver.id)"
+            />
           </div>
           <div
             class="border-1 border-red w-50 text-center mb-4"
@@ -183,7 +186,8 @@
           {{
             Math.round(
               event.event.expectedVisitorStaffCount / 500 -
-                addedCaregivers.length,
+                addedCaregivers.length -
+                alreadyWorking,
             )
           }}
           caregiver(s)
@@ -240,8 +244,16 @@
                 </button>
                 <p class="subbody-black">{{ item.count }}</p>
                 <button
+                  v-if="item.addMore"
                   @click="handleEquipmentCount('plus', item.kitName)"
                   class="i-mdi-plus-thick icon icon-2 color-red"
+                >
+                  plus
+                </button>
+                <button
+                  v-if="!item.addMore"
+                  class="i-mdi-plus-thick icon icon-2 color-red opacity-75"
+                  disabled
                 >
                   plus
                 </button>
@@ -283,10 +295,8 @@ export default {
     const addedEquipment = ref<
       { categoryName: string; name: string; count: number }[]
     >([])
-    const woundKit_count = ref(0)
-    const woundKit_available = ref(true)
-    const ehboKit_count = ref(0)
-    const ehboKit_available = ref(true)
+    const availableEquipment = ref<{ name: string; count: number }[]>([])
+    const alreadyWorking = ref(0)
 
     const {
       loading: eventLoading,
@@ -319,6 +329,7 @@ export default {
         ],
         count: 0,
         available: true,
+        addMore: true,
       },
       {
         kitName: 'fellKit',
@@ -328,6 +339,7 @@ export default {
         ],
         count: 0,
         available: true,
+        addMore: true,
       },
       {
         kitName: 'drugsKit',
@@ -338,6 +350,7 @@ export default {
         ],
         count: 0,
         available: true,
+        addMore: true,
       },
       {
         kitName: 'bleedKit',
@@ -349,6 +362,7 @@ export default {
         ],
         count: 0,
         available: true,
+        addMore: true,
       },
       {
         kitName: 'allergyKit',
@@ -359,6 +373,7 @@ export default {
         ],
         count: 0,
         available: true,
+        addMore: true,
       },
       {
         kitName: 'otherKit',
@@ -372,6 +387,7 @@ export default {
         ],
         count: 0,
         available: true,
+        addMore: true,
       },
     ])
 
@@ -398,6 +414,8 @@ export default {
             for (const eventDate of event.value.event.dates) {
               if (!job.workdays.includes(eventDate)) {
                 availableCaregivers.value.push(caregiver)
+              } else {
+                alreadyWorking.value++
               }
             }
           }
@@ -411,6 +429,10 @@ export default {
         for (const caregiver of caregivers.value.caregivers) {
           if (caregiver.id === idOfPerson) {
             addedCaregivers.value.push(caregiver)
+            const index = availableCaregivers.value.indexOf(caregiver)
+            if (index > -1) {
+              availableCaregivers.value.splice(index, 1)
+            }
           }
         }
       } else {
@@ -421,12 +443,18 @@ export default {
               if (index > -1) {
                 addedCaregivers.value.splice(index, 1)
               }
+              availableCaregivers.value.push(caregiver)
               return
             } else if (
               addedCaregivers.value.length <
-              Math.round(event.value.event.expectedVisitorStaffCount / 500)
+              Math.round(event.value.event.expectedVisitorStaffCount / 500) -
+                alreadyWorking.value
             ) {
               addedCaregivers.value.push(caregiver)
+              const index = availableCaregivers.value.indexOf(caregiver)
+              if (index > -1) {
+                availableCaregivers.value.splice(index, 1)
+              }
             }
           }
         }
@@ -439,6 +467,13 @@ export default {
 
     const checkEquipmentAvailability = () => {
       for (const equipment of equipments.value.equipments) {
+        const name = equipment.name
+        const count = equipment.totalStock
+        availableEquipment.value.push({
+          name,
+          count,
+        })
+        console.log(availableEquipment.value)
         for (const kitIem of kits.value) {
           for (const equipmentName of kitIem.contents) {
             if (equipment.name === equipmentName.name) {
@@ -452,13 +487,69 @@ export default {
     }
 
     const handleEquipmentCount = (action: string, type: string) => {
-      for (const kitIem of kits.value) {
-        if (kitIem.kitName === type) {
+      for (const kitItem of kits.value) {
+        if (kitItem.kitName === type) {
           if (action === 'plus') {
-            kitIem.count++
+            for (const equipment of kitItem.contents) {
+              for (const availableEquipmentItem of availableEquipment.value) {
+                if (equipment.name === availableEquipmentItem.name) {
+                  if (
+                    availableEquipmentItem.count >= equipment.count &&
+                    availableEquipmentItem.count > 0
+                  ) {
+                    availableEquipmentItem.count -= equipment.count
+                  } else {
+                    kitItem.addMore = false
+                    for (const kitsItem of kits.value) {
+                      for (const equipmentItem of kitsItem.contents) {
+                        if (equipmentItem.name === equipment.name) {
+                          if (
+                            availableEquipmentItem.count <=
+                              equipmentItem.count &&
+                            availableEquipmentItem.count >= 0
+                          ) {
+                            kitsItem.addMore = false
+                          }
+                        }
+                      }
+                    }
+                    alert(
+                      `There is not enough ${equipment.name} available to add to the event`,
+                    )
+                    return
+                  }
+                }
+              }
+            }
+            kitItem.count++
           } else if (action === 'minus') {
-            if (kitIem.count > 0) {
-              kitIem.count--
+            if (kitItem.count > 0) {
+              for (const equipment of kitItem.contents) {
+                for (const availableEquipmentItem of availableEquipment.value) {
+                  if (equipment.name === availableEquipmentItem.name) {
+                    availableEquipmentItem.count += equipment.count
+                    for (const kitsItem of kits.value) {
+                      for (const equipmentItem of kitsItem.contents) {
+                        if (
+                          equipmentItem.name === availableEquipmentItem.name
+                        ) {
+                          if (
+                            availableEquipmentItem.count <=
+                              equipmentItem.count &&
+                            availableEquipmentItem.count >= 0
+                          ) {
+                            kitsItem.addMore = false
+                          } else {
+                            kitsItem.addMore = true
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+              kitItem.addMore = true
+              kitItem.count--
             }
           }
         }
@@ -557,12 +648,9 @@ export default {
       isAccepted,
       AddCaregiver,
       kits,
-      ehboKit_count,
-      ehboKit_available,
-      woundKit_count,
-      woundKit_available,
       addedCaregivers,
       availableCaregivers,
+      alreadyWorking,
       handleAddEvent,
       handleNewCaregiver,
       handleAssigned,
