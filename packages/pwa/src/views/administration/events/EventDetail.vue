@@ -244,8 +244,16 @@
                 </button>
                 <p class="subbody-black">{{ item.count }}</p>
                 <button
+                  v-if="item.addMore"
                   @click="handleEquipmentCount('plus', item.kitName)"
                   class="i-mdi-plus-thick icon icon-2 color-red"
+                >
+                  plus
+                </button>
+                <button
+                  v-if="!item.addMore"
+                  class="i-mdi-plus-thick icon icon-2 color-red opacity-75"
+                  disabled
                 >
                   plus
                 </button>
@@ -287,6 +295,7 @@ export default {
     const addedEquipment = ref<
       { categoryName: string; name: string; count: number }[]
     >([])
+    const availableEquipment = ref<{ name: string; count: number }[]>([])
     const alreadyWorking = ref(0)
 
     const {
@@ -320,6 +329,7 @@ export default {
         ],
         count: 0,
         available: true,
+        addMore: true,
       },
       {
         kitName: 'fellKit',
@@ -329,6 +339,7 @@ export default {
         ],
         count: 0,
         available: true,
+        addMore: true,
       },
       {
         kitName: 'drugsKit',
@@ -339,6 +350,7 @@ export default {
         ],
         count: 0,
         available: true,
+        addMore: true,
       },
       {
         kitName: 'bleedKit',
@@ -350,6 +362,7 @@ export default {
         ],
         count: 0,
         available: true,
+        addMore: true,
       },
       {
         kitName: 'allergyKit',
@@ -360,6 +373,7 @@ export default {
         ],
         count: 0,
         available: true,
+        addMore: true,
       },
       {
         kitName: 'otherKit',
@@ -373,6 +387,7 @@ export default {
         ],
         count: 0,
         available: true,
+        addMore: true,
       },
     ])
 
@@ -452,6 +467,13 @@ export default {
 
     const checkEquipmentAvailability = () => {
       for (const equipment of equipments.value.equipments) {
+        const name = equipment.name
+        const count = equipment.totalStock
+        availableEquipment.value.push({
+          name,
+          count,
+        })
+        console.log(availableEquipment.value)
         for (const kitIem of kits.value) {
           for (const equipmentName of kitIem.contents) {
             if (equipment.name === equipmentName.name) {
@@ -465,13 +487,49 @@ export default {
     }
 
     const handleEquipmentCount = (action: string, type: string) => {
-      for (const kitIem of kits.value) {
-        if (kitIem.kitName === type) {
+      for (const kitItem of kits.value) {
+        if (kitItem.kitName === type) {
+          console.log(kitItem.contents)
           if (action === 'plus') {
-            kitIem.count++
+            for (const equipment of kitItem.contents) {
+              for (const availableEquipmentItem of availableEquipment.value) {
+                if (equipment.name === availableEquipmentItem.name) {
+                  console.log(availableEquipmentItem.count)
+                  if (
+                    availableEquipmentItem.count >= equipment.count &&
+                    availableEquipmentItem.count > 0
+                  ) {
+                    availableEquipmentItem.count -= equipment.count
+                    console.log(availableEquipmentItem.count)
+                  } else {
+                    kitItem.addMore = false
+                    for (const kitsItem of kits.value) {
+                      for (const equipmentItem of kitsItem.contents) {
+                        if (equipmentItem.name === equipment.name) {
+                          kitsItem.addMore = false
+                        }
+                      }
+                    }
+                    alert(
+                      `There is not enough ${equipment.name} available to add to the event`,
+                    )
+                    return
+                  }
+                }
+              }
+            }
+            kitItem.count++
           } else if (action === 'minus') {
-            if (kitIem.count > 0) {
-              kitIem.count--
+            if (kitItem.count > 0) {
+              for (const equipment of kitItem.contents) {
+                for (const availableEquipmentItem of availableEquipment.value) {
+                  if (equipment.name === availableEquipmentItem.name) {
+                    availableEquipmentItem.count += equipment.count
+                  }
+                }
+              }
+              kitItem.addMore = true
+              kitItem.count--
             }
           }
         }
