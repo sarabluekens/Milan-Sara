@@ -13,7 +13,7 @@ const router = createRouter({
     {
       path: '/caregiver',
       component: () => import('../components/wrappers/CaregiverWrap.vue'),
-      meta: { shouldBeAuthenticated: true },
+      meta: { shouldBeAuthenticated: true, role: 'CAREGIVER' },
       children: [
         {
           path: 'dashboard',

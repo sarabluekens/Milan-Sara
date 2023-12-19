@@ -1,15 +1,12 @@
 <template>
   <div
-    v-if="loading && !flicker"
+    v-if="loading"
     class="w-80% h-50vh bg-beige flex flex-col items-center justify-center"
   >
     <VueSpinner size="150" class="color-red" />
     <p class="subtitle-red">Loading the map</p>
   </div>
-  <div v-if="flicker">
-    <Flicker />
-  </div>
-  <div v-else="!flicker" ref="mapDiv" style="width: 80%; height: 50vh"></div>
+  <div ref="mapDiv" style="width: 80%; height: 50vh"></div>
 </template>
 
 <script setup lang="ts">
@@ -25,7 +22,6 @@ import { GET_EVENT_BY_ID } from '@/graphql/event.query'
 import { CASE_BY_ID } from '@/graphql/case.query'
 import { onUnmounted } from 'vue'
 import { VueSpinner } from 'vue3-spinners'
-import Flicker from './Flicker.vue'
 
 defineProps<{
   size?: string
@@ -91,8 +87,6 @@ const loader = new Loader({
   libraries: ['geometry', 'places'],
 })
 
-const flicker = ref(false)
-
 // load the map with the loader
 const loadMap = async () => {
   await loader.load()
@@ -137,19 +131,23 @@ const loadMap = async () => {
 
 const showDestination = async () => {
   // add destination marker to map
-  othersMarker = new google.maps.Marker({
-    position: {
-      lat: othersCo.value.latitude!,
-      lng: othersCo.value.longitude!,
-    },
-    icon: {
-      url: router.currentRoute.value.path.includes('caregiver')
-        ? '/victimMarker.png'
-        : '/caregiverMarker.png',
-      scaledSize: new google.maps.Size(217, 97),
-    },
-    map: map,
-  })
+  if (othersCo.value.latitude === null) {
+    return
+  } else {
+    othersMarker = new google.maps.Marker({
+      position: {
+        lat: othersCo.value.latitude!,
+        lng: othersCo.value.longitude!,
+      },
+      icon: {
+        url: router.currentRoute.value.path.includes('caregiver')
+          ? '/victimMarker.png'
+          : '/caregiverMarker.png',
+        scaledSize: new google.maps.Size(217, 97),
+      },
+      map: map,
+    })
+  }
 
   const options = {
     enableHighAccuracy: true,
@@ -159,11 +157,6 @@ const showDestination = async () => {
 
   const success = (pos: any) => {
     const crd = pos.coords
-    // console.log('Your current position is:')
-    // console.log(`Latitude : ${crd.latitude}`)
-    // console.log(`Longitude: ${crd.longitude}`)
-    // console.log(`More or less ${crd.accuracy} meters.`)
-    // console.log('tracked at', new Date(pos.timestamp))
 
     emit('coords:updated', {
       latitude: crd.latitude,
@@ -184,9 +177,6 @@ const showDestination = async () => {
 
 const checkDistance = (myCoordinates: any, otherCoordinates: any) => {
   console.log('distance checked')
-  console.log('myCoordinates:', myCoordinates.value)
-  console.log('otherCoordinates:', otherCoordinates.value)
-
   if (
     !myCoordinates.value.latitude ||
     !otherCoordinates.value.latitude ||
@@ -211,6 +201,13 @@ const checkDistance = (myCoordinates: any, otherCoordinates: any) => {
       if (!router.currentRoute.value.path.includes('caregiver')) {
         setTimeout(() => {
           router.push({ path: '/map/flicker' })
+          exitMap()
+        }, 3000)
+      }
+      if (router.currentRoute.value.path.includes('caregiver')) {
+        setTimeout(() => {
+          router.push({ path: '/caregiver/dashboard' })
+          exitMap()
         }, 3000)
       }
     } else {
@@ -259,7 +256,6 @@ onMounted(async () => {
     // console.log('waiting for case')
   }
   // console.log('dbCase:', currentCase.value.caseById)
-
   const { result: event, loading: loadingEvent } = useQuery(
     GET_EVENT_BY_ID,
     () => ({
@@ -278,15 +274,31 @@ onMounted(async () => {
 
   // on caregiver page get the victim coordinates and add them to the map
   if (router.currentRoute.value.path.includes('caregiver')) {
-    othersCo.value.latitude = currentCase.value.caseById.victimCoordinates.lat
-    othersCo.value.longitude = currentCase.value.caseById.victimCoordinates.lng
+    if (
+      currentCase.value.caseById.victimCoordinates.lat === 0 &&
+      currentCase.value.caseById.victimCoordinates.lng === 0
+    ) {
+      othersCo.value.latitude = null
+      othersCo.value.longitude = null
+    } else {
+      othersCo.value.latitude = currentCase.value.caseById.victimCoordinates.lat
+      othersCo.value.longitude =
+        currentCase.value.caseById.victimCoordinates.lng
+    }
   } else {
     // check is caregiverCoordinates exist -> if caregiver is assigned
-    if (currentCase.value.caseById.caregiverCoordinates) {
+    if (
+      currentCase.value.caseById.caregiverCoordinates &&
+      currentCase.value.caseById.caregiverCoordinates.lat !== 0 &&
+      currentCase.value.caseById.caregiverCoordinates.lng !== 0
+    ) {
       othersCo.value.latitude =
         currentCase.value.caseById.caregiverCoordinates.lat
       othersCo.value.longitude =
         currentCase.value.caseById.caregiverCoordinates.lng
+    } else {
+      othersCo.value.latitude = null
+      othersCo.value.longitude = null
     }
   }
 
@@ -313,8 +325,7 @@ onMounted(async () => {
   loading.value = false
 })
 
-onUnmounted(() => {
-  console.log('unmounted')
+const exitMap = () => {
   navigator.geolocation.clearWatch(watchId.value as number)
   const deleteCo = ref({
     latitude: 0,
@@ -322,29 +333,59 @@ onUnmounted(() => {
     userId: userId,
     caseId: caseId,
   })
+
+  currentMarker.setMap(null)
   console.log('deleteCo', deleteCo)
+
+  emit('coords:deleted', {
+    caseId: caseId,
+  })
 
   updateCoordinates(deleteCo)
   console.log('deleted coords')
+}
+
+onUnmounted(() => {
+  console.log('unmounted')
+  exitMap()
 })
 
 // update victimCoordinates
 on('coords:new', (data: Partial<Object>) => {
   console.log('updated coords received: ', data)
   newCo.value = data as any
-
+  if (newCo.value.latitude === null && newCo.value.longitude === null) {
+    return
+  }
   // if the new coords are not from the current user
-  if (newCo.value.userId !== userId) {
-    // update the other marker
-    othersMarker.setPosition({
-      lat: newCo.value.latitude as number,
-      lng: newCo.value.longitude as number,
-    })
+  else if (newCo.value.userId !== userId) {
+    if (othersMarker === undefined) {
+      othersMarker = new google.maps.Marker({
+        position: {
+          lat: newCo.value.latitude!,
+          lng: newCo.value.longitude!,
+        },
+        icon: {
+          url: router.currentRoute.value.path.includes('caregiver')
+            ? '/victimMarker.png'
+            : '/caregiverMarker.png',
+          scaledSize: new google.maps.Size(217, 97),
+        },
+        map: map,
+      })
+    } else {
+      // update the other marker
+      othersMarker.setPosition({
+        lat: newCo.value.latitude as number,
+        lng: newCo.value.longitude as number,
+      })
+    }
     console.log('new coords:', newCo.value)
     // update the db
     updateCoordinates(newCo)
     checkDistance(currentCo, newCo)
     console.log('updated coords through on function')
+    console.log('other still here')
   } else {
     currentMarker.setPosition({
       lat: newCo.value.latitude as number,
@@ -353,6 +394,11 @@ on('coords:new', (data: Partial<Object>) => {
     updateCoordinates(newCo)
     checkDistance(newCo, othersCo)
   }
+})
+
+on('coords:deleted', (data: Partial<Object>) => {
+  console.log('other person left ', data)
+  othersMarker.setMap(null)
 })
 </script>
 
