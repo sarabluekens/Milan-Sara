@@ -1,7 +1,6 @@
 <template class="h-full relative">
   <div class="bg-red h-100vh sm:ml-5rem">
     <h1 class="title-beige md:pt-2rem">First aid</h1>
-    <p>{{ currentDate }}</p>
     <section
       class="flex gap-3 sm:h-62vh h-80vh sm:h-90vh lg:flex-row flex-col sm:justify-evenly md:justify-start"
     >
@@ -39,12 +38,4 @@ const { push } = useRouter()
 const clickHandler = async () => {
   push('/category')
 }
-
-const dateObj = new Date()
-const month = dateObj.getMonth() + 1
-const currentDate =
-  dateObj.getFullYear() + '-' + month + '-' + dateObj.getDate()
-console.log(currentDate)
-
-
 </script>
