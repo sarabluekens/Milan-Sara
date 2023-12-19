@@ -164,7 +164,10 @@
         <label class="body-black" for="maps">Caregivers</label>
         <section class="grid grid-cols-4 gap-5">
           <div v-for="caregiver in addedCaregivers">
-            <StaffCard :caregiver="caregiver" />
+            <StaffCard
+              :caregiver="caregiver"
+              @Click="handleAssigned(caregiver.id)"
+            />
           </div>
           <div
             class="border-1 border-red w-50 text-center mb-4"
@@ -411,6 +414,10 @@ export default {
         for (const caregiver of caregivers.value.caregivers) {
           if (caregiver.id === idOfPerson) {
             addedCaregivers.value.push(caregiver)
+            const index = availableCaregivers.value.indexOf(caregiver)
+            if (index > -1) {
+              availableCaregivers.value.splice(index, 1)
+            }
           }
         }
       } else {
@@ -421,12 +428,17 @@ export default {
               if (index > -1) {
                 addedCaregivers.value.splice(index, 1)
               }
+              availableCaregivers.value.push(caregiver)
               return
             } else if (
               addedCaregivers.value.length <
               Math.round(event.value.event.expectedVisitorStaffCount / 500)
             ) {
               addedCaregivers.value.push(caregiver)
+              const index = availableCaregivers.value.indexOf(caregiver)
+              if (index > -1) {
+                availableCaregivers.value.splice(index, 1)
+              }
             }
           }
         }
