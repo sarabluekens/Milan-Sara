@@ -186,7 +186,8 @@
           {{
             Math.round(
               event.event.expectedVisitorStaffCount / 500 -
-                addedCaregivers.length,
+                addedCaregivers.length -
+                alreadyWorking,
             )
           }}
           caregiver(s)
@@ -286,10 +287,7 @@ export default {
     const addedEquipment = ref<
       { categoryName: string; name: string; count: number }[]
     >([])
-    const woundKit_count = ref(0)
-    const woundKit_available = ref(true)
-    const ehboKit_count = ref(0)
-    const ehboKit_available = ref(true)
+    const alreadyWorking = ref(0)
 
     const {
       loading: eventLoading,
@@ -401,6 +399,8 @@ export default {
             for (const eventDate of event.value.event.dates) {
               if (!job.workdays.includes(eventDate)) {
                 availableCaregivers.value.push(caregiver)
+              } else {
+                alreadyWorking.value++
               }
             }
           }
@@ -432,7 +432,8 @@ export default {
               return
             } else if (
               addedCaregivers.value.length <
-              Math.round(event.value.event.expectedVisitorStaffCount / 500)
+              Math.round(event.value.event.expectedVisitorStaffCount / 500) -
+                alreadyWorking.value
             ) {
               addedCaregivers.value.push(caregiver)
               const index = availableCaregivers.value.indexOf(caregiver)
@@ -569,12 +570,9 @@ export default {
       isAccepted,
       AddCaregiver,
       kits,
-      ehboKit_count,
-      ehboKit_available,
-      woundKit_count,
-      woundKit_available,
       addedCaregivers,
       availableCaregivers,
+      alreadyWorking,
       handleAddEvent,
       handleNewCaregiver,
       handleAssigned,
