@@ -31,7 +31,7 @@
             <p class="col-span-1">Status</p>
           </div>
           <div v-for="event in events.eventsByStatus">
-            <EventCard :event="event" />
+            <EventCase :event="event" />
           </div>
         </section>
         <div
@@ -66,7 +66,7 @@
           <div v-if="eventsApprovedLoading">Loading</div>
           <div v-if="eventsApprovedError">{{ eventsApprovedError }}</div>
           <div v-for="event in eventsApproved.eventsByStatus">
-            <EventCard :event="event" />
+            <EventCase :event="event" />
           </div>
         </section>
         <div
@@ -101,7 +101,7 @@
           <div v-if="eventsCompletedLoading">Loading</div>
           <div v-if="eventsCompletedError">{{ eventsCompletedError }}</div>
           <div v-for="event in eventsCompleted.eventsByStatus">
-            <EventCard :event="event" />
+            <EventCase :event="event" />
           </div>
         </section>
         <div
@@ -134,7 +134,7 @@
             <p class="col-span-1">Status</p>
           </div>
           <div v-for="event in eventsRejected.eventsByStatus">
-            <EventCard :event="event" />
+            <EventCase :event="event" />
           </div>
         </section>
       </div>
@@ -147,10 +147,10 @@ import { useQuery } from '@vue/apollo-composable'
 import { GET_EVENT_BY_STATUS } from '@/graphql/event.query'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import EventCard from '@/components/EventCard.vue'
+import EventCase from '@/components/EventCase.vue'
 
 export default {
-  components: { EventCard },
+  components: { EventCase },
   setup() {
     const { push } = useRouter()
 

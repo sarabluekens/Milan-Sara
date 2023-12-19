@@ -56,7 +56,7 @@
             v-for="event in [...liveEvents, ...events.eventsByStatus]"
             :key="event.id"
           >
-            <EventCard :event="event" />
+            <EventCase :event="event" />
           </div>
         </div>
       </div>
@@ -68,13 +68,13 @@
 import useFirebase from '@/composables/useFirebase'
 import { useQuery } from '@vue/apollo-composable'
 import { GET_EVENT_BY_STATUS } from '@/graphql/event.query'
-import EventCard from '@/components/EventCard.vue'
+import EventCase from '@/components/EventCase.vue'
 import type { Event, Status } from '@/interfaces/event.interface'
 import useRealtime from '@/composables/useRealtime'
 import { ref } from 'vue'
 
 export default {
-  components: { EventCard },
+  components: { EventCase },
   setup() {
     // Composable
     const { firebaseUser } = useFirebase()
