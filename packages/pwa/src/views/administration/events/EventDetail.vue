@@ -489,24 +489,27 @@ export default {
     const handleEquipmentCount = (action: string, type: string) => {
       for (const kitItem of kits.value) {
         if (kitItem.kitName === type) {
-          console.log(kitItem.contents)
           if (action === 'plus') {
             for (const equipment of kitItem.contents) {
               for (const availableEquipmentItem of availableEquipment.value) {
                 if (equipment.name === availableEquipmentItem.name) {
-                  console.log(availableEquipmentItem.count)
                   if (
                     availableEquipmentItem.count >= equipment.count &&
                     availableEquipmentItem.count > 0
                   ) {
                     availableEquipmentItem.count -= equipment.count
-                    console.log(availableEquipmentItem.count)
                   } else {
                     kitItem.addMore = false
                     for (const kitsItem of kits.value) {
                       for (const equipmentItem of kitsItem.contents) {
                         if (equipmentItem.name === equipment.name) {
-                          kitsItem.addMore = false
+                          if (
+                            availableEquipmentItem.count <=
+                              equipmentItem.count &&
+                            availableEquipmentItem.count >= 0
+                          ) {
+                            kitsItem.addMore = false
+                          }
                         }
                       }
                     }
@@ -525,6 +528,23 @@ export default {
                 for (const availableEquipmentItem of availableEquipment.value) {
                   if (equipment.name === availableEquipmentItem.name) {
                     availableEquipmentItem.count += equipment.count
+                    for (const kitsItem of kits.value) {
+                      for (const equipmentItem of kitsItem.contents) {
+                        if (
+                          equipmentItem.name === availableEquipmentItem.name
+                        ) {
+                          if (
+                            availableEquipmentItem.count <=
+                              equipmentItem.count &&
+                            availableEquipmentItem.count >= 0
+                          ) {
+                            kitsItem.addMore = false
+                          } else {
+                            kitsItem.addMore = true
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               }
