@@ -41,9 +41,9 @@ const router = createRouter({
       props: true,
     },
     {
-      path: "/map/flicker",
-      name: "flicker",
-      component: () => import("../views/firstAid/visitors/flickerScreen.vue"),
+      path: '/map/flicker',
+      name: 'flicker',
+      component: () => import('../views/firstAid/visitors/flickerScreen.vue'),
       props: true,
     },
     // {
