@@ -17,6 +17,10 @@ export class CreateEventInput {
 
   @IsNotEmpty()
   @Field() //graphql
+  category: string
+
+  @IsNotEmpty()
+  @Field() //graphql
   address: string
 
   @IsNotEmpty()

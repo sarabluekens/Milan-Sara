@@ -28,6 +28,10 @@ export class Event {
 
   @Column() // Database link - Typeorm
   @Field() //graphql
+  category: string
+
+  @Column() // Database link - Typeorm
+  @Field() //graphql
   address: string
 
   @Column() // Database link - Typeorm
