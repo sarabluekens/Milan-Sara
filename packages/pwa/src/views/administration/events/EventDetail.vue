@@ -189,7 +189,7 @@
           caregiver(s)
         </p>
         <section class="grid grid-cols-4 gap-5">
-          <div v-for="caregiver in caregivers.caregivers">
+          <div v-for="caregiver in availableCaregivers">
             <input
               @change="handleAssigned(caregiver.id)"
               v-bind:id="caregiver.id"
@@ -251,7 +251,7 @@
         </section>
       </section>
       <button
-        @click="handleUpdateEquipment()"
+        @click="handleUpdateEquipmentCaregiver()"
         class="h-12 px-2 w-1/2 bg-red subbody-white col-span-1 mx-auto"
       >
         Add Caregivers & equipment to event
@@ -267,11 +267,10 @@ import { ALL_CAREGIVERS } from '@/graphql/caregiver.query'
 import { ALL_EQUIPMENT } from '@/graphql/equipment.query'
 import { UPDATE_EQUIPMENT } from '@/graphql/equipment.mutation'
 import type { Caregiver } from '@/interfaces/caregiver.interface'
-import type { Equipment } from '@/interfaces/equipment.interface'
 import { useRoute } from 'vue-router'
 import { ref } from 'vue'
 import StaffCard from '@/components/StaffCard.vue'
-import { cp } from 'fs'
+import { UPDATE_CAREGIVER } from '@/graphql/caregiver.mutation'
 
 export default {
   components: { StaffCard },
@@ -280,6 +279,7 @@ export default {
     const isAccepted = ref(false)
     const AddCaregiver = ref(false)
     const addedCaregivers = ref<Caregiver[]>([])
+    const availableCaregivers = ref<Caregiver[]>([])
     const addedEquipment = ref<
       { categoryName: string; name: string; count: number }[]
     >([])
@@ -307,6 +307,7 @@ export default {
     } = useQuery(ALL_EQUIPMENT)
 
     const { mutate: updateEquipment } = useMutation(UPDATE_EQUIPMENT)
+    const { mutate: updateCaregiver } = useMutation(UPDATE_CAREGIVER)
 
     const kits = ref([
       {
@@ -379,12 +380,29 @@ export default {
       console.log(isAccepted)
       console.log(event.value.event)
       checkEquipmentAvailability()
+      checkCaregiverAvailability()
     }
 
     const handleNewCaregiver = () => {
       console.log('new caregiver')
       AddCaregiver.value = true
       console.log(caregivers)
+    }
+
+    const checkCaregiverAvailability = () => {
+      for (const caregiver of caregivers.value.caregivers) {
+        if (caregiver.jobs.length === 0) {
+          availableCaregivers.value.push(caregiver)
+        } else {
+          for (const job of caregiver.jobs) {
+            for (const eventDate of event.value.event.dates) {
+              if (!job.workdays.includes(eventDate)) {
+                availableCaregivers.value.push(caregiver)
+              }
+            }
+          }
+        }
+      }
     }
 
     const handleAssigned = (idOfPerson: string) => {
@@ -447,6 +465,27 @@ export default {
       }
     }
 
+    const handleUpdateEquipmentCaregiver = () => {
+      handleUpdateEquipment()
+      handleUpdateCaregiver()
+    }
+
+    // This function updates the caregivers in the database
+    const handleUpdateCaregiver = () => {
+      console.log('update caregivers')
+      for (const caregiver of addedCaregivers.value) {
+        updateCaregiver({
+          updateCaregiverInput: {
+            caregiverId: caregiver.id,
+            jobs: {
+              eventId: event.value.event.id,
+              workdays: event.value.event.dates,
+            },
+          },
+        })
+      }
+    }
+
     // This function adds the equipment to an array so it can check if it already exists and if it does it adds the count to the existing equipment
     const handleUpdateEquipment = () => {
       for (const kitItem of kits.value) {
@@ -485,6 +524,7 @@ export default {
 
     // This function updates the equipment in the database
     const updateEquipmentFromArray = () => {
+      console.log('update equipment')
       for (const equipment of equipments.value.equipments) {
         for (const equipmentItem of addedEquipment.value) {
           if (equipment.name === equipmentItem.name) {
@@ -522,12 +562,13 @@ export default {
       woundKit_count,
       woundKit_available,
       addedCaregivers,
+      availableCaregivers,
       handleAddEvent,
       handleNewCaregiver,
       handleAssigned,
       closeAssigned,
       handleEquipmentCount,
-      handleUpdateEquipment,
+      handleUpdateEquipmentCaregiver,
     }
   },
 }

@@ -2,7 +2,7 @@ import { InputType, Field } from '@nestjs/graphql'
 import { Jobs, JobsClass } from '../entities/jobs.entity'
 import { IsIn, IsOptional } from 'class-validator'
 
-export const professionTypes = ['dokter', 'verpleger', 'ambulancier']
+export const professionTypes = ['Doctor', 'Nurse', 'Paramedic']
 @InputType()
 export class CreateCaregiverInput {
   @Field() //graphql
