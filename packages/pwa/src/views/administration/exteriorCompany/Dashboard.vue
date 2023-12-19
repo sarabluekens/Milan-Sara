@@ -52,7 +52,7 @@
           v-if="events?.eventsByStatusAndClient.length > 0"
           v-for="event in events.eventsByStatusAndClient"
         >
-          <EventCard :event="event" />
+          <EventCase :event="event" />
         </div>
         <div v-else>
           <div
@@ -70,10 +70,10 @@
 import useFirebase from '@/composables/useFirebase'
 import { useQuery } from '@vue/apollo-composable'
 import { GET_EVENT_BY_STATUS_CLIENT } from '@/graphql/event.query'
-import EventCard from '@/components/EventCard.vue'
+import EventCase from '@/components/EventCase.vue'
 
 export default {
-  components: { EventCard },
+  components: { EventCase },
   setup() {
     // Composable
     const { firebaseUser } = useFirebase()

@@ -2,14 +2,17 @@ import { Injectable } from '@nestjs/common'
 import { CreateCaseInput } from './dto/create-case.input'
 import { Case } from './entities/case.entity'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { In, Repository } from 'typeorm'
 import { ObjectId } from 'mongodb'
+import { Caregiver } from 'src/caregivers/entities/caregiver.entity'
+import { CaregiversService } from 'src/caregivers/caregivers.service'
 
 @Injectable()
 export class CasesService {
   constructor(
     @InjectRepository(Case)
     private readonly caseRepository: Repository<Case>,
+    private readonly caregiversService: CaregiversService,
   ) {}
 
   create(createCaseInput: CreateCaseInput): Promise<Case> {
@@ -49,6 +52,36 @@ export class CasesService {
 
   findOneByDate(date: Date) {
     return this.caseRepository.find({ where: { date } })
+  }
+
+  findAllByEventId(eventId: string) {
+    return this.caseRepository.find({ where: { eventId } })
+  }
+
+  async findCasesForCaregiverToday(userUid: string) {
+    const caregiver = await this.caregiversService.findByUserUid(userUid)
+
+    let eventId = ''
+    const dateObj = new Date()
+    const month = dateObj.getMonth() + 1
+    const currentDate: string =
+      dateObj.getFullYear() +
+      '-' +
+      month +
+      '-' +
+      dateObj.getDate() +
+      'T00:00:00.000Z'
+
+    for (let i = 0; i < caregiver.jobs.length; i++) {
+      if (caregiver.jobs[i].workdays.includes(currentDate)) {
+        eventId = caregiver.jobs[i].eventId
+      }
+    }
+
+    if (eventId === '') return []
+    else {
+      return this.findAllByEventId(eventId)
+    }
   }
 
   // add victimId to the Case

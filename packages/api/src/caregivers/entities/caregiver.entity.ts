@@ -45,4 +45,8 @@ export class Caregiver {
   @Column() // Database link - Typeorm
   @Field(() => [JobsClass], { defaultValue: [] })
   jobs: Array<Jobs>
+
+  @Column() // Database link - Typeorm
+  @Field(() => String)
+  userUid: string
 }

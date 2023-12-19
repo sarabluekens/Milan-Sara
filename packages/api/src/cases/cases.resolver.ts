@@ -11,6 +11,7 @@ import { Case } from './entities/case.entity'
 import { CreateCaseInput } from './dto/create-case.input'
 import { UpdateCaseInput } from './dto/update-case.input'
 import { log } from 'console'
+import { Caregiver } from 'src/caregivers/entities/caregiver.entity'
 @Resolver(() => Case) // tells nestjs to resolve for the table Case
 export class CasesResolver {
   // autmatically create instance of casesService and inject in resolver
@@ -35,11 +36,17 @@ export class CasesResolver {
     return this.casesService.create(createCaseInput)
   }
 
-  // TODO is this in use?
-  // @Query(() => Case, { name: 'case' })
-  // findOneByDate(@Args('date', { type: () => Date }) date: Date) {
-  //   return this.casesService.findOneByDate(date)
-  // }
+  @Query(() => [Case], { name: 'findCasesForCaregiverToday' })
+  findCasesForCaregiverToday(
+    @Args('userUid', { type: () => String }) userUid: string,
+  ) {
+    return this.casesService.findCasesForCaregiverToday(userUid)
+  }
+
+  @Query(() => [Case], { name: 'casesByEventId' })
+  findAllByEventId(@Args('eventId', { type: () => String }) eventId: string) {
+    return this.casesService.findAllByEventId(eventId)
+  }
 
   @Query(() => Case, { name: 'caseById' })
   findOne(@Args('id', { type: () => String }) id: string) {

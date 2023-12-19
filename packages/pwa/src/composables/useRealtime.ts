@@ -1,4 +1,3 @@
-import type { Buffer } from 'buffer'
 import { type Socket, io } from 'socket.io-client'
 import useFirebase from './useFirebase'
 

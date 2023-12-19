@@ -26,4 +26,7 @@ export class CreateCaregiverInput {
   @IsOptional()
   @Field(() => [JobsClass], { defaultValue: [] })
   jobs: Array<Jobs>
+
+  @Field()
+  userUid: string
 }
