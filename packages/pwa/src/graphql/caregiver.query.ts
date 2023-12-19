@@ -6,6 +6,10 @@ export const ALL_CAREGIVERS = gql`
       firstName
       lastName
       profession
+      jobs {
+        eventId
+        workdays
+      }
       availableForEvent
       availableForNewCase
     }
