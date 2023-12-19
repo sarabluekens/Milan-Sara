@@ -18,6 +18,7 @@ export class EventsService {
     try {
       const e = new Event()
       e.name = createEventInput.name
+      e.category = createEventInput.category
       e.address = createEventInput.address
       e.postalCode = createEventInput.postalCode
       e.city = createEventInput.city
@@ -64,6 +65,7 @@ export class EventsService {
     })
 
     event.name = updateEventInput.name ?? event.name
+    event.category = updateEventInput.category ?? event.category
     event.address = updateEventInput.address ?? event.address
     event.postalCode = updateEventInput.postalCode ?? event.postalCode
     event.city = updateEventInput.city ?? event.city

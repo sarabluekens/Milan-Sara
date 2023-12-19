@@ -5,6 +5,7 @@ export const ADD_EVENT = gql`
     createEvent(createEventInput: $createEventInput) {
       id
       name
+      category
       address
       postalCode
       city

@@ -19,6 +19,24 @@
         :key="error.$uid"
         >The event name is required</span
       >
+      <label class="body-black col-span-1" for="eventCategory"
+        >Event category</label
+      >
+      <select
+        v-model="newEvent.category"
+        id="eventCategory"
+        class="border-1 border-black w-2/3 h-10 ml-3 bg-white mt-3 col-span-4 subbody-black/80"
+      >
+        <option disabled value="">Please select one</option>
+        <option value="Festival">Festival</option>
+        <option value="Concert">Concert</option>
+      </select>
+      <span
+        class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+        v-for="error in v$.category.$errors"
+        :key="error.$uid"
+        >The event category is required</span
+      >
       <label class="body-black col-span-1" for="address">Address</label>
       <input
         type="text"
@@ -248,6 +266,7 @@ export default {
   setup() {
     const newEvent = ref({
       name: '',
+      category: '',
       address: '',
       postalCode: '',
       city: '',
@@ -276,6 +295,7 @@ export default {
     })
     const validationRules = {
       name: { required },
+      category: { required },
       address: { required },
       postalCode: { required },
       city: { required },
@@ -327,6 +347,7 @@ export default {
         const result = await addEvent({
           createEventInput: {
             name: newEvent.value.name,
+            category: newEvent.value.category,
             address: newEvent.value.address,
             postalCode: newEvent.value.postalCode,
             city: newEvent.value.city,

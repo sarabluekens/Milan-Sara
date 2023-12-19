@@ -5,6 +5,7 @@ export const ALL_EVENT = gql`
     events {
       id
       name
+      category
       address
       postalCode
       city
@@ -17,6 +18,10 @@ export const ALL_EVENT = gql`
       btwNumber
       eventWithChildren
       mapsLink
+      mapCoords {
+        lat
+        lng
+      }
       expectedVisitorStaffCount
       status
       createdAt
@@ -29,6 +34,7 @@ export const GET_EVENT_BY_ID = gql`
     event(id: $id) {
       id
       name
+      category
       address
       postalCode
       city
@@ -57,6 +63,7 @@ export const GET_EVENT_BY_STATUS_CLIENT = gql`
     eventsByStatusAndClient(status: $status, email: $email) {
       id
       name
+      category
       address
       postalCode
       city
@@ -69,6 +76,10 @@ export const GET_EVENT_BY_STATUS_CLIENT = gql`
       btwNumber
       eventWithChildren
       mapsLink
+      mapCoords {
+        lat
+        lng
+      }
       expectedVisitorStaffCount
       status
       createdAt
@@ -81,6 +92,7 @@ export const GET_EVENT_BY_STATUS = gql`
     eventsByStatus(status: $status) {
       id
       name
+      category
       address
       postalCode
       city
@@ -93,6 +105,10 @@ export const GET_EVENT_BY_STATUS = gql`
       btwNumber
       eventWithChildren
       mapsLink
+      mapCoords {
+        lat
+        lng
+      }
       expectedVisitorStaffCount
       status
       createdAt
