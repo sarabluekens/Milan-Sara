@@ -57,7 +57,7 @@ export default {
     const caseInput = ref({
       date: new Date(),
       typeAccident: '',
-      eventId: 'tempEventId2',
+      eventId: '654a1c832f6208998d7e8f43',
     })
     const handleNewCase = async (category: string) => {
       caseInput.value.typeAccident = category
