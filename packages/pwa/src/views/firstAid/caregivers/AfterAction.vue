@@ -1,7 +1,9 @@
 <template>
-  <section class="ml-15rem">
-    <h1 class="title-red">After action report</h1>
-    <p class="subtitle-pink">Please fill in all the fields</p>
+  <section class="md:ml-15rem md:pt-0 pt-5rem">
+    <h1 class="title-red leading-tight md:leading-normal">
+      After action report
+    </h1>
+    <p class="subtitle-pink md:pt-0 pt-2rem">Please fill in all the fields</p>
     <form @submit.prevent="handleAfterAction">
       <!-- Accident -->
       <section
@@ -10,8 +12,8 @@
       >
         <h2 class="subtitle-red text-left">The accident</h2>
 
-        <div class="flex justify-between">
-          <label class="body-black" for="caseWhatHappened"
+        <div class="flex flex-col md:flew-row justify-between">
+          <label class="body-black my-1 md:my-0" for="caseWhatHappened"
             >What happened?</label
           >
           <textarea
@@ -19,21 +21,23 @@
             type="area"
             placeholder="Describe the accident"
             id="caseWhatHappened"
-            class="largeInput-pink"
+            class="largeInput-pink w-80vw md:w-auto"
           ></textarea>
         </div>
-        <div class="flex justify-between">
-          <label class="body-black" for="caseDiagnose">Medical diagnose</label>
+        <div class="flex flex-col md:flew-row justify-between">
+          <label class="body-black my-1 md:my-0" for="caseDiagnose"
+            >Medical diagnose</label
+          >
           <textarea
             v-model.lazy="afterAction.diagnose"
             type="area"
             placeholder="Describe the injuries after your medical examination."
             id="caseDiagnose"
-            class="largeInput-pink"
+            class="largeInput-pink w-80vw md:w-auto"
           ></textarea>
         </div>
-        <div class="flex justify-between">
-          <label class="body-black" for="caseCare"
+        <div class="flex flex-col md:flew-row justify-between">
+          <label class="body-black my-1 md:my-0" for="caseCare"
             >What care did you give?</label
           >
           <textarea
@@ -41,20 +45,20 @@
             type="area"
             placeholder="Describe how you provided care for the victim."
             id="caseCare"
-            class="largeInput-pink"
+            class="largeInput-pink w-80vw md:w-auto"
           ></textarea>
         </div>
         <div
-          class="h-4vh w-1/2 flex justify-center items-center gap-3 self-center mt-2vh"
+          class="h-4vh flex justify-center items-center gap-3 self-center mt-2vh opacity-0 md:opacity-100"
         >
-          <p class="subbody-red">The accident</p>
+          <p class="md:subbody-red">The accident</p>
           <div class="w-3rem h-0.1rem bg-red"></div>
-          <p class="subbody-pink">Follow up care</p>
+          <p class="md:subbody-pink">Follow up care</p>
           <div class="w-3rem h-0.1rem bg-pink"></div>
           <p class="subbody-pink">Materials</p>
         </div>
         <button
-          class="bg-red self-center rounded-md px-10 py-3 body-white mt-1vh hover:bg-red/90 focus:outline-none focus:ring-2 focus:ring-red focus:ring-opacity-50"
+          class="bg-red self-center rounded-md mb-3rem md:m-0 px-10 py-3 body-white mt-1vh hover:bg-red/90 focus:outline-none focus:ring-2 focus:ring-red focus:ring-opacity-50"
           @click="progress = 2"
         >
           Go to follow up care
@@ -264,7 +268,7 @@
           <div class="w-3rem h-0.1rem bg-red"></div>
           <p class="subbody-red">Follow up care</p>
           <div class="w-3rem h-0.1rem bg-red"></div>
-          <p class="subbody-pink">Materials</p>
+          <p class="subbody-red">Materials</p>
         </div>
 
         <button

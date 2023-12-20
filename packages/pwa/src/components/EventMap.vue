@@ -20,9 +20,7 @@
   <div ref="mapDiv" style="width: 80%; height: 50vh"></div>
   <form class="flex flex-col" @submit.prevent="codeAddress">
     <input ref="addressInput" type="textbox" value="Sydney, NSW" />
-    <button
-      class="bg-red rounded rounded-md px-10 py-3 body-white self-end mt-3vh"
-    >
+    <button class="bg-red rounded-md px-10 py-3 body-white self-end mt-3vh">
       Send
     </button>
   </form>

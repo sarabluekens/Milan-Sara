@@ -132,12 +132,6 @@ const router = createRouter({
     },
 
     {
-      path: '/add',
-      component: () => import('../views/AddCaregiver.vue'),
-      meta: { shouldBeAuthenticated: true },
-    },
-
-    {
       path: '/auth',
       component: () => import('../components/wrappers/AuthWrap.vue'),
       children: [
