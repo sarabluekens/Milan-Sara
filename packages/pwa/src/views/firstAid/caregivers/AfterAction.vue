@@ -243,15 +243,19 @@
         class="h-60vh w-80% m-auto mt-1rem flex flex-col gap-5"
       >
         <h2 class="subtitle-red text-left">Materials</h2>
-        <p class="body-pink">What materials were used for this case?</p>
+        <p class="body-black">What materials were used for this case?</p>
 
         <div
           class="flex justify-between items-center w-full bg-pink/30 rounded-xl p-2"
         >
           <p class="body-black">Flamigel</p>
+
+          <!-- <div v-for="material in materials">
+            <p>hieeer</p>
+          </div> -->
           <div class="flex items-center">
             <button
-              class="border-2 border-red w-4vw h-auto rounded-xl text-center subtitle-red cursor-pointer focus:outline-none focus:ring-2 focus:ring-red focus:ring-opacity-50"
+              class="border-2 border-red w-12vw sm:w-8vw md:w-4vw h-auto rounded-xl text-center subtitle-red cursor-pointer focus:outline-none focus:ring-2 focus:ring-red focus:ring-opacity-50"
               @click="countMaterial += 1"
             >
               +
@@ -260,7 +264,7 @@
             <p class="body-black px-5">{{ countMaterial }}</p>
 
             <button
-              class="border-2 border-red w-4vw h-auto rounded-xl text-center subtitle-red cursor-pointer focus:outline-none focus:ring-2 focus:ring-red focus:ring-opacity-50"
+              class="border-2 border-red w-12vw sm:w-8vw md:w-4vw h-auto rounded-xl text-center subtitle-red cursor-pointer focus:outline-none focus:ring-2 focus:ring-red focus:ring-opacity-50"
               @click="
                 countMaterial != 0 ? (countMaterial -= 1) : (countMaterial = 0)
               "

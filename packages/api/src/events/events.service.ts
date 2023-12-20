@@ -5,6 +5,7 @@ import { Event, Status } from './entities/event.entity'
 import { InjectRepository } from '@nestjs/typeorm'
 import { MongoRepository } from 'typeorm'
 import { ObjectId } from 'mongodb'
+import { ArrayContains } from 'class-validator'
 
 @Injectable()
 export class EventsService {
@@ -65,17 +66,22 @@ export class EventsService {
       'T23:00:00.000+00:00'
 
     console.log(currentDate)
+    const today = new Date(currentDate)
 
     const events = await this.eventRepository.find({
       // where: {
-      //   dates: ArrayContains([currentDate]),
+      //   dates: $ (['2023-12-24T23:00:00.000+00:00']),
       // },
+      dates: { $elemMatch: { $eq: today } },
       //
-      // dates: { $elemMatch: { $eq: currentDate } },
-      //
-      //dates: { $in: [currentDate] },
+      // dates: { $in: [currentDate] },
       //
       //dates: { $elemMatch: { currentDate } },
+      //where: currentDate,
+
+      // where: {
+      //   dates: { $gte: today },
+      // },
     })
 
     console.log(events)
