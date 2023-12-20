@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="cursor-pointer">
     <div @click="handleClick(event.id)">
       <h1 class="label-beige text-center p-3 h-8rem">{{ event.name }}</h1>
       <img
@@ -9,7 +9,7 @@
         width="30"
         height="30"
       />
-      <p class="body-beige text-center p-4">{{ event.city }}</p>
+      <p class="body-beige text-center p-4">Locatie: {{ event.city }}</p>
     </div>
   </section>
 </template>

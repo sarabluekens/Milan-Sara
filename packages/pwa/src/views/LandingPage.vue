@@ -1,6 +1,6 @@
 <template class="h-100vh">
   <section
-    class="ml-5rem bg-beige w-auto flex flex-row-reverse items-center justify-center"
+    class="ml-5rem pt-3 bg-beige w-auto flex flex-row-reverse items-center justify-center"
   >
     <h1 class="title-red leading-none">
       Welcome to <br /><span class="text-8rem">Fist aid </span>
@@ -13,9 +13,9 @@
       height="100"
     />
   </section>
-  <section class="ml-7rem mt-5rem">
-    <h2 class="subtitle-red">Which event are you attending?</h2>
-    <p class="body-black text-center p-2">
+  <section class="ml-7rem mt-3rem">
+    <h2 class="subtitle-red text-left">Which event are you attending?</h2>
+    <p class="body-black text-left pb-4">
       Chooste the event you are currently at.
     </p>
 
