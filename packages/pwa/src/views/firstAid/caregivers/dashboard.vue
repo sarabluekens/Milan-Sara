@@ -1,9 +1,11 @@
 <template>
   <section class="ml-10rem bg-beige w-full h-100vh">
-    <h1 class="title-red mb-4rem">Welcome back, Sara</h1>
+    <h1 class="title-red mb-4rem">
+      Welcome back, {{ firebaseUser?.displayName }}
+    </h1>
     <p class="subtitle-black text-left ml-20vw">Waiting Cases</p>
     <section
-      v-if="!loadingCases"
+      v-if="!loadingCases && result.length > 0"
       v-for="item in [...liveCases, ...result]"
       class="m-3 flex flex-row justify-center items-center w-full"
     >
@@ -31,11 +33,14 @@
         Take Case
       </button>
     </section>
+    <section v-if="!loadingCases && result.length === 0">
+      <h1 class="title-black">No cases are awaiting your assistance</h1>
+    </section>
   </section>
 </template>
 
 <script lang="ts">
-import { ALL_CASES } from '@/graphql/case.query'
+import { CASES_BY_EVENT_ID } from '@/graphql/case.query'
 import { useQuery } from '@vue/apollo-composable'
 import { computed } from 'vue'
 import type { Case } from '@/interfaces/case.interface'
@@ -45,10 +50,18 @@ import { useRouter } from 'vue-router'
 import { useToast } from 'vue-toast-notification'
 import 'vue-toast-notification/dist/theme-sugar.css'
 import { onMounted } from 'vue'
+import useFirebase from '@/composables/useFirebase'
 
 export default {
   setup() {
-    const { result: cases, loading: loadingCases, error } = useQuery(ALL_CASES)
+    const { firebaseUser } = useFirebase()
+    const {
+      result: cases,
+      loading: loadingCases,
+      error,
+    } = useQuery(CASES_BY_EVENT_ID, {
+      userUid: firebaseUser.value?.uid,
+    })
 
     const newCase = ref<Case | null>()
     const liveCases = ref<Case[]>([])
@@ -58,6 +71,10 @@ export default {
     const { on } = useRealtime()
     const { emit } = useRealtime()
     const { push } = useRouter()
+
+    //  TODO: query waarik de userid van fire om dan te kijken
+    //met welke caregiver dit matched en dan via de datum van
+    // vandaag het eventid op te halen en dan de cases op te halen
 
     on('case:new', (data: Partial<Case>) => {
       console.log('New case added by a patient', data)
@@ -90,11 +107,13 @@ export default {
       console.log('mounted')
       $toast.clear()
     })
+
     return {
-      result: computed<Case[]>(() => cases.value.cases),
+      result: computed<Case[]>(() => cases.value.findCasesForCaregiverToday),
       loadingCases,
       liveCases,
       handleClick,
+      firebaseUser,
     }
   },
 }

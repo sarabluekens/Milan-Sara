@@ -11,6 +11,10 @@ async function bootstrap() {
       'http://localhost:3001',
       'http://0.0.0.0:3004',
 
+      // dit moet weg
+      'http://192.168.99.204:5173',
+      'http://192.168.99.204:8081',
+
       process.env.URL_FRONTEND,
       //   //staging/TEST
       //   https://staging-redCross.be,
@@ -18,7 +22,6 @@ async function bootstrap() {
       //   //PRODUCTION
       //   http://redCross.be,
     ],
-
     credentials: true,
   }) //<- enable cors for all requests with the right credentials
 

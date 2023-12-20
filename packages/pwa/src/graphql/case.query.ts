@@ -59,3 +59,13 @@ export const CASE_BY_ID = gql`
     }
   }
 `
+
+export const CASES_BY_EVENT_ID = gql`
+  query findCasesForCaregiverToday($userUid: String!) {
+    findCasesForCaregiverToday(userUid: $userUid) {
+      eventId
+      id
+      typeAccident
+    }
+  }
+`

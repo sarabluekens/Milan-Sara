@@ -15,7 +15,6 @@ import { CommandModule } from 'nestjs-command'
 import { VictimsModule } from './victims/victims.module'
 import { CasesModule } from './cases/cases.module'
 import { NotificationsModule } from './notifications/notifications.module'
-import { PhoneNumber } from 'graphql-scalars/typings/typeDefs'
 
 @Module({
   imports: [
