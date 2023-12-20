@@ -107,17 +107,21 @@ import useCustomUser from '@/composables/useCustomUser'
 import { useMutation } from '@vue/apollo-composable'
 import { ADD_USER } from '@/graphql/user.mutation'
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 import type { CustomUser } from '@/interfaces/custom.user.interface'
 import { Loader2 } from 'lucide-vue-next'
+import { GET_USER_BY_UID } from '@/graphql/user.query'
+import { useQuery } from '@vue/apollo-composable'
 import useValidate from '@vuelidate/core' // validation
 import { required, email } from '@vuelidate/validators' // validation
 
 export default {
   setup() {
     // Composables
-    const { register } = useFirebase()
+    const { register, firebaseUser } = useFirebase()
     const { locale } = useI18n()
     const { customUser } = useCustomUser()
+    const { push } = useRouter()
 
     const newUser = ref({
       name: '',
@@ -151,11 +155,13 @@ export default {
               createUserInput: {
                 locale: locale.value,
                 name: newUser.value.name,
+                email: newUser.value.email,
               },
             }).then(result => {
               if (!result?.data) throw new Error('Custom user creation failed.')
 
               customUser.value = result.data
+              redirect()
             })
           })
           .catch(err => {
@@ -163,6 +169,25 @@ export default {
           })
       }
     }
+
+    const redirect = () => {
+      return new Promise<void>(resolve => {
+        const { onResult } = useQuery(GET_USER_BY_UID, {
+          uid: firebaseUser.value?.uid,
+        })
+        onResult(result => {
+          if (result.data) {
+            if (result.data.userByUid.role === 'COMPANY') {
+              push({ path: '/company/dashboard' })
+              resolve()
+            } else {
+              push({ path: '/' })
+            }
+          }
+        })
+      })
+    }
+
     return {
       v$,
       newUser,

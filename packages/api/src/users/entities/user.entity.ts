@@ -10,6 +10,8 @@ import {
 export enum Role {
   ADMIN = 'ADMIN',
   USER = 'USER',
+  COMPANY = 'COMPANY',
+  CAREGIVER = 'CAREGIVER',
 }
 
 @Entity()
@@ -26,6 +28,10 @@ export class User {
   @Column()
   @Field()
   name: string
+
+  @Column()
+  @Field()
+  email: string
 
   @Column()
   @Field()

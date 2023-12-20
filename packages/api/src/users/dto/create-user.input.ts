@@ -7,4 +7,7 @@ export class CreateUserInput {
 
   @Field(() => String, { description: 'Name of the current user.' })
   name: string
+
+  @Field(() => String, { description: 'Email of the current user.' })
+  email: string
 }
