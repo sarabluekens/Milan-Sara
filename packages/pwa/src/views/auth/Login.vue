@@ -1,5 +1,8 @@
 <template>
-  <div class="flex sm:h-100vh h-90vh md:ml-5rem lg:ml-0rem">
+  <div
+    class="flex flex-col items-center sm:h-100vh h-90vh md:ml-5rem lg:ml-0rem"
+  >
+    <h1 class="title-red my-3 md:my-0 lg:my-5">Login</h1>
     <form
       @submit.prevent="handleLogin"
       class="flex mx-auto justify-center flex-col"
@@ -48,7 +51,7 @@
             >Please fill in your password</span
           >
           <div
-            class="flex flex-col-reverse md:flex-row justify-between mt-7 md:mt-11"
+            class="flex flex-col-reverse items-center md:flex-row md:justify-between mt-7 md:mt-11"
           >
             <RouterLink
               to="/auth/forgot-password"

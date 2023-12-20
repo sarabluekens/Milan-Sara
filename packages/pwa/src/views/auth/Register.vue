@@ -12,10 +12,10 @@
       </div>
 
       <div
-        class="border-7 border-red p-2 rounded-xl w-17rem md:w-30rem lg:w-40rem lg:h-32rem"
+        class="border-7 border-red p-2 rounded-xl w-17rem md:w-30rem lg:w-40rem lg:h-37rem"
       >
         <div
-          class="border-2 border-red p-4 md:p-9 rounded-lg lg:w-38rem lg:h-30rem"
+          class="border-2 border-red p-4 lg:p-9 rounded-lg lg:w-38rem lg:h-35rem"
         >
           <label
             for="nickname"
@@ -39,7 +39,7 @@
           >
           <label
             for="email"
-            class="subbody-red block tracking-wider text-red mt-6 md:mt-8"
+            class="subbody-red block tracking-wider text-red mt-4 md:mt-6 lg:mt-8"
           >
             Email address
           </label>
@@ -59,7 +59,7 @@
           >
           <label
             for="password"
-            class="subbody-red block tracking-wider text-red mt-6 md:mt-8"
+            class="subbody-red block tracking-wider text-red mt-4 md:mt-6 lg:mt-8"
           >
             Password
           </label>
@@ -80,7 +80,7 @@
           <div class="flex justify-center items-center flex-col">
             <button
               :disabled="addUserLoading"
-              class="mt-7 md:mt-11 w-52 lg:w-72 rounded-md body-white border-2 border-red bg-red py-2 px-4 font-semibold hover:bg-blue-600 focus:outline-none focus-visible:border-blue-300 focus-visible:bg-blue-600 focus-visible:ring-2 focus-visible:ring-blue-300"
+              class="mt-6 lg:mt-11 w-52 lg:w-72 rounded-md body-white border-2 border-red bg-red py-2 px-4 font-semibold hover:bg-blue-600 focus:outline-none focus-visible:border-blue-300 focus-visible:bg-blue-600 focus-visible:ring-2 focus-visible:ring-blue-300"
             >
               <template v-if="!addUserLoading">Register</template>
               <Loader2 v-else class="animate-spin" />
