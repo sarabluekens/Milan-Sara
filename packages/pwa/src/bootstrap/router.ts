@@ -31,6 +31,12 @@ const router = createRouter({
           component: () => import('../views/firstAid/caregivers/CaseMap.vue'),
           props: true,
         },
+        {
+          path: '/caregiver/map/afterAction/:caseId',
+          name: 'afterAction',
+          component: () =>
+            import('../views/firstAid/caregivers/AfterAction.vue'),
+        },
       ],
     },
     {
