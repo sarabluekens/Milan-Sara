@@ -104,10 +104,8 @@ export const CHANGE_CASE_STATUS: TypedDocumentNode<
   { updateCase: Case },
   {
     caseInput: {
-      id: string
-      eventId: string
-      typeAccident: string
-      date: Date
+      caseId: string
+      caregiverId: string
     }
   }
 > = gql`

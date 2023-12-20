@@ -73,7 +73,7 @@ export class EventsService {
       //
       // dates: { $elemMatch: { $eq: currentDate } },
       //
-      // dates: { $in: [currentDate] },
+      //dates: { $in: [currentDate] },
       //
       //dates: { $elemMatch: { currentDate } },
     })

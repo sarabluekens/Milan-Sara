@@ -106,10 +106,6 @@ export default {
       emit('case:joined', id)
       push({ path: `/caregiver/map/${id}` })
 
-      const updateCaseInput = {
-        caseId: id,
-        caregiverId: caregiverResult.value?.findOneByUserUid.id,
-      }
       const result = await addCaregiverCo({
         caseInput: {
           caseId: id,
@@ -120,6 +116,7 @@ export default {
     }
     onMounted(() => {
       console.log('mounted')
+
       $toast.clear()
     })
 

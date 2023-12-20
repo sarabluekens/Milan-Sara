@@ -21,6 +21,14 @@ export interface Event {
   status: Status
   createdAt: Date
   updatedAt: Date
+  category: Category
+}
+
+export enum Category {
+  Sport = 'Sport',
+  Expo = 'Expo',
+  Concert = 'Concert',
+  Festival = 'Festival',
 }
 
 export enum Status {
