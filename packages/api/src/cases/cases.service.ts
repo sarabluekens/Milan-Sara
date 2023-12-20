@@ -2,9 +2,8 @@ import { Injectable } from '@nestjs/common'
 import { CreateCaseInput } from './dto/create-case.input'
 import { Case } from './entities/case.entity'
 import { InjectRepository } from '@nestjs/typeorm'
-import { In, Repository } from 'typeorm'
+import { Repository } from 'typeorm'
 import { ObjectId } from 'mongodb'
-import { Caregiver } from 'src/caregivers/entities/caregiver.entity'
 import { CaregiversService } from 'src/caregivers/caregivers.service'
 
 @Injectable()
@@ -33,6 +32,7 @@ export class CasesService {
       newCase.referred = createCaseInput.referred
       newCase.referralDescription = createCaseInput.referralDescription
       newCase.usedMaterials = createCaseInput.usedMaterials
+      newCase.status = 'pending'
 
       return this.caseRepository.save(newCase) // INSERT INTO case
     } catch (error) {
@@ -55,7 +55,7 @@ export class CasesService {
   }
 
   findAllByEventId(eventId: string) {
-    return this.caseRepository.find({ where: { eventId } })
+    return this.caseRepository.find({ where: { eventId, status: 'pending' } })
   }
 
   async findCasesForCaregiverToday(userUid: string) {

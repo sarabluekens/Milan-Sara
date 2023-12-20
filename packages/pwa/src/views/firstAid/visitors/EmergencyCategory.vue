@@ -66,7 +66,6 @@ export default {
       })
       // add case in the carevigers dashboard
       emit('case:created', result?.data?.createCase as Case)
-      console.log('HEEEEEEEREEEEEEEEEEEE')
 
       // send caseId to the map
       const caseId = result?.data?.createCase.id

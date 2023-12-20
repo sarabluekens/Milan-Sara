@@ -27,6 +27,11 @@ export class CaregiversResolver {
   //   return this.caregiversService.findCasesForCaregiverToday(userUid)
   // }
 
+  @Query(() => Caregiver, { name: 'findOneByUserUid' })
+  findOneByUserUid(@Args('userUid', { type: () => String }) userUid: string) {
+    return this.caregiversService.findByUserUid(userUid)
+  }
+
   @Query(() => [Caregiver], { name: 'EventIdforCaregiver' })
   findEventIdforCaregiverToday(
     @Args('userUid', { type: () => String }) userUid: string,

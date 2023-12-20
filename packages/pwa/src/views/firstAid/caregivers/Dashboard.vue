@@ -41,7 +41,7 @@
 
 <script lang="ts">
 import { CASES_BY_EVENT_ID } from '@/graphql/case.query'
-import { useQuery } from '@vue/apollo-composable'
+import { useMutation, useQuery } from '@vue/apollo-composable'
 import { computed } from 'vue'
 import type { Case } from '@/interfaces/case.interface'
 import { ref } from 'vue'
@@ -51,10 +51,16 @@ import { useToast } from 'vue-toast-notification'
 import 'vue-toast-notification/dist/theme-sugar.css'
 import { onMounted } from 'vue'
 import useFirebase from '@/composables/useFirebase'
+import { CHANGE_CASE_STATUS } from '@/graphql/case.mutation'
+import { CAREGIVER_BY_USER_UID } from '@/graphql/caregiver.query'
 
 export default {
   setup() {
     const { firebaseUser } = useFirebase()
+
+    const { result: caregiverResult } = useQuery(CAREGIVER_BY_USER_UID, {
+      userUid: firebaseUser.value?.uid,
+    })
     const {
       result: cases,
       loading: loadingCases,
@@ -71,10 +77,7 @@ export default {
     const { on } = useRealtime()
     const { emit } = useRealtime()
     const { push } = useRouter()
-
-    //  TODO: query waarik de userid van fire om dan te kijken
-    //met welke caregiver dit matched en dan via de datum van
-    // vandaag het eventid op te halen en dan de cases op te halen
+    const { mutate: addCaregiverCo } = useMutation(CHANGE_CASE_STATUS)
 
     on('case:new', (data: Partial<Case>) => {
       console.log('New case added by a patient', data)
@@ -98,13 +101,23 @@ export default {
     })
 
     const handleClick = async (id: string) => {
-      console.log(id)
+      console.log(caregiverResult)
+
       emit('case:joined', id)
       push({ path: `/caregiver/map/${id}` })
 
+      const updateCaseInput = {
+        caseId: id,
+        caregiverId: caregiverResult.value?.findOneByUserUid.id,
+      }
+      const result = await addCaregiverCo({
+        caseInput: {
+          caseId: id,
+          caregiverId: caregiverResult.value?.findOneByUserUid.id,
+        },
+      })
       // mutation schrijven
     }
-
     onMounted(() => {
       console.log('mounted')
       $toast.clear()

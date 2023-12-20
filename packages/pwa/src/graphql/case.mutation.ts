@@ -100,7 +100,7 @@ export const ADD_CAREGIVER_CO: TypedDocumentNode<
   }
 `
 
-export const ADD_CAREGIVER: TypedDocumentNode<
+export const CHANGE_CASE_STATUS: TypedDocumentNode<
   { updateCase: Case },
   {
     caseInput: {
