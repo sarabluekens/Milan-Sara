@@ -22,14 +22,13 @@ const router = createRouter({
       children: [
         {
           path: 'dashboard',
-
-          component: () => import('../views/firstAid/caregivers/dashboard.vue'),
+          component: () => import('../views/firstAid/caregivers/Dashboard.vue'),
           props: true,
         },
         {
           path: '/caregiver/map/:caseId',
           name: 'caregiversMap',
-          component: () => import('../views/firstAid/caregivers/caseMap.vue'),
+          component: () => import('../views/firstAid/caregivers/CaseMap.vue'),
           props: true,
         },
       ],
@@ -37,18 +36,18 @@ const router = createRouter({
     {
       path: '/category',
       component: () =>
-        import('../views/firstAid/visitors/emergencyCategory.vue'),
+        import('../views/firstAid/visitors/EmergencyCategory.vue'),
     },
     {
       path: '/map/:caseId',
       name: 'map',
-      component: () => import('../views/firstAid/visitors/emergencyMap.vue'),
+      component: () => import('../views/firstAid/visitors/EmergencyMap.vue'),
       props: true,
     },
     {
       path: '/map/flicker',
       name: 'flicker',
-      component: () => import('../views/firstAid/visitors/flickerScreen.vue'),
+      component: () => import('../views/firstAid/visitors/FlickerScreen.vue'),
       props: true,
     },
     // {
