@@ -22,8 +22,9 @@
     <div class="flex flex-wrap flex-row">
       <div
         class="w-2/9 m-2 h-2/5 bg-red rounded-lg flex items-center justify-evenly"
-        v-if="!eventsLoading && tempEvents.length > 0"
-        v-for="item in tempEvents"
+        v-if="!eventsLoading && events.eventsToday.length > 0"
+        v-for="item in events.eventsToday"
+        :key="item.id"
       >
         <EventCard :event="item" />
       </div>

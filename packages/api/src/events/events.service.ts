@@ -65,23 +65,10 @@ export class EventsService {
       dateObj.getDate() +
       'T23:00:00.000+00:00'
 
-    console.log(currentDate)
     const today = new Date(currentDate)
 
     const events = await this.eventRepository.find({
-      // where: {
-      //   dates: $ (['2023-12-24T23:00:00.000+00:00']),
-      // },
       dates: { $elemMatch: { $eq: today } },
-      //
-      // dates: { $in: [currentDate] },
-      //
-      //dates: { $elemMatch: { currentDate } },
-      //where: currentDate,
-
-      // where: {
-      //   dates: { $gte: today },
-      // },
     })
 
     console.log(events)
