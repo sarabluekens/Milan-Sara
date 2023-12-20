@@ -51,6 +51,11 @@ export default defineConfig({
       ([, c]) =>
         `font-inter text-${c} text-0.8rem md:text-0.9rem lg:text-1rem `,
     ],
+    [
+      /^largeInput-(.*)$/,
+      ([, c]) =>
+        `border-2 border-${c} rounded-lg w-2/3 h-10rem ml-3 bg-${c}/30 col-span-4 placeholder:text-${c} p-[.5rem] subbody-${c} focus:outline-none focus:border-red/50 focus:ring-red/50 `,
+    ],
     [/^nav-(.*)$/, ([, c]) => `w-3.5rem md:w-5rem h-full absolute bg-${c}`],
     [/^icon-(.*)$/, ([, c]) => `text-${c}rem leading-4 `],
   ],
