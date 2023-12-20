@@ -17,11 +17,26 @@
     </div>
   </nav>
 
+  <!-- Header for the login and register page -->
+  <nav
+    v-if="$route.path.includes(`auth/login`)"
+    class="nav-red h-4rem w-full fixed sm:h-full w-3rem sm:w-5rem bottom-0"
+  >
+    <div
+      class="flex flex-row sm:flex-col items-center justify-evenly sm:justify-between h-full mb-2 sm:m-0 sm:p-0"
+    >
+      <img
+        src="/whiteCross.svg"
+        alt="Red Cross logo"
+        class="sm:pt-3 h-3rem sm:h-5rem sm:w-90% sm:mx-auto"
+      />
+      <div class="bg-red w-.5 h-full sm:hidden"></div>
+    </div>
+  </nav>
+
   <!-- header for the caregivers flow -->
   <nav
-    v-else-if="
-      $route.path.includes(`caregiver`) || $route.path.includes(`auth/login`)
-    "
+    v-else-if="$route.path.includes(`caregiver`)"
     :class="showMenu ? 'bg-red py-4 h-full' : 'bg-beige w-full py-1 h-auto'"
     class="absolute flex-col items-stretch justify-between z-1 w-85% px-4 text-subtitle text-beige md:text-title md:flex-col-reverse md:py-0 md:h-full md:bg-red md:w-15rem xl:w-17rem"
   >
@@ -91,6 +106,14 @@
         />
         <p class="align-center body-beige">Profile</p>
       </div>
+    </section>
+    <section>
+      <button
+        class="mt-1 w-52 rounded-md body-white border-2 border-red bg-red py-2 px-4 font-semibold hover:bg-blue-600 focus:outline-none focus-visible:border-blue-300 focus-visible:bg-blue-600 focus-visible:ring-2 focus-visible:ring-blue-300"
+        @click="logoutUser"
+      >
+        Logout
+      </button>
     </section>
   </nav>
 
@@ -194,6 +217,14 @@
         <li class="body-white my-10% sm:my-5% md:my-6">Closed cases</li>
       </ul>
     </section>
+    <section>
+      <button
+        class="mt-1 w-52 rounded-md body-white border-2 border-red bg-red py-2 px-4 font-semibold hover:bg-blue-600 focus:outline-none focus-visible:border-blue-300 focus-visible:bg-blue-600 focus-visible:ring-2 focus-visible:ring-blue-300"
+        @click="logoutUser"
+      >
+        Logout
+      </button>
+    </section>
   </nav>
 
   <!-- header for the company flow -->
@@ -279,6 +310,14 @@
         </li>
       </ul>
     </section>
+    <section>
+      <button
+        class="mt-1 w-52 rounded-md body-white border-2 border-red bg-red py-2 px-4 font-semibold hover:bg-blue-600 focus:outline-none focus-visible:border-blue-300 focus-visible:bg-blue-600 focus-visible:ring-2 focus-visible:ring-blue-300"
+        @click="logoutUser"
+      >
+        Logout
+      </button>
+    </section>
   </nav>
 
   <!-- header for the visitors flow -->
@@ -340,10 +379,21 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import useFirebase from '@/composables/useFirebase'
+import useCustomUser from '@/composables/useCustomUser'
 
-const { push } = useRouter()
+const { push, replace } = useRouter()
+const { customUser } = useCustomUser()
+const { logout } = useFirebase()
 
 const showMenu = ref(false)
+
+const logoutUser = () => {
+  logout().then(() => {
+    customUser.value = undefined
+    replace({ path: '/' })
+  })
+}
 
 const handlePush = (path: string) => {
   push(path)

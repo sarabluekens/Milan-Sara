@@ -1,52 +1,83 @@
 <template>
-  <form @submit.prevent="handleLogin" class="w-full">
-    <h1>Login</h1>
-    <label
-      for="email"
-      class="text-md block font-semibold tracking-wider text-gray-700 dark:text-gray-200"
+  <div
+    class="flex flex-col items-center sm:h-100vh h-90vh md:ml-5rem lg:ml-0rem"
+  >
+    <h1 class="title-red my-3 md:my-0 lg:my-5">Login</h1>
+    <form
+      @submit.prevent="handleLogin"
+      class="flex mx-auto justify-center flex-col"
     >
-      Email address
-    </label>
-    <input
-      type="email"
-      name="email"
-      id="email"
-      class="mt-1 block w-full rounded-md border-2 border-gray-300 p-2 focus:outline-none focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-400 dark:border-neutral-600 dark:bg-neutral-700 dark:text-neutral-50"
-      v-model="loginCredentials.email"
-    />
-    <label
-      for="password"
-      class="text-md block font-semibold tracking-wider text-gray-700 dark:text-gray-200"
-    >
-      Password
-    </label>
-    <input
-      type="password"
-      name="password"
-      id="password"
-      class="mt-1 block w-full rounded-md border-2 border-gray-300 p-2 focus:outline-none focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-400 dark:border-neutral-600 dark:bg-neutral-700 dark:text-neutral-50"
-      v-model="loginCredentials.password"
-    />
-    <RouterLink
-      to="/auth/forgot-password"
-      class="mt-1 inline-block rounded text-sm text-blue-600 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-200 dark:text-blue-200"
-    >
-      Forgot password?
-    </RouterLink>
-    <button
-      class="mt-6 w-full rounded-md border-2 border-blue-500 bg-blue-500 py-2 px-4 font-semibold text-white hover:bg-blue-600 focus:outline-none focus-visible:border-blue-300 focus-visible:bg-blue-600 focus-visible:ring-2 focus-visible:ring-blue-300"
-    >
-      Login
-    </button>
-    <div class="flex justify-center">
-      <RouterLink
-        class="mt-3 inline-block rounded text-center text-sm text-blue-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-200"
-        to="/auth/register"
+      <div
+        class="border-7 border-red p-2 rounded-xl w-17rem md:w-30rem lg:w-40rem lg:h-25rem"
       >
-        Need to create an account?
-      </RouterLink>
-    </div>
-  </form>
+        <div
+          class="border-2 border-red p-4 md:p-9 rounded-lg lg:w-38rem lg:h-23rem"
+        >
+          <label for="email" class="subbody-red block tracking-wider text-red">
+            Email address
+          </label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Email address"
+            v-model="loginCredentials.email"
+            class="mt-1 block w-52 md:w-full h-12 placeholder:subbody-pink subbody-black rounded-md bg-beige p-2 focus:outline-none focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-400"
+          />
+          <span
+            class="subbody-red font-bold"
+            v-for="error in v$.email.$errors"
+            :key="error.$uid"
+            >Please fill in your email</span
+          >
+          <label
+            for="password"
+            class="subbody-red block tracking-wider text-red mt-6 md:mt-8"
+          >
+            Password
+          </label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+            class="mt-1 block w-52 md:w-full h-12 placeholder:subbody-pink subbody-black rounded-md bg-beige p-2 focus:outline-none focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-400"
+            v-model="loginCredentials.password"
+          />
+          <span
+            class="subbody-red font-bold"
+            v-for="error in v$.password.$errors"
+            :key="error.$uid"
+            >Please fill in your password</span
+          >
+          <div
+            class="flex flex-col-reverse items-center md:flex-row md:justify-between mt-7 md:mt-11"
+          >
+            <RouterLink
+              to="/auth/forgot-password"
+              class="mt-3 md:mt-5 md:mr-11 lg:mr-32 inline-block subbody-black rounded hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-200"
+            >
+              Forgot password?
+            </RouterLink>
+            <button
+              class="mt-1 w-52 rounded-md body-white border-2 border-red bg-red py-2 px-4 font-semibold hover:bg-blue-600 focus:outline-none focus-visible:border-blue-300 focus-visible:bg-blue-600 focus-visible:ring-2 focus-visible:ring-blue-300"
+            >
+              Login
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-end mr-4">
+        <p class="mt-2 mr-3 subbody-black">No account yet?</p>
+        <RouterLink
+          class="mt-2 underline inline-block rounded text-center subbody-black hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-200"
+          to="/auth/register"
+        >
+          Register
+        </RouterLink>
+      </div>
+    </form>
+  </div>
 </template>
 
 <script lang="ts">
@@ -55,6 +86,8 @@ import useFirebase from '@/composables/useFirebase'
 import { useRouter } from 'vue-router'
 import { GET_USER_BY_UID } from '@/graphql/user.query'
 import { useQuery } from '@vue/apollo-composable'
+import useValidate from '@vuelidate/core' // validation
+import { required, email } from '@vuelidate/validators' // validation
 
 export default {
   setup() {
@@ -68,15 +101,28 @@ export default {
       password: '',
     })
 
-    const handleLogin = () => {
-      login(loginCredentials.value.email, loginCredentials.value.password).then(
-        () => {
+    // The definition of the validation rules
+    const validationRules = {
+      email: { required, email },
+      password: { required },
+    }
+
+    // The vuelidate instance
+    const v$ = useValidate(validationRules, loginCredentials)
+
+    const handleLogin = async () => {
+      const validationResult = await v$.value.$validate()
+      if (validationResult) {
+        login(
+          loginCredentials.value.email,
+          loginCredentials.value.password,
+        ).then(() => {
           console.log('Logged in')
           console.log(firebaseUser.value?.uid)
           // push({ path: '/' })
           redirect()
-        },
-      )
+        })
+      }
     }
 
     const redirect = () => {
@@ -100,6 +146,7 @@ export default {
     }
     // Return
     return {
+      v$,
       loginCredentials,
       firebaseUser,
       handleLogin,
