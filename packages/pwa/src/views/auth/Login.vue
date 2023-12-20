@@ -1,5 +1,5 @@
 <template>
-  <div class="flex sm:h-60vh h-90vh md:ml-5rem lg:ml-0rem">
+  <div class="flex sm:h-100vh h-90vh md:ml-5rem lg:ml-0rem">
     <form
       @submit.prevent="handleLogin"
       class="flex mx-auto justify-center flex-col"
@@ -19,17 +19,17 @@
             id="email"
             placeholder="Email address"
             v-model="loginCredentials.email"
-            class="mt-1 block w-52 md:w-full h-12 mb-6 md:mb-8 placeholder:subbody-pink subbody-black rounded-md bg-beige p-2 focus:outline-none focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-400"
+            class="mt-1 block w-52 md:w-full h-12 placeholder:subbody-pink subbody-black rounded-md bg-beige p-2 focus:outline-none focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-400"
           />
           <span
-            class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+            class="col-start-2 col-span-4 subbody-red font-bold"
             v-for="error in v$.email.$errors"
             :key="error.$uid"
             >Please fill in your email</span
           >
           <label
             for="password"
-            class="subbody-red block tracking-wider text-red"
+            class="subbody-red block tracking-wider text-red mt-6 md:mt-8"
           >
             Password
           </label>
@@ -38,16 +38,18 @@
             name="password"
             id="password"
             placeholder="Password"
-            class="mt-1 block w-52 md:w-full h-12 mb-7 md:mb-11 placeholder:subbody-pink subbody-black rounded-md bg-beige p-2 focus:outline-none focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-400"
+            class="mt-1 block w-52 md:w-full h-12 placeholder:subbody-pink subbody-black rounded-md bg-beige p-2 focus:outline-none focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-400"
             v-model="loginCredentials.password"
           />
           <span
-            class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+            class="col-start-2 col-span-4 subbody-red font-bold"
             v-for="error in v$.password.$errors"
             :key="error.$uid"
             >Please fill in your password</span
           >
-          <div class="flex flex-col-reverse md:flex-row justify-between">
+          <div
+            class="flex flex-col-reverse md:flex-row justify-between mt-7 md:mt-11"
+          >
             <RouterLink
               to="/auth/forgot-password"
               class="mt-3 md:mt-5 md:mr-11 lg:mr-32 inline-block subbody-black rounded hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-200"
