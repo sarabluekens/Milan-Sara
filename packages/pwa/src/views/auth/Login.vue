@@ -22,7 +22,7 @@
             class="mt-1 block w-52 md:w-full h-12 placeholder:subbody-pink subbody-black rounded-md bg-beige p-2 focus:outline-none focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-400"
           />
           <span
-            class="col-start-2 col-span-4 subbody-red font-bold"
+            class="subbody-red font-bold"
             v-for="error in v$.email.$errors"
             :key="error.$uid"
             >Please fill in your email</span
@@ -42,7 +42,7 @@
             v-model="loginCredentials.password"
           />
           <span
-            class="col-start-2 col-span-4 subbody-red font-bold"
+            class="subbody-red font-bold"
             v-for="error in v$.password.$errors"
             :key="error.$uid"
             >Please fill in your password</span

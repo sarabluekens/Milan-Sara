@@ -31,6 +31,12 @@
             class="mt-1 block w-52 md:w-full h-12 placeholder:subbody-pink subbody-black rounded-md bg-beige p-2 focus:outline-none focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-400"
             v-model="newUser.name"
           />
+          <span
+            class="subbody-red font-bold"
+            v-for="error in v$.name.$errors"
+            :key="error.$uid"
+            >Please fill in your username</span
+          >
           <label
             for="email"
             class="subbody-red block tracking-wider text-red mt-6 md:mt-8"
@@ -45,6 +51,12 @@
             class="mt-1 block w-52 md:w-full h-12 placeholder:subbody-pink subbody-black rounded-md bg-beige p-2 focus:outline-none focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-400"
             v-model="newUser.email"
           />
+          <span
+            class="subbody-red font-bold"
+            v-for="error in v$.email.$errors"
+            :key="error.$uid"
+            >Please fill in your email</span
+          >
           <label
             for="password"
             class="subbody-red block tracking-wider text-red mt-6 md:mt-8"
@@ -59,6 +71,12 @@
             class="mt-1 block w-52 md:w-full h-12 placeholder:subbody-pink subbody-black rounded-md bg-beige p-2 focus:outline-none focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-400"
             v-model="newUser.password"
           />
+          <span
+            class="subbody-red font-bold"
+            v-for="error in v$.password.$errors"
+            :key="error.$uid"
+            >Please fill in your password</span
+          >
           <div class="flex justify-center items-center flex-col">
             <button
               :disabled="addUserLoading"
@@ -91,6 +109,8 @@ import { ADD_USER } from '@/graphql/user.mutation'
 import { useI18n } from 'vue-i18n'
 import type { CustomUser } from '@/interfaces/custom.user.interface'
 import { Loader2 } from 'lucide-vue-next'
+import useValidate from '@vuelidate/core' // validation
+import { required, email } from '@vuelidate/validators' // validation
 
 export default {
   setup() {
@@ -104,31 +124,47 @@ export default {
       password: '',
       email: '',
     })
-    const error = ref<AuthError | null>(null)
-    const {
-      mutate: addUser,
-      loading: addUserLoading,
-      onDone: userCreated,
-    } = useMutation<CustomUser>(ADD_USER)
-    const handleRegister = () => {
-      register(newUser.value.name, newUser.value.email, newUser.value.password)
-        .then(() => {
-          addUser({
-            createUserInput: {
-              locale: locale.value,
-              name: newUser.value.name,
-            },
-          }).then(result => {
-            if (!result?.data) throw new Error('Custom user creation failed.')
 
-            customUser.value = result.data
+    // The definition of the validation rules
+    const validationRules = {
+      name: { required },
+      password: { required },
+      email: { required, email },
+    }
+
+    // The vuelidate instance
+    const v$ = useValidate(validationRules, newUser)
+
+    const error = ref<AuthError | null>(null)
+    const { mutate: addUser, loading: addUserLoading } =
+      useMutation<CustomUser>(ADD_USER)
+    const handleRegister = async () => {
+      const validationResult = await v$.value.$validate()
+      if (validationResult) {
+        register(
+          newUser.value.name,
+          newUser.value.email,
+          newUser.value.password,
+        )
+          .then(() => {
+            addUser({
+              createUserInput: {
+                locale: locale.value,
+                name: newUser.value.name,
+              },
+            }).then(result => {
+              if (!result?.data) throw new Error('Custom user creation failed.')
+
+              customUser.value = result.data
+            })
           })
-        })
-        .catch(err => {
-          error.value = err
-        })
+          .catch(err => {
+            error.value = err
+          })
+      }
     }
     return {
+      v$,
       newUser,
       error,
       addUserLoading,
