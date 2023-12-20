@@ -25,7 +25,6 @@ const props = defineProps<{
 }>()
 
 const handleClick = (id: string) => {
-  console.log(id)
-  push({ name: 'home', params: { id } })
+  push({ path: `/Home/${id}` })
 }
 </script>

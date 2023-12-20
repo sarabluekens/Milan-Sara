@@ -11,9 +11,10 @@ const router = createRouter({
       component: () => import('../views/LandingPage.vue'),
     },
     {
-      path: '/home',
+      path: '/home/:eventId',
       name: 'home',
       component: () => import('../views/Home.vue'),
+      props: true,
     },
     {
       path: '/caregiver',
@@ -40,9 +41,10 @@ const router = createRouter({
       ],
     },
     {
-      path: '/category',
+      path: '/category/:eventId',
       component: () =>
         import('../views/firstAid/visitors/EmergencyCategory.vue'),
+      props: true,
     },
     {
       path: '/map/:caseId',

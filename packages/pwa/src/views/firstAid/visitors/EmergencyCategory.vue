@@ -29,35 +29,45 @@ export default {
   components: { EmergencyCard },
   setup() {
     const { push } = useRouter()
+    const router = useRouter()
     const { mutate: addCase } = useMutation(ADD_CASE)
     const { emit } = useRealtime()
+    const eventId = router.currentRoute.value.params.eventId
     const categories = [
       {
         text: 'Unconscious',
         category: 'unconscious',
         // icon: 'i-ic-baseline-phone',
         // subtitle: 'You will be called for urgent aid',
-        image: 'unconscious.svg',
+        image: `/unconscious.svg`,
       },
-      { text: 'Fell', image: 'fell.svg', category: 'fell' },
+      { text: 'Fell', image: `/fell.svg`, category: 'fell' },
       {
         text: 'Drug and/or alcohol abuse',
         category: 'drugs',
-        image: 'drugs.svg',
+        image: `/drugs.svg`,
       },
-      { text: 'Heavy bleeding', category: 'bleed', image: 'bleed.svg' },
-      { text: 'Allergic reaction', category: 'allergy', image: 'allergy.svg' },
+      {
+        text: 'Heavy bleeding',
+        category: 'bleed',
+        image: `/bleed.svg`,
+      },
+      {
+        text: 'Allergic reaction',
+        category: 'allergy',
+        image: `/allergy.svg`,
+      },
       {
         text: "I don't know, something else",
         category: 'other',
-        image: 'otherInjury.svg',
+        image: `/otherInjury.svg`,
       },
     ]
 
     const caseInput = ref({
       date: new Date(),
       typeAccident: '',
-      eventId: '654a1c832f6208998d7e8f43',
+      eventId: eventId as string,
     })
     const handleNewCase = async (category: string) => {
       caseInput.value.typeAccident = category
