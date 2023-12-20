@@ -73,11 +73,13 @@
         <h2 class="subtitle-red text-left">After Care</h2>
 
         <!-- Checkup radio -->
-        <div class="flex justify-between items-center gap-3 w-80%">
-          <p class="body-black pb-3">
+        <div
+          class="flex flex-col m-auto md:flex-row justify-between items-center gap-3 w-80%"
+        >
+          <p class="body-black pb-3 lg:w-2/3">
             Should the patient return for a check-up?
           </p>
-          <div>
+          <div class="m-auto flex md:flex-col">
             <input
               type="radio"
               id="caseCheckUpTrue"
@@ -88,7 +90,7 @@
             />
             <label
               for="caseCheckUpTrue"
-              class="bg-none rounded-xl border-1 border-red subtitle-black w-7vw h-7vh px-5 py-1 cursor-pointer peer-checked/checkupTrue:color-white peer-checked/checkupTrue:bg-red peer-focus/checkupTrue:ring-2 peer-focus/checkupTrue:ring-offset-3 peer-focus/checkupTrue:ring-red"
+              class="bg-none rounded-xl border-1 border-red subtitle-black px-5 py-1 cursor-pointer peer-checked/checkupTrue:color-white peer-checked/checkupTrue:bg-red peer-focus/checkupTrue:ring-2 peer-focus/checkupTrue:ring-offset-3 peer-focus/checkupTrue:ring-red"
               >Yes</label
             >
             <input
@@ -101,18 +103,20 @@
             />
             <label
               for="caseCheckUpFalse"
-              class="bg-none rounded-xl border-1 border-red subtitle-black w-7vw h-7vh px-5 py-1 cursor-pointer peer-checked/checkupFalse:color-white peer-checked/checkupFalse:bg-red peer-focus/checkupFalse:ring-2 peer-focus/checkupFalse:ring-offset-3 peer-focus/checkupFalse:ring-red"
+              class="bg-none rounded-xl border-1 border-red subtitle-black px-5 py-1 cursor-pointer peer-checked/checkupFalse:color-white peer-checked/checkupFalse:bg-red peer-focus/checkupFalse:ring-2 peer-focus/checkupFalse:ring-offset-3 peer-focus/checkupFalse:ring-red"
               >No</label
             >
           </div>
         </div>
 
         <!-- Referred radio -->
-        <div class="flex justify-between items-center gap-3 w-80%">
-          <p class="body-black pb-3">
+        <div
+          class="flex flex-col m-auto md:flex-row justify-between items-center gap-3 w-80%"
+        >
+          <p class="body-black pb-3 lg:w-2/3">
             Was the victim referred to a doctor or hospital?
           </p>
-          <div>
+          <div class="m-auto flex md:flex-col">
             <input
               type="radio"
               id="caseReferredTrue"
@@ -123,7 +127,7 @@
             />
             <label
               for="caseReferredTrue"
-              class="bg-none rounded-xl border-1 border-red subtitle-black w-7vw h-7vh px-5 py-1 cursor-pointer peer-checked/referredTrue:color-white peer-checked/referredTrue:bg-red peer-focus/referredTrue:ring-2 peer-focus/referredTrue:ring-offset-3 peer-focus/referredTrue:ring-red"
+              class="bg-none rounded-xl border-1 border-red subtitle-black px-5 py-1 cursor-pointer peer-checked/referredTrue:color-white peer-checked/referredTrue:bg-red peer-focus/referredTrue:ring-2 peer-focus/referredTrue:ring-offset-3 peer-focus/referredTrue:ring-red"
               >Yes</label
             >
             <input
@@ -136,18 +140,20 @@
             />
             <label
               for="caseReferredFalse"
-              class="bg-none rounded-xl border-1 border-red subtitle-black w-7vw h-7vh px-5 py-1 cursor-pointer peer-checked/referredFalse:color-white peer-checked/referredFalse:bg-red peer-focus/referredFalse:ring-2 peer-focus/referredFalse:ring-offset-3 peer-focus/referredFalse:ring-red"
+              class="bg-none rounded-xl border-1 border-red subtitle-black px-5 py-1 cursor-pointer peer-checked/referredFalse:color-white peer-checked/referredFalse:bg-red peer-focus/referredFalse:ring-2 peer-focus/referredFalse:ring-offset-3 peer-focus/referredFalse:ring-red"
               >No</label
             >
           </div>
         </div>
 
         <!-- Personal insurance radio -->
-        <div class="flex justify-between items-center gap-3 w-80%">
-          <p class="body-black pb-3">
+        <div
+          class="flex flex-col m-auto md:flex-row justify-between items-center gap-3 w-80%"
+        >
+          <p class="body-black pb-3 lg:w-2/3">
             Did the accident require the personal insurance of the victim?
           </p>
-          <div>
+          <div class="m-auto flex md:flex-col">
             <input
               type="radio"
               id="casePersonalInsuranceTrue"
@@ -158,7 +164,7 @@
             />
             <label
               for="casePersonalInsuranceTrue"
-              class="bg-none rounded-xl border-1 border-red subtitle-black w-7vw h-7vh px-5 py-1 cursor-pointer peer-checked/personalTrue:color-white peer-checked/personalTrue:bg-red peer-focus/personalTrue:ring-2 peer-focus/personalTrue:ring-offset-3 peer-focus/personalTrue:ring-red"
+              class="bg-none rounded-xl border-1 border-red subtitle-black px-5 py-1 cursor-pointer peer-checked/personalTrue:color-white peer-checked/personalTrue:bg-red peer-focus/personalTrue:ring-2 peer-focus/personalTrue:ring-offset-3 peer-focus/personalTrue:ring-red"
               >Yes</label
             >
             <input
@@ -171,18 +177,20 @@
             />
             <label
               for="casePersonalInsuranceFalse"
-              class="bg-none rounded-xl border-1 border-red subtitle-black w-7vw h-7vh px-5 py-1 cursor-pointer peer-checked/personalFalse:color-white peer-checked/personalFalse:bg-red peer-focus/personalFalse:ring-2 peer-focus/personalFalse:ring-offset-3 peer-focus/personalFalse:ring-red"
+              class="bg-none rounded-xl border-1 border-red subtitle-black px-5 py-1 cursor-pointer peer-checked/personalFalse:color-white peer-checked/personalFalse:bg-red peer-focus/personalFalse:ring-2 peer-focus/personalFalse:ring-offset-3 peer-focus/personalFalse:ring-red"
               >No</label
             >
           </div>
         </div>
 
         <!-- Event insurance radio -->
-        <div class="flex justify-between items-center gap-3 w-80%">
-          <p class="body-black pb-3">
+        <div
+          class="flex flex-col m-auto md:flex-row justify-between items-center gap-3 w-80%"
+        >
+          <p class="body-black pb-3 lg:w-2/3">
             Did the accident require the insurance of the event?
           </p>
-          <div>
+          <div class="m-auto flex md:flex-col">
             <input
               type="radio"
               id="caseEventInsuranceTrue"
@@ -193,7 +201,7 @@
             />
             <label
               for="caseEventInsuranceTrue"
-              class="bg-none rounded-xl border-1 border-red subtitle-black w-7vw h-7vh px-5 py-1 cursor-pointer peer-checked/eventTrue:color-white peer-checked/eventTrue:bg-red peer-focus/eventTrue:ring-2 peer-focus/eventTrue:ring-offset-3 peer-focus/eventTrue:ring-red"
+              class="bg-none rounded-xl border-1 border-red subtitle-black px-5 py-1 cursor-pointer peer-checked/eventTrue:color-white peer-checked/eventTrue:bg-red peer-focus/eventTrue:ring-2 peer-focus/eventTrue:ring-offset-3 peer-focus/eventTrue:ring-red"
               >Yes</label
             >
             <input
@@ -206,14 +214,14 @@
             />
             <label
               for="caseEventInsuranceFalse"
-              class="bg-none rounded-xl border-1 border-red subtitle-black w-7vw h-7vh px-5 py-1 cursor-pointer peer-checked/eventFalse:color-white peer-checked/eventFalse:bg-red peer-focus/eventFalse:ring-2 peer-focus/eventFalse:ring-offset-3 peer-focus/eventFalse:ring-red"
+              class="bg-none rounded-xl border-1 border-red subtitle-black px-5 py-1 cursor-pointer peer-checked/eventFalse:color-white peer-checked/eventFalse:bg-red peer-focus/eventFalse:ring-2 peer-focus/eventFalse:ring-offset-3 peer-focus/eventFalse:ring-red"
               >No</label
             >
           </div>
         </div>
 
         <div
-          class="h-4vh w-1/2 flex justify-center items-center gap-3 self-center mt-2vh"
+          class="h-4vh w-1/2 flex justify-center items-center gap-3 self-center mt-2vh opacity-0 md:opacity-100"
         >
           <p class="subbody-red">The accident</p>
           <div class="w-3rem h-0.1rem bg-red"></div>
@@ -262,7 +270,7 @@
           </div>
         </div>
         <div
-          class="h-4vh w-1/2 flex justify-center items-center gap-3 self-center mt-2vh"
+          class="h-4vh w-1/2 flex justify-center items-center gap-3 self-center mt-2vh opacity-0 md:opacity-100"
         >
           <p class="subbody-red">The accident</p>
           <div class="w-3rem h-0.1rem bg-red"></div>
