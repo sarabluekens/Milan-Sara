@@ -18,8 +18,15 @@
             name="email"
             id="email"
             placeholder="Email address"
+            v-model="loginCredentials.email"
             class="mt-1 block w-52 md:w-full h-12 mb-6 md:mb-8 placeholder:subbody-pink subbody-black rounded-md bg-beige p-2 focus:outline-none focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-400"
           />
+          <span
+            class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+            v-for="error in v$.email.$errors"
+            :key="error.$uid"
+            >Please fill in your email</span
+          >
           <label
             for="password"
             class="subbody-red block tracking-wider text-red"
@@ -34,6 +41,12 @@
             class="mt-1 block w-52 md:w-full h-12 mb-7 md:mb-11 placeholder:subbody-pink subbody-black rounded-md bg-beige p-2 focus:outline-none focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-400"
             v-model="loginCredentials.password"
           />
+          <span
+            class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+            v-for="error in v$.password.$errors"
+            :key="error.$uid"
+            >Please fill in your password</span
+          >
           <div class="flex flex-col-reverse md:flex-row justify-between">
             <RouterLink
               to="/auth/forgot-password"
@@ -68,7 +81,8 @@ import useFirebase from '@/composables/useFirebase'
 import { useRouter } from 'vue-router'
 import { GET_USER_BY_UID } from '@/graphql/user.query'
 import { useQuery } from '@vue/apollo-composable'
-
+import useValidate from '@vuelidate/core' // validation
+import { required, email } from '@vuelidate/validators' // validation
 
 export default {
   setup() {
@@ -82,15 +96,28 @@ export default {
       password: '',
     })
 
-    const handleLogin = () => {
-      login(loginCredentials.value.email, loginCredentials.value.password).then(
-        () => {
+    // The definition of the validation rules
+    const validationRules = {
+      email: { required, email },
+      password: { required },
+    }
+
+    // The vuelidate instance
+    const v$ = useValidate(validationRules, loginCredentials)
+
+    const handleLogin = async () => {
+      const validationResult = await v$.value.$validate()
+      if (validationResult) {
+        login(
+          loginCredentials.value.email,
+          loginCredentials.value.password,
+        ).then(() => {
           console.log('Logged in')
           console.log(firebaseUser.value?.uid)
           // push({ path: '/' })
           redirect()
-        },
-      )
+        })
+      }
     }
 
     const redirect = () => {
@@ -114,6 +141,7 @@ export default {
     }
     // Return
     return {
+      v$,
       loginCredentials,
       firebaseUser,
       handleLogin,
