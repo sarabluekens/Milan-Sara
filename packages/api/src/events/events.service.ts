@@ -3,15 +3,14 @@ import { CreateEventInput } from './dto/create-event.input'
 import { UpdateEventInput } from './dto/update-event.input'
 import { Event, Status } from './entities/event.entity'
 import { InjectRepository } from '@nestjs/typeorm'
-import { ArrayContains, Repository } from 'typeorm'
+import { MongoRepository } from 'typeorm'
 import { ObjectId } from 'mongodb'
-import { arrayContains } from 'class-validator'
 
 @Injectable()
 export class EventsService {
   constructor(
     @InjectRepository(Event)
-    private readonly eventRepository: Repository<Event>,
+    private readonly eventRepository: MongoRepository<Event>,
   ) {}
 
   create(createEventInput: CreateEventInput): Promise<Event> {
@@ -54,7 +53,7 @@ export class EventsService {
     return this.eventRepository.find({ where: { status } })
   }
 
-  findAllByDate() {
+  async findAllByDate() {
     const dateObj = new Date()
     const month = dateObj.getMonth() + 1
     const currentDate: string =
@@ -63,14 +62,27 @@ export class EventsService {
       month +
       '-' +
       dateObj.getDate() +
-      'T00:00:00.000Z'
+      'T23:00:00.000+00:00'
 
-    return this.eventRepository.findBy({
-      dates: ArrayContains([currentDate]),
+    console.log(currentDate)
+
+    const events = await this.eventRepository.find({
+      // where: {
+      //   dates: ArrayContains([currentDate]),
+      // },
+      //
+      // dates: { $elemMatch: { $eq: currentDate } },
+      //
+      // dates: { $in: [currentDate] },
+      //
+      //dates: { $elemMatch: { currentDate } },
     })
+
+    console.log(events)
+
+    return events
   }
 
-  // /////////
   findOne(id: string) {
     //@ts-ignore
     return this.eventRepository.findOneBy({ _id: new ObjectId(id) })
