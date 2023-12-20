@@ -10,8 +10,6 @@ import { CasesService } from './cases.service'
 import { Case } from './entities/case.entity'
 import { CreateCaseInput } from './dto/create-case.input'
 import { UpdateCaseInput } from './dto/update-case.input'
-import { log } from 'console'
-import { Caregiver } from 'src/caregivers/entities/caregiver.entity'
 @Resolver(() => Case) // tells nestjs to resolve for the table Case
 export class CasesResolver {
   // autmatically create instance of casesService and inject in resolver
@@ -94,10 +92,12 @@ export class CasesResolver {
     )
   }
 
-  // @Mutation(() => Case)
-  // updateCase(@Args('updateCaseInput') updateCaseInput: UpdateCaseInput) {
-  //   return this.casesService.update(updateCaseInput.id, updateCaseInput)
-  // }
+  @Mutation(() => Case)
+  updateCaseAfterAction(
+    @Args('updateCaseInput') updateCaseInput: UpdateCaseInput,
+  ) {
+    return this.casesService.updateCaseAfterAction(updateCaseInput)
+  }
 
   @Mutation(() => Case)
   removeCase(@Args('id', { type: () => Int }) id: number) {

@@ -43,21 +43,25 @@ const {
 
 const tempEvents = [
   {
+    id: '1',
     name: 'Belgie - Nederland',
     category: 'Sport',
     city: 'Gent',
   },
   {
+    id: '2',
     name: 'Tomrrowland Winter Edition',
     category: 'Festival',
     city: 'Boom',
   },
   {
+    id: '3',
     name: 'Boekenbeurs Eutopia',
     category: 'Expo',
     city: 'Antwerpen',
   },
   {
+    id: '4',
     name: "Panic at the disco's concert",
     category: 'Concert',
     city: 'Brussel',

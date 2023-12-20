@@ -15,13 +15,13 @@
 </template>
 
 <script setup lang="ts">
-import type { Event } from '@/interfaces/event.interface'
+import type { EventCard } from '@/interfaces/event.interface'
 import { useRouter } from 'vue-router'
 
 const { push } = useRouter()
 
 const props = defineProps<{
-  event: Event
+  event: EventCard
 }>()
 
 const handleClick = (id: string) => {

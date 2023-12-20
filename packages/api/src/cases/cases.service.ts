@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { ObjectId } from 'mongodb'
 import { CaregiversService } from 'src/caregivers/caregivers.service'
+import { UpdateCaseInput } from './dto/update-case.input'
 
 @Injectable()
 export class CasesService {
@@ -156,6 +157,22 @@ export class CasesService {
       throw new Error('Case not found')
     }
     return currentCase
+  }
+
+  updateCaseAfterAction(updateCaseInput: UpdateCaseInput) {
+    const newCase = new Case()
+    newCase.accidentDescription = updateCaseInput.accidentDescription
+    newCase.diagnose = updateCaseInput.diagnose
+    newCase.careGiven = updateCaseInput.careGiven
+    newCase.checkUpRequired = updateCaseInput.checkUpRequired
+    newCase.referred = updateCaseInput.referred
+    newCase.referralDescription = updateCaseInput.referralDescription
+    newCase.usedMaterials = updateCaseInput.usedMaterials
+    newCase.eventEnsurance = updateCaseInput.eventEnsurance
+    newCase.personalEnsurance = updateCaseInput.personalEnsurance
+    newCase.status = 'done'
+
+    return this.caseRepository.update(updateCaseInput.caseId, newCase)
   }
 
   remove(id: number) {

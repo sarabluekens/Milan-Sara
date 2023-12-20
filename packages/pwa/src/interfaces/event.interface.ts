@@ -21,7 +21,6 @@ export interface Event {
   status: Status
   createdAt: Date
   updatedAt: Date
-  category: Category
 }
 
 export enum Category {
@@ -36,4 +35,11 @@ export enum Status {
   Approved = 'Approved',
   Rejected = 'Rejected',
   Completed = 'Completed',
+}
+
+export interface EventCard {
+  id: string
+  name: string
+  category: string
+  city: string
 }
