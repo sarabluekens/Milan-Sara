@@ -11,7 +11,7 @@
           </p>
           <div class="w-1/4 m-auto">
             <button
-              class="bg-red rounded rounded-md px-10 py-3 body-white"
+              class="bg-red rounded-md px-10 py-3 body-white"
               @click="handleClick"
             >
               Flicker screen
@@ -24,7 +24,7 @@
         class="w-95vw flex items-center justify-center flex-col"
       >
         <button
-          class="bg-white rounded rounded-md px-10 py-3 body-red absolute top-2/5 z-1"
+          class="bg-white rounded-md px-10 py-3 body-red absolute top-2/5 z-1"
           @click="handleClick"
         >
           Stop flickering screen
