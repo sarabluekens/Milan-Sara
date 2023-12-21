@@ -5,7 +5,7 @@
     <section>
       <form
         @submit.prevent="submitHandler"
-        class="flex flex-col justify-center items-center w-60rem m-auto border-2 border-red rounded-xl p-3 m-3 w-1/4"
+        class="flex flex-col justify-center items-center w-60rem border-2 border-red rounded-xl p-3 m-3 w-1/4"
       >
         <div class="flex flex-row gap-3vw items-start">
           <div class="flex flex-col w-20rem">
