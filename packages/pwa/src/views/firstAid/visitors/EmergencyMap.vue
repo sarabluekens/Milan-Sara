@@ -2,7 +2,7 @@
   <article class="ml-5rem bg-white w-full">
     <h1 class="title-red">{{ $t('map.title') }}</h1>
     <p class="subtitle-red">{{ $t('map.subtitle') }}</p>
-    <section>
+    <section v-if="!sent">
       <form
         @submit.prevent="submitHandler"
         class="flex flex-col justify-center items-center w-60rem border-2 border-red rounded-xl p-3 m-3 w-1/4"
@@ -88,6 +88,10 @@
         </button>
       </form>
     </section>
+    <section v-if="sent" class="">
+      <img src="/check.png" alt="succesfully submitted!" />
+      <p class="body-red">Succesfully sent.</p>
+    </section>
 
     <section class="flex flex-wrap justify-center items-center">
       <EmergencyMapComponent size="small" />
@@ -114,7 +118,7 @@ const { mutate: addVictimIdToCase } = useMutation(ADD_VICTIM_TO_CASE)
 const { mutate: addCaseToVictim } = useMutation(ADD_CASE_TO_VICTIM)
 
 const router = useRouter()
-
+const sent = ref(false)
 const victimInput = ref({
   firstName: ''.toLowerCase(),
   lastName: ''.toLowerCase(),
@@ -244,6 +248,7 @@ const submitHandler = async () => {
     }
   }
   console.log('submit')
+  sent.value = true
 }
 ///// END VICTIM HANDLER ////////
 </script>

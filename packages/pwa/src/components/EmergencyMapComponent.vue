@@ -260,7 +260,7 @@ onMounted(async () => {
     GET_EVENT_BY_ID,
     () => ({
       // TODO: dynamc event id
-      id: '657efd690bbf10085efdfd09',
+      id: currentCase.value.caseById.eventId,
     }),
   )
 
