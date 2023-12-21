@@ -81,8 +81,6 @@ export default {
       error: equipmentError,
     } = useQuery(ALL_EQUIPMENT)
 
-    console.log(equipments)
-
     const handleSearch = () => {
       if (searchInput.value === '') {
         filteredEquipments.value = []
@@ -116,9 +114,7 @@ export default {
               .toLowerCase()
               .includes(filter.toLowerCase())
           ) {
-            console.log(equipments.value.equipments[i])
             filteredEquipments.value.push(equipments.value.equipments[i])
-            console.log(filteredEquipments.value)
           }
         }
       }

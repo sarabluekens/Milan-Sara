@@ -183,10 +183,7 @@ export default {
       error: eventsRejectedError,
     } = useQuery(GET_EVENT_BY_STATUS, { status: 'Rejected' })
 
-    console.log(eventsRejected.value)
-
     const handleDetails = (id: string) => {
-      console.log('details: ' + id)
       push({ path: `/admin/event/detail/${id}` })
     }
 

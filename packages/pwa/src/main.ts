@@ -22,7 +22,6 @@ const { restoreCustomUser } = useCustomUser()
 app.use(i18n) // moet altijd voor de router!
 ;(async () => {
   await restoreUser()
-  console.log(firebaseUser.value)
   if (firebaseUser.value) await restoreCustomUser()
 
   app.use(PrimeVue)
