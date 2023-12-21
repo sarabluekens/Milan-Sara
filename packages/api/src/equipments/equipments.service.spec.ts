@@ -3,8 +3,12 @@ import { EquipmentsService } from './equipments.service'
 import { getRepositoryToken } from '@nestjs/typeorm'
 import { Equipment } from './entities/equipment.entity'
 import { Repository } from 'typeorm'
-import { equipmentStub } from './stubs/equipments.stub'
+import {
+  equipmentStub,
+  createEquipmentInputStub,
+} from './stubs/equipments.stub'
 import { CasesService } from 'src/cases/cases.service'
+import { CreateEquipmentInput } from './dto/create-equipment.input'
 
 describe('EquipmentsService', () => {
   let service: EquipmentsService
@@ -50,16 +54,17 @@ describe('EquipmentsService', () => {
       expect(saveSpy).toHaveBeenCalledTimes(1)
     })
     it("should call equipmentsRepository.save with the new equipment's parameters", async () => {
-      const testEquipment = equipmentStub()
+      const testEquipment: CreateEquipmentInput = createEquipmentInputStub()
       const saveSpy = jest.spyOn(mockEquipmentsRepository, 'save')
 
       await service.create(testEquipment)
       expect(saveSpy).toHaveBeenCalledWith(testEquipment)
     })
     it('should return the newly created equipment', async () => {
+      const newEquipmentInput = createEquipmentInputStub()
       const newEquipment = equipmentStub()
 
-      const result = await service.create(newEquipment)
+      const result = await service.create(newEquipmentInput)
       expect(result).toEqual(newEquipment)
     })
   })
