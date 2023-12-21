@@ -4,30 +4,38 @@ Clone this repo on you device
 # Env files
 packages/api
 .env
+GOOGLE_APPLICATION_CREDENTIALS=""
+URL_FRONTEND=""
+DB_HOST=""
+DB_PORT=""
+DB_NAME=""
+NODE_ENV=""
+
+packages/pwa
+Dit zijn persoonlijke keys van firebase
+en een mapskey van google console maps api
+.env
+VITE_APIKEY:""
+VITE_AUTHDOMAIN:""
+VITE_PROJECTID:""
+VITE_STORAGEBUCKET:""
+VITE_MESSAGINGSENDERID:""
+VITE_APPID:""
+VITE_GOOGLE_MAPS_API_KEY:""
+VITE_CLOUDNAME:""
+VITE_CLOUD_UPLOAD_PRESET:""
 
 
 # How to seed
 
-- First seed the birds, because observations needs the birds to work
+in je workspace api, voer volgend commando uit
+ Seed all: npx nestjs-command seed:database:all
 
-```bash
-npx nestjs-command seed:database:caregivers
-npx nestjs-command seed:database:equipments
-...
-```
+ (delete all: npx nestjs-command seed:reset:all)
 
-- Reset all
 
-```bash
-npx nestjs-command seed:reset
+Open project in de root en run npm run dev
 
-```
 
-- Reset specific
+# Testing commands
 
-```bash
-npx nestjs-command seed:reset:birds
-```
-
-------
-Open the project and run ....
