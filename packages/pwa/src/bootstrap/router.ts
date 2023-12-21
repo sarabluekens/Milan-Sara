@@ -58,10 +58,10 @@ const router = createRouter({
       component: () => import('../views/firstAid/visitors/FlickerScreen.vue'),
       props: true,
     },
-    // {
-    //   path: '/Help',
-    //   component: () => import('../views/firstAid/Help.vue'),
-    // },
+    {
+      path: '/walk/:eventId',
+      component: () => import('../views/firstAid/visitors/CanWalk.vue'),
+    },
 
     {
       path: '/admin',
