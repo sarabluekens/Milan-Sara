@@ -1,10 +1,12 @@
 <template>
-  <div class="ml-3.5rem md:ml-5rem bg-beige h-100vh">
+  <div class="md:ml-14rem bg-beige h-100vh">
     <h1 class="title-black">Case overview</h1>
-    <section class="flex sm:flex-row sm:justify-evenly sm:w-64vw m-auto">
+    <section
+      class="mt-5rem flex sm:flex-row sm:justify-evenly sm:w-64vw m-auto"
+    >
       <div class="bg-beige w-full h-52vh rounded-xl">
         <div
-          class="flex flex-row justify-between mx-6 mt-6 mb-8 body-black border-b border-red"
+          class="flex flex-row justify-between mx-6 mt-6 mb-4 xl:mb-8 body-black border-b border-red"
         >
           <p>Open cases</p>
           <div
@@ -19,13 +21,13 @@
           ></div>
         </div>
         <div
-          class="flex subbody-black bg-white mx-6 mt-6 mb-8 h-10 px-2 items-center rounded-lg"
+          class="flex subbody-black bg-white mx-6 mt-6 mb-4 xl:mb-8 h-10 px-2 items-center rounded-lg"
           v-if="OpenCases"
         >
           <p>No open cases at the moment</p>
         </div>
         <div
-          class="flex flex-row justify-between mx-6 mt-6 mb-8 body-black border-b border-red"
+          class="flex flex-row justify-between mx-6 mt-6 mb-4 xl:mb-8 body-black border-b border-red"
         >
           <p>Ongoing cases</p>
           <div
