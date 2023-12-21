@@ -14,7 +14,7 @@ Clone this repo on you device <br />
 ## packages/pwa
  Dit zijn persoonlijke keys van firebase<br />
  en een mapskey van google console maps api<br />
-## .env<br />
+ .env<br />
  VITE_APIKEY:""<br />
  VITE_AUTHDOMAIN:""<br />
  VITE_PROJECTID:""<br />
