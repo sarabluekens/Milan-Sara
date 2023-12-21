@@ -23,6 +23,8 @@ describe('CasesService', () => {
           provide: getRepositoryToken(Case),
           useValue: {
             save: jest.fn().mockResolvedValue(caseStub()),
+            find: jest.fn().mockResolvedValue([caseStub()]),
+            findOne: jest.fn().mockResolvedValue(caseStub()),
           },
         },
         CaregiversService,
@@ -30,6 +32,8 @@ describe('CasesService', () => {
           provide: getRepositoryToken(Caregiver),
           useValue: {
             save: jest.fn().mockResolvedValue(caregiverStub()),
+            find: jest.fn().mockResolvedValue([caregiverStub()]),
+            findOne: jest.fn().mockResolvedValue(caregiverStub()),
           },
         },
       ],
@@ -68,6 +72,29 @@ describe('CasesService', () => {
 
         const result = await service.create(newCaseInput)
         expect(result).toEqual(newCaseOutput)
+      })
+    })
+  })
+
+  describe('getCasesforCaregiverToday', () => {
+    describe('when getCasesforCaregiverToday is called', () => {
+      it('should call caregiverRepository.find one time', async () => {
+        const findCaregiverSpy = jest.spyOn(mockCaregiversRepository, 'findOne')
+
+        await service.findCasesForCaregiverToday('1')
+        expect(findCaregiverSpy).toHaveBeenCalledTimes(1)
+      })
+      it('should call caseRepository.find with the correct parameters', async () => {
+        const findCaseSpy = jest.spyOn(mockCaseRepository, 'find')
+
+        await service.findAllByEventId('1')
+        expect(findCaseSpy).toHaveBeenCalledWith({
+          where: { eventId: '1', status: 'pending' },
+        })
+      })
+      it('should return the cases for the caregiver', async () => {
+        const result = await service.findAllByEventId('1')
+        expect(result).toEqual([caseStub()])
       })
     })
   })
