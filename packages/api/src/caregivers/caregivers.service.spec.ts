@@ -24,7 +24,7 @@ describe('CaregiversService', () => {
           useValue: {
             save: jest.fn().mockResolvedValue(caregiverStub()),
             update: jest.fn().mockResolvedValue([caregiverStub()]),
-            findOne: jest.fn().mockResolvedValue(caregiverStub()),
+            findOneBy: jest.fn().mockResolvedValue(caregiverStub()),
           },
         },
       ],
@@ -69,16 +69,16 @@ describe('CaregiversService', () => {
   describe('updateJobs', () => {
     describe('when updateJobs is called', () => {
       it('should call caregiverRepository.findOne one time', async () => {
-        const caregiverId = '123'
+        const caregiverId = '123123123123'
         const testCaregiver: UpdateCaregiverInput = updateCaregiverInputStub()
-        const findOneSpy = jest.spyOn(mockCaregiversRepository, 'findOne')
+        const findOneSpy = jest.spyOn(mockCaregiversRepository, 'findOneBy')
 
         await service.updateJobs(caregiverId, testCaregiver)
         expect(findOneSpy).toHaveBeenCalledTimes(1)
       })
 
       it('should call caregiverRepository.update one time', async () => {
-        const caregiverId = '123'
+        const caregiverId = '123123123123'
         const testCaregiver: UpdateCaregiverInput = updateCaregiverInputStub()
         const updateSpy = jest.spyOn(mockCaregiversRepository, 'update')
 
@@ -87,7 +87,7 @@ describe('CaregiversService', () => {
       })
 
       it('should call caregiverRepository.update with the correct parameters', async () => {
-        const caregiverId = '123'
+        const caregiverId = '123123123123'
         const testCaregiver: UpdateCaregiverInput = updateCaregiverInputStub()
         const updateSpy = jest.spyOn(mockCaregiversRepository, 'update')
 
@@ -96,7 +96,7 @@ describe('CaregiversService', () => {
       })
 
       it('should return the updated caregiver', async () => {
-        const caregiverId = '123'
+        const caregiverId = '123123123123'
         const testCaregiver: UpdateCaregiverInput = updateCaregiverInputStub()
         const result = await service.updateJobs(caregiverId, testCaregiver)
         expect(result).toEqual(caregiverStub())

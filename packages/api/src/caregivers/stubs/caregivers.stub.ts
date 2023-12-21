@@ -16,7 +16,7 @@ export const createCaregiverInputStub = (): CreateCaregiverInput => {
 
 export const caregiverStub = (): Caregiver => {
   const newCaregiver = new Caregiver()
-  newCaregiver.id = 'caregiverid'
+  newCaregiver.id = '123123123123'
   newCaregiver.firstName = 'john'
   newCaregiver.lastName = 'doe'
   newCaregiver.profession = 'Doctor'
@@ -35,7 +35,7 @@ export const updateCaregiverInputStub = (): UpdateCaregiverInput => {
   newCaregiver.availableForEvent = true
   newCaregiver.availableForNewCase = true
   newCaregiver.jobs = []
-  newCaregiver.caregiverId = 'useruid'
+  newCaregiver.caregiverId = '123123123123'
 
   return newCaregiver
 }
