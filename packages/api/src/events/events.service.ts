@@ -5,7 +5,6 @@ import { Event, Status } from './entities/event.entity'
 import { InjectRepository } from '@nestjs/typeorm'
 import { MongoRepository } from 'typeorm'
 import { ObjectId } from 'mongodb'
-import { ArrayContains } from 'class-validator'
 
 @Injectable()
 export class EventsService {
@@ -27,7 +26,7 @@ export class EventsService {
       e.startHour = createEventInput.startHour
       e.endHour = createEventInput.endHour
       e.contactPerson = createEventInput.contactPerson
-      e.phoneNumber = createEventInput.phoneNumer
+      e.phoneNumber = createEventInput.phoneNumber
       e.email = createEventInput.email
       e.btwNumber = createEventInput.btwNumber
       e.eventWithChildren = createEventInput.eventWithChildren
@@ -96,7 +95,7 @@ export class EventsService {
     event.startHour = updateEventInput.startHour ?? event.startHour
     event.endHour = updateEventInput.endHour ?? event.endHour
     event.contactPerson = updateEventInput.contactPerson ?? event.contactPerson
-    event.phoneNumber = updateEventInput.phoneNumer ?? event.phoneNumber
+    event.phoneNumber = updateEventInput.phoneNumber ?? event.phoneNumber
     event.email = updateEventInput.email ?? event.email
     event.btwNumber = updateEventInput.btwNumber ?? event.btwNumber
     event.eventWithChildren =
