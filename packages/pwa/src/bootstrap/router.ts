@@ -33,7 +33,7 @@ const router = createRouter({
           props: true,
         },
         {
-          path: '/caregiver/map/afterAction/:caseId',
+          path: '/caregiver/afterAction/:caseId',
           name: 'afterAction',
           component: () =>
             import('../views/firstAid/caregivers/AfterAction.vue'),

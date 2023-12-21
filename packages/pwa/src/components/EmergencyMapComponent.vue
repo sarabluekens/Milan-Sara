@@ -206,7 +206,7 @@ const checkDistance = (myCoordinates: any, otherCoordinates: any) => {
       }
       if (router.currentRoute.value.path.includes('caregiver')) {
         setTimeout(() => {
-          router.push({ path: '/caregiver/afterAction' })
+          router.push({ path: '/caregiver/afterAction/' + caseId })
           exitMap()
         }, 3000)
       }

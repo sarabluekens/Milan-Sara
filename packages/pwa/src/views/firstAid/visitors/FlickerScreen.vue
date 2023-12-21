@@ -4,7 +4,7 @@
       <div class="w-95vw flex items-center justify-center flex-col">
         <div v-if="!flickering">
           <h1 class="title-red">Help is almost with you</h1>
-          <button @click="handleCall">call someoe</button>
+          <button @click="handleCall">call someone</button>
           <p class="body-black w-2/3 text-center m-auto py-3rem">
             Press this button to make your screen flash bright red. This will
             help you stand out for the caregiver. Careful, epilepsy warning
@@ -29,7 +29,7 @@
         >
           Stop flickering screen
         </button>
-        f
+
         <div
           class="animate-flash w-95vw h-100vh bg-red m-auto z-0 important-animate-count-infinite"
         >

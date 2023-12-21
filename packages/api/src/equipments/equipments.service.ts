@@ -3,14 +3,17 @@ import { CreateEquipmentInput } from './dto/create-equipment.input'
 import { UpdateEquipmentInput } from './dto/update-equipment.input'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Equipment } from './entities/equipment.entity'
-import { Repository } from 'typeorm'
+import { MongoRepository } from 'typeorm'
 import { ObjectId } from 'mongodb'
+import { CasesService } from 'src/cases/cases.service'
+import { log } from 'console'
 
 @Injectable()
 export class EquipmentsService {
   constructor(
     @InjectRepository(Equipment)
-    private readonly equipmentRepository: Repository<Equipment>,
+    private readonly equipmentRepository: MongoRepository<Equipment>,
+    private readonly casesService: CasesService,
   ) {}
 
   create(createEquipmentInput: CreateEquipmentInput): Promise<Equipment> {
@@ -62,6 +65,21 @@ export class EquipmentsService {
     equipment.expirationDate =
       updateEquipmentInput.expirationDate ?? equipment.expirationDate
     return this.equipmentRepository.save(equipment)
+  }
+
+  async getEquipmentByCaseId(caseId: string) {
+    const currentCase = await this.casesService.getCaseById(caseId)
+
+    try {
+      const eventId = currentCase.eventId
+      console.log(typeof eventId)
+      const equipment = await this.equipmentRepository.find({
+        where: { 'reservedStock.eventId': eventId },
+      })
+      return equipment
+    } catch (error) {
+      throw error
+    }
   }
 
   remove(id: number) {
