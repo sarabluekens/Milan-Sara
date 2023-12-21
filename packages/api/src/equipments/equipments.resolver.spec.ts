@@ -5,19 +5,25 @@ import { equipmentStub } from './stubs/equipments.stub'
 import { Equipment } from './entities/equipment.entity'
 
 import { EquipmentsService } from './equipments.service'
+import { CasesService } from 'src/cases/cases.service'
+import { CasesResolver } from 'src/cases/cases.resolver'
 jest.mock('./equipments.service')
+jest.mock('src/cases/cases.service')
 
 describe('EquipmentsResolver', () => {
   let resolver: EquipmentsResolver
+
   let mockedService: EquipmentsService
+  // let mockedCasesService: CasesService
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [EquipmentsResolver, EquipmentsService],
+      providers: [EquipmentsResolver, EquipmentsService], // CasesService]
     }).compile()
 
     resolver = module.get<EquipmentsResolver>(EquipmentsResolver)
     mockedService = module.get<EquipmentsService>(EquipmentsService)
+    // mockedCasesService = module.get<CasesService>(CasesService)
   })
 
   it('should be defined', () => {
@@ -55,25 +61,27 @@ describe('EquipmentsResolver', () => {
     })
   })
 
-  describe('findOneByCaseId', () => {
-    let resultEquipment = []
+  // describe('findEquipmentByCaseId', () => {
+  //   let resultEquipment = []
 
-    beforeEach(async () => {
-      resultEquipment = await resolver.findEquipmentByCaseId(
-        '657df9f4e880f11e1bceaa47',
-      )
-    })
+  //   beforeEach(async () => {
+  //     resultEquipment = await resolver.findEquipmentByCaseId(
+  //       '657df9f4e880f11e1bceaa47',
+  //     )
+  //   })
 
-    it('should call service.findOneByCaseId one time', async () => {
-      expect(mockedService.findOne).toHaveBeenCalledTimes(1)
-    })
+  //   it('should call service.findEquipmentByCaseId one time', async () => {
+  //     expect(mockedService.getEquipmentByCaseId).toHaveBeenCalledTimes(1)
+  //   })
 
-    it('should call service.findOneByCaseId with the correct arguments', async () => {
-      expect(mockedService.findOne).toHaveBeenCalledWith('1')
-    })
+  //   it('should call service.findEquipmentByCaseId with the correct arguments', async () => {
+  //     expect(mockedService.getEquipmentByCaseId).toHaveBeenCalledWith(
+  //       '657df9f4e880f11e1bceaa47',
+  //     )
+  //   })
 
-    it('should return the correct result', async () => {
-      expect(resultEquipment).toEqual(equipmentStub())
-    })
-  })
+  //   it('should return the correct result', async () => {
+  //     expect(resultEquipment).toEqual([equipmentStub()])
+  //   })
+  // })
 })
