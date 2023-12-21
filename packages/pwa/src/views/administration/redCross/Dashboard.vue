@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1 class="title-black mb-4">
+  <div class="lg:ml-10rem bg-beige w-full h-100vh">
+    <h1 class="subtitle-black lg:title-black mb-4">
       Good to see you again, {{ firebaseUser?.displayName }}
     </h1>
     <section
@@ -20,7 +20,7 @@
         <div
           class="border-2 m-auto flex flex-col justify-center items-center w-full h-full border-red rounded-xl"
         >
-          <h3 class="subtitle-black">725</h3>
+          <h3 class="subtitle-black">0</h3>
           <p class="text-black">Completed cases</p>
         </div>
       </div>
