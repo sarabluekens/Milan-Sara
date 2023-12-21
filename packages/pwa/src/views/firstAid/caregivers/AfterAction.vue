@@ -231,7 +231,7 @@
         </div>
         <button
           class="bg-red self-center rounded-md px-10 py-3 body-white mt-1vh hover:bg-red/90 focus:outline-none focus:ring-2 focus:ring-red focus:ring-opacity-50"
-          @click="progress = 3"
+          @click="handleClick"
         >
           Go to materials
         </button>
@@ -246,33 +246,43 @@
         <p class="body-black">What materials were used for this case?</p>
 
         <div
-          class="flex justify-between items-center w-full bg-pink/30 rounded-xl p-2"
+          v-if="!equipmentLoading"
+          v-for="item in equipment.equipmentByCaseId"
         >
-          <p class="body-black">Flamigel</p>
+          <div
+            class="flex justify-between items-center w-full bg-pink/30 rounded-xl p-2"
+          >
+            <p class="body-black">{{ item.name }}</p>
 
-          <!-- <div v-for="material in materials">
+            <!-- <div v-for="material in materials">
             <p>hieeer</p>
           </div> -->
-          <div class="flex items-center">
-            <button
-              class="border-2 border-red w-12vw sm:w-8vw md:w-4vw h-auto rounded-xl text-center subtitle-red cursor-pointer focus:outline-none focus:ring-2 focus:ring-red focus:ring-opacity-50"
-              @click="countMaterial += 1"
-            >
-              +
-            </button>
 
-            <p class="body-black px-5">{{ countMaterial }}</p>
+            <div class="flex items-center">
+              <button
+                class="border-2 border-red w-12vw sm:w-8vw md:w-4vw h-auto rounded-xl text-center subtitle-red cursor-pointer focus:outline-none focus:ring-2 focus:ring-red focus:ring-opacity-50"
+                @click="countMaterial += 1"
+              >
+                +
+              </button>
 
-            <button
-              class="border-2 border-red w-12vw sm:w-8vw md:w-4vw h-auto rounded-xl text-center subtitle-red cursor-pointer focus:outline-none focus:ring-2 focus:ring-red focus:ring-opacity-50"
-              @click="
-                countMaterial != 0 ? (countMaterial -= 1) : (countMaterial = 0)
-              "
-            >
-              -
-            </button>
+              <p class="body-black px-5">{{ countMaterial }}</p>
+
+              <button
+                class="border-2 border-red w-12vw sm:w-8vw md:w-4vw h-auto rounded-xl text-center subtitle-red cursor-pointer focus:outline-none focus:ring-2 focus:ring-red focus:ring-opacity-50"
+                @click="
+                  countMaterial != 0 &&
+                  countMaterial < item.reservedStock.amount
+                    ? (countMaterial -= 1)
+                    : (countMaterial = 0)
+                "
+              >
+                -
+              </button>
+            </div>
           </div>
         </div>
+
         <div
           class="h-4vh w-1/2 flex justify-center items-center gap-3 self-center mt-2vh opacity-0 md:opacity-100"
         >
@@ -295,8 +305,16 @@
 </template>
 
 <script setup lang="ts">
+import { CASE_BY_ID } from '@/graphql/case.query'
+import { GET_EQUIPMENT_BY_CASE_ID } from '@/graphql/equipment.query'
+import { useQuery } from '@vue/apollo-composable'
+import { onMounted } from 'vue'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
+//
+const router = useRouter()
+const caseId = router.currentRoute.value.params.caseId
 const progress = ref(1)
 const countMaterial = ref(0)
 const afterAction = ref({
@@ -309,15 +327,70 @@ const afterAction = ref({
   eventInsurance: false,
   usedMaterials: [],
 })
+console.log(caseId)
+
+const {
+  loading: equipmentLoading,
+  result: equipment,
+  error: equipmentError,
+} = useQuery(GET_EQUIPMENT_BY_CASE_ID, {
+  caseId: caseId as string,
+})
+
+const {
+  loading: caseLoading,
+  result: currentCase,
+  error: caseError,
+} = useQuery(CASE_BY_ID, {
+  id: caseId,
+})
+
+const eventEquipment = ref<{ name: String; amount: number }[]>([])
+
+const checkEquipmentAvailability = () => {
+  console.log(equipment.value.equipmentByCaseId)
+
+  for (const item of equipment.value.equipmentByCaseId) {
+    // Equipment
+
+    const name = item.name
+    console.log(currentCase.value.caseById.eventId)
+    console.log(item.reservedStock)
+
+    for (const equipment of item.reservedStock) {
+      if (
+        equipment.eventId.includes(currentCase.value.caseById.eventId as string)
+      )
+        if (eventEquipment.value.length === 0) {
+          eventEquipment.value.push({
+            name,
+            amount: equipment.amount,
+          })
+        } else {
+          for (const newEquipment of eventEquipment.value)
+            if (newEquipment.name === name) {
+              newEquipment.amount += equipment.amount
+            } else {
+              eventEquipment.value.push({
+                name,
+                amount: equipment.amount,
+              })
+            }
+        }
+    }
+
+    console.log(eventEquipment.value)
+  }
+}
+
+const handleClick = () => {
+  progress.value = 3
+  checkEquipmentAvailability()
+}
+
 const handleAfterAction = () => {
   console.log('after action')
 }
-
-// const handleMinus = (countMaterial: number) => {
-//   if (countMaterial > 0) {
-//     countMaterial -= 1
-//   }
-// }
 </script>
 
 <style scoped></style>
