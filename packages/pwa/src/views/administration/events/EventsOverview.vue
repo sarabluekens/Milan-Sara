@@ -1,7 +1,9 @@
 <template>
-  <div class="ml-3.5rem md:ml-5rem bg-beige h-100vh">
+  <div class="md:ml-14rem bg-beige h-100vh">
     <h1 class="title-black">Event overview</h1>
-    <section class="flex sm:flex-row sm:justify-evenly sm:w-64vw m-auto">
+    <section
+      class="mt-3rem flex sm:flex-row sm:justify-evenly sm:w-64vw m-auto"
+    >
       <div class="bg-beige w-full h-52vh rounded-xl">
         <div
           class="flex flex-row justify-between mx-6 mt-6 mb-8 body-black border-b border-red"
@@ -19,16 +21,16 @@
           ></div>
         </div>
         <div
-          class="flex subbody-black bg-white mx-6 mt-6 mb-8 h-10 px-2 items-center rounded-lg"
+          class="flex text-sm md:subbody-black bg-white mx-6 mt-6 mb-8 h-10 px-2 items-center rounded-lg"
           v-if="pendingDown && events.eventsByStatus.length === 0"
         >
           <p>No pending events at the moment</p>
         </div>
         <section v-if="pendingDown && events.eventsByStatus.length > 0">
           <div class="grid grid-cols-10 px-2 mx-6 mb-4 subbody-black">
-            <p class="col-span-2">Date added</p>
-            <p class="col-span-6">Event name</p>
-            <p class="col-span-1">Status</p>
+            <p class="hidden xl:flex col-span-2">Date added</p>
+            <p class="hidden xl:flex col-span-6">Event name</p>
+            <p class="hidden xl:flex col-span-1">Status</p>
           </div>
           <div v-for="event in events.eventsByStatus">
             <EventCase :event="event" />
@@ -50,7 +52,7 @@
           ></div>
         </div>
         <div
-          class="flex subbody-black bg-white mx-6 mt-6 mb-8 h-10 px-2 items-center rounded-lg"
+          class="flex text-sm md:subbody-black bg-white mx-6 mt-6 mb-4 xl:mb-8 h-10 px-2 items-center rounded-lg"
           v-if="AcceptedDown && eventsApproved.eventsByStatus.length === 0"
         >
           <p>No Accepted events at the moment</p>
@@ -85,7 +87,7 @@
           ></div>
         </div>
         <div
-          class="flex subbody-black bg-white mx-6 mt-6 mb-8 h-10 px-2 items-center rounded-lg"
+          class="flex text-sm md:subbody-black bg-white mx-6 mt-6 mb-4 xl:mb-8 h-10 px-2 items-center rounded-lg"
           v-if="CompletedDown && eventsCompleted.eventsByStatus.length === 0"
         >
           <p>No Succesful events at the moment</p>
@@ -120,7 +122,7 @@
           ></div>
         </div>
         <div
-          class="flex subbody-black bg-white mx-6 mt-6 mb-8 h-10 px-2 items-center rounded-lg"
+          class="flex text-sm md:subbody-black bg-white mx-6 mt-6 mb-4 xl:mb-8 h-10 px-2 items-center rounded-lg"
           v-if="CancelledDown && eventsRejected.eventsByStatus.length === 0"
         >
           <p>No Cancelled events at the moment</p>

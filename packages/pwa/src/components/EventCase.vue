@@ -1,13 +1,15 @@
 <template>
   <div
-    class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 subbody-black rounded-lg"
+    class="grid mx-6 p-2 mb-2 bg-white grid-cols-10 gap-1 h-10 md:subbody-black rounded-lg"
   >
-    <p class="col-span-2">{{ event.createdAt }}</p>
-    <p class="col-span-6">{{ event.name }}</p>
-    <p class="col-span-1">{{ event.status }}</p>
+    <p class="hidden xl:flex col-span-2">{{ event.createdAt }}</p>
+    <p class="col-span-10 md:col-span-8 xl:col-span-6 text-sm">
+      {{ event.name }}
+    </p>
+    <p class="hidden xl:flex col-span-1">{{ event.status }}</p>
     <button
       @click="handleDetails(event.id)"
-      class="h-6 px-2 w-auto bg-red rounded-md subbody-white col-span-1"
+      class="hidden md:flex h-6 px-2 w-auto justify-center bg-red rounded-md subbody-white col-span-2 xl:col-span-1"
     >
       details
     </button>

@@ -2,7 +2,7 @@
   <div class="md:ml-14rem bg-beige h-100vh">
     <h1 class="title-black">Case overview</h1>
     <section
-      class="mt-5rem flex sm:flex-row sm:justify-evenly sm:w-64vw m-auto"
+      class="mt-3rem flex sm:flex-row sm:justify-evenly sm:w-64vw m-auto"
     >
       <div class="bg-beige w-full h-52vh rounded-xl">
         <div
