@@ -49,7 +49,7 @@ export class CreateEventInput {
 
   @IsNotEmpty()
   @Field() //graphql
-  phoneNumer: string
+  phoneNumber: string
 
   @IsNotEmpty()
   @Field() //graphql
