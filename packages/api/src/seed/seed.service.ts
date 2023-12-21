@@ -24,7 +24,17 @@ export enum Status {
   Rejected = 'Rejected',
   Completed = 'Completed',
 }
+export type Jobs = {
+  eventId: string
+  workdays: [string]
+}
 
+export enum Role {
+  ADMIN = 'ADMIN',
+  USER = 'USER',
+  COMPANY = 'COMPANY',
+  CAREGIVER = 'CAREGIVER',
+}
 @Injectable()
 export class SeedService {
   constructor(
@@ -40,11 +50,12 @@ export class SeedService {
     let theCaregivers: Caregiver[] = []
     for (let caregiver of caregivers) {
       const b = new Caregiver()
-      b.firstName = caregiver.name
-      b.lastName = caregiver.fullname
-      b.profession = caregiver.category
+      b.firstName = caregiver.firstName
+      b.lastName = caregiver.lastName
+      b.profession = caregiver.profession
       b.availableForEvent = caregiver.availableForEvent
       b.availableForNewCase = caregiver.availableForNewCase
+      b.jobs = caregiver.jobs as [Jobs]
 
       theCaregivers.push(b)
     }
@@ -66,7 +77,9 @@ export class SeedService {
       b.totalStock = equipment.totalStock
       b.reservedStock = equipment.reservedStock
       b.available = equipment.available
-      b.expirationDate = new Date(equipment.expirationDate.$date)
+      b.expirationDate != null
+        ? (b.expirationDate = new Date(equipment.expirationDate.$date))
+        : null
 
       theEquipments.push(b)
     }
@@ -127,7 +140,7 @@ export class SeedService {
   }
 
   async deleteAllVictims(): Promise<void> {
-    return this.eventsService.truncate()
+    return this.victimsService.truncate()
   }
 
   async addCasesFromJson(): Promise<Case[]> {
@@ -138,7 +151,7 @@ export class SeedService {
       b.eventId = c.eventId
       b.caregiverId = c.caregiverId
       b.typeAccident = c.typeAccident
-      b.date = c.date
+      b.date = new Date(c.date.$date)
       b.accidentDescription = c.accidentDescription
       b.diagnose = c.diagnose
       b.careGiven = c.careGiven
@@ -171,7 +184,7 @@ export class SeedService {
       b.name = user.name
       b.email = user.email
       b.locale = user.locale
-      b.role = user.role
+      b.role = user.role as Role
 
       theUsers.push(b)
     }

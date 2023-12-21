@@ -1,385 +1,468 @@
-[{
-  "_id": {
-    "$oid": "654a1c832f6208998d7e8f43"
-  },
-  "name": "Tommorowland winter edition",
-  "address": "BoomStraat 13",
-  "postalCode": "5000",
-  "city": "Antwerpen",
-  "dates": [
-    {
-      "$date": "2024-01-15T00:00:00.000Z"
-    }
-  ],
-  "startHour": "08:00",
-  "endHour": "23:59",
-  "contactPerson": "Geert",
-  "email": "Geert@tommorrow.be",
-  "btwNumber": "BE8279428",
-  "eventWithChildren": false,
-  "mapsLink": "",
-  "expectedVisitorStaffCount": 300000,
-  "status": "Pending",
-  "createdAt": {
-    "$date": "2023-11-07T11:16:19.207Z"
-  },
-  "updatedAt": {
-    "$date": "2023-11-07T11:16:19.207Z"
-  },
-  "phoneNumber": "2837942798",
-  "category": "Festival"
-},
-{
-  "_id": {
-    "$oid": "654a28ee11cb807350cfdf8c"
-  },
-  "name": "Tommorowland Summer edition",
-  "address": "BoomStraat 13",
-  "postalCode": "5000",
-  "city": "Antwerpen",
-  "dates": [
-    {
-      "$date": "2024-08-15T00:00:00.000Z"
-    }
-  ],
-  "startHour": "08:00",
-  "endHour": "23:59",
-  "contactPerson": "Bert",
-  "email": "Bert@tommorrow.be",
-  "btwNumber": "BE827942808",
-  "eventWithChildren": false,
-  "mapsLink": "",
-  "expectedVisitorStaffCount": 300000,
-  "status": "Pending",
-  "createdAt": {
-    "$date": "2023-11-07T12:09:18.821Z"
-  },
-  "updatedAt": {
-    "$date": "2023-11-07T12:09:18.821Z"
-  },
-  "phoneNumber": "28742789427489",
-  "category": "Concert"
-},
-{
-  "_id": {
-    "$oid": "654a2f1111cb807350cfdf8d"
-  },
-  "name": "Tommorowland March edition",
-  "address": "BoomStraat 13",
-  "postalCode": "5000",
-  "city": "Antwerpen",
-  "dates": [
-    {
-      "$date": "2024-03-09T00:00:00.000Z"
-    }
-  ],
-  "startHour": "08:00",
-  "endHour": "23:59",
-  "contactPerson": "Bert",
-  "email": "Bert@tommorrow.be",
-  "btwNumber": "BE827942808",
-  "eventWithChildren": false,
-  "mapsLink": "",
-  "expectedVisitorStaffCount": 300000,
-  "status": "Pending",
-  "createdAt": {
-    "$date": "2023-11-07T12:35:29.125Z"
-  },
-  "updatedAt": {
-    "$date": "2023-11-07T12:35:29.125Z"
-  },
-  "phoneNumber": "28742789427489",
-  "category": "Festival"
-},
-{
-  "_id": {
-    "$oid": "656c846edadad972a0456710"
-  },
-  "name": "Dit is een test event",
-  "address": "Gaversesteenweg, 313",
-  "postalCode": "9800",
-  "city": "Deinze",
-  "dates": [
-    {
-      "$date": "2023-12-25T00:00:00.000Z"
-    }
-  ],
-  "startHour": "10:00",
-  "endHour": "23:59",
-  "contactPerson": "Milan De Meulemeester",
-  "phoneNumber": "+32468277423",
-  "email": "milandm2003@gmail.com",
-  "btwNumber": "BE8374938583",
-  "eventWithChildren": true,
-  "mapsLink": "https://res.cloudinary.com/dcw0zn7ly/image/upload/v1701610602/redCross/hhfkb45tuclbpxdzzjml.jpg",
-  "expectedVisitorStaffCount": 250,
-  "status": "Pending",
-  "createdAt": {
-    "$date": "2023-12-03T13:36:46.658Z"
-  },
-  "updatedAt": {
-    "$date": "2023-12-03T13:36:46.658Z"
-  },
-  "category": "Festival"
-},
-{
-  "_id": {
-    "$oid": "6578513f547019028b78c2df"
-  },
-  "name": "Dit is een live event voor kinderen",
-  "address": "LiveStraat 313",
-  "postalCode": "9800",
-  "city": "Deinze",
-  "dates": [
-    {
-      "$date": "2023-12-25T00:00:00.000Z"
-    }
-  ],
-  "startHour": "08:00",
-  "endHour": "20:00",
-  "contactPerson": "Milan",
-  "phoneNumber": "8390583859",
-  "email": "milandm2003@gmail.com",
-  "btwNumber": "BE30358389",
-  "eventWithChildren": true,
-  "mapsLink": "",
-  "expectedVisitorStaffCount": 500,
-  "status": "Pending",
-  "createdAt": {
-    "$date": "2023-12-12T12:25:35.010Z"
-  },
-  "updatedAt": {
-    "$date": "2023-12-12T12:25:35.010Z"
-  },
-  "category": "Concert"
-},
-{
-  "_id": {
-    "$oid": "6578b101aedf4131d2d9b706"
-  },
-  "name": "Dit is een event met meerdere dagen",
-  "address": "MeerdereDagenLaan 13",
-  "postalCode": "9800",
-  "city": "Deinze",
-  "dates": [
-    {
-      "$date": "2023-12-23T23:00:00.000Z"
+[
+  {
+    "_id": {
+      "$oid": "654a1c832f6208998d7e8f43"
     },
-    {
-      "$date": "2023-12-24T23:00:00.000Z"
+    "name": "Tommorowland winter edition",
+    "address": "BoomStraat 13",
+    "postalCode": "5000",
+    "city": "Antwerpen",
+    "dates": [
+      {
+        "$date": "2024-01-15T00:00:00.000Z"
+      }
+    ],
+    "startHour": "08:00",
+    "endHour": "23:59",
+    "contactPerson": "Geert",
+    "email": "Geert@tommorrow.be",
+    "btwNumber": "BE8279428",
+    "eventWithChildren": false,
+    "mapsLink": "https://res.cloudinary.com/dcw0zn7ly/image/upload/v1702831360/redCross/fpx4g2qq7bzh9ishsoco.png",
+    "mapCoords": [
+      {
+        "corner": "topLeft",
+        "lat": 50.96495578,
+        "lng": 3.54556347
+      },
+      {
+        "corner": "bottomRight",
+        "lat": 50.96360436,
+        "lng": 3.5532512
+      }
+    ],
+    "expectedVisitorStaffCount": 300000,
+    "status": "Pending",
+    "createdAt": {
+      "$date": "2023-11-07T11:16:19.207Z"
     },
-    {
-      "$date": "2023-12-29T23:00:00.000Z"
+    "updatedAt": {
+      "$date": "2023-11-07T11:16:19.207Z"
     },
-    {
-      "$date": "2023-12-30T23:00:00.000Z"
+    "phoneNumber": "2837942798",
+    "category": "Festival"
+  },
+  {
+    "_id": {
+      "$oid": "654a28ee11cb807350cfdf8c"
     },
-    {
-      "$date": "2023-12-31T23:00:00.000Z"
+    "name": "Tommorowland Summer edition",
+    "address": "BoomStraat 13",
+    "postalCode": "5000",
+    "city": "Antwerpen",
+    "dates": [
+      {
+        "$date": "2024-08-15T00:00:00.000Z"
+      }
+    ],
+    "startHour": "08:00",
+    "endHour": "23:59",
+    "contactPerson": "Bert",
+    "email": "Bert@tommorrow.be",
+    "btwNumber": "BE827942808",
+    "eventWithChildren": false,
+    "mapsLink": "https://res.cloudinary.com/dcw0zn7ly/image/upload/v1702831360/redCross/fpx4g2qq7bzh9ishsoco.png",
+    "mapCoords": [
+      {
+        "corner": "topLeft",
+        "lat": 50.96495578,
+        "lng": 3.54556347
+      },
+      {
+        "corner": "bottomRight",
+        "lat": 50.96360436,
+        "lng": 3.5532512
+      }
+    ],
+    "expectedVisitorStaffCount": 300000,
+    "status": "Pending",
+    "createdAt": {
+      "$date": "2023-11-07T12:09:18.821Z"
+    },
+    "updatedAt": {
+      "$date": "2023-11-07T12:09:18.821Z"
+    },
+    "phoneNumber": "28742789427489",
+    "category": "Concert"
+  },
+  {
+    "_id": {
+      "$oid": "654a2f1111cb807350cfdf8d"
+    },
+    "name": "Tommorowland March edition",
+    "address": "BoomStraat 13",
+    "postalCode": "5000",
+    "city": "Antwerpen",
+    "dates": [
+      {
+        "$date": "2024-03-09T00:00:00.000Z"
+      }
+    ],
+    "startHour": "08:00",
+    "endHour": "23:59",
+    "contactPerson": "Bert",
+    "email": "Bert@tommorrow.be",
+    "btwNumber": "BE827942808",
+    "eventWithChildren": false,
+    "mapsLink": "https://res.cloudinary.com/dcw0zn7ly/image/upload/v1702831360/redCross/fpx4g2qq7bzh9ishsoco.png",
+    "mapCoords": [
+      {
+        "corner": "topLeft",
+        "lat": 50.96495578,
+        "lng": 3.54556347
+      },
+      {
+        "corner": "bottomRight",
+        "lat": 50.96360436,
+        "lng": 3.5532512
+      }
+    ],
+    "expectedVisitorStaffCount": 300000,
+    "status": "Pending",
+    "createdAt": {
+      "$date": "2023-11-07T12:35:29.125Z"
+    },
+    "updatedAt": {
+      "$date": "2023-11-07T12:35:29.125Z"
+    },
+    "phoneNumber": "28742789427489",
+    "category": "Festival"
+  },
+  {
+    "_id": {
+      "$oid": "656c846edadad972a0456710"
+    },
+    "name": "Dit is een test event",
+    "address": "Gaversesteenweg, 313",
+    "postalCode": "9800",
+    "city": "Deinze",
+    "dates": [
+      {
+        "$date": "2023-12-25T00:00:00.000Z"
+      }
+    ],
+    "startHour": "10:00",
+    "endHour": "23:59",
+    "contactPerson": "Milan De Meulemeester",
+    "phoneNumber": "+32468277423",
+    "email": "milandm2003@gmail.com",
+    "btwNumber": "BE8374938583",
+    "eventWithChildren": true,
+    "mapsLink": "https://res.cloudinary.com/dcw0zn7ly/image/upload/v1702831360/redCross/fpx4g2qq7bzh9ishsoco.png",
+    "mapCoords": [
+      {
+        "corner": "topLeft",
+        "lat": 50.96495578,
+        "lng": 3.54556347
+      },
+      {
+        "corner": "bottomRight",
+        "lat": 50.96360436,
+        "lng": 3.5532512
+      }
+    ],
+    "expectedVisitorStaffCount": 250,
+    "status": "Pending",
+    "createdAt": {
+      "$date": "2023-12-03T13:36:46.658Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-03T13:36:46.658Z"
+    },
+    "category": "Festival"
+  },
+  {
+    "_id": {
+      "$oid": "6578513f547019028b78c2df"
+    },
+    "name": "Dit is een live event voor kinderen",
+    "address": "LiveStraat 313",
+    "postalCode": "9800",
+    "city": "Deinze",
+    "dates": [
+      {
+        "$date": "2023-12-25T00:00:00.000Z"
+      }
+    ],
+    "startHour": "08:00",
+    "endHour": "20:00",
+    "contactPerson": "Milan",
+    "phoneNumber": "8390583859",
+    "email": "milandm2003@gmail.com",
+    "btwNumber": "BE30358389",
+    "eventWithChildren": true,
+    "mapsLink": "https://res.cloudinary.com/dcw0zn7ly/image/upload/v1702831360/redCross/fpx4g2qq7bzh9ishsoco.png",
+    "mapCoords": [
+      {
+        "corner": "topLeft",
+        "lat": 50.96495578,
+        "lng": 3.54556347
+      },
+      {
+        "corner": "bottomRight",
+        "lat": 50.96360436,
+        "lng": 3.5532512
+      }
+    ],
+    "expectedVisitorStaffCount": 500,
+    "status": "Pending",
+    "createdAt": {
+      "$date": "2023-12-12T12:25:35.010Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-12T12:25:35.010Z"
+    },
+    "category": "Concert"
+  },
+  {
+    "_id": {
+      "$oid": "6578b101aedf4131d2d9b706"
+    },
+    "name": "Marathonloop Deinze",
+    "address": "MeerdereDagenLaan 13",
+    "postalCode": "9800",
+    "city": "Deinze",
+    "dates": [
+      {
+        "$date": "2023-12-23T23:00:00.000Z"
+      },
+      {
+        "$date": "2023-12-24T23:00:00.000Z"
+      },
+      {
+        "$date": "2023-12-22T23:00:00.000Z"
+      },
+      {
+        "$date": "2023-12-30T23:00:00.000Z"
+      },
+      {
+        "$date": "2023-12-31T23:00:00.000Z"
+      }
+    ],
+    "startHour": "08:00",
+    "endHour": "23:59",
+    "contactPerson": "Milan",
+    "phoneNumber": "894093859",
+    "email": "Milandm2003@gmail.com",
+    "btwNumber": "BE324903",
+    "eventWithChildren": true,
+    "mapsLink": "https://res.cloudinary.com/dcw0zn7ly/image/upload/v1702831360/redCross/fpx4g2qq7bzh9ishsoco.png",
+    "mapCoords": [
+      {
+        "corner": "topLeft",
+        "lat": 50.96495578,
+        "lng": 3.54556347
+      },
+      {
+        "corner": "bottomRight",
+        "lat": 50.96360436,
+        "lng": 3.5532512
+      }
+    ],
+    "expectedVisitorStaffCount": 2000,
+    "status": "Pending",
+    "createdAt": {
+      "$date": "2023-12-12T19:14:09.030Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-12T19:14:09.030Z"
+    },
+    "category": "Sport"
+  },
+  {
+    "_id": {
+      "$oid": "657efd271f2d1210f42bcb78"
+    },
+    "name": "Tomorrowland winter",
+    "address": "Testerlaan",
+    "postalCode": "9800",
+    "city": "Deinze",
+    "dates": [
+      {
+        "$date": "2023-12-24T23:00:00.000Z"
+      },
+      {
+        "$date": "2023-12-22T23:00:00.000Z"
+      },
+      {
+        "$date": "2023-12-21T23:00:00.000Z"
+      }
+    ],
+    "startHour": "08:00",
+    "endHour": "20:00",
+    "contactPerson": "Milan",
+    "phoneNumber": "298392038",
+    "email": "milan@milan.be",
+    "btwNumber": "BE2980924892",
+    "eventWithChildren": true,
+    "mapsLink": "https://res.cloudinary.com/dcw0zn7ly/image/upload/v1702831360/redCross/fpx4g2qq7bzh9ishsoco.png",
+    "mapCoords": [
+      {
+        "corner": "topLeft",
+        "lat": 50.96495578,
+        "lng": 3.54556347
+      },
+      {
+        "corner": "bottomRight",
+        "lat": 50.96360436,
+        "lng": 3.5532512
+      }
+    ],
+    "expectedVisitorStaffCount": 200,
+    "status": "Pending",
+    "createdAt": {
+      "$date": "2023-12-17T13:52:39.782Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-17T13:52:39.782Z"
+    },
+    "category": "Festival"
+  },
+  {
+    "_id": {
+      "$oid": "657f252528c04f6b602dbb25"
+    },
+    "name": "Marathonloop Deinze",
+    "address": "Gaversesteenweg, 313",
+    "postalCode": "9800",
+    "city": "Deinze",
+    "dates": [
+      {
+        "$date": "2023-12-19T23:00:00.000Z"
+      },
+      {
+        "$date": "2023-12-20T23:00:00.000Z"
+      },
+      {
+        "$date": "2023-12-21T23:00:00.000Z"
+      }
+    ],
+    "startHour": "08:00",
+    "endHour": "23:59",
+    "contactPerson": "Milan De Meulemeester",
+    "phoneNumber": "+32468277423",
+    "email": "milandm2003@gmail.com",
+    "btwNumber": "BE2840289",
+    "eventWithChildren": false,
+    "mapsLink": "https://res.cloudinary.com/dcw0zn7ly/image/upload/v1702831360/redCross/fpx4g2qq7bzh9ishsoco.png",
+    "mapCoords": [
+      {
+        "corner": "topLeft",
+        "lat": 50.96495578,
+        "lng": 3.54556347
+      },
+      {
+        "corner": "bottomRight",
+        "lat": 50.96360436,
+        "lng": 3.5532512
+      }
+    ],
+    "expectedVisitorStaffCount": 1000,
+    "status": "Pending",
+    "createdAt": {
+      "$date": "2023-12-17T16:43:17.964Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-17T16:43:17.964Z"
+    },
+    "category": "Sport"
+  },
+  {
+    "_id": {
+      "$oid": "65817999e9cb56889470463e"
+    },
+    "name": "Taylor swift on Tour",
+    "category": "Concert",
+    "address": "Gaversesteenweg, 313",
+    "postalCode": "9800",
+    "city": "Deinze",
+    "dates": [
+      {
+        "$date": "2023-12-21T23:00:00.000Z"
+      },
+      {
+        "$date": "2023-12-22T23:00:00.000Z"
+      },
+      {
+        "$date": "2023-12-23T23:00:00.000Z"
+      }
+    ],
+    "startHour": "08:00",
+    "endHour": "20:00",
+    "contactPerson": "Milan De Meulemeester",
+    "phoneNumber": "+32468277423",
+    "email": "milandm2003@gmail.com",
+    "btwNumber": "BE727829382",
+    "eventWithChildren": false,
+    "mapsLink": "https://res.cloudinary.com/dcw0zn7ly/image/upload/v1702984069/redCross/cg77h9wdqi9twreaklhj.jpg",
+    "mapCoords": [
+      {
+        "corner": "topLeft",
+        "lat": 50.96505038,
+        "lng": 3.54549909
+      },
+      {
+        "corner": "bottomRight",
+        "lat": 50.96388816,
+        "lng": 3.55135922
+      }
+    ],
+    "expectedVisitorStaffCount": 10000,
+    "status": "Pending",
+    "createdAt": {
+      "$date": "2023-12-19T11:08:09.754Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-19T11:08:09.754Z"
     }
-  ],
-  "startHour": "08:00",
-  "endHour": "23:59",
-  "contactPerson": "Milan",
-  "phoneNumber": "894093859",
-  "email": "Milandm2003@gmail.com",
-  "btwNumber": "BE324903",
-  "eventWithChildren": true,
-  "mapsLink": "https://res.cloudinary.com/dcw0zn7ly/image/upload/v1702408441/redCross/nlnzliwyqft4zdzrzlxi.png",
-  "expectedVisitorStaffCount": 2000,
-  "status": "Pending",
-  "createdAt": {
-    "$date": "2023-12-12T19:14:09.030Z"
   },
-  "updatedAt": {
-    "$date": "2023-12-12T19:14:09.030Z"
-  },
-  "category": "Concert"
-},
-{
-  "_id": {
-    "$oid": "657efd271f2d1210f42bcb78"
-  },
-  "name": "Test",
-  "address": "Testerlaan",
-  "postalCode": "9800",
-  "city": "Deinze",
-  "dates": [
-    {
-      "$date": "2023-12-24T23:00:00.000Z"
-    }
-  ],
-  "startHour": "08:00",
-  "endHour": "20:00",
-  "contactPerson": "Milan",
-  "phoneNumber": "298392038",
-  "email": "milan@milan.be",
-  "btwNumber": "BE2980924892",
-  "eventWithChildren": true,
-  "mapsLink": "testLink",
-  "mapCoords": [
-    {
-      "corner": "Right",
-      "lat": 25,
-      "lng": 20
+  {
+    "_id": {
+      "$oid": "6583ab3d7101f85549a05e4f"
     },
-    {
-      "corner": "Right",
-      "lat": 15,
-      "lng": 12
-    }
-  ],
-  "expectedVisitorStaffCount": 200,
-  "status": "Pending",
-  "createdAt": {
-    "$date": "2023-12-17T13:52:39.782Z"
-  },
-  "updatedAt": {
-    "$date": "2023-12-17T13:52:39.782Z"
-  },
-  "category": "Festival"
-},
-{
-  "_id": {
-    "$oid": "657f252528c04f6b602dbb25"
-  },
-  "name": "Dit is een test event met coords",
-  "address": "Gaversesteenweg, 313",
-  "postalCode": "9800",
-  "city": "Deinze",
-  "dates": [
-    {
-      "$date": "2023-12-19T23:00:00.000Z"
+    "name": "Dit is een event voor alle VogelSpotters",
+    "category": "Festival",
+    "address": "Gaversesteenweg, 313",
+    "postalCode": "9800",
+    "city": "Deinze",
+    "dates": [
+      {
+        "$date": "2023-12-26T23:00:00.000Z"
+      },
+      {
+        "$date": "2023-12-27T23:00:00.000Z"
+      },
+      {
+        "$date": "2023-12-28T23:00:00.000Z"
+      }
+    ],
+    "startHour": "08:00",
+    "endHour": "23:59",
+    "contactPerson": "Milan De Meulemeester",
+    "phoneNumber": "+32468277423",
+    "email": "milandm2003@gmail.com",
+    "btwNumber": "BE8293802",
+    "eventWithChildren": false,
+    "mapsLink": "https://res.cloudinary.com/dcw0zn7ly/image/upload/v1703127845/redCross/wdribs0fa0hhcqfzqrbu.jpg",
+    "mapCoords": [
+      {
+        "corner": "topLeft",
+        "lat": 50.83259044,
+        "lng": 3.26225764
+      },
+      {
+        "corner": "bottomRight",
+        "lat": 50.96464512,
+        "lng": 3.5475311
+      }
+    ],
+    "expectedVisitorStaffCount": 98,
+    "status": "Pending",
+    "createdAt": {
+      "$date": "2023-12-21T03:04:29.878Z"
     },
-    {
-      "$date": "2023-12-20T23:00:00.000Z"
-    },
-    {
-      "$date": "2023-12-21T23:00:00.000Z"
+    "updatedAt": {
+      "$date": "2023-12-21T03:04:29.878Z"
     }
-  ],
-  "startHour": "08:00",
-  "endHour": "23:59",
-  "contactPerson": "Milan De Meulemeester",
-  "phoneNumber": "+32468277423",
-  "email": "milandm2003@gmail.com",
-  "btwNumber": "BE2840289",
-  "eventWithChildren": false,
-  "mapsLink": "https://res.cloudinary.com/dcw0zn7ly/image/upload/v1702831360/redCross/fpx4g2qq7bzh9ishsoco.png",
-  "mapCoords": [
-    {
-      "corner": "topLeft",
-      "lat": 50.96495578,
-      "lng": 3.54556347
-    },
-    {
-      "corner": "bottomRight",
-      "lat": 50.96360436,
-      "lng": 3.5532512
-    }
-  ],
-  "expectedVisitorStaffCount": 1000,
-  "status": "Pending",
-  "createdAt": {
-    "$date": "2023-12-17T16:43:17.964Z"
-  },
-  "updatedAt": {
-    "$date": "2023-12-17T16:43:17.964Z"
-  },
-  "category": "Festival"
-},
-{
-  "_id": {
-    "$oid": "65817999e9cb56889470463e"
-  },
-  "name": "Test voor category",
-  "category": "Concert",
-  "address": "Gaversesteenweg, 313",
-  "postalCode": "9800",
-  "city": "Deinze",
-  "dates": [
-    {
-      "$date": "2023-12-21T23:00:00.000Z"
-    },
-    {
-      "$date": "2023-12-22T23:00:00.000Z"
-    }
-  ],
-  "startHour": "08:00",
-  "endHour": "20:00",
-  "contactPerson": "Milan De Meulemeester",
-  "phoneNumber": "+32468277423",
-  "email": "milandm2003@gmail.com",
-  "btwNumber": "BE727829382",
-  "eventWithChildren": false,
-  "mapsLink": "https://res.cloudinary.com/dcw0zn7ly/image/upload/v1702984069/redCross/cg77h9wdqi9twreaklhj.jpg",
-  "mapCoords": [
-    {
-      "corner": "topLeft",
-      "lat": 50.96505038,
-      "lng": 3.54549909
-    },
-    {
-      "corner": "bottomRight",
-      "lat": 50.96388816,
-      "lng": 3.55135922
-    }
-  ],
-  "expectedVisitorStaffCount": 10000,
-  "status": "Pending",
-  "createdAt": {
-    "$date": "2023-12-19T11:08:09.754Z"
-  },
-  "updatedAt": {
-    "$date": "2023-12-19T11:08:09.754Z"
   }
-},
-{
-  "_id": {
-    "$oid": "6583ab3d7101f85549a05e4f"
-  },
-  "name": "Dit is een event voor alle VogelSpotters",
-  "category": "Festival",
-  "address": "Gaversesteenweg, 313",
-  "postalCode": "9800",
-  "city": "Deinze",
-  "dates": [
-    {
-      "$date": "2023-12-26T23:00:00.000Z"
-    },
-    {
-      "$date": "2023-12-27T23:00:00.000Z"
-    },
-    {
-      "$date": "2023-12-28T23:00:00.000Z"
-    }
-  ],
-  "startHour": "08:00",
-  "endHour": "23:59",
-  "contactPerson": "Milan De Meulemeester",
-  "phoneNumber": "+32468277423",
-  "email": "milandm2003@gmail.com",
-  "btwNumber": "BE8293802",
-  "eventWithChildren": false,
-  "mapsLink": "https://res.cloudinary.com/dcw0zn7ly/image/upload/v1703127845/redCross/wdribs0fa0hhcqfzqrbu.jpg",
-  "mapCoords": [
-    {
-      "corner": "topLeft",
-      "lat": 50.83259044,
-      "lng": 3.26225764
-    },
-    {
-      "corner": "bottomRight",
-      "lat": 50.96464512,
-      "lng": 3.5475311
-    }
-  ],
-  "expectedVisitorStaffCount": 98,
-  "status": "Pending",
-  "createdAt": {
-    "$date": "2023-12-21T03:04:29.878Z"
-  },
-  "updatedAt": {
-    "$date": "2023-12-21T03:04:29.878Z"
-  }
-}]
+]

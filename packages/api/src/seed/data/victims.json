@@ -1,0 +1,82 @@
+[
+  {
+    "_id": {
+      "$oid": "655cc47db6a5180d6649f8b0"
+    },
+    "firstName": "sara",
+    "lastName": "bluekens",
+    "email": "sara.bluekens@gmail.com",
+    "phoneNumber": "+32450847364",
+    "createdAt": {
+      "$date": "2023-11-21T14:53:49.470Z"
+    },
+    "cases": [
+      "eventId3",
+      "656705eebb451fdab99652f8",
+      "656705eebb451fdab99652f8",
+      "656705eebb451fdab99652f8",
+      "656705eebb451fdab99652f8",
+      "656cab568fe887b0e67640b2",
+      "656cab568fe887b0e67640b2",
+      "656cab568fe887b0e67640b2",
+      "656cab568fe887b0e67640b2",
+      "656cab568fe887b0e67640b2",
+      "656caf196a15f596e17cde64",
+      "656cb1296a15f596e17cde65",
+      "656f3da89310245c0055e71c",
+      "656f4f6a9310245c0055e71f",
+      "65821a399f50a51180adf22a"
+    ],
+    "id": "655cc47db6a5180d6649f8b0"
+  },
+  {
+    "_id": {
+      "$oid": "655cc4e95c522f482d75a323"
+    },
+    "firstName": "milan",
+    "lastName": "demeulemeester",
+    "email": "sara.bluekens@gmail.com",
+    "phoneNumber": "+32450847364",
+    "createdAt": {
+      "$date": "2023-11-21T14:55:37.631Z"
+    },
+    "cases": ["randomId", "randomId2", "656705eebb451fdab99652f8"]
+  },
+  {
+    "_id": {
+      "$oid": "6564d1502eb1dc644ac406ae"
+    },
+    "firstName": "saartje",
+    "lastName": "bluekens",
+    "email": "sara.bluekens@gmail.com",
+    "phoneNumber": "+32450847364",
+    "cases": [
+      "randomId",
+      "656705eebb451fdab99652f8",
+      "656705eebb451fdab99652f8",
+      "656705eebb451fdab99652f8",
+      "656cab568fe887b0e67640b2"
+    ],
+    "id": "6564d1502eb1dc644ac406ae"
+  },
+  {
+    "_id": {
+      "$oid": "656dcca2d5f52f6174631fed"
+    },
+    "firstName": "bluekens",
+    "lastName": "sara",
+    "email": "sara.bluekens@student.howest.be",
+    "phoneNumber": "+32470853709",
+    "cases": ["656dcc96d5f52f6174631fec"]
+  },
+  {
+    "_id": {
+      "$oid": "65821a629f50a51180adf22b"
+    },
+    "firstName": "saradfsgdgsg",
+    "lastName": "bluekens",
+    "email": "sara.sara@sara.com",
+    "phoneNumber": "+32479746298",
+    "cases": ["65821a399f50a51180adf22a"]
+  }
+]
