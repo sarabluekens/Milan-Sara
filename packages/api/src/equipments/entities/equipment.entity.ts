@@ -42,7 +42,7 @@ export class Equipment {
 
   @Column({ nullable: true }) // Database link - Typeorm
   @Field({ nullable: true }) //graphql
-  expirationDate: Date
+  expirationDate?: Date
 
   @CreateDateColumn({ type: 'timestamp', nullable: true }) // Database link - Typeorm
   @Field() //graphql

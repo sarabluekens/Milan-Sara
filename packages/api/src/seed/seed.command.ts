@@ -28,7 +28,7 @@ export class DatabaseSeedCommand {
   }
 
   //   seeding for equipments
-  /*   @Command({
+  @Command({
     command: 'seed:database:equipments',
     describe: 'Seed the database with equipment',
   })
@@ -36,7 +36,7 @@ export class DatabaseSeedCommand {
     console.info('🚑 Start seeding of equipment')
     const equipment = await this.seedService.addEquipmentFromJson()
     console.info(`🚑 ${equipment.length} Equipment are added`)
-  } */
+  }
 
   @Command({
     command: 'seed:reset:equipments',
