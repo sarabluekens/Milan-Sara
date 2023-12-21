@@ -3,8 +3,9 @@ import { INestApplication } from '@nestjs/common'
 import * as request from 'supertest'
 import { AppModule } from 'src/app.module'
 import { eventStub } from 'src/events/stubs/events.stub'
-import { caseStub } from 'src/cases/stubs/cases.stub'
 import { EventsService } from 'src/events/events.service'
+import { caregiverStub } from 'src/caregivers/stubs/caregivers.stub'
+import { CaregiversService } from 'src/caregivers/caregivers.service'
 
 const GQL_ENDPOINT = '/graphql'
 
@@ -15,15 +16,18 @@ describe('AppController (e2e)', () => {
     findAll: () => [eventStub()],
   }
 
-  let casesServiceMockData = {
-    findAll: () => [caseStub()],
+  let caregiversServiceMockData = {
+    findAll: () => [caregiverStub()],
   }
+
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     })
       .overrideProvider(EventsService)
       .useValue(eventsServiceMockData)
+      .overrideProvider(CaregiversService)
+      .useValue(caregiversServiceMockData)
       .compile()
 
     app = moduleFixture.createNestApplication()
@@ -54,45 +58,32 @@ describe('AppController (e2e)', () => {
                 address: 'event1weg',
                 postalCode: '1234',
                 city: 'City',
-                dates: ['2020-01-01T00:00:00.000Z'],
+                dates: ['2023-12-21T23:00:00.000Z'],
               },
             ])
           })
       })
-    }),
-      describe('Cases', () => {
-        it('should return all cases', () => {
-          return request(app.getHttpServer())
-            .post(GQL_ENDPOINT)
-            .send({
-              query: `{ cases { checkUpDescription, usedMaterials, checkUpRequired, referred, referralDescription,personalEnsurance, careGiven, eventEnsurance, diagnose, id, victimId, eventId, caregiverId, typeAccident, date, accidentDescription, status  } }`,
-            })
-            .expect(200)
-            .expect(res => {
-              expect(res.body.data.cases).toEqual([
-                {
-                  id: '1',
-                  victimId: '1',
-                  eventId: '1',
-                  caregiverId: '1',
-                  typeAccident: 'accident',
-                  date: '2020-01-01T00:00:00.000Z',
-                  accidentDescription: 'accident description',
-                  status: 'pending',
-                  checkUpRequired: false,
-                  referred: false,
-                  referralDescription: '',
-                  personalEnsurance: true,
-                  eventEnsurance: false,
-                  diagnose: '',
-                  careGiven: '',
-                  checkUpDescription: '',
-                  usedMaterials: [],
-                },
-              ])
-            })
-        })
+    })
+
+    describe('Caregivers', () => {
+      it('should return all caregivers', () => {
+        return request(app.getHttpServer())
+          .post(GQL_ENDPOINT)
+          .send({
+            query: `{caregivers {id, firstName, lastName}}`,
+          })
+          .expect(200)
+          .expect(res => {
+            expect(res.body.data.caregivers).toEqual([
+              {
+                id: '123123123123',
+                firstName: 'john',
+                lastName: 'doe',
+              },
+            ])
+          })
       })
+    })
 
     afterAll(async () => {
       await app.close()

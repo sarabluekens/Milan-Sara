@@ -19,7 +19,7 @@ export class Case {
   eventId: string
 
   @Column()
-  @Field(() => String, { defaultValue: "" })
+  @Field(() => String, { defaultValue: '' })
   caregiverId: string
 
   @Column()
@@ -81,6 +81,7 @@ export class Case {
   @Column()
   @Field({ defaultValue: 'pending' })
   status: string
+
   //column = db
   //field = graphql
   //field en daarin store je object van linked entity
