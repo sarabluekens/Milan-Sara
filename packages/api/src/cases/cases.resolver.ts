@@ -15,13 +15,6 @@ export class CasesResolver {
   // autmatically create instance of casesService and inject in resolver
   constructor(private readonly casesService: CasesService) {}
 
-  // TODO is this in use?
-  // schrijf je wat iets teruggeeft, hier geeft het cases terugs
-  // @Query(() => Case, { name: 'getOneCase' })
-  // getCase(@Args('date', { type: () => Date }) data: Date) {
-  //   return this.casesService.findOneByDate(data)
-  // }
-
   @Query(() => [Case]) // tells graphql that this is a query
   cases(): Promise<Case[]> {
     return this.casesService.findAll()
