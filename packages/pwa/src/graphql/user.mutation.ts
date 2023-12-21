@@ -5,6 +5,8 @@ export const ADD_USER = gql`
     createUser(createUserInput: $createUserInput) {
       id
       uid
+      name
+      email
       locale
       role
     }

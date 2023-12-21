@@ -17,8 +17,9 @@ export class UsersService {
     const user = new User()
     user.uid = uid
     user.name = CreateUserInput.name
+    user.email = CreateUserInput.email
     user.locale = CreateUserInput.locale ?? 'nl'
-    user.role = Role.USER // BUG: default columns doesn't seem to work
+    user.role = Role.COMPANY // BUG: default columns doesn't seem to work
     return this.userRepository.save(user)
   }
 
