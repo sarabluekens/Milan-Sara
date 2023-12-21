@@ -15,8 +15,8 @@ export class CaregiversService {
 
   create(createCaregiverInput: CreateCaregiverInput): Promise<Caregiver> {
     const c = new Caregiver()
-    c.firstName = createCaregiverInput.firstName.toLowerCase()
-    c.lastName = createCaregiverInput.lastName.toLowerCase()
+    c.firstName = createCaregiverInput.firstName
+    c.lastName = createCaregiverInput.lastName
     c.profession = createCaregiverInput.profession
     if (createCaregiverInput.availableForEvent)
       c.availableForEvent = createCaregiverInput.availableForEvent
