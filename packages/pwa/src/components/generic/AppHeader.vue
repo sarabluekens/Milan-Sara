@@ -324,14 +324,14 @@
           All cases
         </li>
       </ul>
-    </section>
-    <section>
-      <button
-        class="mt-1 w-52 rounded-md body-white border-2 border-red bg-red py-2 px-4 font-semibold hover:bg-blue-600 focus:outline-none focus-visible:border-blue-300 focus-visible:bg-blue-600 focus-visible:ring-2 focus-visible:ring-blue-300"
-        @click="logoutUser"
-      >
-        Logout
-      </button>
+      <section>
+        <button
+          class="mt-1 w-52 rounded-md body-white border-2 border-red bg-red py-2 px-4 font-semibold hover:bg-blue-600 focus:outline-none focus-visible:border-blue-300 focus-visible:bg-blue-600 focus-visible:ring-2 focus-visible:ring-blue-300"
+          @click="logoutUser"
+        >
+          Logout
+        </button>
+      </section>
     </section>
   </nav>
 

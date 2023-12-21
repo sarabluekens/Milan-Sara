@@ -1,12 +1,14 @@
 <template>
-  <div>
-    <h1 class="title-black mb-4">
+  <div class="md:ml-9rem bg-beige h-100vh">
+    <h1 class="subtitle-black lg:title-black mb-4">
       Good to see you again, {{ firebaseUser?.displayName }}
     </h1>
     <section
-      class="flex sm:h-20vh h-24vh sm:flex-row sm:justify-evenly sm:w-48vw m-auto h-"
+      class="flex sm:h-20vh h-24vh sm:flex-row sm:justify-evenly sm:w-48vw m-auto md:gap-5"
     >
-      <div class="flex border-4 h-32 w-72 p-2 border-red rounded-xl">
+      <div
+        class="md:flex border-4 h-32 w-72 md:w-80 md:text-center xl:w-72 p-2 border-red rounded-xl hidden"
+      >
         <div
           class="border-2 m-auto flex flex-col justify-center items-center w-full h-full border-red rounded-xl"
         >
@@ -16,15 +18,19 @@
           <p class="text-black">Succesful events</p>
         </div>
       </div>
-      <div class="flex border-4 h-32 w-72 p-2 border-red rounded-xl">
+      <div
+        class="md:flex border-4 h-32 w-72 md:w-80 text-center xl:w-72 p-2 border-red rounded-xl hidden"
+      >
         <div
           class="border-2 m-auto flex flex-col justify-center items-center w-full h-full border-red rounded-xl"
         >
-          <h3 class="subtitle-black">725</h3>
+          <h3 class="subtitle-black">0</h3>
           <p class="text-black">Completed cases</p>
         </div>
       </div>
-      <div class="flex border-4 h-32 w-72 p-2 border-red rounded-xl">
+      <div
+        class="flex border-4 h-32 ml-4 mt-7 md:ml-0 md:mt-0 w-72 md:w-80 text-center xl:w-72 p-2 border-red rounded-xl"
+      >
         <div
           class="border-2 m-auto flex flex-col justify-center items-center w-full h-full border-red rounded-xl"
         >
@@ -41,7 +47,7 @@
           <p>Pending events</p>
           <p>All events</p>
         </div>
-        <div class="grid grid-cols-10 px-2 mx-6 mb-4 subbody-black">
+        <div class="hidden md:grid grid-cols-10 px-2 mx-6 mb-4 subbody-black">
           <p class="col-span-2">Date added</p>
           <p class="col-span-6">Event name</p>
           <p class="col-span-1">Status</p>
@@ -50,9 +56,11 @@
         <div v-if="eventsError">{{ eventsError }}</div>
         <div
           v-if="events?.eventsByStatusAndClient.length > 0"
-          v-for="event in events.eventsByStatusAndClient"
+          class="w-full h-50vh md:h-45vh lg:h-35vh overflow-y-auto scrollbar scrollbar-rounded scrollbar-w-2 scrollbar-track-color-beige scrollbar-thumb-rounded scrollbar-thumb-color-red scrolling-touch"
         >
-          <EventCase :event="event" />
+          <div v-for="event in events.eventsByStatusAndClient">
+            <EventCase :event="event" />
+          </div>
         </div>
         <div v-else>
           <div
