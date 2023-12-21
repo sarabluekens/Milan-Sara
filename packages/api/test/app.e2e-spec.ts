@@ -3,6 +3,7 @@ import { INestApplication } from '@nestjs/common'
 import * as request from 'supertest'
 import { AppModule } from 'src/app.module'
 import { eventStub } from 'src/events/stubs/events.stub'
+import { caseStub } from 'src/cases/stubs/cases.stub'
 import { EventsService } from 'src/events/events.service'
 
 const GQL_ENDPOINT = '/graphql'
@@ -14,6 +15,9 @@ describe('AppController (e2e)', () => {
     findAll: () => [eventStub()],
   }
 
+  let casesServiceMockData = {
+    findAll: () => [caseStub()],
+  }
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
@@ -55,10 +59,43 @@ describe('AppController (e2e)', () => {
             ])
           })
       })
-    })
-  })
+    }),
+      describe('Cases', () => {
+        it('should return all cases', () => {
+          return request(app.getHttpServer())
+            .post(GQL_ENDPOINT)
+            .send({
+              query: `{ cases { checkUpDescription, usedMaterials, checkUpRequired, referred, referralDescription,personalEnsurance, careGiven, eventEnsurance, diagnose, id, victimId, eventId, caregiverId, typeAccident, date, accidentDescription, status  } }`,
+            })
+            .expect(200)
+            .expect(res => {
+              expect(res.body.data.cases).toEqual([
+                {
+                  id: '1',
+                  victimId: '1',
+                  eventId: '1',
+                  caregiverId: '1',
+                  typeAccident: 'accident',
+                  date: '2020-01-01T00:00:00.000Z',
+                  accidentDescription: 'accident description',
+                  status: 'pending',
+                  checkUpRequired: false,
+                  referred: false,
+                  referralDescription: '',
+                  personalEnsurance: true,
+                  eventEnsurance: false,
+                  diagnose: '',
+                  careGiven: '',
+                  checkUpDescription: '',
+                  usedMaterials: [],
+                },
+              ])
+            })
+        })
+      })
 
-  afterAll(async () => {
-    await app.close()
+    afterAll(async () => {
+      await app.close()
+    })
   })
 })
