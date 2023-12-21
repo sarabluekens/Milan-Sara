@@ -1,89 +1,486 @@
-[{
-  "_id": {
-    "$oid": "655b78b014a713e47abcb440"
+[
+  {
+    "_id": {
+      "$oid": "65837808597ac1d1826a4cff"
+    },
+    "victimId": null,
+    "eventId": "657efd271f2d1210f42bcb78",
+    "caregiverId": "6581a27e939b47623b02081e",
+    "typeAccident": "drugs",
+    "date": {
+      "$date": "2023-12-20T23:26:00.879Z"
+    },
+    "accidentDescription": null,
+    "diagnose": null,
+    "careGiven": null,
+    "checkUpRequired": false,
+    "checkUpDescription": null,
+    "referred": false,
+    "referralDescription": null,
+    "usedMaterials": [],
+    "status": "pending",
+    "id": {
+      "$oid": "65837808597ac1d1826a4cff"
+    },
+    "victimCoordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "caregiverCoordinates": {
+      "lat": 0,
+      "lng": 0
+    }
   },
-  "eventId": "tempEventId2",
-  "typeAccident": "fell",
-  "date": {
-    "$date": "2023-11-20T15:18:08.766Z"
+  {
+    "_id": {
+      "$oid": "65837973597ac1d1826a4d00"
+    },
+    "victimId": null,
+    "eventId": "657efd271f2d1210f42bcb78",
+    "caregiverId": "6581a27e939b47623b02081e",
+    "typeAccident": "drugs",
+    "date": {
+      "$date": "2023-12-20T23:32:03.978Z"
+    },
+    "accidentDescription": null,
+    "diagnose": null,
+    "careGiven": null,
+    "checkUpRequired": false,
+    "checkUpDescription": null,
+    "referred": false,
+    "referralDescription": null,
+    "usedMaterials": [],
+    "status": "pending",
+    "id": {
+      "$oid": "65837973597ac1d1826a4d00"
+    },
+    "victimCoordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "caregiverCoordinates": {
+      "lat": 0,
+      "lng": 0
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65837a95597ac1d1826a4d01"
+    },
+    "victimId": null,
+    "eventId": "65817999e9cb56889470463e",
+    "caregiverId": "6581a27e939b47623b02081e",
+    "typeAccident": "other",
+    "date": {
+      "$date": "2023-12-20T23:36:53.678Z"
+    },
+    "accidentDescription": null,
+    "diagnose": null,
+    "careGiven": null,
+    "checkUpRequired": false,
+    "checkUpDescription": null,
+    "referred": false,
+    "referralDescription": null,
+    "usedMaterials": [],
+    "status": "pending",
+    "id": {
+      "$oid": "65837a95597ac1d1826a4d01"
+    },
+    "victimCoordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "caregiverCoordinates": {
+      "lat": 0,
+      "lng": 0
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65837aaf597ac1d1826a4d02"
+    },
+    "victimId": null,
+    "eventId": "65817999e9cb56889470463e",
+    "caregiverId": "6581a27e939b47623b02081e",
+    "typeAccident": "allergy",
+    "date": {
+      "$date": "2023-12-20T23:37:19.515Z"
+    },
+    "accidentDescription": null,
+    "diagnose": null,
+    "careGiven": null,
+    "checkUpRequired": false,
+    "checkUpDescription": null,
+    "referred": false,
+    "referralDescription": null,
+    "usedMaterials": [],
+    "status": "pending",
+    "id": {
+      "$oid": "65837aaf597ac1d1826a4d02"
+    },
+    "victimCoordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "caregiverCoordinates": {
+      "lat": 0,
+      "lng": 0
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65837aba597ac1d1826a4d03"
+    },
+    "victimId": null,
+    "eventId": "65817999e9cb56889470463e",
+    "caregiverId": "6581a27e939b47623b02081e",
+    "typeAccident": "bleed",
+    "date": {
+      "$date": "2023-12-20T23:37:30.770Z"
+    },
+    "accidentDescription": null,
+    "diagnose": null,
+    "careGiven": null,
+    "checkUpRequired": false,
+    "checkUpDescription": null,
+    "referred": false,
+    "referralDescription": null,
+    "usedMaterials": [],
+    "status": "pending",
+    "id": {
+      "$oid": "65837aba597ac1d1826a4d03"
+    },
+    "victimCoordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "caregiverCoordinates": {
+      "lat": 0,
+      "lng": 0
+    }
+  },
+  {
+    "_id": {
+      "$oid": "658394c50b2a74bd30b9863a"
+    },
+    "victimId": null,
+    "eventId": "65817999e9cb56889470463e",
+    "caregiverId": "",
+    "typeAccident": "fell",
+    "date": {
+      "$date": "2023-12-21T01:28:37.583Z"
+    },
+    "accidentDescription": "qsfqsfqsf",
+    "diagnose": "fqqsfqsfqsf",
+    "careGiven": "fqsfqsfqs",
+    "checkUpRequired": true,
+    "checkUpDescription": null,
+    "referred": true,
+    "referralDescription": null,
+    "usedMaterials": [
+      {
+        "name": "AED",
+        "amount": 4,
+        "count": 1
+      },
+      {
+        "name": "Spineboard",
+        "amount": 2,
+        "count": 1
+      }
+    ],
+    "status": "pending",
+    "id": {
+      "$oid": "658394c50b2a74bd30b9863a"
+    },
+    "victimCoordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "eventEnsurance": false,
+    "personalEnsurance": false
+  },
+  {
+    "_id": {
+      "$oid": "658394e20b2a74bd30b9863b"
+    },
+    "victimId": null,
+    "eventId": "65817999e9cb56889470463e",
+    "caregiverId": "6581a27e939b47623b02081e",
+    "typeAccident": "other",
+    "date": {
+      "$date": "2023-12-21T01:29:06.210Z"
+    },
+    "accidentDescription": "it worked",
+    "diagnose": "fuuuuuckk",
+    "careGiven": "no",
+    "checkUpRequired": false,
+    "checkUpDescription": null,
+    "referred": false,
+    "referralDescription": null,
+    "usedMaterials": [
+      {
+        "name": "AED",
+        "amount": 4,
+        "count": 0
+      },
+      {
+        "name": "Spineboard",
+        "amount": 2,
+        "count": 0
+      }
+    ],
+    "status": "pending",
+    "id": {
+      "$oid": "658394e20b2a74bd30b9863b"
+    },
+    "victimCoordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "caregiverCoordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "eventEnsurance": false,
+    "personalEnsurance": false
+  },
+  {
+    "_id": {
+      "$oid": "658450213eabacf4d94f6ba0"
+    },
+    "victimId": null,
+    "eventId": "657f252528c04f6b602dbb25",
+    "caregiverId": "",
+    "typeAccident": "fell",
+    "date": {
+      "$date": "2023-12-21T14:48:01.625Z"
+    },
+    "accidentDescription": null,
+    "diagnose": null,
+    "careGiven": null,
+    "checkUpRequired": false,
+    "checkUpDescription": null,
+    "referred": false,
+    "referralDescription": null,
+    "usedMaterials": [],
+    "status": "pending",
+    "id": {
+      "$oid": "658450213eabacf4d94f6ba0"
+    },
+    "victimCoordinates": {
+      "lat": 0,
+      "lng": 0
+    }
+  },
+  {
+    "_id": {
+      "$oid": "658481824de7e2bfdd725435"
+    },
+    "victimId": null,
+    "eventId": "657f252528c04f6b602dbb25",
+    "caregiverId": "",
+    "typeAccident": "drugs",
+    "date": {
+      "$date": "2023-12-21T18:18:42.457Z"
+    },
+    "accidentDescription": null,
+    "diagnose": null,
+    "careGiven": null,
+    "checkUpRequired": false,
+    "checkUpDescription": null,
+    "referred": false,
+    "referralDescription": null,
+    "usedMaterials": [],
+    "status": "pending",
+    "id": {
+      "$oid": "658481824de7e2bfdd725435"
+    },
+    "victimCoordinates": {
+      "lat": 0,
+      "lng": 0
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6584829b4de7e2bfdd725436"
+    },
+    "victimId": null,
+    "eventId": "657f252528c04f6b602dbb25",
+    "caregiverId": "",
+    "typeAccident": "fell",
+    "date": {
+      "$date": "2023-12-21T18:23:23.394Z"
+    },
+    "accidentDescription": null,
+    "diagnose": null,
+    "careGiven": null,
+    "checkUpRequired": false,
+    "checkUpDescription": null,
+    "referred": false,
+    "referralDescription": null,
+    "usedMaterials": [],
+    "status": "pending",
+    "id": {
+      "$oid": "6584829b4de7e2bfdd725436"
+    },
+    "victimCoordinates": {
+      "lat": 50.82514521,
+      "lng": 3.26599454
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65849c098d2c3dec17717e61"
+    },
+    "victimId": null,
+    "eventId": "65817999e9cb56889470463e",
+    "caregiverId": "",
+    "typeAccident": "drugs",
+    "date": {
+      "$date": "2023-12-21T20:11:53.384Z"
+    },
+    "accidentDescription": null,
+    "diagnose": null,
+    "careGiven": null,
+    "checkUpRequired": false,
+    "checkUpDescription": null,
+    "referred": false,
+    "referralDescription": null,
+    "usedMaterials": [],
+    "status": "pending",
+    "id": {
+      "$oid": "65849c098d2c3dec17717e61"
+    },
+    "victimCoordinates": {
+      "lat": 50.8250034,
+      "lng": 3.2658687
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65849d65ca89d0bd05ad84df"
+    },
+    "victimId": null,
+    "eventId": "65817999e9cb56889470463e",
+    "caregiverId": "6581a27e939b47623b02081e",
+    "typeAccident": "fell",
+    "date": {
+      "$date": "2023-12-21T20:17:41.407Z"
+    },
+    "accidentDescription": null,
+    "diagnose": null,
+    "careGiven": null,
+    "checkUpRequired": false,
+    "checkUpDescription": null,
+    "referred": false,
+    "referralDescription": null,
+    "usedMaterials": [],
+    "status": "ongoing",
+    "id": {
+      "$oid": "65849d65ca89d0bd05ad84df"
+    },
+    "victimCoordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "caregiverCoordinates": {
+      "lat": 0,
+      "lng": 0
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65849d98ca89d0bd05ad84e0"
+    },
+    "victimId": null,
+    "eventId": "65817999e9cb56889470463e",
+    "caregiverId": "",
+    "typeAccident": "fell",
+    "date": {
+      "$date": "2023-12-21T20:18:32.478Z"
+    },
+    "accidentDescription": null,
+    "diagnose": null,
+    "careGiven": null,
+    "checkUpRequired": false,
+    "checkUpDescription": null,
+    "referred": false,
+    "referralDescription": null,
+    "usedMaterials": [],
+    "status": "pending",
+    "id": {
+      "$oid": "65849d98ca89d0bd05ad84e0"
+    },
+    "victimCoordinates": {
+      "lat": 0,
+      "lng": 0
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65849fb1ca89d0bd05ad84e1"
+    },
+    "victimId": null,
+    "eventId": "65817999e9cb56889470463e",
+    "caregiverId": "6581a27e939b47623b02081e",
+    "typeAccident": "allergy",
+    "date": {
+      "$date": "2023-12-21T20:27:29.974Z"
+    },
+    "accidentDescription": "",
+    "diagnose": "",
+    "careGiven": "",
+    "checkUpRequired": false,
+    "checkUpDescription": null,
+    "referred": false,
+    "referralDescription": null,
+    "usedMaterials": [
+      {
+        "name": "AED",
+        "amount": 4,
+        "count": 0
+      },
+      {
+        "name": "Spineboard",
+        "amount": 2,
+        "count": 0
+      }
+    ],
+    "status": "done",
+    "id": {
+      "$oid": "65849fb1ca89d0bd05ad84e1"
+    },
+    "victimCoordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "caregiverCoordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "eventEnsurance": false,
+    "personalEnsurance": false
+  },
+  {
+    "_id": {
+      "$oid": "6584a12fca89d0bd05ad84e2"
+    },
+    "victimId": null,
+    "eventId": "65817999e9cb56889470463e",
+    "caregiverId": "",
+    "typeAccident": "fell",
+    "date": {
+      "$date": "2023-12-21T20:33:51.455Z"
+    },
+    "accidentDescription": null,
+    "diagnose": null,
+    "careGiven": null,
+    "checkUpRequired": false,
+    "checkUpDescription": null,
+    "referred": false,
+    "referralDescription": null,
+    "usedMaterials": [],
+    "status": "pending"
   }
-},
-{
-  "_id": {
-    "$oid": "655b78b114a713e47abcb441"
-  },
-  "eventId": "tempEventId2",
-  "typeAccident": "fell",
-  "date": {
-    "$date": "2023-11-20T15:18:09.677Z"
-  }
-},
-{
-  "_id": {
-    "$oid": "657df9f4e880f11e1bceaa47"
-  },
-  "victimId": null,
-  "eventId": "tempEventId2",
-  "caregiverId": [],
-  "typeAccident": "fell",
-  "date": {
-    "$date": "2023-12-16T19:26:44.683Z"
-  },
-  "accidentDescription": null,
-  "diagnose": null,
-  "careGiven": null,
-  "checkUpRequired": false,
-  "checkUpDescription": null,
-  "referred": false,
-  "referralDescription": null,
-  "usedMaterials": [],
-  "id": {
-    "$oid": "657df9f4e880f11e1bceaa47"
-  },
-  "victimCoordinates": {
-    "lat": 50.9691692,
-    "lng": 3.5426293
-  }
-},
-{
-  "_id": {
-    "$oid": "65847c5fa17eb82412faff95"
-  },
-  "victimId": null,
-  "eventId": "657f252528c04f6b602dbb25",
-  "caregiverId": "",
-  "typeAccident": "fell",
-  "date": {
-    "$date": "2023-12-21T17:56:47.209Z"
-  },
-  "accidentDescription": null,
-  "diagnose": null,
-  "careGiven": null,
-  "checkUpRequired": false,
-  "checkUpDescription": null,
-  "referred": false,
-  "referralDescription": null,
-  "usedMaterials": [],
-  "status": "pending"
-},
-{
-  "_id": {
-    "$oid": "65847e87a17eb82412faff96"
-  },
-  "victimId": null,
-  "eventId": "657f252528c04f6b602dbb25",
-  "caregiverId": "",
-  "typeAccident": "fell",
-  "date": {
-    "$date": "2023-12-21T18:05:59.084Z"
-  },
-  "accidentDescription": null,
-  "diagnose": null,
-  "careGiven": null,
-  "checkUpRequired": false,
-  "checkUpDescription": null,
-  "referred": false,
-  "referralDescription": null,
-  "usedMaterials": [],
-  "status": "pending"
-}]
+]
