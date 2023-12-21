@@ -14,6 +14,8 @@ export const accidentTypes = [
   'allergy',
   'other',
 ]
+
+export const statusTypes = ['pending', 'ongoing', 'done']
 @InputType() // for graphql (create query in the service)
 export class CreateCaseInput {
   @IsOptional()
@@ -24,8 +26,8 @@ export class CreateCaseInput {
   eventId: string
 
   @IsOptional()
-  @Field(() => [String], { defaultValue: [] })
-  caregiverId: Array<string>
+  @Field(() => String, { defaultValue: '' })
+  caregiverId: string
 
   @IsIn(accidentTypes)
   @Field()
@@ -73,4 +75,8 @@ export class CreateCaseInput {
   @IsOptional()
   @Field(() => [UsedMaterialClass], { defaultValue: [] })
   usedMaterials: Array<UsedMaterial>
+
+  @IsIn(statusTypes)
+  @Field({ defaultValue: 'pending' })
+  status: string
 }

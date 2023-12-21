@@ -2,7 +2,12 @@
   <!-- Header for the homepage -->
   <nav
     v-if="$route.path === `/`"
-    class="nav-beige h-4rem w-full fixed sm:h-full w-3rem sm:w-5rem bottom-0"
+    class="nav-red h-4rem w-full fixed sm:h-full w-3rem sm:w-5rem bottom-0 border-t-2"
+  ></nav>
+
+  <nav
+    v-else-if="$route.path.includes(`home`)"
+    class="nav-beige h-4rem w-full fixed sm:h-full w-3rem sm:w-5rem bottom-0 border-t-2"
   >
     <div
       class="flex flex-row sm:flex-col items-center justify-evenly sm:justify-between h-full mb-2 sm:m-0 sm:p-0"
@@ -22,8 +27,8 @@
     v-else-if="
       $route.path.includes(`caregiver`) || $route.path.includes(`auth/login`)
     "
-    :class="showMenu ? 'bg-red py-4 h-full' : 'bg-beige w-full py-1 h-auto'"
-    class="absolute flex-col items-stretch justify-between z-1 w-85% px-4 text-subtitle text-beige md:text-title md:flex-col-reverse md:py-0 md:h-full md:bg-red md:w-15rem xl:w-17rem"
+    :class="showMenu ? 'bg-red py-4 h-max' : 'bg-beige w-full py-1 h-auto'"
+    class="fixed flex-col items-stretch justify-between z-1 w-85% px-4 text-subtitle text-beige md:text-title md:flex-col-reverse md:py-0 md:h-full md:bg-red md:w-15rem xl:w-17rem"
   >
     <div
       :class="showMenu ? 'mb-3' : 'flex-row-reverse my-1'"
@@ -54,7 +59,7 @@
 
     <section
       :class="{ hidden: !showMenu }"
-      class="h-auto md:flex md:flex-col md:items-center md:h-auto md:items-stretch"
+      class="h-auto md:flex md:flex-col md:h-auto md:items-stretch"
     >
       <h2 class="ml-3 mt-0 subtitle-white text-start">Event</h2>
       <ul class="ml-3">
@@ -68,7 +73,7 @@
     </section>
     <section
       :class="{ hidden: !showMenu }"
-      class="h-auto md:flex md:flex-col md:items-center md:h-auto md:items-stretch"
+      class="h-auto md:flex md:flex-col md:h-auto md:items-stretch"
     >
       <h2 class="ml-3 subtitle-white text-start">All</h2>
       <ul class="ml-3 mt-0">
@@ -79,7 +84,7 @@
     </section>
     <section
       :class="{ hidden: !showMenu }"
-      class="h-auto md:flex md:flex-col md:items-center md:h-auto md:items-stretch"
+      class="h-auto md:flex md:flex-col md:h-auto md:items-stretch"
     >
       <div class="flex flex-col justify-center items-center m-3">
         <img
@@ -321,20 +326,6 @@
       />
     </div>
   </nav>
-
-  <!--   <nav v-else-if="nav === `top`" class="nav-black w-full h-14">
-    <div class="flex justify-end items-center">
-      <p class="pr-5">bel</p>
-      <p>Dit is een naam</p>
-      <img
-        src="/dummyProfile.png"
-        alt="login (for Caregivers)"
-        class="pl-5 mr-5"
-        width="65"
-        height="65"
-      />
-    </div>
-  </nav> -->
 </template>
 
 <script setup lang="ts">

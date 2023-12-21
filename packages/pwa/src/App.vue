@@ -48,4 +48,8 @@ export default {
   </div>
 </template>
 
-<style></style>
+<style>
+body {
+  background-color: #f5e9e9;
+}
+</style>

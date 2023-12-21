@@ -3,7 +3,6 @@ import { CasesService } from './cases.service'
 import { CasesResolver } from './cases.resolver'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { Case } from './entities/case.entity'
-import { Caregiver } from 'src/caregivers/entities/caregiver.entity'
 import { CaregiversModule } from 'src/caregivers/caregivers.module'
 
 @Module({

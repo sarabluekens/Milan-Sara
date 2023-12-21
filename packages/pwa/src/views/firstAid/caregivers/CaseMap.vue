@@ -10,5 +10,5 @@
 </template>
 
 <script setup lang="ts">
-import EmergencyMap from '@/components/EmergencyMap.vue'
+import EmergencyMap from '@/components/EmergencyMapComponent.vue'
 </script>

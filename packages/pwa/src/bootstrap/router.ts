@@ -8,7 +8,13 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      component: () => import('../views/LandingPage.vue'),
+    },
+    {
+      path: '/home/:eventId',
+      name: 'home',
       component: () => import('../views/Home.vue'),
+      props: true,
     },
     {
       path: '/caregiver',
@@ -17,33 +23,39 @@ const router = createRouter({
       children: [
         {
           path: 'dashboard',
-
-          component: () => import('../views/firstAid/caregivers/dashboard.vue'),
+          component: () => import('../views/firstAid/caregivers/Dashboard.vue'),
           props: true,
         },
         {
           path: '/caregiver/map/:caseId',
           name: 'caregiversMap',
-          component: () => import('../views/firstAid/caregivers/caseMap.vue'),
+          component: () => import('../views/firstAid/caregivers/CaseMap.vue'),
           props: true,
+        },
+        {
+          path: '/caregiver/afterAction/:caseId',
+          name: 'afterAction',
+          component: () =>
+            import('../views/firstAid/caregivers/AfterAction.vue'),
         },
       ],
     },
     {
-      path: '/category',
+      path: '/category/:eventId',
       component: () =>
-        import('../views/firstAid/visitors/emergencyCategory.vue'),
+        import('../views/firstAid/visitors/EmergencyCategory.vue'),
+      props: true,
     },
     {
       path: '/map/:caseId',
       name: 'map',
-      component: () => import('../views/firstAid/visitors/emergencyMap.vue'),
+      component: () => import('../views/firstAid/visitors/EmergencyMap.vue'),
       props: true,
     },
     {
       path: '/map/flicker',
       name: 'flicker',
-      component: () => import('../views/firstAid/visitors/flickerScreen.vue'),
+      component: () => import('../views/firstAid/visitors/FlickerScreen.vue'),
       props: true,
     },
     // {
@@ -118,12 +130,6 @@ const router = createRouter({
     {
       path: '/account',
       component: () => import('../views/Account.vue'),
-      meta: { shouldBeAuthenticated: true },
-    },
-
-    {
-      path: '/add',
-      component: () => import('../views/AddCaregiver.vue'),
       meta: { shouldBeAuthenticated: true },
     },
 

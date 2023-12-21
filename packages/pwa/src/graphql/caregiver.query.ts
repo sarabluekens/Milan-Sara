@@ -15,3 +15,13 @@ export const ALL_CAREGIVERS = gql`
     }
   }
 `
+
+export const CAREGIVER_BY_USER_UID = gql`
+  query findOneByUserUid($userUid: String!) {
+    findOneByUserUid(userUid: $userUid) {
+      id
+      firstName
+      lastName
+    }
+  }
+`

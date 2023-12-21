@@ -115,3 +115,32 @@ export const GET_EVENT_BY_STATUS = gql`
     }
   }
 `
+
+export const GET_EVENT_BY_DATE = gql`
+  query eventsToday {
+    eventsToday {
+      id
+      name
+      category
+      address
+      postalCode
+      city
+      dates
+      startHour
+      endHour
+      contactPerson
+      phoneNumber
+      email
+      btwNumber
+      eventWithChildren
+      mapsLink
+      mapCoords {
+        lat
+        lng
+      }
+      expectedVisitorStaffCount
+      status
+      createdAt
+    }
+  }
+`

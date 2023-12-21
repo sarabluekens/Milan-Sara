@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common'
 import { CreateCaseInput } from './dto/create-case.input'
 import { Case } from './entities/case.entity'
 import { InjectRepository } from '@nestjs/typeorm'
-import { In, Repository } from 'typeorm'
+import { Repository } from 'typeorm'
 import { ObjectId } from 'mongodb'
-import { Caregiver } from 'src/caregivers/entities/caregiver.entity'
 import { CaregiversService } from 'src/caregivers/caregivers.service'
+import { UpdateCaseInput } from './dto/update-case.input'
 
 @Injectable()
 export class CasesService {
@@ -33,6 +33,7 @@ export class CasesService {
       newCase.referred = createCaseInput.referred
       newCase.referralDescription = createCaseInput.referralDescription
       newCase.usedMaterials = createCaseInput.usedMaterials
+      newCase.status = 'pending'
 
       return this.caseRepository.save(newCase) // INSERT INTO case
     } catch (error) {
@@ -55,7 +56,7 @@ export class CasesService {
   }
 
   findAllByEventId(eventId: string) {
-    return this.caseRepository.find({ where: { eventId } })
+    return this.caseRepository.find({ where: { eventId, status: 'pending' } })
   }
 
   async findCasesForCaregiverToday(userUid: string) {
@@ -138,6 +139,41 @@ export class CasesService {
       throw new Error('Case not found')
     }
     return currentCase
+  }
+
+  async assignCaregiverToCase(caseId: string, caregiverId: string) {
+    const currentCase = await this.caseRepository.findOne({
+      //@ts-ignore
+      _id: new ObjectId(caseId),
+    })
+
+    if (currentCase) {
+      currentCase.caregiverId = caregiverId
+      currentCase.status = 'ongoing'
+      this.caseRepository.update(caseId, currentCase)
+
+      console.log('currentCase', currentCase)
+    } else {
+      throw new Error('Case not found')
+    }
+    return currentCase
+  }
+
+  updateCaseAfterAction(updateCaseInput: UpdateCaseInput) {
+    const newCase = new Case()
+    newCase.accidentDescription = updateCaseInput.accidentDescription
+    newCase.diagnose = updateCaseInput.diagnose
+    newCase.careGiven = updateCaseInput.careGiven
+    newCase.checkUpRequired = updateCaseInput.checkUpRequired as boolean
+    newCase.referred = updateCaseInput.referred
+    newCase.referralDescription = updateCaseInput.referralDescription
+    newCase.usedMaterials = updateCaseInput.usedMaterials
+    newCase.eventEnsurance = updateCaseInput.eventEnsurance
+    newCase.personalEnsurance = updateCaseInput.personalEnsurance
+    newCase.status = 'done'
+    newCase.usedMaterials = updateCaseInput.usedMaterials
+
+    return this.caseRepository.update(updateCaseInput.caseId, newCase)
   }
 
   remove(id: number) {

@@ -3,7 +3,6 @@ import { EventsService } from './events.service'
 import { Event, Status } from './entities/event.entity'
 import { CreateEventInput } from './dto/create-event.input'
 import { UpdateEventInput } from './dto/update-event.input'
-import { string } from 'yargs'
 
 @Resolver(() => Event)
 export class EventsResolver {
@@ -25,6 +24,11 @@ export class EventsResolver {
   @Query(() => [Event], { name: 'eventsByStatus' })
   findAllByStatus(@Args('status') status: Status) {
     return this.eventsService.findAllByStatus(status)
+  }
+
+  @Query(() => [Event], { name: 'eventsToday' })
+  findAllToday() {
+    return this.eventsService.findAllByDate()
   }
 
   @Query(() => Event, { name: 'event' })

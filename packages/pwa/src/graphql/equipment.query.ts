@@ -21,4 +21,14 @@ export const ALL_EQUIPMENT = gql`
   }
 `
 
-//hier moet er nog vanalles komen
+export const GET_EQUIPMENT_BY_CASE_ID = gql`
+  query equipmentByCaseId($caseId: String!) {
+    equipmentByCaseId(caseId: $caseId) {
+      name
+      reservedStock {
+        eventId
+        amount
+      }
+    }
+  }
+`

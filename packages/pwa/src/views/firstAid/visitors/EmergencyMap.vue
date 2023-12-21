@@ -62,7 +62,7 @@
     </section>
 
     <section class="flex flex-wrap justify-center items-center">
-      <EmergencyMap size="small" />
+      <EmergencyMapComponent size="small" />
     </section>
   </article>
 </template>
@@ -76,8 +76,8 @@ import { GET_VICTIM_BY_NAME } from '@/graphql/victim.query'
 import { ADD_VICTIM_TO_CASE } from '@/graphql/case.mutation'
 import { ADD_VICTIM, ADD_CASE_TO_VICTIM } from '@/graphql/victim.mutation'
 import { useRouter } from 'vue-router'
-import EmergencyCategory from './emergencyCategory.vue'
-import EmergencyMap from '@/components/EmergencyMap.vue'
+import EmergencyCategory from './EmergencyCategory.vue'
+import EmergencyMapComponent from '@/components/EmergencyMapComponent.vue'
 
 const { mutate: addVictim } = useMutation(ADD_VICTIM)
 const { mutate: addVictimIdToCase } = useMutation(ADD_VICTIM_TO_CASE)

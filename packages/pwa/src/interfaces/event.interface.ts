@@ -23,9 +23,23 @@ export interface Event {
   updatedAt: Date
 }
 
+export enum Category {
+  Sport = 'Sport',
+  Expo = 'Expo',
+  Concert = 'Concert',
+  Festival = 'Festival',
+}
+
 export enum Status {
   Pending = 'Pending',
   Approved = 'Approved',
   Rejected = 'Rejected',
   Completed = 'Completed',
+}
+
+export interface EventCard {
+  id: string
+  name: string
+  category: string
+  city: string
 }

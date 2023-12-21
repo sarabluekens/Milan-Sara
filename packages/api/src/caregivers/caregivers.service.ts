@@ -3,9 +3,8 @@ import { CreateCaregiverInput } from './dto/create-caregiver.input'
 import { UpdateCaregiverInput } from './dto/update-caregiver.input'
 import { Caregiver } from './entities/caregiver.entity'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository, In, ArrayContains } from 'typeorm'
+import { Repository } from 'typeorm'
 import { ObjectId } from 'mongodb'
-import { log } from 'console'
 
 @Injectable()
 export class CaregiversService {
@@ -40,40 +39,6 @@ export class CaregiversService {
     return this.caregiverRepository.findOne({ where: { userUid } })
   }
 
-  // async findCasesForCaregiverToday(userUid: string) {
-  //   const caregiver = await this.caregiverRepository.findOne({
-  //     where: { userUid },
-  //   })
-
-  //   if (caregiver.jobs[0].workdays.includes(currentDate))
-  //     for (let i = 0; i < caregiver.jobs.length; i++) {
-  //       if (caregiver.jobs[i].workdays.includes(currentDate)) {
-  //         return caregiver.jobs[i].eventId
-  //       }
-  //     }
-  // }
-
-  // async findEventIdforCaregiverToday(userUid: string) {
-  //   const caregiver = await this.caregiverRepository.findOne({
-  //     where: { userUid },
-  //   })
-  //   let eventId = ''
-  //   const dateObj = new Date()
-  //   const month = dateObj.getMonth() + 1
-  //   const currentDate: string =
-  //     dateObj.getFullYear() + '-' + month + '-' + dateObj.getDate()
-
-  //   for (let i = 0; i < caregiver.jobs.length; i++) {
-  //     if (caregiver.jobs[i].workdays.includes(currentDate)) {
-  //       eventId = caregiver.jobs[i].eventId
-  //     }
-  //   }
-
-  //   if (eventId === '') throw new Error('No event found for today')
-  //   else {
-  //     return eventId
-  //   }
-  // }
   async updateJobs(
     caregiverId: string,
     updateCaregiverInput: UpdateCaregiverInput,
