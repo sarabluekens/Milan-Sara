@@ -3,7 +3,7 @@ import useFirebase from './useFirebase'
 
 const { firebaseUser } = useFirebase()
 
-const socket: Socket = io('http://0.0.0.0:3004', {
+const socket: Socket = io('http://localhost:3004', {
   extraHeaders: {
     Authorization: `Bearer ${await firebaseUser.value?.getIdToken()}`,
   },
