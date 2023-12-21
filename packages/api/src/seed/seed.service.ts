@@ -4,11 +4,13 @@ import { Caregiver } from 'src/caregivers/entities/caregiver.entity'
 import * as caregivers from './data/caregivers.json'
 import * as equipments from './data/equipments.json'
 import * as events from './data/events.json'
+import * as victims from './data/victims.json'
 import { EquipmentsService } from 'src/equipments/equipments.service'
 import { Equipment } from 'src/equipments/entities/equipment.entity'
 import { Event } from 'src/events/entities/event.entity'
 import { VictimsService } from 'src/victims/victims.service'
 import { EventsService } from 'src/events/events.service'
+import { Victim } from 'src/victims/entities/victim.entity'
 
 export enum Status {
   Pending = 'Pending',
@@ -97,6 +99,26 @@ export class SeedService {
   }
 
   async deleteAllEvents(): Promise<void> {
+    return this.eventsService.truncate()
+  }
+
+  async addVictimsFromJson(): Promise<Victim[]> {
+    let theVictims: Victim[] = []
+    for (let victim of victims) {
+      const b = new Victim()
+      b.firstName = victim.firstName
+      b.lastName = victim.lastName
+      b.email = victim.email
+      b.phoneNumber = victim.phoneNumber
+      b.cases = victim.cases
+
+      theVictims.push(b)
+    }
+
+    return this.victimsService.saveAll(theVictims)
+  }
+
+  async deleteAllVictims(): Promise<void> {
     return this.eventsService.truncate()
   }
 }
