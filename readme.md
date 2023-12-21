@@ -1,29 +1,29 @@
-# Clone repo
-### Clone this repo on you device
+# Clone repo <br />
+### Clone this repo on you device <br />
 
-# Env files
-## packages/api 
-### .env
-### GOOGLE_APPLICATION_CREDENTIALS=""
-### URL_FRONTEND=""
-### DB_HOST=""
-### DB_PORT=""
-### DB_NAME=""
-### NODE_ENV=""
+# Env files<br />
+## packages/api <br />
+### .env<br />
+### GOOGLE_APPLICATION_CREDENTIALS=""<br />
+### URL_FRONTEND=""<br />
+### DB_HOST=""<br />
+### DB_PORT=""<br />
+### DB_NAME=""<br />
+### NODE_ENV=""<br />
 
 ## packages/pwa
-### Dit zijn persoonlijke keys van firebase
-### en een mapskey van google console maps api
-## .env
-### VITE_APIKEY:""
-### VITE_AUTHDOMAIN:""
-### VITE_PROJECTID:""
-### VITE_STORAGEBUCKET:""
-### VITE_MESSAGINGSENDERID:""
-### VITE_APPID:""
-### VITE_GOOGLE_MAPS_API_KEY:""
-### VITE_CLOUDNAME:""
-### VITE_CLOUD_UPLOAD_PRESET:""
+### Dit zijn persoonlijke keys van firebase<br />
+### en een mapskey van google console maps api<br />
+## .env<br />
+### VITE_APIKEY:""<br />
+### VITE_AUTHDOMAIN:""<br />
+### VITE_PROJECTID:""<br />
+### VITE_STORAGEBUCKET:""<br />
+### VITE_MESSAGINGSENDERID:""<br />
+### VITE_APPID:""<br />
+### VITE_GOOGLE_MAPS_API_KEY:""<br />
+### VITE_CLOUDNAME:""<br />
+### VITE_CLOUD_UPLOAD_PRESET:""<br />
 
 
 # How to seed
