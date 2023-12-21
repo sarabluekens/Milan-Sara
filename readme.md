@@ -2,7 +2,7 @@
 Clone this repo on you device
 
 # Env files
-packages/api
+packages/api 
 .env
 GOOGLE_APPLICATION_CREDENTIALS=""
 URL_FRONTEND=""
@@ -38,4 +38,5 @@ Open project in de root en run npm run dev
 
 
 # Testing commands
-
+unit tests: npm run test
+e2z tests: npm run test:e2e -w api
