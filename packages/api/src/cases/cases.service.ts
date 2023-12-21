@@ -179,4 +179,13 @@ export class CasesService {
   remove(id: number) {
     return `This action removes a #${id} case`
   }
+
+  // logic for seeding
+  saveAll(caseSeeding: Case[]): Promise<Case[]> {
+    return this.caseRepository.save(caseSeeding)
+  }
+
+  truncate(): Promise<void> {
+    return this.caseRepository.clear()
+  }
 }
