@@ -401,6 +401,7 @@ const handleAfterForm = () => {
       usedMaterials: eventEquipment.value,
     },
   })
+
   push({ path: `/caregiver/dashboard` })
 }
 </script>
