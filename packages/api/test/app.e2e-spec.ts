@@ -6,6 +6,8 @@ import { eventStub } from 'src/events/stubs/events.stub'
 import { EventsService } from 'src/events/events.service'
 import { caregiverStub } from 'src/caregivers/stubs/caregivers.stub'
 import { CaregiversService } from 'src/caregivers/caregivers.service'
+import { VictimsService } from 'src/victims/victims.service'
+import { victimStub } from 'src/victims/stubs/victims.stub'
 
 const GQL_ENDPOINT = '/graphql'
 
@@ -20,6 +22,10 @@ describe('AppController (e2e)', () => {
     findAll: () => [caregiverStub()],
   }
 
+  let victimsServiceMockData = {
+    findAll: () => [victimStub()],
+  }
+
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
@@ -28,6 +34,8 @@ describe('AppController (e2e)', () => {
       .useValue(eventsServiceMockData)
       .overrideProvider(CaregiversService)
       .useValue(caregiversServiceMockData)
+      .overrideProvider(VictimsService)
+      .useValue(victimsServiceMockData)
       .compile()
 
     app = moduleFixture.createNestApplication()
@@ -79,6 +87,26 @@ describe('AppController (e2e)', () => {
                 id: '123123123123',
                 firstName: 'john',
                 lastName: 'doe',
+              },
+            ])
+          })
+      })
+    })
+
+    describe('Victims', () => {
+      it('should return all victims', () => {
+        return request(app.getHttpServer())
+          .post(GQL_ENDPOINT)
+          .send({
+            query: `{getVictims {id, firstName, lastName}}`,
+          })
+          .expect(200)
+          .expect(res => {
+            expect(res.body.data.getVictims).toEqual([
+              {
+                id: '1',
+                firstName: 'John',
+                lastName: 'Doe',
               },
             ])
           })
