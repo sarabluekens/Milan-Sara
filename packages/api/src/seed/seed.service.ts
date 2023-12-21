@@ -140,7 +140,7 @@ export class SeedService {
   }
 
   async deleteAllVictims(): Promise<void> {
-    return this.eventsService.truncate()
+    return this.victimsService.truncate()
   }
 
   async addCasesFromJson(): Promise<Case[]> {

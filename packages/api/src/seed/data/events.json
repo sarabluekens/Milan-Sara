@@ -322,7 +322,7 @@
     "_id": {
       "$oid": "657f252528c04f6b602dbb25"
     },
-    "name": "Dit is een test event met coords",
+    "name": "Marathonloop Deinze",
     "address": "Gaversesteenweg, 313",
     "postalCode": "9800",
     "city": "Deinze",
@@ -365,7 +365,7 @@
     "updatedAt": {
       "$date": "2023-12-17T16:43:17.964Z"
     },
-    "category": "Festival"
+    "category": "Sport"
   },
   {
     "_id": {
