@@ -8,6 +8,7 @@ import { DatabaseSeedCommand } from './seed.command'
 import { VictimsModule } from 'src/victims/victims.module'
 import { CasesModule } from 'src/cases/cases.module'
 import { EventsModule } from 'src/events/events.module'
+import { UsersModule } from 'src/users/users.module'
 @Module({
   imports: [
     CaregiversModule,
@@ -16,6 +17,7 @@ import { EventsModule } from 'src/events/events.module'
     VictimsModule,
     CommandModule,
     CasesModule,
+    UsersModule,
   ],
   providers: [DatabaseSeedCommand, SeedService],
 })

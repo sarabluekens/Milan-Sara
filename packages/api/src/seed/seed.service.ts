@@ -6,6 +6,7 @@ import * as equipments from './data/equipments.json'
 import * as events from './data/events.json'
 import * as victims from './data/victims.json'
 import * as cases from './data/cases.json'
+import * as users from './data/users.json'
 import { EquipmentsService } from 'src/equipments/equipments.service'
 import { Equipment } from 'src/equipments/entities/equipment.entity'
 import { Event } from 'src/events/entities/event.entity'
@@ -14,6 +15,8 @@ import { EventsService } from 'src/events/events.service'
 import { Victim } from 'src/victims/entities/victim.entity'
 import { Case } from 'src/cases/entities/case.entity'
 import { CasesService } from 'src/cases/cases.service'
+import { User } from 'src/users/entities/user.entity'
+import { UsersService } from 'src/users/users.service'
 
 export enum Status {
   Pending = 'Pending',
@@ -30,6 +33,7 @@ export class SeedService {
     private victimsService: VictimsService,
     private eventsService: EventsService,
     private CasesService: CasesService,
+    private usersService: UsersService,
   ) {}
 
   async addCaregiversFromJson(): Promise<Caregiver[]> {
@@ -157,5 +161,43 @@ export class SeedService {
 
   async deleteAllCases(): Promise<void> {
     return this.CasesService.truncate()
+  }
+
+  async addUsersFromJson(): Promise<User[]> {
+    let theUsers: User[] = []
+    for (let user of users) {
+      const b = new User()
+      b.uid = user.uid
+      b.name = user.name
+      b.email = user.email
+      b.locale = user.locale
+      b.role = user.role
+
+      theUsers.push(b)
+    }
+
+    return this.usersService.saveAll(theUsers)
+  }
+
+  async deleteAllUsers(): Promise<void> {
+    return this.usersService.truncate()
+  }
+
+  async seedAll() {
+    await this.addCaregiversFromJson()
+    await this.addEquipmentFromJson()
+    await this.addEventsFromJson()
+    await this.addVictimsFromJson()
+    await this.addCasesFromJson()
+    await this.addUsersFromJson()
+  }
+
+  async resetAll() {
+    await this.deleteAllCaregivers()
+    await this.deleteAllEquipment()
+    await this.deleteAllEvents()
+    await this.deleteAllVictims()
+    await this.deleteAllCases()
+    await this.deleteAllUsers()
   }
 }

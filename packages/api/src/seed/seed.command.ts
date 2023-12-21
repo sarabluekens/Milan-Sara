@@ -111,4 +111,52 @@ export class DatabaseSeedCommand {
     await this.seedService.deleteAllCases()
     console.info('🪶 Removed cases')
   }
+
+  // seeding for users
+  @Command({
+    command: 'seed:database:users',
+    describe: 'Seed the database with users',
+  })
+  async seedUsers() {
+    console.info('👩‍⚕️ Start seeding of users')
+    const users = await this.seedService.addUsersFromJson()
+    console.info(`👩‍⚕️ ${users.length} Users are added`)
+  }
+
+  @Command({
+    command: 'seed:reset:users',
+    describe: 'Delete all data from the users table',
+  })
+  async deleteUsers() {
+    console.info('🔪 Start deleting users')
+    await this.seedService.deleteAllUsers()
+    console.info('🪶 Removed users')
+  }
+
+  // seeding for everything
+  @Command({
+    command: 'seed:database:all',
+    describe: 'Seed the database with everything',
+  })
+  async seedAll() {
+    await this.seedCaregivers()
+    await this.seedEquipment()
+    await this.seedEvents()
+    await this.seedVictims()
+    await this.seedCases()
+    await this.seedUsers()
+  }
+
+  @Command({
+    command: 'seed:reset:all',
+    describe: 'Delete all data from the database',
+  })
+  async deleteAll() {
+    await this.deleteCaregivers()
+    await this.deleteEquipment()
+    await this.deleteEvents()
+    await this.deleteVictims()
+    await this.deleteCases()
+    await this.deleteUsers()
+  }
 }
