@@ -90,4 +90,25 @@ export class DatabaseSeedCommand {
     await this.seedService.deleteAllVictims()
     console.info('🪶 Removed victims')
   }
+
+  // seeding for cases
+  @Command({
+    command: 'seed:database:cases',
+    describe: 'Seed the database with cases',
+  })
+  async seedCases() {
+    console.info('📂 Start seeding of cases')
+    const cases = await this.seedService.addCasesFromJson()
+    console.info(`📂 ${cases.length} Cases are added`)
+  }
+
+  @Command({
+    command: 'seed:reset:cases',
+    describe: 'Delete all data from the cases table',
+  })
+  async deleteCases() {
+    console.info('🔪 Start deleting cases')
+    await this.seedService.deleteAllCases()
+    console.info('🪶 Removed cases')
+  }
 }
