@@ -305,6 +305,7 @@ import { UPDATE_CASE_AFTER_ACTION } from '@/graphql/case.mutation'
 // UPDATE_CASE_AFTER_ACTION
 //
 const router = useRouter()
+const { push } = useRouter()
 const { mutate: updateCaseAfterAction } = useMutation(UPDATE_CASE_AFTER_ACTION)
 
 const caseId = router.currentRoute.value.params.caseId
@@ -400,7 +401,7 @@ const handleAfterForm = () => {
       usedMaterials: eventEquipment.value,
     },
   })
-
+  push({ path: `/caregiver/dashboard` })
 }
 </script>
 
