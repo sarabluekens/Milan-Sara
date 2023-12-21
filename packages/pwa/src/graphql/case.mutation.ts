@@ -120,3 +120,11 @@ export const CHANGE_CASE_STATUS: TypedDocumentNode<
     }
   }
 `
+
+export const UPDATE_CASE_AFTER_ACTION = gql`
+  mutation updateCaseAfterAction($updateCaseInput: UpdateCaseInput!) {
+    updateCaseAfterAction(updateCaseInput: $updateCaseInput) {
+      status
+    }
+  }
+`

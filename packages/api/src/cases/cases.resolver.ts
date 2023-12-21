@@ -96,6 +96,12 @@ export class CasesResolver {
   updateCaseAfterAction(
     @Args('updateCaseInput') updateCaseInput: UpdateCaseInput,
   ) {
+    console.log(
+      'updateCaseInput',
+      this.casesService.updateCaseAfterAction(updateCaseInput),
+      updateCaseInput,
+    )
+
     return this.casesService.updateCaseAfterAction(updateCaseInput)
   }
 

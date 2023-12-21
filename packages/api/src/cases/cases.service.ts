@@ -164,13 +164,14 @@ export class CasesService {
     newCase.accidentDescription = updateCaseInput.accidentDescription
     newCase.diagnose = updateCaseInput.diagnose
     newCase.careGiven = updateCaseInput.careGiven
-    newCase.checkUpRequired = updateCaseInput.checkUpRequired
+    newCase.checkUpRequired = updateCaseInput.checkUpRequired as boolean
     newCase.referred = updateCaseInput.referred
     newCase.referralDescription = updateCaseInput.referralDescription
     newCase.usedMaterials = updateCaseInput.usedMaterials
     newCase.eventEnsurance = updateCaseInput.eventEnsurance
     newCase.personalEnsurance = updateCaseInput.personalEnsurance
     newCase.status = 'done'
+    newCase.usedMaterials = updateCaseInput.usedMaterials
 
     return this.caseRepository.update(updateCaseInput.caseId, newCase)
   }

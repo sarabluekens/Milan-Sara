@@ -83,7 +83,7 @@
             <input
               type="radio"
               id="caseCheckUpTrue"
-              value="true"
+              v-bind:value="true"
               class="peer/checkupTrue focus:accent-red checked:accent-red opacity-0"
               name="caseCheckUp"
               v-model="afterAction.checkUp"
@@ -96,7 +96,7 @@
             <input
               type="radio"
               id="caseCheckUpFalse"
-              value="false"
+              v-bind:value="false"
               class="peer/checkupFalse focus:accent-red checked:accent-red opacity-0"
               name="caseCheckUp"
               v-model="afterAction.checkUp"
@@ -120,7 +120,7 @@
             <input
               type="radio"
               id="caseReferredTrue"
-              value="true"
+              v-bind:value="true"
               class="peer/referredTrue focus:accent-red checked:accent-red opacity-0"
               name="caseReferred"
               v-model="afterAction.referred"
@@ -133,7 +133,7 @@
             <input
               type="radio"
               id="caseReferredFalse"
-              value="false"
+              v-bind:value="false"
               class="peer/referredFalse focus:accent-red checked:accent-red opacity-0"
               name="caseReferred"
               v-model="afterAction.referred"
@@ -157,7 +157,7 @@
             <input
               type="radio"
               id="casePersonalInsuranceTrue"
-              value="true"
+              v-bind:value="true"
               class="peer/personalTrue focus:accent-red checked:accent-red opacity-0"
               name="casePersonalInsurance"
               v-model="afterAction.personalInsurance"
@@ -170,7 +170,7 @@
             <input
               type="radio"
               id="casePersonalInsuranceFalse"
-              value="false"
+              v-bind:value="false"
               class="peer/personalFalse focus:accent-red checked:accent-red opacity-0"
               name="casePersonalInsurance"
               v-model="afterAction.personalInsurance"
@@ -194,7 +194,7 @@
             <input
               type="radio"
               id="caseEventInsuranceTrue"
-              value="true"
+              v-bind:value="true"
               class="peer/eventTrue focus:accent-red checked:accent-red opacity-0"
               name="caseEventInsurance"
               v-model="afterAction.eventInsurance"
@@ -207,7 +207,7 @@
             <input
               type="radio"
               id="caseEventInsuranceFalse"
-              value="false"
+              v-bind:value="false"
               class="peer/eventFalse focus:accent-red checked:accent-red opacity-0"
               name="caseEventInsurance"
               v-model="afterAction.eventInsurance"
@@ -245,37 +245,27 @@
         <h2 class="subtitle-red text-left">Materials</h2>
         <p class="body-black">What materials were used for this case?</p>
 
-        <div
-          v-if="!equipmentLoading"
-          v-for="item in equipment.equipmentByCaseId"
-        >
+        <div v-for="item in eventEquipment">
           <div
             class="flex justify-between items-center w-full bg-pink/30 rounded-xl p-2"
           >
             <p class="body-black">{{ item.name }}</p>
 
-            <!-- <div v-for="material in materials">
-            <p>hieeer</p>
-          </div> -->
-
             <div class="flex items-center">
               <button
                 class="border-2 border-red w-12vw sm:w-8vw md:w-4vw h-auto rounded-xl text-center subtitle-red cursor-pointer focus:outline-none focus:ring-2 focus:ring-red focus:ring-opacity-50"
-                @click="countMaterial += 1"
+                @click="
+                  item.count < item.amount ? (item.count += 1) : item.count
+                "
               >
                 +
               </button>
 
-              <p class="body-black px-5">{{ countMaterial }}</p>
+              <p class="body-black px-5">{{ item.count }}</p>
 
               <button
                 class="border-2 border-red w-12vw sm:w-8vw md:w-4vw h-auto rounded-xl text-center subtitle-red cursor-pointer focus:outline-none focus:ring-2 focus:ring-red focus:ring-opacity-50"
-                @click="
-                  countMaterial != 0 &&
-                  countMaterial < item.reservedStock.amount
-                    ? (countMaterial -= 1)
-                    : (countMaterial = 0)
-                "
+                @click="item.count != 0 ? (item.count -= 1) : (item.count = 0)"
               >
                 -
               </button>
@@ -295,7 +285,7 @@
 
         <button
           class="bg-red self-center rounded-md px-10 py-3 body-white mt-1vh hover:bg-red/90 focus:outline-none focus:ring-2 focus:ring-red focus:ring-opacity-50"
-          @click="progress = 3"
+          @click="handleAfterForm"
         >
           Save case information
         </button>
@@ -307,16 +297,18 @@
 <script setup lang="ts">
 import { CASE_BY_ID } from '@/graphql/case.query'
 import { GET_EQUIPMENT_BY_CASE_ID } from '@/graphql/equipment.query'
-import { useQuery } from '@vue/apollo-composable'
-import { onMounted } from 'vue'
+import { useQuery, useMutation } from '@vue/apollo-composable'
+
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-
+import { UPDATE_CASE_AFTER_ACTION } from '@/graphql/case.mutation'
+// UPDATE_CASE_AFTER_ACTION
 //
 const router = useRouter()
+const { mutate: updateCaseAfterAction } = useMutation(UPDATE_CASE_AFTER_ACTION)
+
 const caseId = router.currentRoute.value.params.caseId
 const progress = ref(1)
-const countMaterial = ref(0)
 const afterAction = ref({
   whatHappened: '',
   diagnose: '',
@@ -345,14 +337,14 @@ const {
   id: caseId,
 })
 
-const eventEquipment = ref<{ name: String; amount: number }[]>([])
+const eventEquipment = ref<{ name: String; amount: number; count: number }[]>(
+  [],
+)
 
 const checkEquipmentAvailability = () => {
   console.log(equipment.value.equipmentByCaseId)
 
   for (const item of equipment.value.equipmentByCaseId) {
-    // Equipment
-
     const name = item.name
     console.log(currentCase.value.caseById.eventId)
     console.log(item.reservedStock)
@@ -365,6 +357,7 @@ const checkEquipmentAvailability = () => {
           eventEquipment.value.push({
             name,
             amount: equipment.amount,
+            count: 0,
           })
         } else {
           for (const newEquipment of eventEquipment.value)
@@ -374,6 +367,7 @@ const checkEquipmentAvailability = () => {
               eventEquipment.value.push({
                 name,
                 amount: equipment.amount,
+                count: 0,
               })
             }
         }
@@ -390,6 +384,23 @@ const handleClick = () => {
 
 const handleAfterAction = () => {
   console.log('after action')
+}
+
+const handleAfterForm = () => {
+  updateCaseAfterAction({
+    updateCaseInput: {
+      caseId: caseId as string,
+      accidentDescription: afterAction.value.whatHappened,
+      diagnose: afterAction.value.diagnose,
+      careGiven: afterAction.value.providedCare,
+      checkUpRequired: afterAction.value.checkUp as boolean,
+      referred: afterAction.value.referred,
+      personalEnsurance: afterAction.value.personalInsurance,
+      eventEnsurance: afterAction.value.eventInsurance,
+      usedMaterials: eventEquipment.value,
+    },
+  })
+
 }
 </script>
 

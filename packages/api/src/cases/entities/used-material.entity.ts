@@ -8,9 +8,13 @@ export class UsedMaterialClass {
 
   @Field()
   amount: number
+
+  @Field({ nullable: true })
+  count: number
 }
 
 export type UsedMaterial = {
   name: string
   amount: number
+  count: number
 }
