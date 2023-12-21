@@ -5,6 +5,7 @@
       class="flex gap-3 sm:h-62vh h-80vh sm:h-90vh lg:flex-row flex-col sm:justify-evenly md:justify-start"
     >
       <div
+        @click="clickHandler('/walk/')"
         class="p-4 bg-beige mx-auto sm:m-auto md:my-2 lg:my-5vh w-90% sm:w-70% h-45% md:h-40% lg:w-40vw lg:h-60vh rounded-lg px-8 flex flex-col justify-evenly items-center"
       >
         <h2 class="subtitle-red">I can walk to a first aid post.</h2>
@@ -15,7 +16,7 @@
         />
       </div>
       <div
-        @click="clickHandler"
+        @click="clickHandler('/category/')"
         class="p-4 bg-beige mx-auto sm:m-auto md:my-2 lg:my-5vh w-90% sm:w-70% h-45% md:h-40% lg:w-40vw lg:h-60vh rounded-lg px-8 flex flex-col justify-evenly items-center"
       >
         <h2 class="subtitle-red">I can't walk, I need help.</h2>
@@ -37,7 +38,8 @@ const { push } = useRouter()
 const router = useRouter()
 console.log(router.currentRoute.value.params.eventId)
 
-const clickHandler = async () => {
+const clickHandler = async (path: string) => {
   push({ path: '/category/' + router.currentRoute.value.params.eventId })
+  push({ path: path + router.currentRoute.value.params.eventId })
 }
 </script>
