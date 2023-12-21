@@ -4,7 +4,7 @@
     class="w-80% h-50vh bg-beige flex flex-col items-center justify-center"
   >
     <VueSpinner size="150" class="color-red" />
-    <p class="subtitle-red">Loading the map</p>
+    <p class="subtitle-red">{{ $t('map.loading') }}</p>
   </div>
   <div ref="mapDiv" style="width: 80%; height: 50vh"></div>
 </template>

@@ -6,7 +6,7 @@
   ></nav>
 
   <nav
-    v-else-if="$route.path.includes(`home`)"
+    v-else-if="$route.path.includes(`Home`)"
     class="nav-beige h-4rem w-full fixed sm:h-full w-3rem sm:w-5rem bottom-0 border-t-2"
   >
     <div
@@ -18,7 +18,10 @@
         class="sm:pt-3 h-3rem sm:h-5rem sm:w-90% sm:mx-auto"
       />
       <div class="bg-red w-.5 h-full sm:hidden"></div>
-      <div class="i-ic-round-person icon icon-5 color-red"></div>
+      <div
+        class="i-ic-round-person icon icon-5 color-red"
+        @click="handlePush('/caregiver/dashboard')"
+      ></div>
     </div>
   </nav>
 
@@ -53,17 +56,19 @@
         src="/whiteCross.svg"
         alt="Red Cross logo in white"
         :class="{ hidden: !showMenu }"
-        class="w-1/8 md:inline md:mx-auto md:mt-5 md:w-1/4 md:h-auto lg:w-1/3"
+        class="w-1/8 md:inline md:mx-auto md:mt-5 md:w-1/4 md:h-auto lg:w-1/3 cursor-pointer"
         width="90"
         height="90"
+        @click="handlePush('/caregiver/dashboard')"
       />
       <img
         src="/redCross.svg"
         alt="Red Cross logo in white"
         :class="{ hidden: showMenu }"
-        class="w-3rem md:hidden"
+        class="w-3rem md:hidden cursor-pointer"
         width="90"
         height="90"
+        @click="handlePush('/caregiver/dashboard')"
       />
       <div
         :class="showMenu ? 'i-ci-close-lg' : 'i-ci-hamburger-lg text-red'"
@@ -79,7 +84,12 @@
       <h2 class="ml-3 mt-0 subtitle-white text-start">Event</h2>
       <ul class="ml-3">
         <div class="h-0.05rem bg-beige w-80% mt-1"></div>
-        <li class="body-white my-10% sm:my-5% md:my-6">Ongoing Cases</li>
+        <li
+          class="body-white my-10% sm:my-5% md:my-6 cursor-pointer"
+          @click="handlePush('/caregiver/dashboard')"
+        >
+          Ongoing Cases
+        </li>
         <li class="body-white my-10% sm:my-5% md:my-6">My cases</li>
         <li class="body-white my-10% sm:my-5% md:my-6">Available Equipment</li>
         <li class="body-white my-10% sm:my-5% md:my-6">Available Staff</li>
@@ -111,14 +121,14 @@
         />
         <p class="align-center body-beige">Profile</p>
       </div>
-    </section>
-    <section>
-      <button
-        class="mt-1 w-52 rounded-md body-white border-2 border-red bg-red py-2 px-4 font-semibold hover:bg-blue-600 focus:outline-none focus-visible:border-blue-300 focus-visible:bg-blue-600 focus-visible:ring-2 focus-visible:ring-blue-300"
-        @click="logoutUser"
-      >
-        Logout
-      </button>
+      <section>
+        <button
+          class="mt-1 w-52 rounded-md body-white border-2 border-red bg-red py-2 px-4 font-semibold hover:bg-blue-600 focus:outline-none focus-visible:border-blue-300 focus-visible:bg-blue-600 focus-visible:ring-2 focus-visible:ring-blue-300"
+          @click="logoutUser"
+        >
+          Logout
+        </button>
+      </section>
     </section>
   </nav>
 
