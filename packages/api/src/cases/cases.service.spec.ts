@@ -6,10 +6,14 @@ import { Repository } from 'typeorm'
 import { Case } from './entities/case.entity'
 import { CreateCaseInput } from './dto/create-case.input'
 import { caseStub, createCaseInputStub } from './stubs/cases.stub'
+import { caregiverStub } from './../caregivers/stubs/caregivers.stub'
+import { Caregiver } from 'src/caregivers/entities/caregiver.entity'
+import { CaregiversService } from 'src/caregivers/caregivers.service'
 
 describe('CasesService', () => {
   let service: CasesService
   let mockCaseRepository: Repository<Case>
+  let mockCaregiversRepository: Repository<Caregiver>
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -21,11 +25,21 @@ describe('CasesService', () => {
             save: jest.fn().mockResolvedValue(caseStub()),
           },
         },
+        CaregiversService,
+        {
+          provide: getRepositoryToken(Caregiver),
+          useValue: {
+            save: jest.fn().mockResolvedValue(caregiverStub()),
+          },
+        },
       ],
     }).compile()
 
     service = module.get<CasesService>(CasesService)
     mockCaseRepository = module.get<Repository<Case>>(getRepositoryToken(Case))
+    mockCaregiversRepository = module.get<Repository<Caregiver>>(
+      getRepositoryToken(Caregiver),
+    )
   })
 
   it('should be defined', () => {
