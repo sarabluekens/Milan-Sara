@@ -89,7 +89,6 @@ export default {
         filteredCaregivers.value.length > 0 &&
         filterInput.value != ''
       ) {
-        console.log(searchInput.value)
         for (let i = 0; i < filteredCaregivers.value.length; i++) {
           if (
             filteredCaregivers.value[i].firstName
@@ -133,16 +132,13 @@ export default {
         filterInput.value = ''
       } else {
         filteredCaregivers.value.splice(0, filteredCaregivers.value.length)
-        console.log(filteredCaregivers.value)
         for (let i = 0; i < caregivers.value.caregivers.length; i++) {
           if (caregivers.value.caregivers[i].profession === filter) {
-            console.log(caregivers.value.caregivers[i])
             filteredCaregivers.value.push(caregivers.value.caregivers[i])
           }
         }
         isFiltered.value = true
         filterInput.value = filter
-        console.log(filteredCaregivers.value)
       }
     }
 

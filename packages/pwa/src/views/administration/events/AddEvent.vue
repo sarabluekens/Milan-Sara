@@ -324,7 +324,6 @@ export default {
       },
       (error: any, result: any) => {
         if (!error && result && result.event === 'success') {
-          console.log('Done! Here is the image info: ', result.info.secure_url)
           newEvent.value.maps = result.info.secure_url
         }
       },
@@ -332,7 +331,6 @@ export default {
 
     const handleFileChange = (event: any) => {
       const file = event.target.files[0]
-      console.log(file)
       newEvent.value.maps = file.name
     }
 
@@ -365,19 +363,16 @@ export default {
             mapCoords: newEvent.value.coords,
           },
         })
-        console.log(result)
         // add event in the RedCross dashboard
         emit('event:created', result?.data?.createEvent as Event)
       }
     }
 
     const receiveCoordinates = (coordinates: any) => {
-      console.log(coordinates)
       for (let i = 0; i < coordinates.length; i++) {
         newEvent.value.coords[i].lat = parseFloat(coordinates[i].lat)
         newEvent.value.coords[i].lng = parseFloat(coordinates[i].lng)
       }
-      console.log(newEvent.value.coords)
     }
 
     return {
