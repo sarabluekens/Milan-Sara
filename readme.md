@@ -26,12 +26,12 @@ Clone this repo on you device <br />
  VITE_CLOUD_UPLOAD_PRESET:""<br />
 
 
-# How to seed
+# How to seed<br />
 
- in je workspace api, voer volgend commando uit
- Seed all: npx nestjs-command seed:database:all
+ in je workspace api, voer volgend commando uit<br />
+ Seed all: npx nestjs-command seed:database:all<br />
 
- (delete all: npx nestjs-command seed:reset:all)
+ (delete all: npx nestjs-command seed:reset:all)<br />
 
 
 ## Open project in de root en run npm run dev
