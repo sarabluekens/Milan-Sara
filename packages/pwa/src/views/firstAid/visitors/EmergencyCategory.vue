@@ -1,7 +1,7 @@
 <template>
   <article class="ml-5rem bg-beige">
-    <h1 class="title-red">What happened?</h1>
-    <p class="subtitle-red">What kind of help do you need?</p>
+    <h1 class="title-red">{{ $t('category.title') }}</h1>
+    <p class="subtitle-red">{{ $t('category.subtitle') }}</p>
     <section class="flex flex-wrap justify-center items-center">
       <div v-for="item in categories" class="bg-red rounded-xl p-3 m-3 w-1/4">
         <EmergencyCard
@@ -25,6 +25,7 @@ import { useMutation } from '@vue/apollo-composable'
 import { ADD_CASE } from '@/graphql/case.mutation'
 import useRealtime from '@/composables/useRealtime'
 import type { Case } from '@/interfaces/case.interface'
+
 export default {
   components: { EmergencyCard },
   setup() {
@@ -37,8 +38,6 @@ export default {
       {
         text: 'Unconscious',
         category: 'unconscious',
-        // icon: 'i-ic-baseline-phone',
-        // subtitle: 'You will be called for urgent aid',
         image: `/unconscious.svg`,
       },
       { text: 'Fell', image: `/fell.svg`, category: 'fell' },

@@ -3,17 +3,16 @@
     <section class="sm:ml-5rem">
       <div class="w-95vw flex items-center justify-center flex-col">
         <div v-if="!flickering">
-          <h1 class="title-red">Help is almost with you</h1>
+          <h1 class="title-red">{{ $t('flicker.title') }}</h1>
           <p class="body-black w-2/3 text-center m-auto py-3rem">
-            Press this button to make your screen flash bright red. This will
-            help you stand out for the caregiver. Careful, epilepsy warning
+            {{ $t('flicker.text') }}
           </p>
           <div class="w-1/4 m-auto">
             <button
               class="bg-red rounded-md px-10 py-3 body-white"
               @click="handleClick"
             >
-              Flicker screen
+              {{ $t('flicker.button') }}
             </button>
           </div>
         </div>
@@ -26,7 +25,7 @@
           class="bg-white rounded-md px-10 py-3 body-red absolute top-2/5 z-1"
           @click="handleClick"
         >
-          Stop flickering screen
+          {{ $t('flicker.button.stop') }}
         </button>
 
         <div

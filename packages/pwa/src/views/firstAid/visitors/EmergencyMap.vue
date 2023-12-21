@@ -1,7 +1,7 @@
 <template>
   <article class="ml-5rem bg-white w-full">
-    <h1 class="title-red">Help is on the way!</h1>
-    <p class="subtitle-red">How can we reach the patient?</p>
+    <h1 class="title-red">{{ $t('map.title') }}</h1>
+    <p class="subtitle-red">{{ $t('map.subtitle') }}</p>
     <section>
       <form
         @submit.prevent="submitHandler"
@@ -9,7 +9,9 @@
       >
         <div class="flex flex-row gap-3vw items-start">
           <div class="flex flex-col w-20rem">
-            <label for="lastname" class="body-black mt-1vh">First Name</label>
+            <label for="lastname" class="body-black mt-1vh">{{
+              $t('map.form.firstname')
+            }}</label>
             <input
               type="text"
               name="lastname"
@@ -20,7 +22,9 @@
             />
           </div>
           <div class="flex flex-col w-20rem">
-            <label for="firstname" class="body-black mt-1vh">Last Name</label>
+            <label for="firstname" class="body-black mt-1vh">{{
+              $t('map.form.lastname')
+            }}</label>
             <input
               type="text"
               name="firstname"
@@ -33,7 +37,9 @@
         </div>
         <div class="flex flex-row gap-3vw mt-3vh w-60vw">
           <div class="flex flex-col w-30rem">
-            <label for="email" class="body-black mt-1vh">Email address</label>
+            <label for="email" class="body-black mt-1vh">{{
+              $t('map.form.address')
+            }}</label>
             <input
               type="email"
               name="email"
@@ -43,7 +49,9 @@
             />
           </div>
           <div class="flex flex-col w-20rem">
-            <label for="number" class="body-black mt-1vh">Phone number</label>
+            <label for="number" class="body-black mt-1vh">{{
+              $t('map.form.phonenumber')
+            }}</label>
             <input
               type="phone"
               name="phone"
@@ -53,10 +61,8 @@
             />
           </div>
         </div>
-        <button
-          class="bg-red rounded rounded-md px-10 py-3 body-white self-end mt-3vh"
-        >
-          Send
+        <button class="bg-red rounded-md px-10 py-3 body-white self-end mt-3vh">
+          {{ $t('map.form.button') }}
         </button>
       </form>
     </section>
