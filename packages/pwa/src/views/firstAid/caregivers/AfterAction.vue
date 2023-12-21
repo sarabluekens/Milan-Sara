@@ -23,10 +23,22 @@
             id="caseWhatHappened"
             class="largeInput-pink w-80vw md:w-auto"
           ></textarea>
+          <span
+            class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+            v-for="error in v$.whatHappened.$errors"
+            :key="error.$uid"
+            >Please fill in what happened</span
+          >
         </div>
         <div class="flex flex-col md:flew-row justify-between">
           <label class="body-black my-1 md:my-0" for="caseDiagnose"
             >Medical diagnose</label
+          >
+          <span
+            class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+            v-for="error in v$.whatHappened.$errors"
+            :key="error.$uid"
+            >Please fill in what care you provided</span
           >
           <textarea
             v-model.lazy="afterAction.diagnose"
@@ -39,6 +51,12 @@
         <div class="flex flex-col md:flew-row justify-between">
           <label class="body-black my-1 md:my-0" for="caseCare"
             >What care did you give?</label
+          >
+          <span
+            class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+            v-for="error in v$.whatHappened.$errors"
+            :key="error.$uid"
+            >Please fill in what care was provided</span
           >
           <textarea
             v-model.lazy="afterAction.providedCare"
@@ -79,6 +97,7 @@
           <p class="body-black pb-3 lg:w-2/3">
             Should the patient return for a check-up?
           </p>
+
           <div class="m-auto flex md:flex-col">
             <input
               type="radio"
@@ -298,7 +317,8 @@
 import { CASE_BY_ID } from '@/graphql/case.query'
 import { GET_EQUIPMENT_BY_CASE_ID } from '@/graphql/equipment.query'
 import { useQuery, useMutation } from '@vue/apollo-composable'
-
+import useValidate from '@vuelidate/core' // validation
+import { required, email } from '@vuelidate/validators' // validation
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { UPDATE_CASE_AFTER_ACTION } from '@/graphql/case.mutation'
@@ -321,6 +341,18 @@ const afterAction = ref({
   usedMaterials: [],
 })
 console.log(caseId)
+
+const validationRules = {
+  whatHappened: { required },
+  diagnose: { required },
+  providedCare: { required },
+  checkUp: { required },
+  referred: { required },
+  personalInsurance: { required },
+  eventInsurance: { required },
+  usedMaterials: { required },
+}
+const v$ = useValidate(validationRules, afterAction)
 
 const {
   loading: equipmentLoading,
@@ -383,26 +415,31 @@ const handleClick = () => {
   checkEquipmentAvailability()
 }
 
-const handleAfterAction = () => {
+const handleAfterAction = async () => {
   console.log('after action')
+  const validationResult = await v$.value.$validate()
+  console.log(validationResult)
 }
 
-const handleAfterForm = () => {
-  updateCaseAfterAction({
-    updateCaseInput: {
-      caseId: caseId as string,
-      accidentDescription: afterAction.value.whatHappened,
-      diagnose: afterAction.value.diagnose,
-      careGiven: afterAction.value.providedCare,
-      checkUpRequired: afterAction.value.checkUp as boolean,
-      referred: afterAction.value.referred,
-      personalEnsurance: afterAction.value.personalInsurance,
-      eventEnsurance: afterAction.value.eventInsurance,
-      usedMaterials: eventEquipment.value,
-    },
-  })
+const handleAfterForm = async () => {
+  const validationResult = await v$.value.$validate()
+  if (!validationResult) {
+    updateCaseAfterAction({
+      updateCaseInput: {
+        caseId: caseId as string,
+        accidentDescription: afterAction.value.whatHappened,
+        diagnose: afterAction.value.diagnose,
+        careGiven: afterAction.value.providedCare,
+        checkUpRequired: afterAction.value.checkUp as boolean,
+        referred: afterAction.value.referred,
+        personalEnsurance: afterAction.value.personalInsurance,
+        eventEnsurance: afterAction.value.eventInsurance,
+        usedMaterials: eventEquipment.value,
+      },
+    })
 
-  push({ path: `/caregiver/dashboard` })
+    push({ path: `/caregiver/dashboard` })
+  }
 }
 </script>
 

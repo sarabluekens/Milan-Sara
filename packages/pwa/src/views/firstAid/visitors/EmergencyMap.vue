@@ -17,9 +17,14 @@
               name="lastname"
               id="lastname"
               class="bg-beige h-4vh"
-              required
               v-model="victimInput.firstName"
             />
+            <span
+              class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+              v-for="error in v$.firstName.$errors"
+              :key="error.$uid"
+              >Please fill in your first name</span
+            >
           </div>
           <div class="flex flex-col w-20rem">
             <label for="firstname" class="body-black mt-1vh">{{
@@ -29,10 +34,15 @@
               type="text"
               name="firstname"
               id="firstname"
-              required
               class="bg-beige h-4vh"
               v-model="victimInput.lastName"
             />
+            <span
+              class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+              v-for="error in v$.lastName.$errors"
+              :key="error.$uid"
+              >Please fill in your last name</span
+            >
           </div>
         </div>
         <div class="flex flex-row gap-3vw mt-3vh w-60vw">
@@ -48,10 +58,16 @@
               v-model="victimInput.email"
             />
           </div>
+          <span
+            class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+            v-for="error in v$.email.$errors"
+            :key="error.$uid"
+            >Please fill in an email address</span
+          >
           <div class="flex flex-col w-20rem">
-            <label for="number" class="body-black mt-1vh">{{
-              $t('map.form.phonenumber')
-            }}</label>
+            <label for="number" class="body-black mt-1vh"
+              >{{ $t('map.form.phonenumber') }} (+32)</label
+            >
             <input
               type="phone"
               name="phone"
@@ -60,6 +76,12 @@
               v-model="victimInput.phoneNumber"
             />
           </div>
+          <span
+            class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+            v-for="error in v$.phoneNumber.$errors"
+            :key="error.$uid"
+            >Please fill in a valid phonenumber starting with +32</span
+          >
         </div>
         <button class="bg-red rounded-md px-10 py-3 body-white self-end mt-3vh">
           {{ $t('map.form.button') }}
@@ -84,6 +106,8 @@ import { ADD_VICTIM, ADD_CASE_TO_VICTIM } from '@/graphql/victim.mutation'
 import { useRouter } from 'vue-router'
 import EmergencyCategory from './EmergencyCategory.vue'
 import EmergencyMapComponent from '@/components/EmergencyMapComponent.vue'
+import useValidate from '@vuelidate/core' // validation
+import { required, email } from '@vuelidate/validators'
 
 const { mutate: addVictim } = useMutation(ADD_VICTIM)
 const { mutate: addVictimIdToCase } = useMutation(ADD_VICTIM_TO_CASE)
@@ -99,7 +123,14 @@ const victimInput = ref({
   caseId: router.currentRoute.value.params.caseId as string,
 })
 
-/////// VICTIM HANDLER ////////
+const validationRules = {
+  firstName: { required },
+  lastName: { required },
+  email: { required, email },
+  phoneNumber: { required },
+}
+
+const v$ = useValidate(validationRules, victimInput)
 
 // Prepare een useLazyQuery voor de submit
 const { load, refetch } = useLazyQuery(GET_VICTIM_BY_NAME, () => ({
@@ -129,84 +160,87 @@ const updateVictim = async (caseId: string, victimId: string) => {
 }
 
 const submitHandler = async () => {
-  // voer de lazyQuery uit
-  console.log('victimInput:', victimInput.value)
-  const victim: Victim | boolean = await load()
+  const validationResult = await v$.value.$validate()
+  if (validationResult) {
+    // voer de lazyQuery uit
+    console.log('victimInput:', victimInput.value)
+    const victim: Victim | boolean = await load()
 
-  // bij de eerste druk op submit is victim = true
-  if (victim) {
-    // no victim found
-    if (Object(victim).getVictimByName === null) {
-      console.log('victim does not yet exist')
+    // bij de eerste druk op submit is victim = true
+    if (victim) {
+      // no victim found
+      if (Object(victim).getVictimByName === null) {
+        console.log('victim does not yet exist')
 
-      // add victim
-      const newVictim = await addVictim({
-        victimInput: victimInput.value,
-      })
-      console.log('1st new victim:', newVictim)
+        // add victim
+        const newVictim = await addVictim({
+          victimInput: victimInput.value,
+        })
+        console.log('1st new victim:', newVictim)
 
-      console.log('new victim:', Object(newVictim).data.createVictim.id)
+        console.log('new victim:', Object(newVictim).data.createVictim.id)
 
-      // add victimId to case
-      await updateCase(
-        victimInput.value.caseId.toString() as string,
-        Object(newVictim).data.createVictim.id,
-      )
-      return newVictim
+        // add victimId to case
+        await updateCase(
+          victimInput.value.caseId.toString() as string,
+          Object(newVictim).data.createVictim.id,
+        )
+        return newVictim
+      } else {
+        //id van bestaand victim ophalen
+        console.log('1st victim: ', victim)
+        console.log('victim:', Object(victim).getVictimByName.id)
+
+        // add victimId to case
+        await updateCase(
+          victimInput.value.caseId.toString() as string,
+          Object(victim).getVictimByName.id,
+        )
+
+        // add caseId to victim
+        await updateVictim(
+          victimInput.value.caseId.toString() as string,
+          Object(victim).getVictimByName.id,
+        )
+      }
     } else {
-      //id van bestaand victim ophalen
-      console.log('1st victim: ', victim)
-      console.log('victim:', Object(victim).getVictimByName.id)
+      // refetch als de victim false is (2e keer op submit gedrukt)
+      console.log('nog een keer gesubmit')
+      const victim = await refetch()
 
-      // add victimId to case
-      await updateCase(
-        victimInput.value.caseId.toString() as string,
-        Object(victim).getVictimByName.id,
-      )
+      // no victim found
+      if (Object(victim).data.getVictimByName === null) {
+        console.log('victim does not yet exist')
 
-      // add caseId to victim
-      await updateVictim(
-        victimInput.value.caseId.toString() as string,
-        Object(victim).getVictimByName.id,
-      )
-    }
-  } else {
-    // refetch als de victim false is (2e keer op submit gedrukt)
-    console.log('nog een keer gesubmit')
-    const victim = await refetch()
+        // add victim
+        const newVictim = await addVictim({
+          victimInput: victimInput.value,
+        })
+        console.log('2nd new victim: ', newVictim)
+        console.log('new victim:', Object(newVictim).data.createVictim.id)
 
-    // no victim found
-    if (Object(victim).data.getVictimByName === null) {
-      console.log('victim does not yet exist')
+        // add victimId to case
+        await updateCase(
+          victimInput.value.caseId.toString() as string,
+          Object(newVictim).data.createVictim.id,
+        )
+      } else {
+        //id van bestaand victim ophalen
+        console.log('2nd victim: ', victim)
+        console.log('victim: ', Object(victim).data.getVictimByName.id)
 
-      // add victim
-      const newVictim = await addVictim({
-        victimInput: victimInput.value,
-      })
-      console.log('2nd new victim: ', newVictim)
-      console.log('new victim:', Object(newVictim).data.createVictim.id)
+        // add victimId to case
+        await updateCase(
+          victimInput.value.caseId.toString() as string,
+          Object(victim).data.getVictimByName.id,
+        )
 
-      // add victimId to case
-      await updateCase(
-        victimInput.value.caseId.toString() as string,
-        Object(newVictim).data.createVictim.id,
-      )
-    } else {
-      //id van bestaand victim ophalen
-      console.log('2nd victim: ', victim)
-      console.log('victim: ', Object(victim).data.getVictimByName.id)
-
-      // add victimId to case
-      await updateCase(
-        victimInput.value.caseId.toString() as string,
-        Object(victim).data.getVictimByName.id,
-      )
-
-      // add caseId to victim
-      await updateVictim(
-        victimInput.value.caseId.toString() as string,
-        Object(victim).data.getVictimByName.id,
-      )
+        // add caseId to victim
+        await updateVictim(
+          victimInput.value.caseId.toString() as string,
+          Object(victim).data.getVictimByName.id,
+        )
+      }
     }
   }
   console.log('submit')
