@@ -34,9 +34,16 @@ Clone this repo on you device <br />
  (delete all: npx nestjs-command seed:reset:all)<br />
 
 
-## Open project in de root en run npm run dev
+## Open project in de root en run npm run dev<br />
 
 
-# Testing commands
-unit tests: npm run test
-e2z tests: npm run test:e2e -w api
+# Testing commands<br />
+unit tests: npm run test<br />
+e2z tests: npm run test:e2e -w api<br />
+
+# Docentenacc<br />
+email company = docent@howest.be<br />
+pw: **<br />
+email admin = docent.admin@howest.be<br />
+pw: ** <br />
+email caregiver = docent.caregiver@howest.be <br />
