@@ -91,10 +91,10 @@ export class Event {
   status: Status
 
   @CreateDateColumn({ type: 'timestamp', nullable: true }) // Database link - Typeorm
-  @Field() //graphql
-  createdAt: Date
+  @Field({ nullable: true }) //graphql
+  createdAt?: Date
 
   @UpdateDateColumn({ type: 'timestamp', nullable: true }) // Database link - Typeorm
-  @Field() //graphql
-  updatedAt: Date
+  @Field({ nullable: true }) //graphql
+  updatedAt?: Date
 }

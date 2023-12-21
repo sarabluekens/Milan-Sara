@@ -117,8 +117,6 @@ export default {
           loginCredentials.value.email,
           loginCredentials.value.password,
         ).then(() => {
-          console.log('Logged in')
-          console.log(firebaseUser.value?.uid)
           // push({ path: '/' })
           redirect()
         })

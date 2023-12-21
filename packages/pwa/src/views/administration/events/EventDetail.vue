@@ -393,16 +393,12 @@ export default {
 
     const handleAddEvent = () => {
       isAccepted.value = true
-      console.log(isAccepted)
-      console.log(event.value.event)
       checkEquipmentAvailability()
       checkCaregiverAvailability()
     }
 
     const handleNewCaregiver = () => {
-      console.log('new caregiver')
       AddCaregiver.value = true
-      console.log(caregivers)
     }
 
     const checkCaregiverAvailability = () => {
@@ -424,7 +420,6 @@ export default {
     }
 
     const handleAssigned = (idOfPerson: string) => {
-      console.log(idOfPerson)
       if (addedCaregivers.value.length === 0) {
         for (const caregiver of caregivers.value.caregivers) {
           if (caregiver.id === idOfPerson) {
@@ -473,7 +468,6 @@ export default {
           name,
           count,
         })
-        console.log(availableEquipment.value)
         for (const kitIem of kits.value) {
           for (const equipmentName of kitIem.contents) {
             if (equipment.name === equipmentName.name) {
@@ -563,7 +557,6 @@ export default {
 
     // This function updates the caregivers in the database
     const handleUpdateCaregiver = () => {
-      console.log('update caregivers')
       for (const caregiver of addedCaregivers.value) {
         updateCaregiver({
           updateCaregiverInput: {
@@ -584,7 +577,6 @@ export default {
           for (const equipment of equipments.value.equipments) {
             for (const equipmentItem of kitItem.contents) {
               if (equipment.name === equipmentItem.name) {
-                console.log(kitItem.kitName, ': ', equipmentItem.name)
                 if (addedEquipment.value.length === 0) {
                   addedEquipment.value.push({
                     categoryName: equipmentItem.categoryName,
@@ -615,11 +607,9 @@ export default {
 
     // This function updates the equipment in the database
     const updateEquipmentFromArray = () => {
-      console.log('update equipment')
       for (const equipment of equipments.value.equipments) {
         for (const equipmentItem of addedEquipment.value) {
           if (equipment.name === equipmentItem.name) {
-            console.log(equipment.name, ': ', equipmentItem.name)
             updateEquipment({
               updateEquipmentInput: {
                 id: equipment.id,

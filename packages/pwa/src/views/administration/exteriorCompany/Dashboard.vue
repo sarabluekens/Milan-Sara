@@ -96,9 +96,6 @@ export default {
       email: firebaseUser?.value?.email,
     })
 
-    console.log(events.value)
-    console.log(eventsCompleted.value)
-
     return {
       firebaseUser,
       eventsLoading,

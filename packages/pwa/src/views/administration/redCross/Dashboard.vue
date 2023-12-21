@@ -95,14 +95,10 @@ export default {
     } = useQuery(GET_EVENT_BY_STATUS, { status: 'Completed' })
 
     on('event:new', (data: Partial<Event>) => {
-      console.log('New event added by a company', data)
-      console.log(data as Event)
       data.status = 'Pending' as Status
       data.createdAt = new Date()
       newEvent.value = data as Event
       liveEvents.value.push(data as Event)
-      console.log(newEvent.value)
-      console.log(liveEvents.value)
     })
 
     return {

@@ -36,7 +36,6 @@ import { useRouter } from 'vue-router'
 
 const { push } = useRouter()
 const router = useRouter()
-console.log(router.currentRoute.value.params.eventId)
 
 const clickHandler = async (path: string) => {
   push({ path: '/category/' + router.currentRoute.value.params.eventId })

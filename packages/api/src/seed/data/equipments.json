@@ -1,0 +1,484 @@
+[
+  {
+    "_id": {
+      "$oid": "657db6b1bf6d8017eae015ad"
+    },
+    "name": "AED",
+    "category": "Other",
+    "description": "This is a machine that gives electrical shocks to people to get their heartbeat back up",
+    "totalStock": 33,
+    "reservedStock": [
+      {
+        "eventId": "6578b101aedf4131d2d9b706",
+        "amount": 3
+      },
+      {
+        "eventId": "6578b101aedf4131d2d9b706",
+        "amount": 3
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 1
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 2
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 1
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 1
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 1
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 1
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 1
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 2
+      }
+    ],
+    "available": true,
+    "expirationDate": null,
+    "createdAt": {
+      "$date": "2023-12-16T14:39:45.314Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-19T14:05:08.769Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "657dbefdda50f1ad7ceebd65"
+    },
+    "name": "Spineboard",
+    "category": "Other",
+    "description": "This is a board to carry people on to the help post",
+    "totalStock": 33,
+    "reservedStock": [
+      {
+        "eventId": "6578b101aedf4131d2d9b706",
+        "amount": 3
+      },
+      {
+        "eventId": "6578b101aedf4131d2d9b706",
+        "amount": 3
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 1
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 3
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 1
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 1
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 1
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 1
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 1
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 1
+      }
+    ],
+    "available": true,
+    "expirationDate": null,
+    "createdAt": {
+      "$date": "2023-12-16T15:15:09.430Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-19T14:05:08.778Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "657dcaa7da50f1ad7ceebd68"
+    },
+    "name": "Motilium",
+    "category": "Pill",
+    "description": "This medicine is used to treat nausea (feeling sick) and vomiting (being sick) in adults and adolescents (12 years of age and older weighting 35 kg or more).",
+    "totalStock": 175,
+    "reservedStock": [
+      {
+        "eventId": "6578b101aedf4131d2d9b706",
+        "amount": 14
+      },
+      {
+        "eventId": "6578b101aedf4131d2d9b706",
+        "amount": 14
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 2
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 4
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 2
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 2
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 2
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 2
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 2
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 4
+      }
+    ],
+    "available": true,
+    "expirationDate": {
+      "$date": "2024-12-24T23:00:00.000Z"
+    },
+    "createdAt": {
+      "$date": "2023-12-16T16:04:55.925Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-19T14:05:08.779Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "657dcaf4da50f1ad7ceebd69"
+    },
+    "name": "Paracetamol",
+    "category": "Pill",
+    "description": "It's a commonly used medicine that can help treat pain and reduce a high temperature (fever).",
+    "totalStock": 158,
+    "reservedStock": [
+      {
+        "eventId": "6578b101aedf4131d2d9b706",
+        "amount": 20
+      },
+      {
+        "eventId": "6578b101aedf4131d2d9b706",
+        "amount": 20
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 6
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 3
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 3
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 3
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 3
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 3
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 3
+      }
+    ],
+    "available": true,
+    "expirationDate": {
+      "$date": "2024-12-24T23:00:00.000Z"
+    },
+    "createdAt": {
+      "$date": "2023-12-16T16:06:12.868Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-19T13:56:13.603Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "657dcb24da50f1ad7ceebd6a"
+    },
+    "name": "Compress pads",
+    "category": "Bandage",
+    "description": "It's a bandage than stops bleeding",
+    "totalStock": 448,
+    "reservedStock": [
+      {
+        "eventId": "6578b101aedf4131d2d9b706",
+        "amount": 9
+      },
+      {
+        "eventId": "6578b101aedf4131d2d9b706",
+        "amount": 9
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 5
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 5
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 5
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 5
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 5
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 5
+      }
+    ],
+    "available": true,
+    "expirationDate": null,
+    "createdAt": {
+      "$date": "2023-12-16T16:07:00.070Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-19T13:55:09.964Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "657dcb3bda50f1ad7ceebd6b"
+    },
+    "name": "Bandage",
+    "category": "Bandage",
+    "description": "It's a bandage that can be used for everything",
+    "totalStock": 455,
+    "reservedStock": [
+      {
+        "eventId": "6578b101aedf4131d2d9b706",
+        "amount": 5
+      },
+      {
+        "eventId": "6578b101aedf4131d2d9b706",
+        "amount": 5
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 5
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 5
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 5
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 5
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 5
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 5
+      }
+    ],
+    "available": true,
+    "expirationDate": null,
+    "createdAt": {
+      "$date": "2023-12-16T16:07:23.469Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-19T13:55:09.966Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "657dcbc8da50f1ad7ceebd6d"
+    },
+    "name": "Flamigel",
+    "category": "Ointment",
+    "description": "It's an innovative gel that contributes to faster wound healing and prevention of scar formation.",
+    "totalStock": 206,
+    "reservedStock": [
+      {
+        "eventId": "6578b101aedf4131d2d9b706",
+        "amount": 7
+      },
+      {
+        "eventId": "6578b101aedf4131d2d9b706",
+        "amount": 7
+      }
+    ],
+    "available": true,
+    "expirationDate": {
+      "$date": "2024-12-24T23:00:00.000Z"
+    },
+    "createdAt": {
+      "$date": "2023-12-16T16:09:44.130Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-16T19:10:29.352Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "657dcbffda50f1ad7ceebd6e"
+    },
+    "name": "Naloxone",
+    "category": "Syringe",
+    "description": "It's a medication approved by the Food and Drug Administration (FDA) designed to rapidly reverse opioid overdose.",
+    "totalStock": 200,
+    "reservedStock": [
+      {
+        "eventId": "6578b101aedf4131d2d9b706",
+        "amount": 5
+      },
+      {
+        "eventId": "6578b101aedf4131d2d9b706",
+        "amount": 5
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 5
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 5
+      }
+    ],
+    "available": true,
+    "expirationDate": {
+      "$date": "2024-12-24T23:00:00.000Z"
+    },
+    "createdAt": {
+      "$date": "2023-12-16T16:10:39.633Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-19T14:05:08.765Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "657dcc38da50f1ad7ceebd6f"
+    },
+    "name": "EpiPen",
+    "category": "Syringe",
+    "description": "It is a life-saving medication used when someone is experiencing a severe allergic reaction, known as anaphylaxis.",
+    "totalStock": 122,
+    "reservedStock": [
+      {
+        "eventId": "6578b101aedf4131d2d9b706",
+        "amount": 1
+      },
+      {
+        "eventId": "6578b101aedf4131d2d9b706",
+        "amount": 1
+      }
+    ],
+    "available": true,
+    "expirationDate": {
+      "$date": "2024-12-24T23:00:00.000Z"
+    },
+    "createdAt": {
+      "$date": "2023-12-16T16:11:36.565Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-16T19:10:29.354Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "657df60d1b332cedfb26f7e5"
+    },
+    "name": "Iso-Betadine",
+    "category": "Ointment",
+    "description": "It contains iodine that kills all micro-organisms (bacteria, viruses, fungi) and prevents infections.",
+    "totalStock": 111,
+    "reservedStock": [
+      {
+        "eventId": "6578b101aedf4131d2d9b706",
+        "amount": 2
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 2
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 2
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 2
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 2
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 2
+      },
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "amount": 2
+      }
+    ],
+    "available": true,
+    "expirationDate": {
+      "$date": "2024-12-24T23:00:00.000Z"
+    },
+    "createdAt": {
+      "$date": "2023-12-16T19:10:05.048Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-19T13:55:09.968Z"
+    }
+  }
+]

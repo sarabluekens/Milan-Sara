@@ -112,4 +112,13 @@ export class EventsService {
   remove(id: number) {
     return `This action removes a #${id} event`
   }
+
+  // logic for seeding
+  saveAll(event: Event[]): Promise<Event[]> {
+    return this.eventRepository.save(event)
+  }
+
+  truncate(): Promise<void> {
+    return this.eventRepository.clear()
+  }
 }
