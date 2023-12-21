@@ -3,10 +3,19 @@ import { CaregiversService } from 'src/caregivers/caregivers.service'
 import { Caregiver } from 'src/caregivers/entities/caregiver.entity'
 import * as caregivers from './data/caregivers.json'
 import * as equipments from './data/equipments.json'
-// import * as equipments from './data/equipments.json'
+import * as events from './data/events.json'
 import { EquipmentsService } from 'src/equipments/equipments.service'
 import { Equipment } from 'src/equipments/entities/equipment.entity'
+import { Event } from 'src/events/entities/event.entity'
 import { VictimsService } from 'src/victims/victims.service'
+import { EventsService } from 'src/events/events.service'
+
+export enum Status {
+  Pending = 'Pending',
+  Approved = 'Approved',
+  Rejected = 'Rejected',
+  Completed = 'Completed',
+}
 
 @Injectable()
 export class SeedService {
@@ -14,6 +23,7 @@ export class SeedService {
     private caregiversService: CaregiversService,
     private equipmentsService: EquipmentsService,
     private victimsService: VictimsService,
+    private eventsService: EventsService,
   ) {}
 
   async addCaregiversFromJson(): Promise<Caregiver[]> {
@@ -56,5 +66,37 @@ export class SeedService {
 
   async deleteAllEquipment(): Promise<void> {
     return this.equipmentsService.truncate()
+  }
+
+  async addEventsFromJson(): Promise<Event[]> {
+    let theEvents: Event[] = []
+    for (let event of events) {
+      const b = new Event()
+      b.name = event.name
+      b.category = event.category
+      b.address = event.address
+      b.postalCode = event.postalCode
+      b.city = event.city
+      b.dates = event.dates.map(date => new Date(date.$date))
+      b.startHour = event.startHour
+      b.endHour = event.endHour
+      b.contactPerson = event.contactPerson
+      b.phoneNumber = event.phoneNumber
+      b.email = event.email
+      b.btwNumber = event.btwNumber
+      b.eventWithChildren = event.eventWithChildren
+      b.mapsLink = event.mapsLink
+      b.mapCoords = event.mapCoords
+      b.expectedVisitorStaffCount = event.expectedVisitorStaffCount
+      b.status = event.status as Status
+
+      theEvents.push(b)
+    }
+
+    return this.eventsService.saveAll(theEvents)
+  }
+
+  async deleteAllEvents(): Promise<void> {
+    return this.eventsService.truncate()
   }
 }

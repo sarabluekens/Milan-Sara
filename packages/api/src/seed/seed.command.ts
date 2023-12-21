@@ -1,6 +1,7 @@
 import { Command } from 'nestjs-command'
 import { Injectable } from '@nestjs/common'
 import { SeedService } from './seed.service'
+import { command } from 'yargs'
 
 @Injectable()
 export class DatabaseSeedCommand {
@@ -46,5 +47,26 @@ export class DatabaseSeedCommand {
     console.info('🔪 Start deleting equipment')
     await this.seedService.deleteAllEquipment()
     console.info('🪶 Removed equipment')
+  }
+
+  // seeding for events
+  @Command({
+    command: 'seed:database:events',
+    describe: 'Seed the database with events',
+  })
+  async seedEvents() {
+    console.info('🎉 Start seeding of events')
+    const event = await this.seedService.addEventsFromJson()
+    console.info(`🎉 ${event.length} Events are added`)
+  }
+
+  @Command({
+    command: 'seed:reset:events',
+    describe: 'Delete all data from the events table',
+  })
+  async deleteEvents() {
+    console.info('🔪 Start deleting events')
+    await this.seedService.deleteAllEvents()
+    console.info('🪶 Removed events')
   }
 }
