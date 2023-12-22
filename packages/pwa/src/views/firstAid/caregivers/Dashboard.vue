@@ -1,6 +1,6 @@
 <template>
-  <section class="ml-10rem bg-beige w-full h-100vh">
-    <h1 class="title-red mb-4rem">
+  <section class="md:ml-10rem bg-beige w-auto h-100vh">
+    <h1 class="title-red md:text-[4rem] mb-4rem">
       Welcome back, {{ firebaseUser?.displayName }}
     </h1>
     <p class="subtitle-black text-left ml-20vw">Waiting Cases</p>
@@ -33,8 +33,18 @@
         Take Case
       </button>
     </section>
-    <section v-if="!loadingCases && result.length === 0">
-      <h1 class="title-black">No cases are awaiting your assistance</h1>
+    <section
+      v-if="!loadingCases && result.length === 0"
+      class="w-90vw m-auto pt-5rem"
+    >
+      <h1 class="subtitle-red m-auto">No cases are awaiting your assistance</h1>
+      <img
+        src="/break.png"
+        class="lg:ml-17rem w-40rem opacity-30"
+        width="200"
+        height="200"
+        alt="no cases found"
+      />
     </section>
   </section>
 </template>
