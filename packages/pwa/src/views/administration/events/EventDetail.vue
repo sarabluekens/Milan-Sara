@@ -1,9 +1,9 @@
 <template>
-  <div class="ml-3.5rem md:ml-5rem bg-beige h-100vh">
-    <h1 class="title-black mb-5">Event detail</h1>
+  <div class="md:ml-5rem bg-beige h-100vh">
+    <h1 class="title-black">Event detail</h1>
     <section
       v-if="event && isAccepted === false"
-      class="grid grid-cols-5 mx-auto w-1/2"
+      class="md:grid grid-cols-5 mx-auto md:w-1/2"
     >
       <label class="body-black col-span-1" for="eventname">Event name</label>
       <input
@@ -225,7 +225,7 @@
           <div v-for="item in kits">
             <div
               v-if="item.available"
-              class="border-1 border-red w-50 text-center mb-4"
+              class="border-1 border-red w-50 h-72 text-center mb-4"
             >
               <p class="body-black">{{ item.kitName }}</p>
               <p>consists of:</p>
@@ -260,14 +260,14 @@
               </div>
             </div>
           </div>
+          <button
+            @click="handleUpdateEquipmentCaregiver()"
+            class="h-12 px-2 w-1/2 bg-red subbody-white col-span-2 mx-auto"
+          >
+            Add Caregivers & equipment to event
+          </button>
         </section>
       </section>
-      <button
-        @click="handleUpdateEquipmentCaregiver()"
-        class="h-12 px-2 w-1/2 bg-red subbody-white col-span-1 mx-auto"
-      >
-        Add Caregivers & equipment to event
-      </button>
     </section>
   </div>
 </template>
@@ -283,6 +283,7 @@ import { useRoute } from 'vue-router'
 import { ref } from 'vue'
 import StaffCard from '@/components/StaffCard.vue'
 import { UPDATE_CAREGIVER } from '@/graphql/caregiver.mutation'
+import { UPDATE_EVENT } from '@/graphql/event.mutation'
 
 export default {
   components: { StaffCard },
@@ -318,6 +319,7 @@ export default {
 
     const { mutate: updateEquipment } = useMutation(UPDATE_EQUIPMENT)
     const { mutate: updateCaregiver } = useMutation(UPDATE_CAREGIVER)
+    const { mutate: updateEvent } = useMutation(UPDATE_EVENT)
 
     const kits = ref([
       {
@@ -393,6 +395,12 @@ export default {
 
     const handleAddEvent = () => {
       isAccepted.value = true
+      updateEvent({
+        updateEventInput: {
+          id: event.value.event.id,
+          status: 'Accepted',
+        },
+      })
       checkEquipmentAvailability()
       checkCaregiverAvailability()
     }
