@@ -110,7 +110,7 @@ const router = createRouter({
     {
       path: '/company',
       component: () => import('../components/wrappers/CompanyWrap.vue'),
-      meta: { shouldBeAuthenticated: true }, // Only persons with role company can access this route , role: 'COMPANY'
+      meta: { shouldBeAuthenticated: true, role: 'COMPANY' }, // Only persons with role company can access this route 
       children: [
         {
           path: 'dashboard',
