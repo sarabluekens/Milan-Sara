@@ -1,4 +1,4 @@
-<template class="h-full fixed">
+<template class="h-full fixed z-1">
   <!-- Header for the homepage -->
 
   <nav

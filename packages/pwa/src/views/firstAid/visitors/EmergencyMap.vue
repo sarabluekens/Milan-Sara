@@ -1,14 +1,16 @@
 <template>
-  <article class="ml-5rem bg-white w-full">
+  <article class="sm:ml-3rem bg-white h-100vh">
     <h1 class="title-red">{{ $t('map.title') }}</h1>
     <p class="subtitle-red">{{ $t('map.subtitle') }}</p>
     <section v-if="!sent">
       <form
         @submit.prevent="submitHandler"
-        class="flex flex-col justify-center items-center w-60rem border-2 border-red rounded-xl p-3 m-3 w-1/4"
+        class="m-auto border-2 border-red rounded-xl p-3 w-80%"
       >
-        <div class="flex flex-row gap-3vw items-start">
-          <div class="flex flex-col w-20rem">
+        <div
+          class="m-auto w-3/4 md:w-full md:justify-center flex flex-col md:gap-10 md:flex-row"
+        >
+          <div class="flex flex-col md:w-1/3">
             <label for="lastname" class="body-black mt-1vh">{{
               $t('map.form.firstname')
             }}</label>
@@ -16,17 +18,17 @@
               type="text"
               name="lastname"
               id="lastname"
-              class="bg-beige h-4vh"
+              class="bg-beige h-4vh w-full"
               v-model="victimInput.firstName"
             />
             <span
-              class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+              class="ml-2 subbody-red font-bold"
               v-for="error in v$.firstName.$errors"
               :key="error.$uid"
               >Please fill in your first name</span
             >
           </div>
-          <div class="flex flex-col w-20rem">
+          <div class="flex flex-col md:w-1/3">
             <label for="firstname" class="body-black mt-1vh">{{
               $t('map.form.lastname')
             }}</label>
@@ -34,19 +36,23 @@
               type="text"
               name="firstname"
               id="firstname"
-              class="bg-beige h-4vh"
+              class="bg-beige h-4vh w-full"
               v-model="victimInput.lastName"
             />
             <span
-              class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+              class="subbody-red font-bold"
               v-for="error in v$.lastName.$errors"
               :key="error.$uid"
               >Please fill in your last name</span
             >
           </div>
         </div>
-        <div class="flex flex-row gap-3vw mt-3vh w-60vw">
-          <div class="flex flex-col w-30rem">
+
+        <!-- halfwaydiv -->
+        <div
+          class="m-auto w-3/4 md:w-full md:justify-center flex flex-col md:gap-10 md:flex-row"
+        >
+          <div class="flex flex-col md:w-1/3">
             <label for="email" class="body-black mt-1vh">{{
               $t('map.form.address')
             }}</label>
@@ -54,17 +60,17 @@
               type="email"
               name="email"
               id="email"
-              class="bg-beige h-4vh"
+              class="bg-beige h-4vh w-full"
               v-model="victimInput.email"
             />
           </div>
           <span
-            class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+            class="ml-3 subbody-red font-bold"
             v-for="error in v$.email.$errors"
             :key="error.$uid"
             >Please fill in an email address</span
           >
-          <div class="flex flex-col w-20rem">
+          <div class="flex flex-col md:w-1/3">
             <label for="number" class="body-black mt-1vh"
               >{{ $t('map.form.phonenumber') }} (+32)</label
             >
@@ -72,28 +78,32 @@
               type="phone"
               name="phone"
               id="phone"
-              class="bg-beige h-4vh"
+              class="bg-beige h-4vh w-full"
               v-model="victimInput.phoneNumber"
             />
           </div>
           <span
-            class="col-start-2 col-span-4 ml-3 subbody-red font-bold"
+            class="ml-3 subbody-red font-bold"
             v-for="error in v$.phoneNumber.$errors"
             :key="error.$uid"
-            >Please fill in a valid phonenumber starting with +32</span
-          >
+            >Please fill in a valid phonenumber starting with +32
+          </span>
         </div>
-        <button class="bg-red rounded-md px-10 py-3 body-white self-end mt-3vh">
-          {{ $t('map.form.button') }}
-        </button>
+        <div class="flex w-&0%">
+          <button
+            class="bg-red m-auto rounded-md px-10 py-3 body-white mt-3vh right-0"
+          >
+            {{ $t('map.form.button') }}
+          </button>
+        </div>
       </form>
     </section>
-    <section v-if="sent" class="">
-      <img src="/check.png" alt="succesfully submitted!" />
-      <p class="body-red">Succesfully sent.</p>
+    <section v-if="sent" class="w-full my-2vh">
+      <img class="m-auto" src="/check.png" alt="succesfully submitted!" />
+      <p class="body-red text-center">{{ $t('map.form.succes') }}</p>
     </section>
 
-    <section class="flex flex-wrap justify-center items-center">
+    <section class="flex flex-wrap justify-center items-center m-4">
       <EmergencyMapComponent size="small" />
     </section>
   </article>
@@ -108,7 +118,6 @@ import { GET_VICTIM_BY_NAME } from '@/graphql/victim.query'
 import { ADD_VICTIM_TO_CASE } from '@/graphql/case.mutation'
 import { ADD_VICTIM, ADD_CASE_TO_VICTIM } from '@/graphql/victim.mutation'
 import { useRouter } from 'vue-router'
-import EmergencyCategory from './EmergencyCategory.vue'
 import EmergencyMapComponent from '@/components/EmergencyMapComponent.vue'
 import useValidate from '@vuelidate/core' // validation
 import { required, email } from '@vuelidate/validators'
