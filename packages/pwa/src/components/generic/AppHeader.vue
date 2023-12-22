@@ -228,8 +228,6 @@
         >
           All cases
         </li>
-        <li class="body-white my-10% sm:my-5% md:my-6">Ongoing cases</li>
-        <li class="body-white my-10% sm:my-5% md:my-6">Closed cases</li>
       </ul>
       <section>
         <button

@@ -1,5 +1,5 @@
 <template>
-  <div class="md:ml-7rem lg:ml-9rem bg-beige h-100vh">
+  <div class="lg:ml-9rem bg-beige h-100vh">
     <h1 class="subtitle-black lg:title-black mb-4">
       Good to see you again, {{ firebaseUser?.displayName }}
     </h1>
