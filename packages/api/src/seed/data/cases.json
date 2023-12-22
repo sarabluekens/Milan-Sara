@@ -325,8 +325,8 @@
       "$oid": "6584829b4de7e2bfdd725436"
     },
     "victimCoordinates": {
-      "lat": 50.82514521,
-      "lng": 3.26599454
+      "lat": 0,
+      "lng": 0
     }
   },
   {
@@ -353,8 +353,8 @@
       "$oid": "65849c098d2c3dec17717e61"
     },
     "victimCoordinates": {
-      "lat": 50.8250034,
-      "lng": 3.2658687
+      "lat": 0,
+      "lng": 0
     }
   },
   {
@@ -481,6 +481,14 @@
     "referred": false,
     "referralDescription": null,
     "usedMaterials": [],
-    "status": "pending"
+    "status": "pending",
+    "victimCoordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "caregiverCoordinates": {
+      "lat": 0,
+      "lng": 0
+    }
   }
 ]

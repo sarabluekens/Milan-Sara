@@ -8,30 +8,23 @@
 
     <div
       class="w-full flex items-center justify-center gap-x-4 text-4xl p-2 mt-4"
-    >
-      <div
-        class="w-full flex items-center justify-center gap-x-4 text-4xl p-2 mt-4"
-      >
-        <div class="i-ph:anchor-simple-thin"></div>
-        <div class="i-mdi:alarm text-orange-400 hover:text-teal-400"></div>
-        <div
-          class="w-2em h-2em i-logos:vue transform transition-800 hover:rotate-180"
-        ></div>
-        <button
-          class="i-carbon:sun dark:i-carbon:moon !w-2em !h-2em"
-          title="toggle dark mode"
-        ></button>
-        <div
-          class="i-twemoji:grinning-face-with-smiling-eyes hover:i-twemoji:face-with-tears-of-joy"
-        ></div>
-        <div class="text-base my-auto flex">
-          <div class="i-carbon:arrow-left my-auto mr-1"></div>
-          Hover it
-        </div>
-      </div>
-    </div>
-    <div
-      class="i-mdi-magnify hover:i-game-icons-sherlock-holmes hover:text-center text-center icon icon-11"
     ></div>
+    <div
+      class="i-mdi-magnify hover:i-game-icons-sherlock-holmes hover:text-center m-auto text-center icon icon-11"
+    ></div>
+
+    <div class="flex">
+      <button
+        @click="push({ path: `/` })"
+        class="bg-red m-auto rounded-md px-10 py-3 body-white mt-3vh right-0"
+      >
+        Go to home
+      </button>
+    </div>
   </div>
 </template>
+<script setup lang="ts">
+import { useRouter } from 'vue-router'
+
+const { push } = useRouter()
+</script>

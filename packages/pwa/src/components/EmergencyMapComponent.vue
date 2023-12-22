@@ -131,6 +131,36 @@ const loadMap = async () => {
 
 const showDestination = async () => {
   // add destination marker to map
+  console.log('showing distination')
+
+  const options = {
+    enableHighAccuracy: true,
+    timeout: 100,
+    maximumAge: 500,
+  }
+
+  const success = (pos: any) => {
+    const crd = pos.coords
+    console.log('new coo')
+
+    emit('coords:updated', {
+      latitude: crd.latitude,
+      longitude: crd.longitude,
+      caseId: caseId,
+      userId: userId,
+    })
+
+    console.log('updated coords through watch function', crd)
+  }
+
+  const error = (err: any) => {
+    console.warn(`ERROR(${err.code}): ${err.message}`)
+  }
+
+  // watch caregiver position
+  watchId.value = navigator.geolocation.watchPosition(success, error, options)
+  console.log('watching position', watchId.value)
+
   if (othersCo.value.latitude === null) {
     return
   } else {
@@ -148,31 +178,6 @@ const showDestination = async () => {
       map: map,
     })
   }
-
-  const options = {
-    enableHighAccuracy: true,
-    timeout: 100,
-    maximumAge: 500,
-  }
-
-  const success = (pos: any) => {
-    const crd = pos.coords
-
-    emit('coords:updated', {
-      latitude: crd.latitude,
-      longitude: crd.longitude,
-      caseId: caseId,
-      userId: userId,
-    })
-  }
-
-  const error = (err: any) => {
-    console.warn(`ERROR(${err.code}): ${err.message}`)
-  }
-
-  // watch caregiver position
-  watchId.value = navigator.geolocation.watchPosition(success, error, options)
-  // console.log('watching position', watchId.value)
 }
 
 const checkDistance = (myCoordinates: any, otherCoordinates: any) => {
@@ -322,6 +327,7 @@ onMounted(async () => {
   checkDistance(currentCo, othersCo)
   //add the caregiver marker
   showDestination()
+
   loading.value = false
 })
 

@@ -91,5 +91,21 @@
     "updatedAt": {
       "$date": "2023-12-21T22:04:37.955Z"
     }
+  },
+  {
+    "_id": {
+      "$oid": "6584acc4241eb204fbbaa7fd"
+    },
+    "uid": "roat1hDRg9eSUCdoBV3Izz3bvbV2",
+    "name": "SaraCaregiver",
+    "email": "sara.bluekens@skynet.be",
+    "locale": "en",
+    "role": "CAREGIVER",
+    "createdAt": {
+      "$date": "2023-12-21T21:23:16.969Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-21T21:23:16.969Z"
+    }
   }
 ]

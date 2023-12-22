@@ -1,13 +1,13 @@
 <template>
   <section class="cursor-pointer">
-    <div @click="handleClick(event.id)">
-      <h1 class="label-beige text-center p-3 h-8rem">{{ event.name }}</h1>
+    <div @click="handleClick(event.id)" class="lg:h-20rem">
+      <h1 class="label-beige text-center p-3 h-4rem md:h-5rem lg:h-6rem">{{ event.name }}</h1>
       <img
-        class="w-full h-20vh"
+        class="m-auto"
         :src="'/' + event.category + '.svg'"
         alt="event icon based on category"
-        width="30"
-        height="30"
+        width="200"
+        height="220"
       />
       <p class="body-beige text-center p-4">Locatie: {{ event.city }}</p>
     </div>

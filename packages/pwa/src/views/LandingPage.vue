@@ -1,9 +1,11 @@
 <template class="h-100vh">
-  <section class="w-15% flex justify-end gap-3 mt-3 absolute right-5 top-5">
+  <section
+    class="w-15% flex flex-col sm:flex-row justify-end gap-3 mt-3 absolute right-1 top-1 md:right-5 md:top-5"
+  >
     <div
       v-for="(value, key) in SUPPORTED_LOCALES"
       :value="locale"
-      class="w-10vw"
+      class="w-2rem xl:w-15vw"
       @click="setLanguage(key)"
     >
       <img
@@ -16,22 +18,23 @@
     </div>
   </section>
   <section
-    class="ml-5rem pt-3 bg-beige w-auto flex flex-row-reverse items-center justify-center"
+    class="md:ml-5rem pt-3 bg-beige w-3/4 md:w-auto flex flex-col gap-5 md:gap-1 sm:flex-row-reverse items-center justify-center"
   >
     <h1 class="title-red leading-none">
-      {{ $t('landing.title') }} <br /><span class="text-8rem"
+      {{ $t('landing.title') }} <br /><span
+        class="text-3rem sm:text-4rem md:text-8rem"
         >{{ $t('landing.title.span') }}
       </span>
     </h1>
     <img
       src="/redCross.svg"
       alt="logo"
-      class="w-20vw h-auto"
+      class="w-20vw xl:w-15rem h-auto"
       width="100"
       height="100"
     />
   </section>
-  <section class="ml-7rem mt-3rem">
+  <section class="ml-2rem md:ml-7rem mt-3rem">
     <h2 class="subtitle-red text-left">{{ $t('landing.subtitle') }}</h2>
     <p class="body-black text-left pb-4">
       {{ $t('landing.action') }}
@@ -39,7 +42,7 @@
 
     <div class="flex flex-wrap flex-row">
       <div
-        class="w-2/9 m-2 h-2/5 bg-red rounded-lg flex items-center justify-evenly"
+        class="w-12rem md:w-14rem lg:w-16rem m-2 h-fit md:h-23rem bg-red rounded-lg flex items-start justify-evenly"
         v-if="!eventsLoading && events.eventsToday.length > 0"
         v-for="item in events.eventsToday"
         :key="item.id"
