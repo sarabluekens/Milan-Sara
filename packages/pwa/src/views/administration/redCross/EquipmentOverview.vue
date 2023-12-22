@@ -1,14 +1,16 @@
 <template>
-  <div class="ml-3.5rem md:ml-5rem bg-beige h-100vh">
-    <h1 class="title-black">Equipment overview</h1>
-    <section class="flex flex-col mx-auto w-1/2">
+  <div class="md:ml-11rem bg-beige h-100vh">
+    <h1 class="title-black md:subtitle-black md:mb-2 lg:ml-5">
+      Equipment overview
+    </h1>
+    <section class="flex flex-col mx-auto w-72 lg:w-2/3 xl:w-1/2">
       <input
         placeholder="Search staff..."
         class="border-2 border-red w-full my-3 h-10 bg-beige rounded-xl px-2"
         v-model="searchInput"
         @input="handleSearch"
       />
-      <div class="flex justify-start gap-4">
+      <div class="flex justify-start gap-2 lg:gap-4">
         <button
           @click="handleFilter('All')"
           class="flex justify-center items-center bg-red body-white w-36 h-7 rounded-full py-4"
@@ -36,7 +38,7 @@
       </div>
     </section>
     <section
-      class="grid grid-cols-4 gap-5 mx-auto my-10 w-1/2 text-center justify-between"
+      class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-x-23 lg:gap-x-32 xl:gap-5 mx-auto my-10 w-2/3 xl:w-1/2 text-center justify-between"
     >
       <div v-if="equipmentLoading">Loading</div>
       <div v-if="equipmentError">{{ equipmentError }}</div>
