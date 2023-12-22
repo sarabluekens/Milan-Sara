@@ -1,7 +1,7 @@
 <template>
   <div class="h-30vh" @click="$emit('setCategory', category)">
     <h2 class="body-beige text-center p-3">{{ title }}</h2>
-    <img class="m-auto p-3" :src="image" :alt="image" />
+    <img class="m-auto p-3 h-74%" :src="image" :alt="image" />
     <div class="flex items-center justify-center p3">
       <div :class="icon" class="icon-3 color-beige"></div>
       <p class="subbody-beige text-center w-1/2">{{ subtitle }}</p>
