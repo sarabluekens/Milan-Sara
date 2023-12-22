@@ -1,7 +1,8 @@
-<template class="h-full fixed">
+<template class="h-full fixed z-1">
   <!-- Header for the homepage -->
+
   <nav
-    v-if="$route.path === `/`"
+    v-if="$route.path === '/'"
     class="nav-red h-4rem w-full fixed sm:h-full w-3rem sm:w-5rem bottom-0 border-t-2"
   ></nav>
 
@@ -386,8 +387,12 @@ import useCustomUser from '@/composables/useCustomUser'
 const { push, replace } = useRouter()
 const { customUser } = useCustomUser()
 const { logout } = useFirebase()
+const router = useRouter()
+
+console.log('path: ' + router.currentRoute.value.path)
 
 const showMenu = ref(false)
+console.log()
 
 const logoutUser = () => {
   logout().then(() => {

@@ -1,14 +1,20 @@
-<template>
-  <h1>{{ $t('cant.title') }}</h1>
-  <p>{{ $t('can.text') }}</p>
-  <div
-    v-if="loading"
-    class="w-80% h-50vh bg-beige flex flex-col items-center justify-center"
-  >
-    <VueSpinner size="150" class="color-red" />
-    <p class="subtitle-red">{{ $t('cant.loading') }}</p>
+<template class="ml-7rem">
+  <div class="ml-5rem">
+    <h1 class="title-red md:text-4rem">{{ $t('cant.title') }}</h1>
+    <p class="subtitle-black my-2rem">{{ $t('cant.text') }}</p>
+    <div
+      v-if="loading"
+      class="w-80% m-auto h-50vh bg-pink/50 flex flex-col items-center justify-center"
+    >
+      <VueSpinner size="150" class="color-red" />
+      <p class="subtitle-red">{{ $t('cant.loading') }}</p>
+    </div>
   </div>
-  <div ref="mapDiv" style="width: 80%; height: 50vh"></div>
+  <div
+    ref="mapDiv"
+    class="m-auto rounded-xl"
+    style="width: 75%; height: 70vh"
+  ></div>
 </template>
 
 <script setup lang="ts">

@@ -1,61 +1,95 @@
-[{
-  "_id": {
-    "$oid": "652554b31e55f607529e7265"
+[
+  {
+    "_id": {
+      "$oid": "652554b31e55f607529e7265"
+    },
+    "uid": "l8k3hfknSNZorp3QdEKlvWdxFds2",
+    "locale": "nl",
+    "role": "ADMIN",
+    "createdAt": {
+      "$date": "2023-10-10T13:42:11.442Z"
+    },
+    "updatedAt": {
+      "$date": "2023-10-10T13:42:11.442Z"
+    },
+    "name": "Milan"
   },
-  "uid": "l8k3hfknSNZorp3QdEKlvWdxFds2",
-  "locale": "nl",
-  "role": "ADMIN",
-  "createdAt": {
-    "$date": "2023-10-10T13:42:11.442Z"
+  {
+    "_id": {
+      "$oid": "6540fae5a18ad372e2a3568d"
+    },
+    "uid": "x2PxQga5hrY9lOH8457UthMLdxk1",
+    "name": "Cola",
+    "locale": "nl",
+    "role": "USER",
+    "createdAt": {
+      "$date": "2023-10-31T13:02:29.384Z"
+    },
+    "updatedAt": {
+      "$date": "2023-10-31T13:02:29.384Z"
+    }
   },
-  "updatedAt": {
-    "$date": "2023-10-10T13:42:11.442Z"
+  {
+    "_id": {
+      "$oid": "656ee8efaafec3240fc486e8"
+    },
+    "uid": "VVctvXEMCSW9hEqKJ4jQuqWsC193",
+    "name": "milanTest",
+    "locale": "nl",
+    "role": "COMPANY",
+    "createdAt": {
+      "$date": "2023-12-05T09:10:07.565Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-05T09:10:07.565Z"
+    }
   },
-  "name": "Milan"
-},
-{
-  "_id": {
-    "$oid": "6540fae5a18ad372e2a3568d"
+  {
+    "_id": {
+      "$oid": "65835ef8fe5c62e586048e38"
+    },
+    "uid": "p0iYiPa8WeTHZ0Bd904S1VxvvL03",
+    "name": "BirdSpotter",
+    "email": "docent@howest.be",
+    "locale": "nl",
+    "role": "COMPANY",
+    "createdAt": {
+      "$date": "2023-12-20T21:39:04.544Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-20T21:39:04.544Z"
+    }
   },
-  "uid": "x2PxQga5hrY9lOH8457UthMLdxk1",
-  "name": "Cola",
-  "locale": "nl",
-  "role": "USER",
-  "createdAt": {
-    "$date": "2023-10-31T13:02:29.384Z"
+  {
+    "_id": {
+      "$oid": "6584b5da3d3ad1a7595c7b2b"
+    },
+    "uid": "08HXNPEaM9Xt5P2c0L4yo8cebLj2",
+    "name": "caregiver",
+    "email": "docent.caregiver@howest.be",
+    "locale": "en",
+    "role": "CAREGIVER",
+    "createdAt": {
+      "$date": "2023-12-21T22:02:02.836Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-21T22:02:02.836Z"
+    }
   },
-  "updatedAt": {
-    "$date": "2023-10-31T13:02:29.384Z"
+  {
+    "_id": {
+      "$oid": "6584b6753d3ad1a7595c7b2c"
+    },
+    "uid": "o1cmMUSp3iP4vwsGdHeVuAM6mf13",
+    "name": "admin",
+    "email": "docent.admin@howest.be",
+    "locale": "en",
+    "role": "ADMIN",
+    "createdAt": {
+      "$date": "2023-12-21T22:04:37.955Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-21T22:04:37.955Z"
+    }
   }
-},
-{
-  "_id": {
-    "$oid": "656ee8efaafec3240fc486e8"
-  },
-  "uid": "VVctvXEMCSW9hEqKJ4jQuqWsC193",
-  "name": "milanTest",
-  "locale": "nl",
-  "role": "COMPANY",
-  "createdAt": {
-    "$date": "2023-12-05T09:10:07.565Z"
-  },
-  "updatedAt": {
-    "$date": "2023-12-05T09:10:07.565Z"
-  }
-},
-{
-  "_id": {
-    "$oid": "65835ef8fe5c62e586048e38"
-  },
-  "uid": "p0iYiPa8WeTHZ0Bd904S1VxvvL03",
-  "name": "BirdSpotter",
-  "email": "docent@howest.be",
-  "locale": "nl",
-  "role": "COMPANY",
-  "createdAt": {
-    "$date": "2023-12-20T21:39:04.544Z"
-  },
-  "updatedAt": {
-    "$date": "2023-12-20T21:39:04.544Z"
-  }
-}]
+]

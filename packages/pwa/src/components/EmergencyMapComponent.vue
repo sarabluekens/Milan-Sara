@@ -1,12 +1,12 @@
 <template>
   <div
     v-if="loading"
-    class="w-80% h-50vh bg-beige flex flex-col items-center justify-center"
+    class="w-80% h-45vh bg-beige flex flex-col items-center justify-center"
   >
     <VueSpinner size="150" class="color-red" />
     <p class="subtitle-red">{{ $t('map.loading') }}</p>
   </div>
-  <div ref="mapDiv" style="width: 80%; height: 50vh"></div>
+  <div ref="mapDiv" class="" style="width: 80%; height: 45vh"></div>
 </template>
 
 <script setup lang="ts">
@@ -260,7 +260,7 @@ onMounted(async () => {
     GET_EVENT_BY_ID,
     () => ({
       // TODO: dynamc event id
-      id: '657efd690bbf10085efdfd09',
+      id: currentCase.value.caseById.eventId,
     }),
   )
 
