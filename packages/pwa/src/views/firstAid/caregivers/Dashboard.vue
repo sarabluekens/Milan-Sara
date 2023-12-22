@@ -6,7 +6,7 @@
     <p class="subtitle-black text-left ml-20vw">Waiting Cases</p>
     <section
       v-if="!loadingCases && result.length > 0"
-      v-for="item in [...result, ...liveCases]"
+      v-for="item in [...liveCases.reverse(), ...result]"
       class="m-3 flex flex-row justify-center items-center w-full"
     >
       <h2 class="hidden">Case card</h2>
