@@ -6,23 +6,28 @@
     <p class="subtitle-black text-left ml-20vw">Waiting Cases</p>
     <section
       v-if="!loadingCases && result.length > 0"
-      v-for="item in [...liveCases.reverse(), ...result]"
+      v-for="item in [...liveCases, ...result]"
       class="m-3 flex flex-row justify-center items-center w-full"
     >
       <h2 class="hidden">Case card</h2>
       <div
         class="rounded-xl border-2 border-red p-3 flex flex-row justify-between items-center w-50vw mr-3"
       >
-        <div class="w-5vw">
+        <div class="w-5vw flex">
           <p
             v-show="item.typeAccident === 'unconscious'"
-            class="body-red px-2 py-1 border-2 border-red rounded-lg m-0"
+            class="body-red px-2 self-end py-1 border-2 border-red rounded-lg m-0 w-4rem md:w-6rem"
           >
             Urgent!
           </p>
         </div>
-        <h1 class="body-black">{{ item.typeAccident }}</h1>
-        <p class="body-pink">{{ item.date }}</p>
+        <h1
+          class="body-black"
+          :class="item.typeAccident === 'unconscious' ? 'ml-3rem' : 'ml-5.5rem'"
+        >
+          {{ item.typeAccident }}
+        </h1>
+        <p class="body-pink opacity-0 md:opacity-100">{{ item.id }}</p>
 
         <div class="rounded-xl w-1rem h-1rem bg-pink"></div>
       </div>
@@ -95,7 +100,7 @@ export default {
       liveCases.value.push(data as Case)
       console.log(newCase.value)
 
-      console.log('time for a toast HEEEEEEEEEERE', liveCases.value)
+      console.log('time for a toast HERE', liveCases.value)
 
       // popups
 
@@ -122,7 +127,6 @@ export default {
           caregiverId: caregiverResult.value?.findOneByUserUid.id,
         },
       })
-      // mutation schrijven
     }
     onMounted(() => {
       console.log('mounted')
