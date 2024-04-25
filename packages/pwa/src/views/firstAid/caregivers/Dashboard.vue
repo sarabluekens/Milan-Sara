@@ -45,7 +45,7 @@
       <h1 class="subtitle-red m-auto">No cases are awaiting your assistance</h1>
       <img
         src="/break.png"
-        class="lg:ml-17rem w-40rem opacity-30"
+        class="w-30rem lg:w-40rem m-auto opacity-30"
         width="200"
         height="200"
         alt="no cases found"
@@ -132,8 +132,12 @@ export default {
       console.log('mounted')
 
       $toast.clear()
-    })
 
+      // TO DELETE
+      setTimeout(() => {
+        console.log('cases:' + cases.value.findCasesForCaregiverToday.length)
+      }, 5000)
+    })
     return {
       result: computed<Case[]>(() => cases.value.findCasesForCaregiverToday),
       loadingCases,

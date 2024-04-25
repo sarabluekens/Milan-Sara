@@ -71,7 +71,7 @@ export class CasesService {
       month +
       '-' +
       dateObj.getDate() +
-      'T00:00:00.000Z'
+      'T00:00:00.000Z+00:00'
 
     for (let i = 0; i < caregiver.jobs.length; i++) {
       if (caregiver.jobs[i].workdays.includes(currentDate)) {
@@ -79,7 +79,7 @@ export class CasesService {
       }
     }
 
-    if (eventId === '') return []
+    if (eventId === '') throw new Error('Case not found' + currentDate)
     else {
       return this.findAllByEventId(eventId)
     }

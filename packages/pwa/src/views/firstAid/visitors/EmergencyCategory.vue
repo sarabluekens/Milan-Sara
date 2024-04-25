@@ -2,8 +2,13 @@
   <article class="md:ml-5rem bg-beige">
     <h1 class="title-red">{{ $t('category.title') }}</h1>
     <p class="subtitle-red">{{ $t('category.subtitle') }}</p>
-    <section class="flex flex-wrap justify-center items-center xl:w-70% m-auto">
-      <div v-for="item in categories" class="bg-red rounded-xl p-3 m-3 w-12rem md:w-15rem lg:w-18rem">
+    <section
+      class="flex flex-wrap md:justify-center items-center xl:w-70% m-auto justify-center sm:justify-end"
+    >
+      <div
+        v-for="item in categories"
+        class="bg-red rounded-xl p-3 m-3 md:w-12rem md:w-15rem w-[40vw] lg:w-1/4"
+      >
         <EmergencyCard
           :image="item.image"
           :title="item.text"

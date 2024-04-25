@@ -56,6 +56,7 @@ export class SeedService {
       b.availableForEvent = caregiver.availableForEvent
       b.availableForNewCase = caregiver.availableForNewCase
       b.jobs = caregiver.jobs as [Jobs]
+      b.userUid = caregiver.userUid
 
       theCaregivers.push(b)
     }

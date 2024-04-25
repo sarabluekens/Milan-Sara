@@ -12,7 +12,7 @@
         "$date": "2024-01-15T00:00:00.000Z"
       },
       {
-        "$date": "2024-04-25T00:00:00.000Z+00:00"
+        "$date": "2024-04-24T00:00:00.000Z+00:00"
       }
     ],
 
@@ -148,7 +148,7 @@
     "name": "Paardencross",
     "address": "Gaversesteenweg, 313",
     "postalCode": "9800",
-    "city": "Deinze",
+    "city": "Brugge",
     "dates": [
       {
         "$date": "2023-12-25T00:00:00.000Z"
@@ -194,7 +194,7 @@
     "name": "K3 concert",
     "address": "LiveStraat 313",
     "postalCode": "9800",
-    "city": "Deinze",
+    "city": "Brussel",
     "dates": [
       {
         "$date": "2023-12-25T00:00:00.000Z"
@@ -240,7 +240,7 @@
     "name": "Marathon Deinze",
     "address": "MeerdereDagenLaan 13",
     "postalCode": "9800",
-    "city": "Deinze",
+    "city": "Gistel",
     "dates": [
       {
         "$date": "2023-12-23T23:00:00.000Z"
@@ -341,7 +341,7 @@
     "name": "Marathonloop Deinze",
     "address": "Gaversesteenweg, 313",
     "postalCode": "9800",
-    "city": "Deinze",
+    "city": "Westende",
     "dates": [
       {
         "$date": "2023-12-19T23:00:00.000Z"
@@ -391,7 +391,7 @@
     "category": "Concert",
     "address": "Gaversesteenweg, 313",
     "postalCode": "9800",
-    "city": "Deinze",
+    "city": "Vilvoorde",
     "dates": [
       {
         "$date": "2023-12-21T23:00:00.000Z"
@@ -443,7 +443,7 @@
     "category": "Festival",
     "address": "Gaversesteenweg, 313",
     "postalCode": "9800",
-    "city": "Deinze",
+    "city": "Oostende",
     "dates": [
       {
         "$date": "2023-12-26T23:00:00.000Z"

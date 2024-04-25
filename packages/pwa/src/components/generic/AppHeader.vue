@@ -2,7 +2,7 @@
   <!-- Header for the homepage -->
 
   <nav
-    v-if="$route.path === '/'"
+    v-if="$route.name == 'landingPage'"
     class="nav-red h-4rem w-full fixed sm:h-full w-3rem sm:w-5rem bottom-0 border-t-2"
   ></nav>
 
@@ -37,9 +37,11 @@
       <img
         src="/whiteCross.svg"
         alt="Red Cross logo"
-        class="sm:pt-3 h-3rem sm:h-5rem sm:w-90% sm:mx-auto"
+        class="sm:pt-3 h-3rem sm:h-5rem sm:w-90% sm:mx-auto cursor-pointer"
+        @click="handlePush('/')"
       />
       <div class="bg-red w-.5 h-full sm:hidden"></div>
+      <p></p>
     </div>
   </nav>
 
@@ -370,7 +372,8 @@
       <img
         src="/whiteCross.svg"
         alt="Red Cross logo"
-        class="sm:pb-3 h-3rem sm:h-5rem sm:w-90% sm:mx-auto"
+        class="sm:pb-3 h-3rem sm:h-5rem sm:w-90% sm:mx-auto cursor-pointer"
+        @click="handlePush('/caregiver/dashboard')"
       />
     </div>
   </nav>
@@ -389,6 +392,7 @@ const router = useRouter()
 
 console.log('path: ' + router.currentRoute.value.path)
 
+console.log(router.currentRoute.value.name)
 const showMenu = ref(false)
 console.log()
 
