@@ -1,0 +1,113 @@
+[
+  {
+    "_id": {
+      "$oid": "6581a263939b47623b02081d"
+    },
+    "firstName": "Minoe",
+    "lastName": "Post",
+    "profession": "Paramedic",
+    "availableForEvent": true,
+    "availableForNewCase": true,
+    "jobs": [],
+    "createdAt": {
+      "$date": "2023-12-19T14:02:11.979Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-19T14:02:11.979Z"
+    },
+    "userUid": "nogeenid"
+  },
+  {
+    "_id": {
+      "$oid": "6581a27e939b47623b02081e"
+    },
+    "firstName": "Sara",
+    "lastName": "Bluekens",
+    "profession": "Doctor",
+    "availableForEvent": true,
+    "availableForNewCase": true,
+    "jobs": [
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "workdays": [
+          "2024-01-15T00:00:00.000Z",
+          "2023-12-19T00:00:00.000Z",
+          "2023-12-20T00:00:00.000Z",
+          "2023-12-21T00:00:00.000Z",
+          "2024-04-25T23:00:00.000Z"
+        ]
+      },
+      {
+        "eventId": "656c846edadad972a0456710",
+        "workdays": [
+          "2023-12-21T00:00:00.000Z",
+          "2023-12-22T00:00:00.000Z",
+          "2024-04-25T00:00:00.000Z+00:00",
+          "2024-04-25T00:00:00.000Z"
+        ]
+      },
+      {
+        "eventId": "657efd271f2d1210f42bcb78",
+        "workdays": [
+          "2023-12-21T00:00:00.000Z",
+          "2023-12-22T00:00:00.000Z",
+          "2024-04-25T00:00:00.000Z+00:00"
+        ]
+      }
+    ],
+    "createdAt": {
+      "$date": "2023-12-19T14:02:38.495Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-19T14:02:38.495Z"
+    },
+    "userUid": "wESvD8SVuDbP8KAsLoijHzVq2mq1"
+  },
+  {
+    "_id": {
+      "$oid": "6581a2b5939b47623b02081f"
+    },
+    "firstName": "Lilo",
+    "lastName": "Post",
+    "profession": "Nurse",
+    "availableForEvent": true,
+    "availableForNewCase": true,
+    "jobs": [
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "workdays": ["2024-01-15T00:00:00.000Z", "2024-01-16T00:00:00.000Z"]
+      }
+    ],
+    "createdAt": {
+      "$date": "2023-12-19T14:03:33.369Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-19T14:03:33.369Z"
+    },
+    "userUid": "nogEenTweedeId"
+  },
+  {
+    "_id": {
+      "$oid": "6581a2ba939b47623b020820"
+    },
+    "firstName": "Lola",
+    "lastName": "Post",
+    "profession": "Nurse",
+    "availableForEvent": true,
+    "availableForNewCase": true,
+    "jobs": [
+      {
+        "eventId": "654a1c832f6208998d7e8f43",
+        "workdays": ["2024-01-15T00:00:00.000Z"]
+      }
+    ],
+    "createdAt": {
+      "$date": "2023-12-19T14:03:38.092Z"
+    },
+    "updatedAt": {
+      "$date": "2023-12-19T14:03:38.092Z"
+    },
+    "id": "6581a2ba939b47623b020820",
+    "userUid": "nogEenDerdeId"
+  }
+]

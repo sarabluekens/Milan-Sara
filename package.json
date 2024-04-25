@@ -1,0 +1,39 @@
+{
+  "name": "milan-sara",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx lerna run --scope={pwa,api} dev --stream",
+    "dev:api": "npx lerna run --scope=api dev",
+    "dev:pwa": "npx lerna run --scope=pwa dev",
+    "translate:pwa": "npm run translate -w -pwa",
+    "build:pwa": "npx lerna run --scope=pwa build",
+    "build:api": "npx lerna run --scope=api build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sarabluekens/Milan-Sara.git"
+  },
+  "keywords": [],
+  "bugs": "link naar de issues pagina van je repo",
+  "author": "",
+  "workspaces": [
+    "packages/*"
+  ],
+  "prettier": {
+    "tabWidth": 2,
+    "useTabs": false,
+    "printWidth": 80,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "endOfLine": "lf",
+    "arrowParens": "avoid",
+    "proseWrap": "preserve",
+    "htmlWhitespaceSensitivity": "css"
+  },
+  "devDependencies": {
+    "lerna": "^7.4.2"
+  }
+}
