@@ -3,15 +3,19 @@
     "_id": {
       "$oid": "654a1c832f6208998d7e8f43"
     },
-    "name": "Tommorowland winter edition",
+    "name": "Tomorrowland winter edition",
     "address": "BoomStraat 13",
     "postalCode": "5000",
     "city": "Antwerpen",
     "dates": [
       {
         "$date": "2024-01-15T00:00:00.000Z"
+      },
+      {
+        "$date": "2024-04-25T00:00:00.000Z+00:00"
       }
     ],
+
     "startHour": "08:00",
     "endHour": "23:59",
     "contactPerson": "Geert",
@@ -46,13 +50,19 @@
     "_id": {
       "$oid": "654a28ee11cb807350cfdf8c"
     },
-    "name": "Tommorowland Summer edition",
+    "name": "Tomorrowland Summer edition",
     "address": "BoomStraat 13",
     "postalCode": "5000",
     "city": "Antwerpen",
     "dates": [
       {
         "$date": "2024-08-15T00:00:00.000Z"
+      },
+      {
+        "$date": "2024-04-25T23:00:00.000+00:00"
+      },
+      {
+        "$date": "2024-04-25T00:00:00.000Z+00:00"
       }
     ],
     "startHour": "08:00",
@@ -89,13 +99,16 @@
     "_id": {
       "$oid": "654a2f1111cb807350cfdf8d"
     },
-    "name": "Tommorowland March edition",
+    "name": "Pukkelpop",
     "address": "BoomStraat 13",
     "postalCode": "5000",
     "city": "Antwerpen",
     "dates": [
       {
         "$date": "2024-03-09T00:00:00.000Z"
+      },
+      {
+        "$date": "2024-04-25T00:00:00.000Z+00:00"
       }
     ],
     "startHour": "08:00",
@@ -132,13 +145,16 @@
     "_id": {
       "$oid": "656c846edadad972a0456710"
     },
-    "name": "Dit is een test event",
+    "name": "Paardencross",
     "address": "Gaversesteenweg, 313",
     "postalCode": "9800",
     "city": "Deinze",
     "dates": [
       {
         "$date": "2023-12-25T00:00:00.000Z"
+      },
+      {
+        "$date": "2024-04-25T00:00:00.000Z+00:00"
       }
     ],
     "startHour": "10:00",
@@ -169,19 +185,22 @@
     "updatedAt": {
       "$date": "2023-12-03T13:36:46.658Z"
     },
-    "category": "Festival"
+    "category": "Sport"
   },
   {
     "_id": {
       "$oid": "6578513f547019028b78c2df"
     },
-    "name": "Dit is een live event voor kinderen",
+    "name": "K3 concert",
     "address": "LiveStraat 313",
     "postalCode": "9800",
     "city": "Deinze",
     "dates": [
       {
         "$date": "2023-12-25T00:00:00.000Z"
+      },
+      {
+        "$date": "2024-04-25T00:00:00.000Z+00:00"
       }
     ],
     "startHour": "08:00",
@@ -218,7 +237,7 @@
     "_id": {
       "$oid": "6578b101aedf4131d2d9b706"
     },
-    "name": "Marathonloop Deinze",
+    "name": "Marathon Deinze",
     "address": "MeerdereDagenLaan 13",
     "postalCode": "9800",
     "city": "Deinze",
@@ -237,6 +256,9 @@
       },
       {
         "$date": "2023-12-31T23:00:00.000Z"
+      },
+      {
+        "$date": "2024-04-25T00:00:00.000Z+00:00"
       }
     ],
     "startHour": "08:00",
@@ -279,13 +301,7 @@
     "city": "Deinze",
     "dates": [
       {
-        "$date": "2023-12-24T23:00:00.000Z"
-      },
-      {
-        "$date": "2023-12-22T23:00:00.000Z"
-      },
-      {
-        "$date": "2023-12-21T23:00:00.000Z"
+        "$date": "all"
       }
     ],
     "startHour": "08:00",
@@ -331,10 +347,10 @@
         "$date": "2023-12-19T23:00:00.000Z"
       },
       {
-        "$date": "2023-12-20T23:00:00.000Z"
+        "$date": "2024-04-25T23:00:00.000Z"
       },
       {
-        "$date": "2023-12-21T23:00:00.000Z"
+        "$date": "all"
       }
     ],
     "startHour": "08:00",
@@ -384,7 +400,10 @@
         "$date": "2023-12-22T23:00:00.000Z"
       },
       {
-        "$date": "2023-12-23T23:00:00.000Z"
+        "$date": "all"
+      },
+      {
+        "$date": "2024-04-25T23:00:00.000Z"
       }
     ],
     "startHour": "08:00",
@@ -420,7 +439,7 @@
     "_id": {
       "$oid": "6583ab3d7101f85549a05e4f"
     },
-    "name": "Dit is een event voor alle VogelSpotters",
+    "name": "VogelSpotters weekend",
     "category": "Festival",
     "address": "Gaversesteenweg, 313",
     "postalCode": "9800",
@@ -433,7 +452,10 @@
         "$date": "2023-12-27T23:00:00.000Z"
       },
       {
-        "$date": "2023-12-28T23:00:00.000Z"
+        "$date": "all"
+      },
+      {
+        "$date": "2024-04-25T23:00:00.000Z"
       }
     ],
     "startHour": "08:00",

@@ -67,7 +67,7 @@ export class EventsService {
     const today = new Date(currentDate)
 
     const events = await this.eventRepository.find({
-      dates: { $elemMatch: { $eq: today } },
+      dates: { $elemMatch: { $eq: today || 'all' } },
     })
 
     console.log(events)
